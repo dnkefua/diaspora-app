@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>My Profile — Diaspora</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="auth.css">
+<style>
+  body{background:var(--cream)}
+  .topnav{position:sticky;top:0;z-index:40;background:rgba(250,247,242,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);padding:16px 32px;display:flex;align-items:center;justify-content:space-between}
+  .topnav .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;letter-spacing:-0.02em}
+  .topnav .logo .dot{width:12px;height:12px;border-radius:50%;background:var(--gold)}
+  .topnav .nav-menu{display:flex;align-items:center;gap:28px;font-size:14px}
+  .topnav .nav-menu a{color:var(--ink);opacity:0.75;transition:opacity .15s}
+  .topnav .nav-menu a:hover{opacity:1}
+  .topnav .logout{padding:8px 16px;border-radius:999px;border:1px solid var(--line);cursor:pointer;background:white;font-size:13px;font-weight:600}
+  .topnav .logout:hover{background:var(--sand)}
+
+  .profile-wrap{max-width:1100px;margin:0 auto;padding:32px 24px}
+  .cover{
+    position:relative; height:220px; border-radius:20px; overflow:hidden;
+    background:linear-gradient(135deg,#0A1E3A 0%, #2A5F4A 55%, #D4A444 100%);
+  }
+  .cover::after{content:"";position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=1600&auto=format');background-size:cover;background-position:center;opacity:0.25;mix-blend-mode:overlay}
+  .cover-edit{position:absolute;right:16px;top:16px;background:rgba(14,14,14,0.55);color:white;border:none;padding:8px 14px;font-size:12px;border-radius:999px;cursor:pointer;backdrop-filter:blur(8px)}
+
+  .profile-head{display:grid;grid-template-columns:auto 1fr auto;align-items:end;gap:24px;margin-top:-60px;padding:0 16px;position:relative;z-index:5}
+  .avatar{
+    width:140px;height:140px;border-radius:50%;background:var(--sand);border:5px solid var(--cream);
+    display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:56px;color:var(--navy);
+    overflow:hidden;position:relative;box-shadow:0 10px 30px rgba(14,14,14,0.15);
+  }
+  .avatar img{width:100%;height:100%;object-fit:cover}
+  .avatar-edit{position:absolute;right:4px;bottom:4px;width:36px;height:36px;border-radius:50%;background:var(--ink);color:white;border:3px solid var(--cream);display:flex;align-items:center;justify-content:center;cursor:pointer}
+  .p-name{font-family:'Playfair Display',serif;font-size:36px;font-weight:500;letter-spacing:-0.02em;line-height:1}
+  .p-meta{display:flex;gap:16px;color:var(--muted);font-size:14px;margin-top:8px;flex-wrap:wrap}
+  .p-meta span{display:inline-flex;align-items:center;gap:6px}
+  .p-actions{display:flex;gap:10px}
+  .btn-ghost{padding:10px 18px;border-radius:999px;border:1px solid var(--line);background:white;cursor:pointer;font-weight:600;font-size:13px}
+  .btn-ghost:hover{background:var(--sand)}
+  .btn-solid{padding:10px 18px;border-radius:999px;border:none;background:var(--ink);color:white;cursor:pointer;font-weight:600;font-size:13px}
+  .btn-solid:hover{background:var(--terra)}
+
+  .tabs{display:flex;gap:24px;border-bottom:1px solid var(--line);margin-top:32px;padding:0 16px}
+  .tab{padding:16px 0;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:color .15s, border-color .15s}
+  .tab.active{color:var(--ink);border-color:var(--ink)}
+
+  .grid{display:grid;grid-template-columns:2fr 1fr;gap:28px;margin-top:28px;padding:0 16px}
+  .panel{background:white;border:1px solid var(--line);border-radius:18px;padding:24px}
+  .panel h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:500;letter-spacing:-0.01em;margin-bottom:14px}
+
+  .stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+  .stat{background:white;border:1px solid var(--line);border-radius:14px;padding:18px;text-align:left}
+  .stat-num{font-family:'Playfair Display',serif;font-size:30px;font-weight:500;line-height:1;letter-spacing:-0.02em}
+  .stat-lbl{font-size:12px;color:var(--muted);letter-spacing:0.5px;text-transform:uppercase;margin-top:6px}
+
+  .kv{display:grid;grid-template-columns:130px 1fr;gap:14px 18px;font-size:14px}
+  .kv .k{color:var(--muted);font-weight:600}
+  .kv .v{color:var(--ink)}
+
+  .saved-card{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+  .saved-card:last-child{border-bottom:none}
+  .saved-thumb{width:64px;height:64px;border-radius:12px;background-size:cover;background-position:center;flex-shrink:0}
+  .saved-info{flex:1;min-width:0}
+  .saved-name{font-weight:700;font-size:14px}
+  .saved-cat{color:var(--muted);font-size:12px;margin-top:2px}
+  .saved-meta{font-size:12px;color:var(--muted);margin-top:4px}
+
+  #editModal{position:fixed;inset:0;background:rgba(14,14,14,0.55);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:100;padding:24px}
+  #editModal.open{display:flex}
+  .modal-card{background:var(--cream);border-radius:20px;max-width:520px;width:100%;padding:32px;max-height:90vh;overflow-y:auto}
+  .modal-card h3{font-family:'Playfair Display',serif;font-size:28px;font-weight:500;letter-spacing:-0.02em;margin-bottom:8px}
+  .modal-close{float:right;background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted)}
+
+  @media (max-width: 860px){
+    .profile-head{grid-template-columns:auto 1fr;gap:16px}
+    .p-actions{grid-column:1/-1;margin-top:8px}
+    .grid{grid-template-columns:1fr}
+    .stat-row{grid-template-columns:1fr 1fr}
+    .p-name{font-size:28px}
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="index.html" class="logo"><span class="dot"></span> Diaspora</a>
+  <div class="nav-menu">
+    <a href="index.html#trending">Discover</a>
+    <a href="index.html#browse">Browse</a>
+    <a href="index.html#locations">Cities</a>
+    <button class="logout" onclick="logout()">Log out</button>
+  </div>
+</nav>
+
+<div class="profile-wrap">
+
+  <div class="cover">
+    <button class="cover-edit" onclick="alert('Cover upload — coming soon (demo)')">✎ Edit cover</button>
+  </div>
+
+  <div class="profile-head">
+    <div class="avatar" id="avatar">
+      <span id="avatar-initials">A</span>
+      <div class="avatar-edit" onclick="chooseAvatar()" title="Change avatar">✎</div>
+    </div>
+    <div>
+      <div class="p-name" id="p-name">—</div>
+      <div class="p-meta">
+        <span id="p-email">📧 —</span>
+        <span id="p-city">📍 —</span>
+        <span id="p-joined">🗓 —</span>
+      </div>
+    </div>
+    <div class="p-actions">
+      <button class="btn-ghost" onclick="openEdit()">Edit profile</button>
+      <button class="btn-solid" onclick="window.location.href='index.html#browse'">Browse feed →</button>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active">Overview</div>
+    <div class="tab">Saved</div>
+    <div class="tab">Reviews</div>
+    <div class="tab">My listings</div>
+    <div class="tab">Settings</div>
+  </div>
+
+  <div class="stat-row" style="margin-top:28px">
+    <div class="stat"><div class="stat-num">12</div><div class="stat-lbl">Saved places</div></div>
+    <div class="stat"><div class="stat-num">8</div><div class="stat-lbl">Reviews written</div></div>
+    <div class="stat"><div class="stat-num">3</div><div class="stat-lbl">Active chats</div></div>
+    <div class="stat"><div class="stat-num">47</div><div class="stat-lbl">Connections</div></div>
+  </div>
+
+  <div class="grid">
+
+    <div>
+      <div class="panel" style="margin-bottom:20px">
+        <h3>About</h3>
+        <p id="bio-view" style="font-size:15px;line-height:1.6;color:var(--muted)">Tell the community a bit about yourself — where you're from, where you are now, what you love.</p>
+      </div>
+
+      <div class="panel">
+        <h3>Recently saved</h3>
+        <div>
+          <div class="saved-card">
+            <div class="saved-thumb" style="background-image:url('https://images.unsplash.com/photo-1585937421612-70a008356fbe?q=80&w=400&auto=format')"></div>
+            <div class="saved-info">
+              <div class="saved-name">Amara's Kitchen</div>
+              <div class="saved-cat">Nigerian restaurant · Deira, Dubai</div>
+              <div class="saved-meta">⭐ 4.9 · Saved 2 days ago</div>
+            </div>
+          </div>
+          <div class="saved-card">
+            <div class="saved-thumb" style="background-image:url('https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=400&auto=format')"></div>
+            <div class="saved-info">
+              <div class="saved-name">Royal Cuts Barbershop</div>
+              <div class="saved-cat">Barber · Al Karama, Dubai</div>
+              <div class="saved-meta">⭐ 4.8 · Saved 5 days ago</div>
+            </div>
+          </div>
+          <div class="saved-card">
+            <div class="saved-thumb" style="background-image:url('https://images.unsplash.com/photo-1562322140-8baeececf3df?q=80&w=400&auto=format')"></div>
+            <div class="saved-info">
+              <div class="saved-name">Kemi Braids Studio</div>
+              <div class="saved-cat">Hair stylist · Jumeirah, Dubai</div>
+              <div class="saved-meta">⭐ 5.0 · Saved 1 week ago</div>
+            </div>
+          </div>
+          <div class="saved-card">
+            <div class="saved-thumb" style="background-image:url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=400&auto=format')"></div>
+            <div class="saved-info">
+              <div class="saved-name">Obi Photography</div>
+              <div class="saved-cat">Event photographer · Business Bay</div>
+              <div class="saved-meta">⭐ 4.9 · Saved 2 weeks ago</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="panel" style="margin-bottom:20px">
+        <h3>Profile details</h3>
+        <div class="kv">
+          <div class="k">Full name</div><div class="v" id="v-name">—</div>
+          <div class="k">Email</div><div class="v" id="v-email">—</div>
+          <div class="k">Phone</div><div class="v" id="v-phone">—</div>
+          <div class="k">City</div><div class="v" id="v-city">—</div>
+          <div class="k">Member since</div><div class="v" id="v-joined">—</div>
+          <div class="k">Verified</div><div class="v">✅ Email · 📱 WhatsApp</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>Become a seller</h3>
+        <p style="font-size:14px;color:var(--muted);line-height:1.55;margin-bottom:14px">List your restaurant, salon, or service and reach the global diaspora community.</p>
+        <button class="btn-solid" style="width:100%" onclick="alert('Seller onboarding — coming soon (demo)')">Start selling →</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<div id="editModal" role="dialog" aria-modal="true">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeEdit()">×</button>
+    <h3>Edit profile</h3>
+    <p style="color:var(--muted);font-size:14px;margin-bottom:20px">Update your personal info. Changes save to your device.</p>
+    <form onsubmit="saveProfile(event)">
+      <div class="field-row">
+        <div class="field"><label>First name</label><input type="text" id="e-first" required></div>
+        <div class="field"><label>Last name</label><input type="text" id="e-last" required></div>
+      </div>
+      <div class="field"><label>Email</label><input type="email" id="e-email" required></div>
+      <div class="field"><label>Phone</label><input type="tel" id="e-phone"></div>
+      <div class="field"><label>City</label><input type="text" id="e-city"></div>
+      <div class="field">
+        <label>Bio</label>
+        <textarea id="e-bio" rows="3" placeholder="Tell the community about yourself..."></textarea>
+      </div>
+      <button type="submit" class="btn-primary">Save changes</button>
+    </form>
+  </div>
+</div>
+
+<script>
+function requireAuth(){
+  var u = JSON.parse(localStorage.getItem('diaspora_user') || 'null');
+  if (!u || !u.email){ window.location.href = 'login.html'; return null; }
+  return u;
+}
+function renderProfile(u){
+  var name = (u.firstName||'') + ' ' + (u.lastName||'');
+  document.getElementById('p-name').textContent = name.trim() || 'Welcome';
+  document.getElementById('p-email').textContent = '📧 ' + (u.email || '');
+  document.getElementById('p-city').textContent = '📍 ' + (u.city || 'Add your city');
+  var d = u.joined ? new Date(u.joined) : new Date();
+  document.getElementById('p-joined').textContent = '🗓 Joined ' + d.toLocaleDateString('en-US',{month:'long',year:'numeric'});
+  document.getElementById('v-name').textContent = name.trim() || '—';
+  document.getElementById('v-email').textContent = u.email || '—';
+  document.getElementById('v-phone').textContent = u.phone || '—';
+  document.getElementById('v-city').textContent = u.city || '—';
+  document.getElementById('v-joined').textContent = d.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  var init = (u.firstName||'U').slice(0,1).toUpperCase();
+  if (u.avatar){
+    document.getElementById('avatar').innerHTML = '<img src="'+u.avatar+'" alt="avatar"><div class="avatar-edit" onclick="chooseAvatar()">✎</div>';
+  } else {
+    document.getElementById('avatar-initials').textContent = init;
+  }
+  if (u.bio && u.bio.trim()){ document.getElementById('bio-view').textContent = u.bio; document.getElementById('bio-view').style.color = 'var(--ink)'; }
+}
+function openEdit(){
+  var u = JSON.parse(localStorage.getItem('diaspora_user'));
+  document.getElementById('e-first').value = u.firstName || '';
+  document.getElementById('e-last').value = u.lastName || '';
+  document.getElementById('e-email').value = u.email || '';
+  document.getElementById('e-phone').value = u.phone || '';
+  document.getElementById('e-city').value = u.city || '';
+  document.getElementById('e-bio').value = u.bio || '';
+  document.getElementById('editModal').classList.add('open');
+}
+function closeEdit(){ document.getElementById('editModal').classList.remove('open'); }
+function saveProfile(e){
+  e.preventDefault();
+  var u = JSON.parse(localStorage.getItem('diaspora_user'));
+  u.firstName = document.getElementById('e-first').value.trim();
+  u.lastName  = document.getElementById('e-last').value.trim();
+  u.email     = document.getElementById('e-email').value.trim();
+  u.phone     = document.getElementById('e-phone').value.trim();
+  u.city      = document.getElementById('e-city').value.trim();
+  u.bio       = document.getElementById('e-bio').value.trim();
+  localStorage.setItem('diaspora_user', JSON.stringify(u));
+  closeEdit();
+  renderProfile(u);
+}
+function chooseAvatar(){
+  var input = document.createElement('input');
+  input.type = 'file'; input.accept = 'image/*';
+  input.onchange = function(ev){
+    var f = ev.target.files[0]; if (!f) return;
+    var r = new FileReader();
+    r.onload = function(e){
+      var u = JSON.parse(localStorage.getItem('diaspora_user'));
+      u.avatar = e.target.result;
+      localStorage.setItem('diaspora_user', JSON.stringify(u));
+      renderProfile(u);
+    };
+    r.readAsDataURL(f);
+  };
+  input.click();
+}
+function logout(){
+  localStorage.removeItem('diaspora_user');
+  window.location.href = 'index.html';
+}
+var me = requireAuth();
+if (me) renderProfile(me);
+
+// Tabs (presentational only in v1)
+document.querySelectorAll('.tab').forEach(function(t){
+  t.onclick = function(){
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+  };
+});
+</script>
+</body>
+</html>

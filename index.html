@@ -1260,9 +1260,23 @@
         <a href="#browse">Browse</a>
         <a href="#locations">Cities</a>
         <a href="#sellers">For Sellers</a>
-        <a href="#app" class="nav-cta">Download App</a>
+        <a href="login.html" id="nav-signin">Sign in</a>
+        <a href="signup.html" class="nav-cta" id="nav-join">Join Free</a>
     </div>
 </nav>
+<script>
+  (function(){
+    try {
+      var u = JSON.parse(localStorage.getItem('diaspora_user') || 'null');
+      if (u && u.email) {
+        var s = document.getElementById('nav-signin');
+        var j = document.getElementById('nav-join');
+        if (s) { s.textContent = 'My Profile'; s.href = 'profile.html'; }
+        if (j) { j.textContent = (u.firstName || 'Account'); j.href = 'profile.html'; }
+      }
+    } catch(e){}
+  })();
+</script>
 
 <!-- ═══════════ HERO ═══════════ -->
 <header class="hero">
