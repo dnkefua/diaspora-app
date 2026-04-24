@@ -1,0 +1,2049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diaspora — Find what's trending in your community, anywhere</title>
+    <meta name="description" content="The global marketplace for diaspora businesses. Discover trending food, stylists, photographers, and jobs across 50+ countries.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0E0E0E;
+            --cream: #FAF7F2;
+            --sand: #F0EBE0;
+            --gold: #D4A444;
+            --terra: #C85A3E;
+            --navy: #0A1E3A;
+            --sage: #2A5F4A;
+            --mist: #E8E3D8;
+            --line: rgba(14,14,14,0.08);
+            --line-strong: rgba(14,14,14,0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--cream);
+            color: var(--ink);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        .serif { font-family: 'Playfair Display', Georgia, serif; }
+
+        a { color: inherit; text-decoration: none; }
+
+        img { max-width: 100%; display: block; }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        /* ══════════ NAV ══════════ */
+        nav.topnav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            padding: 20px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(250, 247, 242, 0.85);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 26px;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--terra);
+            border-radius: 50%;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 36px;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-menu a {
+            color: var(--ink);
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .nav-menu a:hover { opacity: 1; }
+
+        .nav-cta {
+            background: var(--ink);
+            color: var(--cream);
+            padding: 10px 20px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .nav-cta:hover { transform: translateY(-1px); background: var(--terra); opacity: 1 !important; }
+
+        /* ══════════ HERO ══════════ */
+        .hero {
+            padding: 180px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; right: -200px;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(212, 164, 68, 0.15) 0%, transparent 70%);
+            z-index: 0;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -100px; left: -200px;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(200, 90, 62, 0.12) 0%, transparent 70%);
+            z-index: 0;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(14,14,14,0.04);
+            border: 1px solid var(--line);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 32px;
+        }
+
+        .pulse-dot {
+            width: 8px; height: 8px;
+            background: #22C55E;
+            border-radius: 50%;
+            box-shadow: 0 0 0 0 rgba(34,197,94,0.6);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
+            70% { box-shadow: 0 0 0 10px rgba(34,197,94,0); }
+            100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+        }
+
+        h1.hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(48px, 8vw, 110px);
+            font-weight: 900;
+            line-height: 0.95;
+            letter-spacing: -0.04em;
+            margin-bottom: 24px;
+        }
+
+        .hero-title em {
+            font-style: italic;
+            color: var(--terra);
+            font-weight: 400;
+        }
+
+        .hero-sub {
+            font-size: 20px;
+            color: rgba(14,14,14,0.65);
+            max-width: 620px;
+            margin: 0 auto 48px;
+            line-height: 1.5;
+        }
+
+        /* ══════════ SEARCH WIDGET ══════════ */
+        .search-widget {
+            background: white;
+            border: 1px solid var(--line);
+            border-radius: 20px;
+            padding: 12px;
+            box-shadow: 0 20px 60px rgba(14,14,14,0.08), 0 2px 8px rgba(14,14,14,0.04);
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.1fr 1fr 1fr 1.3fr auto;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .search-field {
+            padding: 16px 20px;
+            cursor: pointer;
+            border-radius: 14px;
+            transition: background 0.2s;
+            text-align: left;
+            position: relative;
+        }
+
+        .search-field:hover { background: var(--sand); }
+
+        .search-field + .search-field {
+            border-left: 1px solid var(--line);
+        }
+
+        .search-field:hover + .search-field {
+            border-left-color: transparent;
+        }
+
+        .field-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .field-value {
+            font-size: 15px;
+            color: rgba(14,14,14,0.7);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .field-value.active { color: var(--ink); font-weight: 600; }
+
+        .search-btn {
+            background: var(--terra);
+            color: white;
+            padding: 18px 32px;
+            border: none;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .search-btn:hover { background: #A84530; transform: scale(1.02); }
+
+        /* Dropdown */
+        .dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            background: white;
+            border-radius: 14px;
+            box-shadow: 0 20px 60px rgba(14,14,14,0.15);
+            min-width: 280px;
+            padding: 8px;
+            display: none;
+            z-index: 50;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .search-field.open .dropdown { display: block; }
+
+        .dropdown-item {
+            padding: 12px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .dropdown-item:hover { background: var(--sand); }
+
+        .dropdown-item.selected { background: var(--ink); color: var(--cream); }
+
+        .dropdown-flag { font-size: 18px; }
+
+        /* ══════════ TRUST BAR ══════════ */
+        .trust-bar {
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid var(--line);
+            text-align: center;
+        }
+
+        .trust-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: rgba(14,14,14,0.5);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .trust-cities {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: rgba(14,14,14,0.6);
+        }
+
+        /* ══════════ SECTION STYLING ══════════ */
+        section {
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 56px;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        .section-eyebrow {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--terra);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 5vw, 64px);
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            max-width: 700px;
+        }
+
+        .section-sub {
+            font-size: 18px;
+            color: rgba(14,14,14,0.65);
+            max-width: 400px;
+            line-height: 1.5;
+        }
+
+        /* ══════════ TRENDING SECTION ══════════ */
+        .trending {
+            background: var(--ink);
+            color: var(--cream);
+        }
+
+        .trending .section-eyebrow { color: var(--gold); }
+        .trending .section-sub { color: rgba(250,247,242,0.6); }
+
+        .trending-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+
+        .t-tab {
+            padding: 10px 20px;
+            border: 1px solid rgba(250,247,242,0.2);
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(250,247,242,0.7);
+            cursor: pointer;
+            transition: all 0.2s;
+            background: transparent;
+        }
+
+        .t-tab.active {
+            background: var(--cream);
+            color: var(--ink);
+            border-color: var(--cream);
+        }
+
+        .t-tab:hover:not(.active) {
+            border-color: rgba(250,247,242,0.5);
+            color: var(--cream);
+        }
+
+        .trending-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .trending-card {
+            background: #1A1A1A;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s;
+            position: relative;
+        }
+
+        .trending-card:hover { transform: translateY(-6px); }
+
+        .trend-rank {
+            position: absolute;
+            top: 16px; left: 16px;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 28px;
+            padding: 4px 14px;
+            border-radius: 12px;
+            z-index: 2;
+        }
+
+        .trend-heat {
+            position: absolute;
+            top: 16px; right: 16px;
+            background: rgba(200,90,62,0.95);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 6px 10px;
+            border-radius: 8px;
+            z-index: 2;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .trend-img {
+            height: 260px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .trend-img::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.4) 100%);
+        }
+
+        .trend-body { padding: 20px; }
+
+        .trend-category {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .trend-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .trend-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: rgba(250,247,242,0.6);
+            font-size: 13px;
+        }
+
+        .trend-location { display: flex; align-items: center; gap: 4px; }
+
+        .trend-rating { color: var(--gold); font-weight: 600; }
+
+        /* ══════════ CATEGORIES ══════════ */
+        .categories {
+            background: var(--cream);
+        }
+
+        .cat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .cat-card {
+            position: relative;
+            aspect-ratio: 4/5;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.4s;
+        }
+
+        .cat-card:hover { transform: scale(0.98); }
+
+        .cat-card.wide { grid-column: span 2; aspect-ratio: 8/5; }
+
+        .cat-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.6s;
+        }
+
+        .cat-card:hover .cat-bg { transform: scale(1.05); }
+
+        .cat-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.75) 100%);
+        }
+
+        .cat-content {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 32px;
+            color: white;
+            z-index: 2;
+        }
+
+        .cat-count {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            opacity: 0.85;
+            margin-bottom: 8px;
+        }
+
+        .cat-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        .cat-card.wide .cat-title { font-size: 56px; }
+
+        .cat-arrow {
+            display: inline-block;
+            transform: translateX(0);
+            transition: transform 0.2s;
+        }
+
+        .cat-card:hover .cat-arrow { transform: translateX(6px); }
+
+        /* ══════════ LOCATION BROWSER ══════════ */
+        .locations {
+            background: var(--sand);
+        }
+
+        .region-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 48px;
+            border-bottom: 1px solid var(--line-strong);
+        }
+
+        .region-tab {
+            padding: 16px 24px;
+            background: transparent;
+            border: none;
+            font-size: 15px;
+            font-weight: 600;
+            color: rgba(14,14,14,0.5);
+            cursor: pointer;
+            position: relative;
+            transition: color 0.2s;
+        }
+
+        .region-tab.active { color: var(--ink); }
+
+        .region-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px; left: 0; right: 0;
+            height: 2px;
+            background: var(--terra);
+        }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 12px;
+        }
+
+        .loc-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .loc-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(14,14,14,0.08);
+            border-color: var(--line);
+        }
+
+        .loc-flag {
+            width: 56px; height: 56px;
+            background: var(--sand);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+
+        .loc-info { flex: 1; }
+
+        .loc-city {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .loc-country {
+            font-size: 13px;
+            color: rgba(14,14,14,0.6);
+            margin-bottom: 6px;
+        }
+
+        .loc-stats {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--terra);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* ══════════ HOW IT WORKS ══════════ */
+        .how {
+            background: var(--cream);
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .step {
+            position: relative;
+        }
+
+        .step-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 120px;
+            font-weight: 900;
+            line-height: 1;
+            color: transparent;
+            -webkit-text-stroke: 2px var(--ink);
+            margin-bottom: 24px;
+        }
+
+        .step-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .step-desc {
+            font-size: 15px;
+            color: rgba(14,14,14,0.65);
+            line-height: 1.6;
+        }
+
+        /* ══════════ FEATURED ══════════ */
+        .featured {
+            background: var(--navy);
+            color: var(--cream);
+        }
+
+        .featured .section-eyebrow { color: var(--gold); }
+        .featured .section-sub { color: rgba(250,247,242,0.6); }
+
+        .feat-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 16px;
+            height: 620px;
+        }
+
+        .feat-card {
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            padding: 32px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .feat-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.8));
+        }
+
+        .feat-card:hover { transform: translateY(-4px); }
+
+        .feat-card.main { grid-row: span 2; }
+
+        .feat-content { position: relative; z-index: 2; }
+
+        .feat-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--ink);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .feat-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 8px;
+        }
+
+        .feat-card.main .feat-title { font-size: 48px; }
+
+        .feat-meta {
+            font-size: 13px;
+            opacity: 0.85;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* ══════════ STORIES ══════════ */
+        .stories {
+            background: var(--cream);
+        }
+
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .story {
+            background: white;
+            border-radius: 20px;
+            padding: 32px;
+            border: 1px solid var(--line);
+        }
+
+        .story-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 400;
+            line-height: 1.4;
+            margin-bottom: 32px;
+        }
+
+        .story-author { display: flex; align-items: center; gap: 14px; }
+
+        .story-avatar {
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .story-name {
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .story-role {
+            font-size: 13px;
+            color: rgba(14,14,14,0.6);
+        }
+
+        /* ══════════ APP PREVIEW ══════════ */
+        .app-preview {
+            background: linear-gradient(135deg, var(--sand) 0%, var(--mist) 100%);
+            overflow: hidden;
+        }
+
+        .app-preview-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .phones-stack {
+            position: relative;
+            height: 600px;
+        }
+
+        .phone-device {
+            position: absolute;
+            width: 280px; height: 580px;
+            background: var(--ink);
+            border-radius: 40px;
+            padding: 10px;
+            box-shadow: 0 40px 80px rgba(14,14,14,0.25), 0 0 0 2px #2A2A2A;
+        }
+
+        .phone-device.back {
+            top: 0; left: 20%;
+            transform: rotate(-6deg);
+            opacity: 0.9;
+        }
+
+        .phone-device.front {
+            top: 20px; right: 10%;
+            transform: rotate(4deg);
+        }
+
+        .phone-screen {
+            width: 100%; height: 100%;
+            background: white;
+            border-radius: 32px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .phone-notch {
+            position: absolute;
+            top: 10px; left: 50%;
+            transform: translateX(-50%);
+            width: 100px; height: 24px;
+            background: var(--ink);
+            border-radius: 14px;
+            z-index: 10;
+        }
+
+        /* Phone 1: Feed mockup */
+        .ms-feed {
+            padding: 50px 14px 14px;
+            background: var(--cream);
+            height: 100%;
+        }
+
+        .ms-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .ms-logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 16px;
+            color: var(--ink);
+        }
+
+        .ms-loc {
+            font-size: 10px;
+            color: rgba(14,14,14,0.6);
+            background: white;
+            padding: 4px 8px;
+            border-radius: 100px;
+        }
+
+        .ms-hero-card {
+            height: 140px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 14px;
+            position: relative;
+            margin-bottom: 12px;
+            background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80');
+        }
+
+        .ms-hero-tag {
+            position: absolute;
+            top: 10px; left: 10px;
+            background: var(--terra);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .ms-hero-info {
+            position: absolute;
+            bottom: 10px; left: 10px; right: 10px;
+            color: white;
+        }
+
+        .ms-hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .ms-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .ms-cell {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .ms-cell-img {
+            height: 70px;
+            background-size: cover;
+        }
+
+        .ms-cell-txt {
+            padding: 6px 8px;
+        }
+
+        .ms-cell-name { font-size: 10px; font-weight: 700; color: var(--ink); }
+        .ms-cell-meta { font-size: 8px; color: rgba(14,14,14,0.55); margin-top: 2px; }
+
+        /* Phone 2: Detail */
+        .ms-detail {
+            background: white;
+            height: 100%;
+        }
+
+        .ms-detail-hero {
+            height: 180px;
+            background-image: url('https://images.unsplash.com/photo-1585032226651-759b368d7246?w=400&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .ms-detail-body {
+            padding: 14px;
+        }
+
+        .ms-detail-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .ms-detail-rating {
+            font-size: 10px;
+            color: rgba(14,14,14,0.6);
+            margin-bottom: 12px;
+        }
+
+        .ms-detail-rating .gold { color: var(--gold); font-weight: 700; }
+
+        .ms-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            margin-bottom: 14px;
+        }
+
+        .ms-gallery-item {
+            aspect-ratio: 1;
+            background-size: cover;
+            border-radius: 6px;
+        }
+
+        .ms-wa-btn {
+            background: #25D366;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .app-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 56px;
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            margin-bottom: 24px;
+        }
+
+        .app-text p {
+            font-size: 18px;
+            color: rgba(14,14,14,0.7);
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .app-features {
+            display: grid;
+            gap: 20px;
+        }
+
+        .app-feat {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .app-feat-icon {
+            width: 44px; height: 44px;
+            background: var(--ink);
+            color: var(--cream);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .app-feat-title {
+            font-weight: 700;
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .app-feat-desc {
+            font-size: 14px;
+            color: rgba(14,14,14,0.6);
+            line-height: 1.5;
+        }
+
+        /* ══════════ STATS STRIP ══════════ */
+        .stats-strip {
+            background: var(--ink);
+            color: var(--cream);
+            padding: 80px 0;
+        }
+
+        .stats-inner {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-big {
+            font-family: 'Playfair Display', serif;
+            font-size: 72px;
+            font-weight: 900;
+            line-height: 1;
+            color: var(--gold);
+            margin-bottom: 8px;
+            letter-spacing: -0.03em;
+        }
+
+        .stat-lbl {
+            font-size: 13px;
+            color: rgba(250,247,242,0.65);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* ══════════ CTA ══════════ */
+        .cta-section {
+            background: var(--cream);
+            text-align: center;
+        }
+
+        .cta-inner {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(40px, 6vw, 80px);
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            margin-bottom: 24px;
+        }
+
+        .cta-title em {
+            font-style: italic;
+            color: var(--terra);
+            font-weight: 400;
+        }
+
+        .cta-sub {
+            font-size: 18px;
+            color: rgba(14,14,14,0.65);
+            margin-bottom: 40px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-lg {
+            padding: 18px 32px;
+            border-radius: 100px;
+            font-size: 15px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-lg:hover { transform: translateY(-2px); }
+
+        .btn-dark {
+            background: var(--ink);
+            color: var(--cream);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--ink);
+            border: 1px solid var(--ink);
+        }
+
+        /* ══════════ FOOTER ══════════ */
+        footer {
+            background: var(--ink);
+            color: rgba(250,247,242,0.65);
+            padding: 80px 0 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 56px;
+        }
+
+        .footer-brand .logo { color: var(--cream); margin-bottom: 16px; }
+
+        .footer-tag {
+            font-size: 14px;
+            line-height: 1.6;
+            max-width: 280px;
+        }
+
+        .footer-col h4 {
+            color: var(--cream);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .footer-col a {
+            display: block;
+            padding: 6px 0;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .footer-col a:hover { color: var(--cream); }
+
+        .footer-bottom {
+            padding-top: 32px;
+            border-top: 1px solid rgba(250,247,242,0.1);
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 980px) {
+            .search-widget { grid-template-columns: 1fr; padding: 16px; }
+            .search-field + .search-field { border-left: none; border-top: 1px solid var(--line); }
+            .cat-grid { grid-template-columns: 1fr 1fr; }
+            .cat-card.wide { grid-column: span 2; }
+            .steps { grid-template-columns: 1fr; gap: 48px; }
+            .feat-grid { grid-template-columns: 1fr; height: auto; }
+            .feat-card { min-height: 280px; }
+            .feat-card.main { grid-row: auto; min-height: 400px; }
+            .stories-grid { grid-template-columns: 1fr; }
+            .app-preview-inner { grid-template-columns: 1fr; gap: 60px; }
+            .phones-stack { height: 520px; max-width: 400px; margin: 0 auto; }
+            .stats-inner { grid-template-columns: repeat(2, 1fr); gap: 48px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .nav-menu { display: none; }
+            section { padding: 80px 0; }
+            .hero { padding: 140px 0 60px; }
+            .cat-grid { grid-template-columns: 1fr; }
+            .cat-card.wide { grid-column: auto; aspect-ratio: 4/5; }
+            .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+            .stats-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
+            .stat-big { font-size: 48px; }
+            .trust-cities { gap: 24px; font-size: 16px; }
+            .container { padding: 0 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav class="topnav">
+    <a href="#" class="logo">
+        <span class="logo-dot"></span>
+        Diaspora
+    </a>
+    <div class="nav-menu">
+        <a href="#trending">Trending</a>
+        <a href="#browse">Browse</a>
+        <a href="#locations">Cities</a>
+        <a href="#sellers">For Sellers</a>
+        <a href="#app" class="nav-cta">Download App</a>
+    </div>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<header class="hero">
+    <div class="container hero-inner">
+        <div class="hero-eyebrow">
+            <span class="pulse-dot"></span>
+            <span>Live across 47 cities in 23 countries</span>
+        </div>
+
+        <h1 class="hero-title">
+            Find your people.<br>
+            <em>Wherever you are.</em>
+        </h1>
+
+        <p class="hero-sub">
+            The global marketplace for diaspora food, stylists, photographers, and jobs — from authentic restaurants in Dubai to braiders in Toronto.
+        </p>
+
+        <!-- Search Widget -->
+        <div class="search-widget">
+            <div class="search-field" onclick="toggleDropdown(this, 'country')">
+                <div class="field-label">Country</div>
+                <div class="field-value active" id="country-val">🇦🇪 United Arab Emirates</div>
+                <div class="dropdown" id="country-dd">
+                    <div class="dropdown-item selected" onclick="selectItem(event, 'country', '🇦🇪 United Arab Emirates', '🇦🇪 UAE')"><span class="dropdown-flag">🇦🇪</span> United Arab Emirates</div>
+                    <div class="dropdown-item" onclick="selectItem(event, 'country', '🇬🇧 United Kingdom')"><span class="dropdown-flag">🇬🇧</span> United Kingdom</div>
+                    <div class="dropdown-item" onclick="selectItem(event, 'country', '🇺🇸 United States')"><span class="dropdown-flag">🇺🇸</span> United States</div>
+                    <div class="dropdown-item" onclick="selectItem(event, 'country', '🇨🇦 Canada')"><span class="dropdown-flag">🇨🇦</span> Canada</div>
+                    <div class="dropdown-item" onclick="selectItem(event, 'country', '🇩🇪 Germany')"><span class="dropdown-flag">🇩🇪</span> Germany</div>
+                    <div class="dropdown-item" onclick="selectItem(event, 'country', '🇫🇷 France')"><span class="dropdown-flag">🇫🇷</span> France</div>
+                    <div class="dropdown-item" onclick="selectItem(event, 'country', '🇿🇦 South Africa')"><span class="dropdown-flag">🇿🇦</span> South Africa</div>
+                    <div class="dropdown-item" onclick="selectItem(event, 'country', '🇳🇬 Nigeria')"><span class="dropdown-flag">🇳🇬</span> Nigeria</div>
+                    <div class="dropdown-item" onclick="selectItem(event, 'country', '🇰🇪 Kenya')"><span class="dropdown-flag">🇰🇪</span> Kenya</div>
+                    <div class="dropdown-item" onclick="selectItem(event, 'country', '🇬🇭 Ghana')"><span class="dropdown-flag">🇬🇭</span> Ghana</div>
+                </div>
+            </div>
+
+            <div class="search-field" onclick="toggleDropdown(this, 'city')">
+                <div class="field-label">City</div>
+                <div class="field-value active" id="city-val">Dubai</div>
+                <div class="dropdown" id="city-dd">
+                    <div class="dropdown-item selected" onclick="selectItem(event, 'city', 'Dubai')">📍 Dubai</div>
+                    <div class="dropdown-item" onclick="selectItem(event, 'city', 'Abu Dhabi')">📍 Abu Dhabi</div>
+                    <div class="dropdown-item" onclick="selectItem(event, 'city', 'Sharjah')">📍 Sharjah</div>
+                    <div class="dropdown-item" onclick="selectItem(event, 'city', 'Ajman')">📍 Ajman</div>
+                </div>
+            </div>
+
+            <div class="search-field" onclick="toggleDropdown(this, 'town')">
+                <div class="field-label">Town / Area</div>
+                <div class="field-value active" id="town-val">All Areas</div>
+                <div class="dropdown" id="town-dd">
+                    <div class="dropdown-item selected" onclick="selectItem(event, 'town', 'All Areas')">🗺️ All Areas</div>
+                    <div class="dropdown-item" onclick="selectItem(event, 'town', 'Deira')">🏙️ Deira</div>
+                    <div class="dropdown-item" onclick="selectItem(event, 'town', 'Bur Dubai')">🏙️ Bur Dubai</div>
+                    <div class="dropdown-item" onclick="selectItem(event, 'town', 'Al Karama')">🏙️ Al Karama</div>
+                    <div class="dropdown-item" onclick="selectItem(event, 'town', 'Jumeirah')">🏙️ Jumeirah</div>
+                    <div class="dropdown-item" onclick="selectItem(event, 'town', 'Dubai Marina')">🏙️ Dubai Marina</div>
+                    <div class="dropdown-item" onclick="selectItem(event, 'town', 'Downtown Dubai')">🏙️ Downtown Dubai</div>
+                    <div class="dropdown-item" onclick="selectItem(event, 'town', 'Al Barsha')">🏙️ Al Barsha</div>
+                    <div class="dropdown-item" onclick="selectItem(event, 'town', 'Business Bay')">🏙️ Business Bay</div>
+                    <div class="dropdown-item" onclick="selectItem(event, 'town', 'JLT')">🏙️ JLT</div>
+                </div>
+            </div>
+
+            <div class="search-field" onclick="toggleDropdown(this, 'category')">
+                <div class="field-label">What are you looking for?</div>
+                <div class="field-value active" id="category-val">All Categories</div>
+                <div class="dropdown" id="category-dd">
+                    <div class="dropdown-item selected" onclick="selectItem(event, 'category', 'All Categories')">✨ All Categories</div>
+                    <div class="dropdown-item" onclick="selectItem(event, 'category', 'Restaurants')">🍲 Restaurants</div>
+                    <div class="dropdown-item" onclick="selectItem(event, 'category', 'Food Sellers')">🥘 Food Sellers</div>
+                    <div class="dropdown-item" onclick="selectItem(event, 'category', 'Hair Stylists')">💇🏽‍♀️ Hair Stylists</div>
+                    <div class="dropdown-item" onclick="selectItem(event, 'category', 'Barbers')">✂️ Barbers</div>
+                    <div class="dropdown-item" onclick="selectItem(event, 'category', 'Photographers')">📸 Photographers</div>
+                    <div class="dropdown-item" onclick="selectItem(event, 'category', 'Jobs')">💼 Jobs</div>
+                    <div class="dropdown-item" onclick="selectItem(event, 'category', 'Tailors & Fashion')">👗 Tailors & Fashion</div>
+                    <div class="dropdown-item" onclick="selectItem(event, 'category', 'Beauty & Makeup')">💄 Beauty & Makeup</div>
+                    <div class="dropdown-item" onclick="selectItem(event, 'category', 'Music & Events')">🎵 Music & Events</div>
+                </div>
+            </div>
+
+            <button class="search-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                Search
+            </button>
+        </div>
+
+        <div class="trust-bar">
+            <div class="trust-label">Featured in</div>
+            <div class="trust-cities">
+                Dubai · London · Toronto · Lagos · Nairobi · Johannesburg · Paris · New York
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- ═══════════ TRENDING ═══════════ -->
+<section class="trending" id="trending">
+    <div class="container">
+        <div class="section-head">
+            <div>
+                <div class="section-eyebrow">● Live Trending</div>
+                <h2 class="section-title">What the diaspora <em class="serif" style="font-style: italic; color: var(--gold);">is loving</em> this week.</h2>
+            </div>
+            <p class="section-sub">Real-time trends from African, Caribbean, and diaspora communities across the globe.</p>
+        </div>
+
+        <div class="trending-tabs">
+            <button class="t-tab active">🔥 All Trends</button>
+            <button class="t-tab">🍲 Food</button>
+            <button class="t-tab">💇🏽‍♀️ Hair</button>
+            <button class="t-tab">✂️ Barbers</button>
+            <button class="t-tab">📸 Photography</button>
+            <button class="t-tab">💼 Jobs</button>
+            <button class="t-tab">💄 Beauty</button>
+            <button class="t-tab">👗 Fashion</button>
+        </div>
+
+        <div class="trending-grid">
+            <div class="trending-card">
+                <div class="trend-rank">01</div>
+                <div class="trend-heat">🔥 Trending</div>
+                <div class="trend-img" style="background-image: url('https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&q=80')"></div>
+                <div class="trend-body">
+                    <div class="trend-category">Restaurant · Nigerian</div>
+                    <h3 class="trend-name">Jollof Kings Dubai Marina</h3>
+                    <div class="trend-meta">
+                        <div class="trend-location">📍 Dubai, UAE</div>
+                        <div class="trend-rating">★ 4.9</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="trending-card">
+                <div class="trend-rank">02</div>
+                <div class="trend-heat">🔥 Trending</div>
+                <div class="trend-img" style="background-image: url('https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=600&q=80')"></div>
+                <div class="trend-body">
+                    <div class="trend-category">Hair Stylist · Braids</div>
+                    <h3 class="trend-name">Aminata Braid Studio</h3>
+                    <div class="trend-meta">
+                        <div class="trend-location">📍 London, UK</div>
+                        <div class="trend-rating">★ 4.8</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="trending-card">
+                <div class="trend-rank">03</div>
+                <div class="trend-heat">⚡ Rising</div>
+                <div class="trend-img" style="background-image: url('https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=600&q=80')"></div>
+                <div class="trend-body">
+                    <div class="trend-category">Barber · Fade Specialist</div>
+                    <h3 class="trend-name">Kofi's Cutz</h3>
+                    <div class="trend-meta">
+                        <div class="trend-location">📍 Toronto, Canada</div>
+                        <div class="trend-rating">★ 4.9</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="trending-card">
+                <div class="trend-rank">04</div>
+                <div class="trend-heat">🔥 Trending</div>
+                <div class="trend-img" style="background-image: url('https://images.unsplash.com/photo-1532635241-17e820acc59f?w=600&q=80')"></div>
+                <div class="trend-body">
+                    <div class="trend-category">Photographer · Events</div>
+                    <h3 class="trend-name">Tunde Captures</h3>
+                    <div class="trend-meta">
+                        <div class="trend-location">📍 Lagos, Nigeria</div>
+                        <div class="trend-rating">★ 5.0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="trending-card">
+                <div class="trend-rank">05</div>
+                <div class="trend-heat">⚡ Rising</div>
+                <div class="trend-img" style="background-image: url('https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=600&q=80')"></div>
+                <div class="trend-body">
+                    <div class="trend-category">Home Kitchen · Ethiopian</div>
+                    <h3 class="trend-name">Mama Selam's Injera</h3>
+                    <div class="trend-meta">
+                        <div class="trend-location">📍 Abu Dhabi, UAE</div>
+                        <div class="trend-rating">★ 4.9</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="trending-card">
+                <div class="trend-rank">06</div>
+                <div class="trend-heat">🔥 Trending</div>
+                <div class="trend-img" style="background-image: url('https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=600&q=80')"></div>
+                <div class="trend-body">
+                    <div class="trend-category">Fashion · Custom Tailor</div>
+                    <h3 class="trend-name">Ankara Atelier</h3>
+                    <div class="trend-meta">
+                        <div class="trend-location">📍 Nairobi, Kenya</div>
+                        <div class="trend-rating">★ 4.8</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="trending-card">
+                <div class="trend-rank">07</div>
+                <div class="trend-heat">⚡ Rising</div>
+                <div class="trend-img" style="background-image: url('https://images.unsplash.com/photo-1562322140-8baeececf3df?w=600&q=80')"></div>
+                <div class="trend-body">
+                    <div class="trend-category">Job · Tech</div>
+                    <h3 class="trend-name">Senior Developer, Fintech</h3>
+                    <div class="trend-meta">
+                        <div class="trend-location">📍 Accra, Ghana</div>
+                        <div class="trend-rating" style="color: #4ADE80">Hiring</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="trending-card">
+                <div class="trend-rank">08</div>
+                <div class="trend-heat">🔥 Trending</div>
+                <div class="trend-img" style="background-image: url('https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=600&q=80')"></div>
+                <div class="trend-body">
+                    <div class="trend-category">Beauty · Bridal Makeup</div>
+                    <h3 class="trend-name">Ade Beauty Collective</h3>
+                    <div class="trend-meta">
+                        <div class="trend-location">📍 Paris, France</div>
+                        <div class="trend-rating">★ 4.9</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ CATEGORIES ═══════════ -->
+<section class="categories" id="browse">
+    <div class="container">
+        <div class="section-head">
+            <div>
+                <div class="section-eyebrow">● Browse Categories</div>
+                <h2 class="section-title">Everything you need, from people who get you.</h2>
+            </div>
+            <p class="section-sub">From authentic cuisine to hair that understands your texture — discover verified diaspora-owned businesses.</p>
+        </div>
+
+        <div class="cat-grid">
+            <div class="cat-card wide">
+                <div class="cat-bg" style="background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&q=80')"></div>
+                <div class="cat-overlay"></div>
+                <div class="cat-content">
+                    <div class="cat-count">8,420 listings worldwide</div>
+                    <div class="cat-title">Food & Restaurants <span class="cat-arrow">→</span></div>
+                </div>
+            </div>
+
+            <div class="cat-card">
+                <div class="cat-bg" style="background-image: url('https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=600&q=80')"></div>
+                <div class="cat-overlay"></div>
+                <div class="cat-content">
+                    <div class="cat-count">3,240 stylists</div>
+                    <div class="cat-title">Hair <span class="cat-arrow">→</span></div>
+                </div>
+            </div>
+
+            <div class="cat-card">
+                <div class="cat-bg" style="background-image: url('https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=600&q=80')"></div>
+                <div class="cat-overlay"></div>
+                <div class="cat-content">
+                    <div class="cat-count">1,890 barbers</div>
+                    <div class="cat-title">Barbers <span class="cat-arrow">→</span></div>
+                </div>
+            </div>
+
+            <div class="cat-card">
+                <div class="cat-bg" style="background-image: url('https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=600&q=80')"></div>
+                <div class="cat-overlay"></div>
+                <div class="cat-content">
+                    <div class="cat-count">2,150 photographers</div>
+                    <div class="cat-title">Photography <span class="cat-arrow">→</span></div>
+                </div>
+            </div>
+
+            <div class="cat-card">
+                <div class="cat-bg" style="background-image: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600&q=80')"></div>
+                <div class="cat-overlay"></div>
+                <div class="cat-content">
+                    <div class="cat-count">980 open roles</div>
+                    <div class="cat-title">Jobs <span class="cat-arrow">→</span></div>
+                </div>
+            </div>
+
+            <div class="cat-card wide">
+                <div class="cat-bg" style="background-image: url('https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=1200&q=80')"></div>
+                <div class="cat-overlay"></div>
+                <div class="cat-content">
+                    <div class="cat-count">1,540 designers</div>
+                    <div class="cat-title">Fashion & Tailoring <span class="cat-arrow">→</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ LOCATIONS ═══════════ -->
+<section class="locations" id="locations">
+    <div class="container">
+        <div class="section-head">
+            <div>
+                <div class="section-eyebrow">● Explore by City</div>
+                <h2 class="section-title">47 cities. 23 countries. <em class="serif" style="font-style: italic; color: var(--terra);">One community.</em></h2>
+            </div>
+            <p class="section-sub">Find the diaspora wherever life has taken you.</p>
+        </div>
+
+        <div class="region-tabs">
+            <button class="region-tab active">Middle East</button>
+            <button class="region-tab">Europe</button>
+            <button class="region-tab">North America</button>
+            <button class="region-tab">Africa</button>
+            <button class="region-tab">Asia Pacific</button>
+        </div>
+
+        <div class="location-grid">
+            <div class="loc-card">
+                <div class="loc-flag">🇦🇪</div>
+                <div class="loc-info">
+                    <div class="loc-city">Dubai</div>
+                    <div class="loc-country">United Arab Emirates</div>
+                    <div class="loc-stats">2,340 listings</div>
+                </div>
+            </div>
+            <div class="loc-card">
+                <div class="loc-flag">🇦🇪</div>
+                <div class="loc-info">
+                    <div class="loc-city">Abu Dhabi</div>
+                    <div class="loc-country">United Arab Emirates</div>
+                    <div class="loc-stats">1,180 listings</div>
+                </div>
+            </div>
+            <div class="loc-card">
+                <div class="loc-flag">🇦🇪</div>
+                <div class="loc-info">
+                    <div class="loc-city">Sharjah</div>
+                    <div class="loc-country">United Arab Emirates</div>
+                    <div class="loc-stats">640 listings</div>
+                </div>
+            </div>
+            <div class="loc-card">
+                <div class="loc-flag">🇶🇦</div>
+                <div class="loc-info">
+                    <div class="loc-city">Doha</div>
+                    <div class="loc-country">Qatar</div>
+                    <div class="loc-stats">890 listings</div>
+                </div>
+            </div>
+            <div class="loc-card">
+                <div class="loc-flag">🇸🇦</div>
+                <div class="loc-info">
+                    <div class="loc-city">Riyadh</div>
+                    <div class="loc-country">Saudi Arabia</div>
+                    <div class="loc-stats">720 listings</div>
+                </div>
+            </div>
+            <div class="loc-card">
+                <div class="loc-flag">🇧🇭</div>
+                <div class="loc-info">
+                    <div class="loc-city">Manama</div>
+                    <div class="loc-country">Bahrain</div>
+                    <div class="loc-stats">310 listings</div>
+                </div>
+            </div>
+            <div class="loc-card">
+                <div class="loc-flag">🇴🇲</div>
+                <div class="loc-info">
+                    <div class="loc-city">Muscat</div>
+                    <div class="loc-country">Oman</div>
+                    <div class="loc-stats">240 listings</div>
+                </div>
+            </div>
+            <div class="loc-card">
+                <div class="loc-flag">🇰🇼</div>
+                <div class="loc-info">
+                    <div class="loc-city">Kuwait City</div>
+                    <div class="loc-country">Kuwait</div>
+                    <div class="loc-stats">420 listings</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ HOW IT WORKS ═══════════ -->
+<section class="how">
+    <div class="container">
+        <div class="section-head" style="margin-bottom: 80px;">
+            <div>
+                <div class="section-eyebrow">● How It Works</div>
+                <h2 class="section-title">Three steps. <em class="serif" style="font-style: italic; color: var(--terra);">That's it.</em></h2>
+            </div>
+        </div>
+
+        <div class="steps">
+            <div class="step">
+                <div class="step-num">01</div>
+                <h3 class="step-title">Pick your city & category</h3>
+                <p class="step-desc">Tell us where you are and what you need — Nigerian food in Dubai? A braider in Toronto? A photographer in Paris? We've got you.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">02</div>
+                <h3 class="step-title">Browse verified businesses</h3>
+                <p class="step-desc">See real photos, real reviews from community members, and real-time availability. Every seller is verified by the diaspora.</p>
+            </div>
+            <div class="step">
+                <div class="step-num">03</div>
+                <h3 class="step-title">Message direct via WhatsApp</h3>
+                <p class="step-desc">No middleman. No commission hikes. Talk to the owner directly — in whatever language feels like home.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ FEATURED ═══════════ -->
+<section class="featured">
+    <div class="container">
+        <div class="section-head">
+            <div>
+                <div class="section-eyebrow">● Featured This Week</div>
+                <h2 class="section-title">Hand-picked by the community.</h2>
+            </div>
+            <p class="section-sub">Standout businesses, makers, and creators chosen by diaspora tastemakers worldwide.</p>
+        </div>
+
+        <div class="feat-grid">
+            <div class="feat-card main" style="background-image: url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1000&q=80')">
+                <div class="feat-content">
+                    <div class="feat-badge">Editor's Pick</div>
+                    <h3 class="feat-title">The House of Jollof</h3>
+                    <div class="feat-meta">
+                        <span>📍 Dubai Marina</span>
+                        <span>★ 4.9 · 320 reviews</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feat-card" style="background-image: url('https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600&q=80')">
+                <div class="feat-content">
+                    <div class="feat-badge">Rising Star</div>
+                    <h3 class="feat-title">Nia's Natural Hair Studio</h3>
+                    <div class="feat-meta">
+                        <span>📍 London</span>
+                        <span>★ 4.8</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feat-card" style="background-image: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80')">
+                <div class="feat-content">
+                    <div class="feat-badge">Verified</div>
+                    <h3 class="feat-title">Osei Wedding Photography</h3>
+                    <div class="feat-meta">
+                        <span>📍 Toronto</span>
+                        <span>★ 5.0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feat-card" style="background-image: url('https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&q=80')">
+                <div class="feat-content">
+                    <div class="feat-badge">Top Rated</div>
+                    <h3 class="feat-title">Kwame Barber Lounge</h3>
+                    <div class="feat-meta">
+                        <span>📍 New York</span>
+                        <span>★ 4.9</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feat-card" style="background-image: url('https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600&q=80')">
+                <div class="feat-content">
+                    <div class="feat-badge">Community Choice</div>
+                    <h3 class="feat-title">Adaeze Fashion House</h3>
+                    <div class="feat-meta">
+                        <span>📍 Lagos</span>
+                        <span>★ 4.8</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ APP PREVIEW ═══════════ -->
+<section class="app-preview" id="app">
+    <div class="container">
+        <div class="app-preview-inner">
+            <div class="phones-stack">
+                <div class="phone-device back">
+                    <div class="phone-screen">
+                        <div class="phone-notch"></div>
+                        <div class="ms-feed">
+                            <div class="ms-header">
+                                <div class="ms-logo">● Diaspora</div>
+                                <div class="ms-loc">📍 Dubai</div>
+                            </div>
+                            <div class="ms-hero-card">
+                                <div class="ms-hero-tag">Trending</div>
+                                <div class="ms-hero-info">
+                                    <div class="ms-hero-title">Jollof Kings</div>
+                                </div>
+                            </div>
+                            <div class="ms-row">
+                                <div class="ms-cell">
+                                    <div class="ms-cell-img" style="background-image: url('https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=300&q=80')"></div>
+                                    <div class="ms-cell-txt">
+                                        <div class="ms-cell-name">Aminata Braids</div>
+                                        <div class="ms-cell-meta">★ 4.8 · London</div>
+                                    </div>
+                                </div>
+                                <div class="ms-cell">
+                                    <div class="ms-cell-img" style="background-image: url('https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=300&q=80')"></div>
+                                    <div class="ms-cell-txt">
+                                        <div class="ms-cell-name">Kofi's Cutz</div>
+                                        <div class="ms-cell-meta">★ 4.9 · Toronto</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ms-row">
+                                <div class="ms-cell">
+                                    <div class="ms-cell-img" style="background-image: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=300&q=80')"></div>
+                                    <div class="ms-cell-txt">
+                                        <div class="ms-cell-name">Osei Photo</div>
+                                        <div class="ms-cell-meta">★ 5.0 · Toronto</div>
+                                    </div>
+                                </div>
+                                <div class="ms-cell">
+                                    <div class="ms-cell-img" style="background-image: url('https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?w=300&q=80')"></div>
+                                    <div class="ms-cell-txt">
+                                        <div class="ms-cell-name">Ankara Atelier</div>
+                                        <div class="ms-cell-meta">★ 4.8 · Nairobi</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="phone-device front">
+                    <div class="phone-screen">
+                        <div class="phone-notch"></div>
+                        <div class="ms-detail">
+                            <div class="ms-detail-hero"></div>
+                            <div class="ms-detail-body">
+                                <div class="ms-detail-title">Jollof Kings</div>
+                                <div class="ms-detail-rating"><span class="gold">★ 4.9</span> · 320 reviews · Nigerian</div>
+                                <div class="ms-gallery">
+                                    <div class="ms-gallery-item" style="background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=200&q=80')"></div>
+                                    <div class="ms-gallery-item" style="background-image: url('https://images.unsplash.com/photo-1585032226651-759b368d7246?w=200&q=80')"></div>
+                                    <div class="ms-gallery-item" style="background-image: url('https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=200&q=80')"></div>
+                                    <div class="ms-gallery-item" style="background-image: url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=200&q=80')"></div>
+                                    <div class="ms-gallery-item" style="background-image: url('https://images.unsplash.com/photo-1529042410759-befb1204b468?w=200&q=80')"></div>
+                                    <div class="ms-gallery-item" style="background-image: url('https://images.unsplash.com/photo-1534080564583-6be75777b70a?w=200&q=80')"></div>
+                                </div>
+                                <div class="ms-wa-btn">💬 Contact via WhatsApp</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="app-text">
+                <h2>A world of home, in your pocket.</h2>
+                <p>Download the app and never be far from your community. Save favorites, get alerts when new businesses open in your city, and message sellers directly.</p>
+
+                <div class="app-features">
+                    <div class="app-feat">
+                        <div class="app-feat-icon">📍</div>
+                        <div>
+                            <div class="app-feat-title">Location-aware</div>
+                            <div class="app-feat-desc">Automatically see what's trending in your neighborhood.</div>
+                        </div>
+                    </div>
+                    <div class="app-feat">
+                        <div class="app-feat-icon">💬</div>
+                        <div>
+                            <div class="app-feat-title">WhatsApp direct</div>
+                            <div class="app-feat-desc">One tap to message sellers — no middleman, no commission.</div>
+                        </div>
+                    </div>
+                    <div class="app-feat">
+                        <div class="app-feat-icon">⭐</div>
+                        <div>
+                            <div class="app-feat-title">Verified reviews</div>
+                            <div class="app-feat-desc">Real community ratings from real diaspora members.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cta-buttons" style="margin-top: 40px; justify-content: flex-start;">
+                    <a href="#" class="btn-lg btn-dark">📱 App Store</a>
+                    <a href="#" class="btn-lg btn-outline">▶ Google Play</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ STORIES ═══════════ -->
+<section class="stories">
+    <div class="container">
+        <div class="section-head">
+            <div>
+                <div class="section-eyebrow">● Community</div>
+                <h2 class="section-title">Stories from the diaspora.</h2>
+            </div>
+        </div>
+
+        <div class="stories-grid">
+            <div class="story">
+                <div class="story-quote">"I tripled my bookings in 6 weeks. My customers find me directly — no 30% food delivery fees anymore."</div>
+                <div class="story-author">
+                    <div class="story-avatar" style="background-image: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80')"></div>
+                    <div>
+                        <div class="story-name">Fatima A.</div>
+                        <div class="story-role">Chef · Nile Valley, Dubai</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story">
+                <div class="story-quote">"Moved to Toronto last year. Found my braider, my restaurant, and two Nigerian friends — all in my first week."</div>
+                <div class="story-author">
+                    <div class="story-avatar" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80')"></div>
+                    <div>
+                        <div class="story-name">David O.</div>
+                        <div class="story-role">Software Engineer · Toronto</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story">
+                <div class="story-quote">"Finally a platform built for us. Real reviews from real people who get what authentic means."</div>
+                <div class="story-author">
+                    <div class="story-avatar" style="background-image: url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80')"></div>
+                    <div>
+                        <div class="story-name">Amara K.</div>
+                        <div class="story-role">Photographer · London</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ STATS ═══════════ -->
+<section class="stats-strip">
+    <div class="container">
+        <div class="stats-inner">
+            <div>
+                <div class="stat-big">23</div>
+                <div class="stat-lbl">Countries</div>
+            </div>
+            <div>
+                <div class="stat-big">47</div>
+                <div class="stat-lbl">Cities</div>
+            </div>
+            <div>
+                <div class="stat-big">18K+</div>
+                <div class="stat-lbl">Businesses</div>
+            </div>
+            <div>
+                <div class="stat-big">2.4M</div>
+                <div class="stat-lbl">Community Members</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ CTA ═══════════ -->
+<section class="cta-section" id="sellers">
+    <div class="container cta-inner">
+        <h2 class="cta-title">List your business.<br><em>Keep every dollar.</em></h2>
+        <p class="cta-sub">No commissions. No hidden fees. Just a direct line to the diaspora community — wherever they are in the world.</p>
+        <div class="cta-buttons">
+            <a href="#" class="btn-lg btn-dark">Become a Seller — It's Free →</a>
+            <a href="#" class="btn-lg btn-outline">How pricing works</a>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo">
+                    <span class="logo-dot"></span>
+                    Diaspora
+                </div>
+                <p class="footer-tag">The global marketplace for diaspora businesses. From Dubai to Toronto, Lagos to London — find your people.</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Discover</h4>
+                <a href="#trending">Trending</a>
+                <a href="#browse">Categories</a>
+                <a href="#locations">Cities</a>
+                <a href="#">New Arrivals</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>For Sellers</h4>
+                <a href="#sellers">Get Listed</a>
+                <a href="#">Pricing</a>
+                <a href="#">Seller Dashboard</a>
+                <a href="#">Success Stories</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>Company</h4>
+                <a href="#">About</a>
+                <a href="#">Press</a>
+                <a href="#">Careers</a>
+                <a href="#">Contact</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>Support</h4>
+                <a href="#">Help Center</a>
+                <a href="#">Community</a>
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div>© 2026 Diaspora. Built with love for the global community.</div>
+            <div>🌍 English · Français · العربية · Swahili</div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    function toggleDropdown(el, type) {
+        event.stopPropagation();
+        document.querySelectorAll('.search-field').forEach(f => {
+            if (f !== el) f.classList.remove('open');
+        });
+        el.classList.toggle('open');
+    }
+
+    function selectItem(e, type, value, shortVal) {
+        e.stopPropagation();
+        document.getElementById(type + '-val').textContent = shortVal || value;
+
+        const dd = document.getElementById(type + '-dd');
+        dd.querySelectorAll('.dropdown-item').forEach(i => i.classList.remove('selected'));
+        e.target.closest('.dropdown-item').classList.add('selected');
+
+        document.querySelectorAll('.search-field').forEach(f => f.classList.remove('open'));
+    }
+
+    document.addEventListener('click', () => {
+        document.querySelectorAll('.search-field').forEach(f => f.classList.remove('open'));
+    });
+
+    // Category tab switching
+    document.querySelectorAll('.t-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('.t-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+        });
+    });
+
+    document.querySelectorAll('.region-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('.region-tab').forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+        });
+    });
+</script>
+
+</body>
+</html>

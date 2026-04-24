@@ -3,531 +3,1297 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diaspora App - Design Review</title>
+    <title>Diaspora App - Full Design Review</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            background: linear-gradient(135deg, #0A2758 0%, #297A45 100%);
-            color: #333;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
+            background: #0A0A0A;
+            color: #E5E7EB;
             line-height: 1.6;
         }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 40px 20px;
+        /* Nav */
+        .top-nav {
+            background: linear-gradient(135deg, #0A2758 0%, #297A45 100%);
+            padding: 20px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
 
-        header {
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            margin-bottom: 40px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            text-align: center;
+        .top-nav h1 { color: #F2C206; font-size: 1.5em; }
+
+        .nav-links { display: flex; gap: 15px; flex-wrap: wrap; }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 0.9em;
         }
 
-        h1 {
+        .nav-links a:hover { background: rgba(255,255,255,0.15); }
+
+        .nav-links a.primary {
+            background: #F2C206;
             color: #0A2758;
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            font-weight: 600;
         }
 
-        .subtitle {
-            color: #666;
-            font-size: 1.1em;
-            margin-bottom: 20px;
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #0A2758 0%, #297A45 100%);
+            padding: 80px 40px;
+            text-align: center;
+            color: white;
         }
+
+        .hero h2 { font-size: 3.5em; margin-bottom: 15px; color: #F2C206; letter-spacing: -1px; }
+        .hero p { font-size: 1.2em; max-width: 700px; margin: 0 auto 30px; opacity: 0.95; }
+
+        .tags { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
 
         .tag {
-            display: inline-block;
-            background: #F2C206;
+            background: rgba(242, 194, 6, 0.9);
             color: #0A2758;
-            padding: 8px 16px;
+            padding: 8px 18px;
             border-radius: 20px;
             font-weight: 600;
-            margin: 5px;
+            font-size: 0.9em;
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
+        section {
+            padding: 60px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .card {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-        }
-
-        .card h3 {
-            color: #0A2758;
-            margin-bottom: 10px;
-            font-size: 1.3em;
-        }
-
-        .card p {
-            color: #666;
-            margin-bottom: 15px;
-            font-size: 0.95em;
-        }
-
-        .card-icon {
-            font-size: 2.5em;
-            margin-bottom: 15px;
-        }
-
-        .btn {
-            display: inline-block;
-            background: #F2C206;
-            color: #0A2758;
-            padding: 12px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background 0.3s;
-            border: none;
-            cursor: pointer;
-            font-size: 1em;
-        }
-
-        .btn:hover {
-            background: #F27300;
-            color: white;
-        }
-
-        .btn-secondary {
-            background: #0A2758;
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: #297A45;
-        }
-
-        .figma-embed {
-            width: 100%;
-            height: 600px;
-            border-radius: 12px;
-            margin: 20px 0;
-            border: none;
-        }
-
-        .features {
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            margin: 40px 0;
-        }
-
-        .features h2 {
-            color: #0A2758;
-            margin-bottom: 20px;
-            font-size: 1.8em;
-        }
-
-        .feature-list {
-            columns: 2;
-            gap: 30px;
-        }
-
-        .feature-item {
-            break-inside: avoid;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #E5E7EB;
-        }
-
-        .feature-item:last-child {
-            border-bottom: none;
-        }
-
-        .feature-item strong {
+        section h2 {
             color: #F2C206;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            text-align: center;
+            letter-spacing: -0.5px;
         }
 
-        .timeline {
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            margin: 40px 0;
+        .section-subtitle {
+            text-align: center;
+            color: #9CA3AF;
+            margin-bottom: 50px;
+            font-size: 1.05em;
         }
 
-        .timeline h2 {
-            color: #0A2758;
-            margin-bottom: 20px;
-            font-size: 1.8em;
-        }
-
-        .timeline-item {
-            margin-bottom: 20px;
-            padding-left: 30px;
-            border-left: 3px solid #F2C206;
-            padding-bottom: 20px;
-        }
-
-        .timeline-item strong {
-            color: #0A2758;
-            font-size: 1.1em;
-        }
-
-        .timeline-item p {
-            color: #666;
-            margin-top: 5px;
-        }
-
-        .stats {
+        /* Stats */
+        .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
-            margin: 20px 0;
         }
 
-        .stat-box {
+        .stat {
             background: linear-gradient(135deg, #F2C206 0%, #F27300 100%);
             color: #0A2758;
-            padding: 25px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2em;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            font-size: 0.95em;
-            opacity: 0.9;
-        }
-
-        footer {
-            background: rgba(255,255,255,0.1);
-            color: white;
-            padding: 30px;
-            text-align: center;
-            margin-top: 60px;
+            padding: 30px 20px;
             border-radius: 12px;
+            text-align: center;
         }
 
-        .docs-section {
+        .stat-num { font-size: 2.5em; font-weight: 900; display: block; }
+        .stat-label { font-size: 0.95em; margin-top: 5px; }
+
+        /* PHONE MOCKUPS */
+        .phones-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+            padding: 40px 20px;
+        }
+
+        .phone-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .phone {
+            width: 300px;
+            height: 650px;
+            background: #000;
+            border-radius: 40px;
+            padding: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 2px #333;
+            position: relative;
+        }
+
+        .phone::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 24px;
+            background: #000;
+            border-radius: 0 0 14px 14px;
+            z-index: 10;
+        }
+
+        .screen {
+            width: 100%;
+            height: 100%;
             background: white;
-            padding: 40px;
-            border-radius: 12px;
-            margin: 40px 0;
+            border-radius: 30px;
+            overflow: hidden;
+            position: relative;
+            font-size: 11px;
         }
 
-        .docs-section h2 {
+        .screen-caption {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .screen-caption h3 {
+            color: #F2C206;
+            margin-bottom: 5px;
+            font-size: 1.2em;
+        }
+
+        .screen-caption p {
+            color: #9CA3AF;
+            font-size: 0.9em;
+        }
+
+        /* === SCREEN 1: ONBOARDING === */
+        .onboarding {
+            background: linear-gradient(180deg, #FFF 0%, #FFF7E0 100%);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 50px 20px 30px;
+        }
+
+        .onboarding-hero {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .onboarding-icon {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #F2C206, #F27300);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            box-shadow: 0 10px 30px rgba(242,194,6,0.4);
+        }
+
+        .onboarding-title-sm {
             color: #0A2758;
-            margin-bottom: 20px;
-            font-size: 1.8em;
+            font-size: 18px;
+            text-align: center;
+            margin-top: 30px;
         }
 
-        .doc-item {
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #E5E7EB;
+        .onboarding-title-lg {
+            color: #F2C206;
+            font-size: 36px;
+            font-weight: 900;
+            text-align: center;
+            letter-spacing: -1px;
         }
 
-        .doc-item:last-child {
-            border-bottom: none;
+        .onboarding-subtitle {
+            color: #666;
+            text-align: center;
+            font-size: 12px;
+            line-height: 1.5;
+            max-width: 240px;
+            margin: 10px auto 0;
         }
 
-        .doc-title {
+        .onboarding-dots {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #E5E7EB;
+        }
+
+        .dot.active {
+            background: #F2C206;
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        .btn-primary {
+            background: #F2C206;
+            color: #0A2758;
+            padding: 14px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 13px;
+            margin-top: 20px;
+        }
+
+        .btn-secondary {
+            color: #0A2758;
+            padding: 12px;
+            text-align: center;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+
+        /* === SCREEN 2: HOME FEED === */
+        .home {
+            background: #F5F5F5;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .home-header {
+            background: #0A2758;
+            padding: 45px 16px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #F2C206;
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+        }
+
+        .icon-btn {
+            width: 28px;
+            height: 28px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #F2C206;
+            font-size: 14px;
+        }
+
+        .search-bar {
+            margin: 12px 16px 0;
+            background: white;
+            padding: 10px 14px;
+            border-radius: 20px;
+            color: #999;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .chips {
+            padding: 12px 16px;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+        }
+
+        .chip {
+            background: white;
+            padding: 6px 14px;
+            border-radius: 16px;
+            font-size: 10px;
             color: #0A2758;
             font-weight: 600;
-            margin-bottom: 5px;
+            white-space: nowrap;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
-        .doc-desc {
+        .chip.active {
+            background: #F2C206;
+            color: #0A2758;
+        }
+
+        .biz-card {
+            margin: 8px 16px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .biz-img {
+            height: 100px;
+            background: linear-gradient(135deg, #F2C206 0%, #F27300 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            position: relative;
+        }
+
+        .biz-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(10, 39, 88, 0.9);
+            color: #F2C206;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 8px;
+            font-weight: 600;
+        }
+
+        .biz-info {
+            padding: 10px 12px;
+        }
+
+        .biz-name {
+            color: #0A2758;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+
+        .biz-meta {
             color: #666;
-            font-size: 0.95em;
+            font-size: 10px;
+        }
+
+        .biz-meta strong { color: #F27300; }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            background: white;
+            padding: 10px 0 15px;
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid #E5E7EB;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            font-size: 9px;
+            color: #9CA3AF;
+        }
+
+        .nav-item.active {
+            color: #F2C206;
+            font-weight: 600;
+        }
+
+        .nav-icon {
+            font-size: 18px;
+        }
+
+        /* === SCREEN 3: BUSINESS DETAIL === */
+        .detail {
+            background: white;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .detail-hero {
+            height: 180px;
+            background: linear-gradient(135deg, #F27300 0%, #F2C206 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+        }
+
+        .detail-back {
+            position: absolute;
+            top: 45px;
+            left: 12px;
+            width: 32px;
+            height: 32px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0A2758;
+            font-weight: 700;
+        }
+
+        .detail-share {
+            position: absolute;
+            top: 45px;
+            right: 12px;
+            width: 32px;
+            height: 32px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .detail-dots {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 4px;
+        }
+
+        .detail-dots .dot {
+            width: 6px;
+            height: 6px;
+        }
+
+        .detail-body {
+            padding: 16px;
+            flex: 1;
+        }
+
+        .detail-name {
+            color: #0A2758;
+            font-size: 18px;
+            font-weight: 900;
+        }
+
+        .detail-rating {
+            color: #666;
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        .verified-badge {
+            display: inline-block;
+            background: #297A45;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 9px;
+            font-weight: 600;
+            margin-left: 4px;
+        }
+
+        .info-box {
+            background: #F5F5F5;
+            border-radius: 10px;
+            padding: 12px;
+            margin-top: 14px;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #0A2758;
+            font-size: 11px;
+            padding: 4px 0;
+        }
+
+        .info-icon {
+            width: 18px;
+            text-align: center;
+        }
+
+        .about-title {
+            color: #0A2758;
+            font-size: 12px;
+            font-weight: 700;
+            margin-top: 16px;
+            margin-bottom: 6px;
+        }
+
+        .about-text {
+            color: #666;
+            font-size: 10px;
+            line-height: 1.5;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            margin-top: 10px;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #F2C206, #F27300);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .whatsapp-cta {
+            margin: 14px 16px;
+            background: #25D366;
+            color: white;
+            padding: 12px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            box-shadow: 0 4px 12px rgba(37,211,102,0.3);
+        }
+
+        /* === SCREEN 4: SELLER DASHBOARD === */
+        .dashboard {
+            background: #F5F5F5;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dash-header {
+            background: #0A2758;
+            padding: 45px 16px 16px;
+        }
+
+        .dash-title {
+            color: #F2C206;
+            font-size: 18px;
+            font-weight: 900;
+        }
+
+        .dash-subtitle {
+            color: rgba(255,255,255,0.7);
+            font-size: 10px;
+            margin-top: 2px;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            padding: 12px 16px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 10px 6px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .stat-card-num {
+            color: #F27300;
+            font-size: 16px;
+            font-weight: 900;
+        }
+
+        .stat-card-label {
+            color: #666;
+            font-size: 9px;
+            margin-top: 2px;
+        }
+
+        .dash-section {
+            background: white;
+            margin: 8px 16px;
+            padding: 14px;
+            border-radius: 12px;
+        }
+
+        .dash-section-title {
+            color: #0A2758;
+            font-size: 12px;
+            font-weight: 700;
             margin-bottom: 10px;
         }
 
+        .chart {
+            height: 80px;
+            background: linear-gradient(180deg, rgba(242,194,6,0.15) 0%, transparent 100%);
+            border-radius: 8px;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+            padding: 4px;
+        }
+
+        .bar {
+            flex: 1;
+            background: linear-gradient(180deg, #F2C206, #F27300);
+            border-radius: 2px;
+        }
+
+        .action-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .action-row {
+            background: white;
+            padding: 12px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .action-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #F2C206, #F27300);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+        }
+
+        .action-text {
+            flex: 1;
+        }
+
+        .action-name {
+            color: #0A2758;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .action-sub {
+            color: #9CA3AF;
+            font-size: 9px;
+        }
+
+        .action-arrow { color: #9CA3AF; }
+
+        /* === DESIGN SYSTEM === */
+        .color-palette {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .color-swatch {
+            background: #1F2937;
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: center;
+            border: 1px solid #374151;
+        }
+
+        .color-box { height: 100px; }
+
+        .color-info { padding: 15px; }
+
+        .color-name { color: #F2C206; font-weight: 600; margin-bottom: 3px; }
+
+        .color-hex { color: #9CA3AF; font-size: 0.85em; font-family: monospace; }
+
+        .typography-showcase {
+            background: #1F2937;
+            border-radius: 10px;
+            padding: 30px;
+            border: 1px solid #374151;
+        }
+
+        .typography-showcase > div { padding: 10px 0; border-bottom: 1px solid #374151; }
+        .typography-showcase > div:last-child { border-bottom: none; }
+
+        /* Component Showcase */
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .component-demo {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            border: 1px solid #374151;
+        }
+
+        .component-demo h4 {
+            color: #0A2758;
+            margin-bottom: 15px;
+            font-size: 1em;
+        }
+
+        .demo-btn-primary {
+            background: #F2C206;
+            color: #0A2758;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 700;
+            display: inline-block;
+            margin: 5px;
+        }
+
+        .demo-btn-secondary {
+            background: transparent;
+            color: #0A2758;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 700;
+            border: 2px solid #0A2758;
+            display: inline-block;
+            margin: 5px;
+        }
+
+        .demo-btn-whatsapp {
+            background: #25D366;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 700;
+            display: inline-block;
+            margin: 5px;
+        }
+
+        .demo-input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #0A2758;
+        }
+
+        .demo-stars { color: #F2C206; font-size: 18px; letter-spacing: 2px; }
+
+        .demo-card {
+            background: #F5F5F5;
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .demo-card-img {
+            height: 80px;
+            background: linear-gradient(135deg, #F2C206, #F27300);
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .demo-card-title { color: #0A2758; font-weight: 700; }
+        .demo-card-sub { color: #666; font-size: 12px; }
+
+        /* Features */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-box {
+            background: #1F2937;
+            border-radius: 10px;
+            padding: 25px;
+            border-left: 4px solid #F2C206;
+        }
+
+        .feature-box h3 { color: #F2C206; margin-bottom: 10px; }
+        .feature-box p { color: #D1D5DB; font-size: 0.95em; }
+
+        /* Docs */
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .doc-card {
+            background: #1F2937;
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid #374151;
+        }
+
+        .doc-card:hover { border-color: #F2C206; transform: translateY(-3px); }
+
+        .doc-card h3 { color: #F2C206; margin-bottom: 10px; }
+
+        .doc-card p { color: #9CA3AF; margin-bottom: 15px; font-size: 0.9em; }
+
+        .doc-card a { color: #F2C206; text-decoration: none; font-weight: 600; font-size: 0.9em; }
+
+        /* Footer */
+        footer {
+            background: #000;
+            padding: 40px;
+            text-align: center;
+            color: #9CA3AF;
+            border-top: 1px solid #374151;
+        }
+
+        footer a { color: #F2C206; text-decoration: none; }
+
         @media (max-width: 768px) {
-            .feature-list {
-                columns: 1;
-            }
-
-            h1 {
-                font-size: 1.8em;
-            }
-
-            .grid {
-                grid-template-columns: 1fr;
-            }
+            .hero h2 { font-size: 2em; }
+            section { padding: 40px 20px; }
+            .top-nav { padding: 15px 20px; flex-direction: column; gap: 15px; }
+            .phone { transform: scale(0.9); }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header>
-            <h1>🌍 Diaspora App</h1>
-            <p class="subtitle">Premium Social Commerce Platform for Diaspora Communities</p>
-            <div>
-                <span class="tag">Social Commerce</span>
-                <span class="tag">Diaspora-Focused</span>
-                <span class="tag">Premium Design</span>
-                <span class="tag">$10,000 Budget</span>
-            </div>
-        </header>
 
-        <!-- Quick Stats -->
-        <div class="stats">
-            <div class="stat-box">
-                <div class="stat-number">4</div>
-                <div class="stat-label">Complete Deliverables</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-number">25+</div>
-                <div class="stat-label">Design Screens</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-number">95</div>
-                <div class="stat-label">Total Pages Documented</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-number">50K</div>
-                <div class="stat-label">Year 1 User Target</div>
-            </div>
+    <nav class="top-nav">
+        <h1>🌍 Diaspora App</h1>
+        <div class="nav-links">
+            <a href="#screens">Screens</a>
+            <a href="#system">Design System</a>
+            <a href="#components">Components</a>
+            <a href="#features">Features</a>
+            <a href="#docs">Docs</a>
+            <a href="https://github.com/dnkefua/diaspora-app" target="_blank" class="primary">GitHub ↗</a>
         </div>
+    </nav>
 
-        <!-- Main Deliverables -->
-        <h2 style="color: white; margin: 40px 0 20px 0; font-size: 1.8em;">📦 Deliverables</h2>
-
-        <div class="grid">
-            <!-- Figma Design -->
-            <div class="card">
-                <div class="card-icon">🎨</div>
-                <h3>Figma Design System</h3>
-                <p>Interactive prototype with color palette, typography, components, and 25+ mobile screens.</p>
-                <a href="https://www.figma.com/design/ornKDkGmPrKuRmeaYRlbrD" class="btn" target="_blank">View in Figma →</a>
-            </div>
-
-            <!-- Design Spec -->
-            <div class="card">
-                <div class="card-icon">📋</div>
-                <h3>Design Specification</h3>
-                <p>25-page comprehensive blueprint with user personas, features, flows, design system, and roadmap.</p>
-                <button class="btn" onclick="showDocument('spec')">View Document →</button>
-            </div>
-
-            <!-- Developer Handoff -->
-            <div class="card">
-                <div class="card-icon">👨‍💻</div>
-                <h3>Developer Handoff</h3>
-                <p>30+ page implementation guide with screen specs, API endpoints, database schema, and timeline.</p>
-                <button class="btn" onclick="showDocument('dev')">View Document →</button>
-            </div>
-
-            <!-- Marketing Strategy -->
-            <div class="card">
-                <div class="card-icon">📈</div>
-                <h3>Marketing Strategy</h3>
-                <p>20-page growth plan with GTM, monetization model ($269K Year 1), and quarterly roadmap.</p>
-                <button class="btn" onclick="showDocument('marketing')">View Document →</button>
-            </div>
-
-            <!-- Project Summary -->
-            <div class="card">
-                <div class="card-icon">📊</div>
-                <h3>Project Summary</h3>
-                <p>Quick reference guide with all key information, next steps, and quick links.</p>
-                <button class="btn" onclick="showDocument('summary')">View Document →</button>
-            </div>
-
-            <!-- All Files -->
-            <div class="card">
-                <div class="card-icon">📁</div>
-                <h3>All Files</h3>
-                <p>Access all project files and documentation in your local directory.</p>
-                <button class="btn btn-secondary" onclick="openFolder()">Open Folder →</button>
-            </div>
+    <div class="hero">
+        <h2>Diaspora App</h2>
+        <p>Premium social commerce platform for diaspora communities — complete design, documentation, and go-to-market strategy.</p>
+        <div class="tags">
+            <span class="tag">UAE / Dubai</span>
+            <span class="tag">Mobile-First</span>
+            <span class="tag">WhatsApp Integration</span>
+            <span class="tag">Premium Design</span>
         </div>
-
-        <!-- Features Section -->
-        <div class="features">
-            <h2>✨ Core Features</h2>
-            <div class="feature-list">
-                <div class="feature-item">
-                    <strong>Discovery & Browse</strong><br>
-                    Category filtering (Restaurants, Barbers, Stylists, Jobs), search, infinite scroll
-                </div>
-                <div class="feature-item">
-                    <strong>Business Listings</strong><br>
-                    Rich profiles, photo carousel, videos, WhatsApp button, reviews, ratings
-                </div>
-                <div class="feature-item">
-                    <strong>Seller Dashboard</strong><br>
-                    Shop profile, media management, real-time analytics, review responses
-                </div>
-                <div class="feature-item">
-                    <strong>WhatsApp Integration</strong><br>
-                    Direct contact button, pre-filled messages, click tracking
-                </div>
-                <div class="feature-item">
-                    <strong>Ratings & Reviews</strong><br>
-                    5-star system, text reviews, category tags, business responses, moderation
-                </div>
-                <div class="feature-item">
-                    <strong>Job Postings</strong><br>
-                    Diaspora-focused job listings, application tracking, recruiter tools
-                </div>
-            </div>
-        </div>
-
-        <!-- Timeline Section -->
-        <div class="timeline">
-            <h2>⏱️ Implementation Timeline</h2>
-
-            <div class="timeline-item">
-                <strong>Week 1-4: Build Foundations</strong>
-                <p>User registration & authentication, home feed with filters, business detail pages, WhatsApp integration</p>
-            </div>
-
-            <div class="timeline-item">
-                <strong>Week 5-8: Complete Core</strong>
-                <p>Seller dashboard, media management, analytics, review system, bug fixes & testing</p>
-            </div>
-
-            <div class="timeline-item">
-                <strong>Week 9-12: Polish & Launch</strong>
-                <p>Performance optimization, security audit, app store submission, marketing launch, public release</p>
-            </div>
-
-            <div class="timeline-item">
-                <strong>Month 3-6: Growth Phase</strong>
-                <p>Monitor KPIs, iterate on feedback, add premium features, geographic expansion</p>
-            </div>
-        </div>
-
-        <!-- Documentation Section -->
-        <div class="docs-section">
-            <h2>📚 Documentation Overview</h2>
-
-            <div class="doc-item">
-                <div class="doc-title">DIASPORA_APP_DESIGN_SPEC.md</div>
-                <div class="doc-desc">Complete design blueprint (25 pages) covering vision, personas, features, user flows, design system, tech stack, monetization, and roadmap.</div>
-            </div>
-
-            <div class="doc-item">
-                <div class="doc-title">DIASPORA_DEV_HANDOFF.md</div>
-                <div class="doc-desc">Developer implementation guide (30+ pages) with screen-by-screen specs, 25+ API endpoints, database schema, component specs, and testing checklist.</div>
-            </div>
-
-            <div class="doc-item">
-                <div class="doc-title">DIASPORA_MARKETING_STRATEGY.md</div>
-                <div class="doc-desc">Growth and monetization strategy (20+ pages) with GTM phases, influencer partnerships, $35-45K marketing budget, and $269K Year 1 revenue projection.</div>
-            </div>
-
-            <div class="doc-item">
-                <div class="doc-title">DIASPORA_PROJECT_SUMMARY.md</div>
-                <div class="doc-desc">Quick reference guide with project overview, deliverables, monetization, timeline, tech stack, success criteria, and next steps.</div>
-            </div>
-
-            <div class="doc-item">
-                <div class="doc-title">Figma Design System</div>
-                <div class="doc-desc">Interactive prototype with 4 key mobile screens, color palette (Gold, Orange, Navy, Green), typography, components, and animation specs.</div>
-            </div>
-        </div>
-
-        <!-- Growth Targets -->
-        <div class="features">
-            <h2>🚀 Growth Targets</h2>
-            <table style="width: 100%; border-collapse: collapse;">
-                <tr style="background: #f5f5f5;">
-                    <th style="padding: 12px; text-align: left; border-bottom: 2px solid #0A2758;">Phase</th>
-                    <th style="padding: 12px; text-align: left; border-bottom: 2px solid #0A2758;">Timeline</th>
-                    <th style="padding: 12px; text-align: left; border-bottom: 2px solid #0A2758;">Users</th>
-                    <th style="padding: 12px; text-align: left; border-bottom: 2px solid #0A2758;">Sellers</th>
-                    <th style="padding: 12px; text-align: left; border-bottom: 2px solid #0A2758;">Revenue</th>
-                </tr>
-                <tr>
-                    <td style="padding: 12px; border-bottom: 1px solid #E5E7EB;">Soft Launch</td>
-                    <td style="padding: 12px; border-bottom: 1px solid #E5E7EB;">Week 1-8</td>
-                    <td style="padding: 12px; border-bottom: 1px solid #E5E7EB;">5K</td>
-                    <td style="padding: 12px; border-bottom: 1px solid #E5E7EB;">500</td>
-                    <td style="padding: 12px; border-bottom: 1px solid #E5E7EB;">-</td>
-                </tr>
-                <tr>
-                    <td style="padding: 12px; border-bottom: 1px solid #E5E7EB;">Public Launch</td>
-                    <td style="padding: 12px; border-bottom: 1px solid #E5E7EB;">Week 9-12</td>
-                    <td style="padding: 12px; border-bottom: 1px solid #E5E7EB;">20K</td>
-                    <td style="padding: 12px; border-bottom: 1px solid #E5E7EB;">1K</td>
-                    <td style="padding: 12px; border-bottom: 1px solid #E5E7EB;">$5K</td>
-                </tr>
-                <tr>
-                    <td style="padding: 12px; border-bottom: 1px solid #E5E7EB;">Growth Phase</td>
-                    <td style="padding: 12px; border-bottom: 1px solid #E5E7EB;">Month 3-6</td>
-                    <td style="padding: 12px; border-bottom: 1px solid #E5E7EB;">50K</td>
-                    <td style="padding: 12px; border-bottom: 1px solid #E5E7EB;">2K</td>
-                    <td style="padding: 12px; border-bottom: 1px solid #E5E7EB;">$50K/mo</td>
-                </tr>
-                <tr>
-                    <td style="padding: 12px;">Full Year</td>
-                    <td style="padding: 12px;">Month 12</td>
-                    <td style="padding: 12px;">50K</td>
-                    <td style="padding: 12px;">1.5K</td>
-                    <td style="padding: 12px;">$269K</td>
-                </tr>
-            </table>
-        </div>
-
-        <!-- Next Steps -->
-        <div class="features">
-            <h2>🎯 Next Steps</h2>
-            <ol style="margin-left: 20px; line-height: 2;">
-                <li><strong>Review</strong> all documents with core team</li>
-                <li><strong>Validate</strong> app concept with 10-15 diaspora users</li>
-                <li><strong>Finalize</strong> tech stack (React Native vs Flutter)</li>
-                <li><strong>Setup</strong> development environment & git repo</li>
-                <li><strong>Recruit</strong> first 20 beta sellers for testing</li>
-                <li><strong>Begin</strong> backend API & frontend development</li>
-                <li><strong>Launch</strong> soft beta (Week 5) → Public launch (Week 9)</li>
-            </ol>
-        </div>
-
-        <!-- Footer -->
-        <footer>
-            <p><strong>Diaspora App Design Package</strong></p>
-            <p>Complete premium design system with Figma prototypes, 95+ pages of documentation, and go-to-market strategy</p>
-            <p style="margin-top: 20px; font-size: 0.9em;">Created: April 24, 2026 | Status: Ready for Development</p>
-        </footer>
     </div>
 
-    <script>
-        function showDocument(type) {
-            const files = {
-                spec: 'DIASPORA_APP_DESIGN_SPEC.md',
-                dev: 'DIASPORA_DEV_HANDOFF.md',
-                marketing: 'DIASPORA_MARKETING_STRATEGY.md',
-                summary: 'DIASPORA_PROJECT_SUMMARY.md'
-            };
-            alert(`To view the ${type} document, open:\n\n${files[type]}\n\nin your text editor or markdown viewer.`);
-        }
+    <section>
+        <div class="stats-grid">
+            <div class="stat"><span class="stat-num">4</span><span class="stat-label">Key Screens</span></div>
+            <div class="stat"><span class="stat-num">95+</span><span class="stat-label">Pages of Docs</span></div>
+            <div class="stat"><span class="stat-num">50K</span><span class="stat-label">Year 1 Users</span></div>
+            <div class="stat"><span class="stat-num">$269K</span><span class="stat-label">Year 1 Revenue</span></div>
+        </div>
+    </section>
 
-        function openFolder() {
-            alert('All files are located in:\n\nC:\\Users\\A2Z\\OneDrive\\Documents\\NDN Analytics\\NDN IPFS Chain\\');
-        }
-    </script>
+    <!-- ═══════════ MOBILE SCREENS ═══════════ -->
+    <section id="screens">
+        <h2>📱 Mobile App Screens</h2>
+        <p class="section-subtitle">Interactive mockups of all 4 key mobile screens</p>
+
+        <div class="phones-grid">
+
+            <!-- SCREEN 1: ONBOARDING -->
+            <div class="phone-wrapper">
+                <div class="phone">
+                    <div class="screen">
+                        <div class="onboarding">
+                            <div class="onboarding-hero">
+                                <div class="onboarding-icon">🌍</div>
+                                <div>
+                                    <div class="onboarding-title-sm">Welcome to</div>
+                                    <div class="onboarding-title-lg">Diaspora</div>
+                                </div>
+                                <div class="onboarding-subtitle">Connect with diaspora communities & businesses worldwide</div>
+                                <div class="onboarding-dots">
+                                    <div class="dot active"></div>
+                                    <div class="dot"></div>
+                                    <div class="dot"></div>
+                                </div>
+                            </div>
+                            <div class="btn-primary">Get Started</div>
+                            <div class="btn-secondary">Already have an account? Sign In</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen-caption">
+                    <h3>01 · Onboarding</h3>
+                    <p>Welcome screen with CTA</p>
+                </div>
+            </div>
+
+            <!-- SCREEN 2: HOME FEED -->
+            <div class="phone-wrapper">
+                <div class="phone">
+                    <div class="screen">
+                        <div class="home">
+                            <div class="home-header">
+                                <div class="logo">Diaspora</div>
+                                <div style="display: flex; gap: 8px;">
+                                    <div class="icon-btn">🔔</div>
+                                    <div class="icon-btn">👤</div>
+                                </div>
+                            </div>
+                            <div class="search-bar">🔍 Search restaurants, jobs, barbers...</div>
+                            <div class="chips">
+                                <div class="chip active">All</div>
+                                <div class="chip">🍲 Restaurants</div>
+                                <div class="chip">✂️ Barbers</div>
+                                <div class="chip">💼 Jobs</div>
+                            </div>
+                            <div style="flex: 1; overflow-y: auto;">
+                                <div class="biz-card">
+                                    <div class="biz-img">
+                                        🍛
+                                        <div class="biz-badge">✓ Verified</div>
+                                    </div>
+                                    <div class="biz-info">
+                                        <div class="biz-name">Nile Valley Restaurant</div>
+                                        <div class="biz-meta"><strong>⭐ 4.8</strong> · 124 reviews · Dubai Marina</div>
+                                    </div>
+                                </div>
+                                <div class="biz-card">
+                                    <div class="biz-img">
+                                        🍲
+                                    </div>
+                                    <div class="biz-info">
+                                        <div class="biz-name">Fresh Jollof Kitchen</div>
+                                        <div class="biz-meta"><strong>⭐ 4.6</strong> · 87 reviews · Al Barsha</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bottom-nav">
+                                <div class="nav-item active"><div class="nav-icon">🏠</div>Home</div>
+                                <div class="nav-item"><div class="nav-icon">🔍</div>Search</div>
+                                <div class="nav-item"><div class="nav-icon">💬</div>Chat</div>
+                                <div class="nav-item"><div class="nav-icon">👤</div>Profile</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen-caption">
+                    <h3>02 · Home Feed</h3>
+                    <p>Browse & discover businesses</p>
+                </div>
+            </div>
+
+            <!-- SCREEN 3: BUSINESS DETAIL -->
+            <div class="phone-wrapper">
+                <div class="phone">
+                    <div class="screen">
+                        <div class="detail">
+                            <div class="detail-hero">
+                                🍛
+                                <div class="detail-back">←</div>
+                                <div class="detail-share">↗</div>
+                                <div class="detail-dots">
+                                    <div class="dot active"></div>
+                                    <div class="dot"></div>
+                                    <div class="dot"></div>
+                                </div>
+                            </div>
+                            <div class="detail-body">
+                                <div class="detail-name">Nile Valley Restaurant <span class="verified-badge">✓</span></div>
+                                <div class="detail-rating">⭐ 4.8/5.0 · 124 reviews · African Cuisine</div>
+
+                                <div class="info-box">
+                                    <div class="info-row"><span class="info-icon">📞</span>+971 50 123 4567</div>
+                                    <div class="info-row"><span class="info-icon">📍</span>Dubai Marina, UAE</div>
+                                    <div class="info-row"><span class="info-icon">🕐</span>9:00 AM - 11:00 PM</div>
+                                </div>
+
+                                <div class="about-title">About</div>
+                                <div class="about-text">Authentic African cuisine featuring jollof rice, suya, pepper soup and more. Family-owned since 2019.</div>
+
+                                <div class="about-title">Gallery</div>
+                                <div class="gallery">
+                                    <div class="gallery-item">🍛</div>
+                                    <div class="gallery-item">🍲</div>
+                                    <div class="gallery-item">🥘</div>
+                                    <div class="gallery-item">🍗</div>
+                                    <div class="gallery-item">🥙</div>
+                                    <div class="gallery-item">🍱</div>
+                                </div>
+                            </div>
+                            <div class="whatsapp-cta">💬 Contact via WhatsApp</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen-caption">
+                    <h3>03 · Business Detail</h3>
+                    <p>Rich profile with WhatsApp CTA</p>
+                </div>
+            </div>
+
+            <!-- SCREEN 4: SELLER DASHBOARD -->
+            <div class="phone-wrapper">
+                <div class="phone">
+                    <div class="screen">
+                        <div class="dashboard">
+                            <div class="dash-header">
+                                <div class="dash-title">My Shop</div>
+                                <div class="dash-subtitle">Nile Valley Restaurant</div>
+                            </div>
+                            <div class="stats-row">
+                                <div class="stat-card">
+                                    <div class="stat-card-num">1,245</div>
+                                    <div class="stat-card-label">Views</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-card-num">42</div>
+                                    <div class="stat-card-label">Contacts</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-card-num">4.8</div>
+                                    <div class="stat-card-label">Rating</div>
+                                </div>
+                            </div>
+                            <div class="dash-section">
+                                <div class="dash-section-title">📈 Views This Week</div>
+                                <div class="chart">
+                                    <div class="bar" style="height: 40%"></div>
+                                    <div class="bar" style="height: 60%"></div>
+                                    <div class="bar" style="height: 50%"></div>
+                                    <div class="bar" style="height: 80%"></div>
+                                    <div class="bar" style="height: 65%"></div>
+                                    <div class="bar" style="height: 90%"></div>
+                                    <div class="bar" style="height: 75%"></div>
+                                </div>
+                            </div>
+                            <div style="flex: 1; padding: 0 16px;">
+                                <div class="action-list">
+                                    <div class="action-row">
+                                        <div class="action-icon">📷</div>
+                                        <div class="action-text">
+                                            <div class="action-name">Photos & Videos</div>
+                                            <div class="action-sub">12 photos · 1 video</div>
+                                        </div>
+                                        <div class="action-arrow">›</div>
+                                    </div>
+                                    <div class="action-row">
+                                        <div class="action-icon">🎯</div>
+                                        <div class="action-text">
+                                            <div class="action-name">Promotions</div>
+                                            <div class="action-sub">2 active deals</div>
+                                        </div>
+                                        <div class="action-arrow">›</div>
+                                    </div>
+                                    <div class="action-row">
+                                        <div class="action-icon">⭐</div>
+                                        <div class="action-text">
+                                            <div class="action-name">Reviews</div>
+                                            <div class="action-sub">3 need response</div>
+                                        </div>
+                                        <div class="action-arrow">›</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen-caption">
+                    <h3>04 · Seller Dashboard</h3>
+                    <p>Shop management & analytics</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══════════ DESIGN SYSTEM ═══════════ -->
+    <section id="system">
+        <h2>🎨 Design System</h2>
+        <p class="section-subtitle">Colors, typography, and design tokens</p>
+
+        <h3 style="color: #F2C206; margin-bottom: 10px;">Color Palette</h3>
+        <div class="color-palette">
+            <div class="color-swatch">
+                <div class="color-box" style="background: #F2C206;"></div>
+                <div class="color-info"><div class="color-name">Primary Gold</div><div class="color-hex">#F2C206</div></div>
+            </div>
+            <div class="color-swatch">
+                <div class="color-box" style="background: #F27300;"></div>
+                <div class="color-info"><div class="color-name">Primary Orange</div><div class="color-hex">#F27300</div></div>
+            </div>
+            <div class="color-swatch">
+                <div class="color-box" style="background: #0A2758;"></div>
+                <div class="color-info"><div class="color-name">Deep Navy</div><div class="color-hex">#0A2758</div></div>
+            </div>
+            <div class="color-swatch">
+                <div class="color-box" style="background: #297A45;"></div>
+                <div class="color-info"><div class="color-name">Forest Green</div><div class="color-hex">#297A45</div></div>
+            </div>
+            <div class="color-swatch">
+                <div class="color-box" style="background: #25D366;"></div>
+                <div class="color-info"><div class="color-name">WhatsApp Green</div><div class="color-hex">#25D366</div></div>
+            </div>
+            <div class="color-swatch">
+                <div class="color-box" style="background: #F5F5F5;"></div>
+                <div class="color-info"><div class="color-name">Light Gray</div><div class="color-hex">#F5F5F5</div></div>
+            </div>
+        </div>
+
+        <h3 style="color: #F2C206; margin-top: 40px; margin-bottom: 10px;">Typography Scale</h3>
+        <div class="typography-showcase">
+            <div><span style="font-size: 2em; color: #F2C206; font-weight: 700;">Headline · Inter Bold 32px</span></div>
+            <div><span style="font-size: 1.5em; color: white; font-weight: 600;">Subhead · Inter Semibold 20px</span></div>
+            <div><span style="font-size: 1em; color: #E5E7EB;">Body Text · Inter Regular 14px</span></div>
+            <div><span style="font-size: 0.85em; color: #9CA3AF;">Caption · Inter Regular 12px</span></div>
+        </div>
+    </section>
+
+    <!-- ═══════════ COMPONENTS ═══════════ -->
+    <section id="components">
+        <h2>🧩 Component Library</h2>
+        <p class="section-subtitle">Core UI components used throughout the app</p>
+
+        <div class="components-grid">
+
+            <div class="component-demo">
+                <h4>Buttons</h4>
+                <div class="demo-btn-primary">Get Started</div>
+                <div class="demo-btn-secondary">Cancel</div>
+                <div class="demo-btn-whatsapp">💬 Contact via WhatsApp</div>
+            </div>
+
+            <div class="component-demo">
+                <h4>Input Fields</h4>
+                <input type="text" class="demo-input" placeholder="Search restaurants..." />
+                <br><br>
+                <input type="text" class="demo-input" placeholder="your@email.com" />
+            </div>
+
+            <div class="component-demo">
+                <h4>Rating Display</h4>
+                <div class="demo-stars">★★★★★</div>
+                <div style="color: #666; font-size: 12px; margin-top: 5px;">4.8 out of 5 (124 reviews)</div>
+                <br>
+                <div class="demo-stars">★★★★☆</div>
+                <div style="color: #666; font-size: 12px; margin-top: 5px;">4.2 out of 5 (56 reviews)</div>
+            </div>
+
+            <div class="component-demo">
+                <h4>Business Card</h4>
+                <div class="demo-card">
+                    <div class="demo-card-img"></div>
+                    <div class="demo-card-title">Nile Valley Restaurant</div>
+                    <div class="demo-card-sub">⭐ 4.8 · 124 reviews</div>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <h4>Category Chips</h4>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                    <span style="background: #F2C206; color: #0A2758; padding: 8px 16px; border-radius: 20px; font-weight: 600; font-size: 13px;">All</span>
+                    <span style="background: #F5F5F5; color: #0A2758; padding: 8px 16px; border-radius: 20px; font-size: 13px;">🍲 Restaurants</span>
+                    <span style="background: #F5F5F5; color: #0A2758; padding: 8px 16px; border-radius: 20px; font-size: 13px;">✂️ Barbers</span>
+                </div>
+            </div>
+
+            <div class="component-demo">
+                <h4>Verified Badge</h4>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <span style="background: #297A45; color: white; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 600;">✓ Verified</span>
+                    <span style="background: #F2C206; color: #0A2758; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 600;">⭐ Premium</span>
+                    <span style="background: #0A2758; color: white; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 600;">NEW</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══════════ FEATURES ═══════════ -->
+    <section id="features">
+        <h2>✨ Core Features</h2>
+        <p class="section-subtitle">Six complete features built into the design</p>
+
+        <div class="feature-grid">
+            <div class="feature-box">
+                <h3>🔍 Discovery & Browse</h3>
+                <p>Category filters (Restaurants, Barbers, Stylists, Jobs), search, infinite scroll feed</p>
+            </div>
+            <div class="feature-box">
+                <h3>🏪 Business Listings</h3>
+                <p>Rich profiles, photo/video carousel, ratings, WhatsApp CTA button</p>
+            </div>
+            <div class="feature-box">
+                <h3>💬 WhatsApp Integration</h3>
+                <p>Direct contact button with pre-filled messages and click tracking</p>
+            </div>
+            <div class="feature-box">
+                <h3>⭐ Ratings & Reviews</h3>
+                <p>5-star rating, text + photo reviews, category tags, business responses</p>
+            </div>
+            <div class="feature-box">
+                <h3>📊 Seller Dashboard</h3>
+                <p>Shop management, media uploads, real-time analytics, review moderation</p>
+            </div>
+            <div class="feature-box">
+                <h3>💼 Job Postings</h3>
+                <p>Diaspora-focused marketplace, application tracking, recruiter tools</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════ DOCS ═══════════ -->
+    <section id="docs">
+        <h2>📚 Documentation</h2>
+        <p class="section-subtitle">95+ pages of specs, handoff guides, and strategy</p>
+
+        <div class="docs-grid">
+            <div class="doc-card">
+                <h3>📋 Design Spec</h3>
+                <p>25-page blueprint — personas, features, flows, design system, tech stack, roadmap</p>
+                <a href="DIASPORA_APP_DESIGN_SPEC.md" target="_blank">Read Document →</a>
+            </div>
+            <div class="doc-card">
+                <h3>👨‍💻 Developer Handoff</h3>
+                <p>30+ pages — screen specs, 25+ API endpoints, database schema, component specs</p>
+                <a href="DIASPORA_DEV_HANDOFF.md" target="_blank">Read Document →</a>
+            </div>
+            <div class="doc-card">
+                <h3>📈 Marketing Strategy</h3>
+                <p>20+ pages — GTM, monetization, $269K Year 1 revenue plan, KPI targets</p>
+                <a href="DIASPORA_MARKETING_STRATEGY.md" target="_blank">Read Document →</a>
+            </div>
+            <div class="doc-card">
+                <h3>📊 Project Summary</h3>
+                <p>Quick reference — overview, deliverables, timeline, next steps, budget</p>
+                <a href="DIASPORA_PROJECT_SUMMARY.md" target="_blank">Read Document →</a>
+            </div>
+            <div class="doc-card">
+                <h3>📘 README</h3>
+                <p>Project overview, quick start guide, and tech stack recommendations</p>
+                <a href="README.md" target="_blank">Read Document →</a>
+            </div>
+            <div class="doc-card">
+                <h3>🐙 GitHub Repo</h3>
+                <p>Full project with all files, documentation, and version history</p>
+                <a href="https://github.com/dnkefua/diaspora-app" target="_blank">Open on GitHub ↗</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p><strong>Diaspora App</strong> — Premium Design Package</p>
+        <p style="margin-top: 10px;">GitHub: <a href="https://github.com/dnkefua/diaspora-app" target="_blank">github.com/dnkefua/diaspora-app</a></p>
+        <p style="margin-top: 10px; font-size: 0.85em;">Created April 2026 · Status: Ready for Development</p>
+    </footer>
+
 </body>
 </html>
