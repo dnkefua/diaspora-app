@@ -8,3 +8,7 @@ dist/
 build/
 .vscode/
 .idea/
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
