@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/png" href="Media%20resources/TheDiaspora%20app%20logo%203D.png">
 <title>Verify Your Phone — Diaspora</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="auth.css">
@@ -143,7 +144,7 @@
 <body>
 <div class="otp-wrap">
   <div class="otp-card">
-    <a href="signup.html" class="back-link">← Back to sign up</a>
+    <a href="signup-firebase.html" class="back-link">← Back to sign up</a>
 
     <!-- Verification Form -->
     <div id="verify-form">
@@ -152,7 +153,7 @@
       <p class="otp-sub">We sent a 6-digit code to</p>
       <div class="otp-phone-display">
         <span id="phone-display">+971 50 *** 4567</span>
-        <a href="signup.html">Edit</a>
+        <a href="signup-firebase.html">Edit</a>
       </div>
 
       <div class="otp-boxes" id="otp-boxes">
@@ -195,9 +196,7 @@
 </div>
 
 <script type="module">
-import { auth, db, generateOTP } from './firebase-config.js';
-import { doc, getDoc, updateDoc } from 'https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js';
-import { updateProfile } from 'https://www.gstatic.com/firebasejs/11.5.0/firebase-auth.js';
+import { auth, db, generateOTP, doc, getDoc, updateDoc, updateProfile } from './firebase-config.js';
 
 const DEMO_OTP = '123456';
 const boxes = document.querySelectorAll('.otp-box');
@@ -268,8 +267,10 @@ async function completeVerification() {
     });
   }
 
-  // Save to localStorage for session
-  localStorage.setItem('diaspora_user', JSON.stringify(user));
+  const { password, otpCode, otpExpires, ...sessionUser } = user;
+
+  // Save to localStorage for static-page session reads without persisting secrets.
+  localStorage.setItem('diaspora_user', JSON.stringify(sessionUser));
   sessionStorage.removeItem('diaspora_pending');
 
   // Show success

@@ -23,7 +23,12 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+let analytics = null;
+try {
+  analytics = getAnalytics(app);
+} catch (error) {
+  console.warn('Firebase Analytics unavailable in this browser context:', error);
+}
 
 // Initialize services
 const auth = getAuth(app);

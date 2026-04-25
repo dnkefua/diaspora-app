@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/png" href="Media%20resources/TheDiaspora%20app%20logo%203D.png">
 <title>Seller Dashboard — Diaspora</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
@@ -31,6 +32,8 @@ a { text-decoration: none; color: inherit; }
   max-width: 1000px; margin: 0 auto;
   display: flex; justify-content: space-between; align-items: center;
 }
+.brand-head { display: flex; align-items: center; gap: 14px; }
+.brand-head img { width: 116px; height: 44px; object-fit: contain; border-radius: 12px; background: #fff; padding: 4px; }
 .header h1 { font-size: 28px; font-weight: 600; }
 .header-actions { display: flex; gap: 12px; }
 .btn {
@@ -246,7 +249,10 @@ a { text-decoration: none; color: inherit; }
 <div id="app" style="display: none;">
   <header class="header">
     <div class="header-content">
-      <h1>Seller Dashboard</h1>
+      <div class="brand-head">
+        <img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="The Diaspora App logo">
+        <h1>Seller Dashboard</h1>
+      </div>
       <div class="header-actions">
         <button class="btn btn-outline" onclick="window.location.href='feed.html'">View App</button>
         <button class="btn btn-primary" onclick="handleLogout()">Sign Out</button>
@@ -435,8 +441,7 @@ a { text-decoration: none; color: inherit; }
 </div>
 
 <script type="module">
-import { auth, db, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/11.5.0/firebase-auth.js';
-import { doc, getDoc, setDoc, collection, query, where, getDocs, updateDoc } from 'https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js';
+import { auth, db, onAuthStateChanged, signOut, doc, setDoc, collection, query, where, getDocs, updateDoc } from './firebase-config.js';
 
 let currentUser = null;
 let businessId = null;
@@ -673,8 +678,10 @@ function renderMockReviews() {
 window.handleLogout = async function() {
   try {
     await signOut(auth);
+    localStorage.removeItem('diaspora_user');
     window.location.href = 'index.html';
   } catch (error) {
+    localStorage.removeItem('diaspora_user');
     window.location.href = 'index.html';
   }
 };
@@ -686,6 +693,11 @@ function showToast(message, type = '') {
   toast.className = 'toast show ' + type;
   setTimeout(() => toast.classList.remove('show'), 3000);
 }
+
+window.saveProfile = saveProfile;
+window.handlePhotoUpload = handlePhotoUpload;
+window.deletePhoto = deletePhoto;
+window.showToast = showToast;
 </script>
 </body>
 </html>

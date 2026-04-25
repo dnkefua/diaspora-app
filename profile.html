@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/png" href="Media%20resources/TheDiaspora%20app%20logo%203D.png">
 <title>My Profile — Diaspora</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="auth.css">
@@ -10,7 +11,8 @@
   body{background:var(--cream)}
   .topnav{position:sticky;top:0;z-index:40;background:rgba(250,247,242,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);padding:16px 32px;display:flex;align-items:center;justify-content:space-between}
   .topnav .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;letter-spacing:-0.02em}
-  .topnav .logo .dot{width:12px;height:12px;border-radius:50%;background:var(--gold)}
+  .topnav .logo img{width:116px;height:44px;object-fit:contain;border-radius:12px;background:#fff;padding:4px}
+  .topnav .logo .dot{display:none}
   .topnav .nav-menu{display:flex;align-items:center;gap:28px;font-size:14px}
   .topnav .nav-menu a{color:var(--ink);opacity:0.75;transition:opacity .15s}
   .topnav .nav-menu a:hover{opacity:1}
@@ -85,7 +87,9 @@
 <body>
 
 <nav class="topnav">
-  <a href="index.html" class="logo"><span class="dot"></span> Diaspora</a>
+  <a href="index.html" class="logo" aria-label="The Diaspora App home">
+    <img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="The Diaspora App logo">
+  </a>
   <div class="nav-menu">
     <a href="index.html#trending">Discover</a>
     <a href="index.html#browse">Browse</a>
@@ -227,13 +231,19 @@
   </div>
 </div>
 
-<script>
-function requireAuth(){
+<script type="module">
+import { auth, db, onAuthStateChanged, signOut, doc, getDoc, updateDoc } from './firebase-config.js';
+
+let firebaseUser = null;
+let profileData = null;
+
+function requireLocalAuth(){
   var u = JSON.parse(localStorage.getItem('diaspora_user') || 'null');
-  if (!u || !u.email){ window.location.href = 'login.html'; return null; }
+  if (!u || !u.email){ window.location.href = 'login-firebase.html'; return null; }
   return u;
 }
 function renderProfile(u){
+  profileData = u;
   var name = (u.firstName||'') + ' ' + (u.lastName||'');
   document.getElementById('p-name').textContent = name.trim() || 'Welcome';
   document.getElementById('p-email').textContent = '📧 ' + (u.email || '');
@@ -254,7 +264,7 @@ function renderProfile(u){
   if (u.bio && u.bio.trim()){ document.getElementById('bio-view').textContent = u.bio; document.getElementById('bio-view').style.color = 'var(--ink)'; }
 }
 function openEdit(){
-  var u = JSON.parse(localStorage.getItem('diaspora_user'));
+  var u = profileData || JSON.parse(localStorage.getItem('diaspora_user'));
   document.getElementById('e-first').value = u.firstName || '';
   document.getElementById('e-last').value = u.lastName || '';
   document.getElementById('e-email').value = u.email || '';
@@ -264,9 +274,9 @@ function openEdit(){
   document.getElementById('editModal').classList.add('open');
 }
 function closeEdit(){ document.getElementById('editModal').classList.remove('open'); }
-function saveProfile(e){
+async function saveProfile(e){
   e.preventDefault();
-  var u = JSON.parse(localStorage.getItem('diaspora_user'));
+  var u = profileData || JSON.parse(localStorage.getItem('diaspora_user'));
   u.firstName = document.getElementById('e-first').value.trim();
   u.lastName  = document.getElementById('e-last').value.trim();
   u.email     = document.getElementById('e-email').value.trim();
@@ -274,6 +284,22 @@ function saveProfile(e){
   u.city      = document.getElementById('e-city').value.trim();
   u.bio       = document.getElementById('e-bio').value.trim();
   localStorage.setItem('diaspora_user', JSON.stringify(u));
+  profileData = u;
+  if (firebaseUser) {
+    try {
+      await updateDoc(doc(db, 'users', firebaseUser.uid), {
+        firstName: u.firstName,
+        lastName: u.lastName,
+        email: u.email,
+        phone: u.phone,
+        city: u.city,
+        bio: u.bio,
+        updatedAt: new Date().toISOString()
+      });
+    } catch (error) {
+      console.warn('Firebase profile update failed:', error);
+    }
+  }
   closeEdit();
   renderProfile(u);
 }
@@ -284,21 +310,44 @@ function chooseAvatar(){
     var f = ev.target.files[0]; if (!f) return;
     var r = new FileReader();
     r.onload = function(e){
-      var u = JSON.parse(localStorage.getItem('diaspora_user'));
+      var u = profileData || JSON.parse(localStorage.getItem('diaspora_user'));
       u.avatar = e.target.result;
       localStorage.setItem('diaspora_user', JSON.stringify(u));
+      profileData = u;
       renderProfile(u);
     };
     r.readAsDataURL(f);
   };
   input.click();
 }
-function logout(){
+async function logout(){
+  try {
+    if (firebaseUser) await signOut(auth);
+  } catch (error) {
+    console.warn('Firebase sign out failed:', error);
+  }
   localStorage.removeItem('diaspora_user');
   window.location.href = 'index.html';
 }
-var me = requireAuth();
-if (me) renderProfile(me);
+
+onAuthStateChanged(auth, async (user) => {
+  firebaseUser = user;
+  if (user) {
+    let profile = { uid: user.uid, email: user.email, firstName: user.displayName || 'Diaspora', lastName: 'Member', joined: new Date().toISOString() };
+    try {
+      const userSnap = await getDoc(doc(db, 'users', user.uid));
+      if (userSnap.exists()) profile = { ...profile, ...userSnap.data() };
+    } catch (error) {
+      console.warn('Firebase profile lookup failed:', error);
+    }
+    localStorage.setItem('diaspora_user', JSON.stringify(profile));
+    renderProfile(profile);
+    return;
+  }
+
+  var me = requireLocalAuth();
+  if (me) renderProfile(me);
+});
 
 // Tabs (presentational only in v1)
 document.querySelectorAll('.tab').forEach(function(t){
@@ -307,6 +356,12 @@ document.querySelectorAll('.tab').forEach(function(t){
     t.classList.add('active');
   };
 });
+
+window.openEdit = openEdit;
+window.closeEdit = closeEdit;
+window.saveProfile = saveProfile;
+window.chooseAvatar = chooseAvatar;
+window.logout = logout;
 </script>
 </body>
 </html>

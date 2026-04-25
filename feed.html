@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<link rel="icon" type="image/png" href="Media%20resources/TheDiaspora%20app%20logo%203D.png">
 <title>Feed — Diaspora</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
@@ -44,7 +45,8 @@ a { text-decoration: none; color: inherit; }
 .header-top {
   display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;
 }
-.logo { font-size: 24px; letter-spacing: -0.02em; color: var(--blue); }
+.logo { display: flex; align-items: center; gap: 10px; color: var(--blue); }
+.logo img { width: 118px; height: 44px; object-fit: contain; border-radius: 12px; background: #fff; padding: 4px; }
 .header-actions button {
   background: none; border: none; font-size: 20px; cursor: pointer; padding: 4px;
 }
@@ -171,7 +173,9 @@ a { text-decoration: none; color: inherit; }
 
 <div class="header">
   <div class="header-top">
-    <h1 class="logo">Diaspora</h1>
+    <a href="index.html" class="logo" aria-label="The Diaspora App home">
+      <img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="The Diaspora App logo">
+    </a>
     <div class="header-actions">
       <button aria-label="Notifications" onclick="alert('Notifications coming soon!')">🔔</button>
     </div>
@@ -221,7 +225,7 @@ a { text-decoration: none; color: inherit; }
 </nav>
 
 <script type="module">
-import { db, collection, getDocs, query, orderBy } from 'https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js';
+import { db, collection, getDocs, query, orderBy } from './firebase-config.js';
 
 let allBusinesses = [];
 let activeCategory = 'All';

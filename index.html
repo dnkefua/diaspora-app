@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/png" href="Media%20resources/TheDiaspora%20app%20logo%203D.png">
 <title>Diaspora — A Tribute to the Global Diaspora Soul</title>
 <meta name="description" content="Authentic restaurants, stylists, barbers, photographers, and jobs — curated for the global diaspora. From Dubai to Toronto to London.">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -75,8 +76,14 @@ button{font-family:inherit;cursor:pointer}
 .nav-link:hover{opacity:1}
 
 .brand{
-  justify-self:center; display:flex; flex-direction:column; align-items:center; gap:2px;
+  justify-self:center; display:flex; align-items:center; justify-content:center;
   text-align:center; padding:0 12px;
+}
+.brand-logo{
+  width:152px; height:56px; object-fit:contain; border-radius:14px;
+  background:rgba(255,255,255,0.94); padding:4px;
+  box-shadow:0 16px 40px rgba(0,0,0,0.18);
+  transition:width 0.3s, height 0.3s, box-shadow 0.3s, background 0.3s;
 }
 .brand-mark{
   font-family:'Cormorant Garamond',serif;
@@ -85,9 +92,11 @@ button{font-family:inherit;cursor:pointer}
 }
 .brand-mark em{font-style:italic;color:var(--brass);font-weight:400}
 .brand-sub{
+  display:none;
   font-size:9px; letter-spacing:0.4em; text-transform:uppercase;
   color:var(--muted); margin-top:2px;
 }
+.topnav.scrolled .brand-logo{width:132px;height:48px;box-shadow:none;background:#fff}
 .topnav.light .nav-link, .topnav.light .brand-mark, .topnav.light .brand-sub{color:var(--paper)}
 .topnav.light:not(.scrolled) .brand-mark em{color:var(--brass-soft)}
 
@@ -146,6 +155,11 @@ button{font-family:inherit;cursor:pointer}
   animation:heroIn 1.4s cubic-bezier(.2,.7,.2,1) 0.3s forwards;
 }
 @keyframes heroIn{to{opacity:1;transform:translateY(0)}}
+.hero-logo{
+  width:min(230px, 58vw); height:auto; margin:0 auto 24px;
+  border-radius:24px; background:rgba(255,255,255,0.96); padding:8px;
+  box-shadow:0 28px 90px rgba(0,0,0,0.48);
+}
 
 .hero-kicker{
   color:var(--brass-soft);
@@ -516,6 +530,10 @@ footer{
   font-size:36px; letter-spacing:0.1em; line-height:1;
 }
 .foot-brand em{font-style:italic; color:var(--brass-soft)}
+.foot-logo{
+  width:176px; height:auto; object-fit:contain; border-radius:16px;
+  background:#fff; padding:6px; margin-bottom:18px;
+}
 .foot-tag{font-size:13px; line-height:1.8; color:rgba(246,242,234,0.6); margin-top:18px; max-width:320px}
 .foot-socials{display:flex; gap:14px; margin-top:26px}
 .foot-socials a{
@@ -559,6 +577,9 @@ footer{
   .topnav{grid-template-columns:auto 1fr auto; padding:14px 20px}
   .nav-left, .nav-right{gap:14px}
   .nav-left .nav-link, .nav-right .nav-link{display:none}
+  .brand-logo{width:118px;height:44px}
+  .topnav.scrolled .brand-logo{width:108px;height:40px}
+  .hero-logo{width:min(180px, 52vw); border-radius:18px; margin-bottom:20px}
   section{padding:90px 20px}
   .editorial{padding:90px 20px}
   .trending, .cities, .hours, .closing{padding:90px 20px}
@@ -590,14 +611,14 @@ footer{
     <a href="#trending" class="nav-link">Discover</a>
     <a href="#cats" class="nav-link">Categories</a>
   </div>
-  <a href="#" class="brand" aria-label="Diaspora home">
-    <span class="brand-mark">Diaspor<em>a</em></span>
+  <a href="index.html" class="brand" aria-label="The Diaspora App home">
+    <img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="The Diaspora App logo" class="brand-logo">
     <span class="brand-sub">Est. 2026 · Global</span>
   </a>
   <div class="nav-right">
     <a href="#cities" class="nav-link">Cities</a>
     <a href="#sellers" class="nav-link">For Sellers</a>
-    <a href="login.html" class="nav-account" id="nav-account">Sign in</a>
+    <a href="login-firebase.html" class="nav-account" id="nav-account">Sign in</a>
   </div>
 </nav>
 
@@ -605,6 +626,7 @@ footer{
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-inner">
+    <img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="The Diaspora App logo" class="hero-logo">
     <div class="kicker hero-kicker">A Tribute to the Global Diaspora</div>
     <h1 class="hero-title">Find your <em>people.</em><br>Wherever you are.</h1>
     <p class="hero-lede">
@@ -614,7 +636,7 @@ footer{
     </p>
     <div class="hero-ctas">
       <a href="feed.html" class="btn btn-light">Explore the App</a>
-      <a href="signup.html" class="btn btn-outline">Join Diaspora</a>
+      <a href="signup-firebase.html" class="btn btn-outline">Join Diaspora</a>
     </div>
   </div>
   <div class="scroll-cue">Scroll<span></span></div>
@@ -1001,7 +1023,7 @@ footer{
       reach 2.4 million diaspora members worldwide. Free to start. Zero commission. Forever.
     </p>
     <div class="hero-ctas">
-      <a href="signup.html" class="btn btn-light">Become a Seller</a>
+      <a href="signup-firebase.html" class="btn btn-light">Become a Seller</a>
       <a href="#cats" class="btn btn-outline">Explore Categories</a>
     </div>
   </div>
@@ -1011,7 +1033,7 @@ footer{
 <footer>
   <div class="footer-top">
     <div>
-      <div class="foot-brand">Diaspor<em>a</em></div>
+      <img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="The Diaspora App logo" class="foot-logo">
       <p class="foot-tag">A tribute to the global diaspora soul — authentic food, skilled hands, and the jobs that keep our communities thriving.</p>
       <div class="foot-socials">
         <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
@@ -1030,7 +1052,7 @@ footer{
     </div>
     <div class="foot-col">
       <h4>For Sellers</h4>
-      <a href="signup.html">List Your Business</a>
+      <a href="signup-firebase.html">List Your Business</a>
       <a href="#">Pricing</a>
       <a href="#">Seller Guide</a>
       <a href="#">Success Stories</a>
@@ -1104,6 +1126,33 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
     }
   } catch(e){}
 })();
+</script>
+
+<script type="module">
+import { auth, db, onAuthStateChanged, doc, getDoc } from './firebase-config.js';
+
+onAuthStateChanged(auth, async (user) => {
+  const account = document.getElementById('nav-account');
+  if (!account) return;
+
+  if (!user) {
+    account.textContent = 'Sign in';
+    account.href = 'login-firebase.html';
+    return;
+  }
+
+  let profile = { uid: user.uid, email: user.email, firstName: user.displayName || 'My Profile' };
+  try {
+    const userSnap = await getDoc(doc(db, 'users', user.uid));
+    if (userSnap.exists()) profile = { ...profile, ...userSnap.data() };
+  } catch (error) {
+    console.warn('Firebase profile lookup failed:', error);
+  }
+
+  localStorage.setItem('diaspora_user', JSON.stringify(profile));
+  account.textContent = profile.firstName || 'My Profile';
+  account.href = 'profile.html';
+});
 </script>
 
 </body>
