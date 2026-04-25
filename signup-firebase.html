@@ -162,6 +162,7 @@ window.handleSignup = async function(e) {
     // Save pending user for OTP verification (phone verification)
     sessionStorage.setItem('diaspora_pending', JSON.stringify({
       ...userDoc,
+      firebaseUid: firebaseUser.uid, // Store Firebase UID for OTP verification
       password // Store temporarily for OTP flow
     }));
 

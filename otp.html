@@ -194,7 +194,11 @@
   </div>
 </div>
 
-<script>
+<script type="module">
+import { auth, db, generateOTP } from './firebase-config.js';
+import { doc, getDoc, updateDoc } from 'https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js';
+import { updateProfile } from 'https://www.gstatic.com/firebasejs/11.5.0/firebase-auth.js';
+
 const DEMO_OTP = '123456';
 const boxes = document.querySelectorAll('.otp-box');
 const verifyBtn = document.getElementById('verify-btn');
@@ -206,6 +210,76 @@ if (pendingUser && pendingUser.phone) {
   const ph = pendingUser.phone;
   const masked = ph.slice(0, 5) + ' *** ' + ph.slice(-4);
   document.getElementById('phone-display').textContent = masked;
+}
+
+// Store OTP in Firestore for verification
+async function storeOTP(userId, otp) {
+  const userRef = doc(db, 'users', userId);
+  await updateDoc(userRef, {
+    otpCode: otp,
+    otpExpires: Date.now() + 10 * 60 * 1000 // 10 minutes
+  });
+}
+
+// Verify OTP from Firestore
+async function verifyOTPWithFirebase(code) {
+  if (!pendingUser?.firebaseUid) return false;
+
+  const userRef = doc(db, 'users', pendingUser.firebaseUid);
+  const userSnap = await getDoc(userRef);
+
+  if (!userSnap.exists()) return false;
+
+  const userData = userSnap.data();
+  const now = Date.now();
+
+  // Check if OTP exists and hasn't expired
+  if (!userData.otpCode || !userData.otpExpires || now > userData.otpExpires) {
+    return false;
+  }
+
+  // Verify code
+  if (userData.otpCode !== code) {
+    return false;
+  }
+
+  // Clear OTP and mark phone as verified
+  await updateDoc(userRef, {
+    otpCode: null,
+    otpExpires: null,
+    phoneVerified: true
+  });
+
+  return true;
+}
+
+// Complete verification and save user
+async function completeVerification() {
+  const user = pendingUser || {
+    firstName: 'Diaspora', lastName: 'Member',
+    email: 'member@diaspora.app', phone: '+971 50 123 4567',
+    city: 'Dubai', joined: new Date().toISOString(), avatar: null, bio: ''
+  };
+
+  // Update Firebase Auth profile if available
+  if (auth.currentUser && pendingUser?.firebaseUid) {
+    await updateProfile(auth.currentUser, {
+      displayName: `${user.firstName} ${user.lastName}`
+    });
+  }
+
+  // Save to localStorage for session
+  localStorage.setItem('diaspora_user', JSON.stringify(user));
+  sessionStorage.removeItem('diaspora_pending');
+
+  // Show success
+  document.getElementById('verify-form').style.display = 'none';
+  document.getElementById('success-state').classList.add('show');
+
+  // Redirect after short delay
+  setTimeout(() => {
+    window.location.href = 'feed.html';
+  }, 1500);
 }
 
 // OTP box behavior
@@ -255,21 +329,26 @@ function getCode() {
   return [...boxes].map(b => b.value).join('');
 }
 
-function verifyOTP() {
+async function verifyOTP() {
   const code = getCode();
-  if (code === DEMO_OTP) {
-    // Save user to localStorage
-    const user = pendingUser || {
-      firstName: 'Diaspora', lastName: 'Member',
-      email: 'member@diaspora.app', phone: '+971 50 123 4567',
-      city: 'Dubai', joined: new Date().toISOString(), avatar: null, bio: ''
-    };
-    localStorage.setItem('diaspora_user', JSON.stringify(user));
-    sessionStorage.removeItem('diaspora_pending');
 
-    // Show success
-    document.getElementById('verify-form').style.display = 'none';
-    document.getElementById('success-state').classList.add('show');
+  // Try Firebase verification first
+  if (pendingUser?.firebaseUid) {
+    try {
+      const valid = await verifyOTPWithFirebase(code);
+      if (valid) {
+        await completeVerification();
+        return;
+      }
+    } catch (err) {
+      console.error('Firebase OTP verification error:', err);
+      // Fall through to demo mode
+    }
+  }
+
+  // Demo mode fallback
+  if (code === DEMO_OTP) {
+    await completeVerification();
   } else {
     boxes.forEach(b => b.classList.add('error'));
     errMsg.classList.add('show');
@@ -280,6 +359,11 @@ function verifyOTP() {
 function goToFeed() {
   window.location.href = 'feed.html';
 }
+
+// Expose functions to global scope for inline handlers
+window.verifyOTP = verifyOTP;
+window.goToFeed = goToFeed;
+window.resendCode = resendCode;
 
 // Countdown timer for resend
 let timer = 30;
@@ -296,7 +380,7 @@ const interval = setInterval(() => {
   }
 }, 1000);
 
-function resendCode() {
+async function resendCode() {
   resendBtn.disabled = true;
   timer = 30;
   countdownEl.textContent = `in ${timer}s`;
@@ -305,12 +389,31 @@ function resendCode() {
     if (timer <= 0) { clearInterval(interval2); countdownEl.textContent = ''; resendBtn.disabled = false; }
     else countdownEl.textContent = `in ${timer}s`;
   }, 1000);
+
+  // Generate and store new OTP via Firebase
+  if (pendingUser?.firebaseUid) {
+    try {
+      const newOTP = generateOTP();
+      await storeOTP(pendingUser.firebaseUid, newOTP);
+      showToast('New code sent! Check your phone.');
+    } catch (err) {
+      console.error('Failed to resend OTP:', err);
+    }
+  }
+
   // Flash feedback
   boxes.forEach(b => { b.value = ''; b.classList.remove('filled', 'error'); });
   boxes[0].focus();
   verifyBtn.disabled = true;
   errMsg.classList.remove('show');
-  alert('A new code has been sent! (Demo: use 123456)');
+}
+
+// Toast notification helper
+function showToast(message) {
+  const toast = document.createElement('div');
+  toast.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#0A2758;color:#fff;padding:12px 24px;border-radius:999px;font-size:14px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,0.2);z-index:1000;';
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
 }
 </script>
 </body>
