@@ -14,8 +14,10 @@
 | `index.html` | ✅ Complete | Landing page — luxury editorial design, hero, categories, trending |
 | `login.html` | ✅ Complete | Sign-in screen with email/password + Google/Apple social buttons |
 | `signup.html` | ✅ Complete | Registration form — name, email, phone, city, password |
-| `otp.html` | ✅ **Just Built** | Phone OTP verification — 6-box input, countdown timer, demo code `123456` |
+| `otp.html` | ✅ Complete | Phone OTP verification — 6-box input, countdown timer, demo code `123456` |
 | `profile.html` | ✅ Complete | User profile page |
+| `feed.html` | ✅ Complete | Home feed with category filters, search, business cards, bottom nav |
+| `business.html` | ✅ Complete | Business detail page with WhatsApp CTA, gallery, reviews |
 | `diaspora_review.html` | ✅ Complete | Review/rating screen |
 | `auth.css` | ✅ Complete | Shared auth stylesheet |
 | `DIASPORA_APP_DESIGN_SPEC.md` | ✅ Complete | Full design spec (25 pages) |
@@ -34,6 +36,22 @@
   - Reads pending user from `sessionStorage.diaspora_pending`
   - On success: saves to `localStorage.diaspora_user`, redirects to `feed.html`
 
+- **`feed.html`** — Home feed page with:
+  - Category filter chips (All, Restaurants, Barbers, Stylists, Photographers, Jobs, Tailors, Beauty)
+  - Business card grid with images, ratings, descriptions
+  - Live search filtering
+  - Bottom navigation bar (Explore, Search, Messages, Profile)
+  - Links to `business.html?id=<id>` for each card
+
+- **`business.html`** — Business detail page with:
+  - Hero image with gradient overlay
+  - Business name, rating, verified badge, category
+  - WhatsApp CTA button with pre-filled message
+  - Contact details (phone, location, hours)
+  - Photo gallery grid
+  - Mock reviews section
+  - Bottom navigation bar
+
 ---
 
 ## MILESTONE TRACKER
@@ -45,31 +63,32 @@
 - [x] Marketing strategy
 - [x] Landing page (`index.html`)
 
-### 🔄 Phase 2: Auth Flow (IN PROGRESS — 80%)
+### ✅ Phase 2: Auth Flow (COMPLETE)
 - [x] Sign Up screen (`signup.html`)
 - [x] Sign In screen (`login.html`)
-- [x] OTP Verification (`otp.html`) ← **just completed**
-- [ ] **Wire signup → OTP**: Update `signup.html` to save pending user to `sessionStorage.diaspora_pending` and redirect to `otp.html` instead of `profile.html`
+- [x] OTP Verification (`otp.html`)
+- [x] **Wire signup → OTP**: `signup.html` saves to `sessionStorage.diaspora_pending` and redirects to `otp.html`
 - [ ] Forgot password flow (`forgot-password.html`)
 
-### ⏳ Phase 3: Home Feed (NOT STARTED)
-- [ ] **`feed.html`** — Main home feed with:
-  - Category filter chips: Restaurants, Barbers, Stylists, Photographers, Jobs, Tailors, Beauty, Music
+### ✅ Phase 3: Home Feed (COMPLETE)
+- [x] **`feed.html`** — Main home feed with:
+  - Category filter chips: All, Restaurants, Barbers, Stylists, Photographers, Jobs, Tailors, Beauty
   - Business listing cards (image, name, rating, category badge, city)
   - Search bar with live filter
-  - Infinite scroll simulation (load more button)
+  - Load more button
   - Mobile-first, card grid layout
   - Uses the existing design tokens from `index.html` (Cormorant Garamond + Inter, brass/navy palette)
 
-### ⏳ Phase 4: Business Detail (NOT STARTED)
-- [ ] **`business.html`** — Business detail page with:
-  - Hero image carousel (swipeable)
+### ✅ Phase 4: Business Detail (COMPLETE)
+- [x] **`business.html`** — Business detail page with:
+  - Hero image with gradient overlay
   - Business name, rating, verified badge
   - Contact info box (phone, address, hours)
   - WhatsApp CTA button (pre-filled message)
   - Photo gallery grid
   - Reviews section (3 shown, "see all" link)
   - URL param: `?id=<businessId>`
+  - Bottom navigation bar
 
 ### ⏳ Phase 5: Seller Dashboard (NOT STARTED)
 - [ ] **`seller-dashboard.html`** — Tabbed dashboard:
@@ -146,28 +165,14 @@ sessionStorage.diaspora_pending = { ...user object }
 
 ## IMMEDIATE NEXT TASKS (Priority Order)
 
-1. **Fix signup → OTP wiring** in `signup.html`:
-   - Change `handleSignup()` to save user to `sessionStorage.diaspora_pending`
-   - Redirect to `otp.html` instead of `profile.html`
-   - (Currently skips OTP and goes straight to profile)
+✅ **COMPLETED** — Signup → OTP → Feed → Business flow is now complete!
 
-2. **Build `feed.html`** — Home feed page:
-   - Category filter chips at top
-   - Business card grid (mock data, 12-16 cards)
-   - Search/filter functionality
-   - Link each card to `business.html?id=<id>`
-   - Bottom nav bar (Home, Search, Messages, Profile)
-
-3. **Build `business.html`** — Business detail:
-   - Read `?id=` param, show matching mock business
-   - WhatsApp button: `https://wa.me/<phone>?text=...`
-   - Back button → `feed.html`
-   - Review cards section
-
-4. **Connect navigation** — Update `index.html` nav:
-   - "Sign in" → `login.html` ✅ (already done)
-   - "Join Diaspora" → `signup.html` ✅ (already done)  
-   - "Explore the App" → `feed.html` (needs `feed.html` to exist)
+1. **Firebase Integration** (Phase 6 — IN PROGRESS):
+   - Connect to Firebase project: `the-diaspora-app`
+   - Set up Firebase Authentication (email/phone)
+   - Configure Firestore database schema
+   - Enable Firebase Storage for media uploads
+   - Replace localStorage with real Firestore reads/writes
 
 ---
 
