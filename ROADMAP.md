@@ -12,14 +12,19 @@
 | File | Status | Description |
 |------|--------|-------------|
 | `index.html` | ✅ Complete | Landing page — luxury editorial design, hero, categories, trending |
-| `login.html` | ✅ Complete | Sign-in screen with email/password + Google/Apple social buttons |
-| `signup.html` | ✅ Complete | Registration form — name, email, phone, city, password |
+| `login.html` | ✅ Complete (legacy) | Sign-in screen with localStorage auth |
+| `login-firebase.html` | ✅ Complete | Firebase Auth sign-in with email/password |
+| `signup.html` | ✅ Complete (legacy) | Registration form with localStorage auth |
+| `signup-firebase.html` | ✅ Complete | Firebase Auth signup with Firestore user docs |
 | `otp.html` | ✅ Complete | Phone OTP verification — 6-box input, countdown timer, demo code `123456` |
 | `profile.html` | ✅ Complete | User profile page |
 | `feed.html` | ✅ Complete | Home feed with category filters, search, business cards, bottom nav |
 | `business.html` | ✅ Complete | Business detail page with WhatsApp CTA, gallery, reviews |
 | `diaspora_review.html` | ✅ Complete | Review/rating screen |
 | `auth.css` | ✅ Complete | Shared auth stylesheet |
+| `firebase-config.js` | ✅ Complete | Firebase initialization + exports for auth/firestore/storage |
+| `seed-data.js` | ✅ Complete | Script to populate Firestore with initial business data |
+| `FIREBASE_SETUP.md` | ✅ Complete | Complete Firebase setup guide with security rules |
 | `DIASPORA_APP_DESIGN_SPEC.md` | ✅ Complete | Full design spec (25 pages) |
 | `DIASPORA_DEV_HANDOFF.md` | ✅ Complete | Developer handoff guide (30 pages) |
 | `DIASPORA_MARKETING_STRATEGY.md` | ✅ Complete | GTM and revenue strategy |
@@ -27,6 +32,7 @@
 
 ### What Was Just Built (Session: April 25, 2026)
 
+**Core Flow:**
 - **`otp.html`** — Full OTP verification screen with:
   - 6-digit input boxes with auto-focus/auto-advance
   - Paste support
@@ -51,6 +57,24 @@
   - Photo gallery grid
   - Mock reviews section
   - Bottom navigation bar
+
+**Firebase Integration:**
+- **`firebase-config.js`** — Firebase initialization module with:
+  - App initialization for project `the-diaspora-app`
+  - Exports for Auth, Firestore, Storage
+  - Helper functions (getCurrentUser, onAuthReady, generateOTP)
+
+- **`signup-firebase.html`** — Firebase Auth signup with:
+  - Email/password registration via `createUserWithEmailAndPassword`
+  - Firestore user document creation
+  - Session storage for OTP flow
+
+- **`login-firebase.html`** — Firebase Auth login with:
+  - Email/password sign-in
+  - Firestore user document lookup
+  - Session persistence
+
+- **`seed-data.js`** — Database seeding script with 8 initial businesses
 
 ---
 
@@ -97,13 +121,20 @@
   - Tab 3: Analytics (views, WhatsApp clicks, peak hours)
   - Tab 4: Reviews (respond, flag)
 
-### ⏳ Phase 6: Backend & Firebase (NOT STARTED)
-- [ ] Firebase project setup
-- [ ] Firebase Authentication (email/phone)
-- [ ] Firestore database schema (users, businesses, reviews, media, jobs)
-- [ ] Firebase Storage (photo/video uploads)
+### 🔄 Phase 6: Backend & Firebase (IN PROGRESS — 50%)
+- [x] Firebase project created: `the-diaspora-app`
+- [x] Firebase configuration file (`firebase-config.js`)
+- [x] Firebase Authentication (email/password) — `signup-firebase.html`, `login-firebase.html`
+- [x] Firestore database schema defined (users, businesses, reviews)
+- [x] Firebase Storage configuration ready
+- [x] Seed data script for initial businesses
+- [ ] **ACTION NEEDED**: Replace placeholder credentials in `firebase-config.js`
+- [ ] **ACTION NEEDED**: Enable Email/Password auth in Firebase Console
+- [ ] **ACTION NEEDED**: Create Firestore database
+- [ ] **ACTION NEEDED**: Run seed script to populate initial data
 - [ ] Cloud Functions (OTP verification, analytics tracking)
-- [ ] Replace localStorage with real Firestore reads/writes
+- [ ] Update `feed.html` to read from Firestore instead of mock data
+- [ ] Update `otp.html` to use Firebase for OTP verification
 
 ### ⏳ Phase 7: Polish & Launch (NOT STARTED)
 - [ ] PWA manifest + service worker
@@ -166,13 +197,29 @@ sessionStorage.diaspora_pending = { ...user object }
 ## IMMEDIATE NEXT TASKS (Priority Order)
 
 ✅ **COMPLETED** — Signup → OTP → Feed → Business flow is now complete!
+✅ **COMPLETED** — Firebase integration files created
 
-1. **Firebase Integration** (Phase 6 — IN PROGRESS):
-   - Connect to Firebase project: `the-diaspora-app`
-   - Set up Firebase Authentication (email/phone)
-   - Configure Firestore database schema
-   - Enable Firebase Storage for media uploads
-   - Replace localStorage with real Firestore reads/writes
+### Next Steps:
+
+1. **Complete Firebase Setup** (required for production):
+   - [ ] Go to [Firebase Console](https://console.firebase.google.com/) and create project `the-diaspora-app`
+   - [ ] Register a web app and copy the `firebaseConfig` object
+   - [ ] Replace placeholders in `firebase-config.js` with real credentials
+   - [ ] Enable Email/Password authentication in Firebase Console
+   - [ ] Create Firestore database (start in test mode)
+   - [ ] Run `seed-data.js` to populate initial businesses
+   - [ ] See `FIREBASE_SETUP.md` for detailed instructions
+
+2. **Update Pages to Use Firebase** (after setup is complete):
+   - [ ] Update `index.html` links to point to `signup-firebase.html` and `login-firebase.html`
+   - [ ] Update `feed.html` to read businesses from Firestore
+   - [ ] Update `otp.html` to verify against Firebase OTP codes
+   - [ ] Update `profile.html` to read/write user data from Firestore
+
+3. **Build Seller Dashboard** (Phase 5):
+   - [ ] Create `seller-dashboard.html` with tabbed interface
+   - [ ] Add business CRUD operations with Firestore
+   - [ ] Implement image upload to Firebase Storage
 
 ---
 
@@ -222,10 +269,11 @@ const BUSINESSES = [
 | Decision | Choice | Reason |
 |----------|--------|--------|
 | Frontend | Vanilla HTML/CSS/JS | No build step, fast iteration, matches existing files |
-| Auth storage | localStorage + sessionStorage | Prototype only — replace with Firebase Auth later |
+| Auth storage | localStorage (prototype) + Firebase Auth (prod) | Firebase Auth ready — update `firebase-config.js` with credentials |
+| Database | Firestore | Real-time sync, offline support, scales with app |
 | Styling | Inline CSS per page + shared `auth.css` | Matches existing pattern |
-| Backend | None yet | Phase 6 — Firebase planned |
-| Hosting | None yet | Firebase Hosting planned |
+| Backend | Firebase (Auth + Firestore + Storage) | Serverless, managed infrastructure |
+| Hosting | Firebase Hosting (planned) | Fast global CDN, free tier, easy deploys |
 
 ---
 
