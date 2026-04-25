@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Firebase Connection Test — Diaspora</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #FBF8F2; color: #0A0A0A;
+  padding: 40px 20px; line-height: 1.6;
+}
+.container { max-width: 800px; margin: 0 auto; }
+h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 36px; margin-bottom: 10px;
+}
+.status { padding: 20px; border-radius: 12px; margin: 20px 0; }
+.status.success { background: #22C55E22; border: 2px solid #22C55E; }
+.status.error { background: #EF444422; border: 2px solid #EF4444; }
+.status.pending { background: #F59E0B22; border: 2px solid #F59E0B; }
+.check { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.1); }
+.check:last-child { border-bottom: none; }
+.check-icon { font-size: 20px; }
+.check.ok { color: #22C55E; }
+.check.fail { color: #EF4444; }
+.check.pending { color: #F59E0B; }
+pre {
+  background: #1B1D22; color: #F6F2EA;
+  padding: 16px; border-radius: 8px;
+  overflow-x: auto; font-size: 13px;
+  margin: 10px 0;
+}
+.btn {
+  display: inline-block; padding: 12px 24px;
+  background: #1C3D6E; color: white;
+  border: none; border-radius: 999px;
+  font-size: 14px; font-weight: 600;
+  cursor: pointer; margin-top: 20px;
+}
+.btn:hover { background: #0A2758; }
+.hidden { display: none; }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+  <h1>🔥 Firebase Connection Test</h1>
+  <p style="color: #6B6357; margin-top: 8px;">Verifying connection to project: <strong>the-diaspora-app</strong></p>
+
+  <div id="status-app" class="status pending">
+    <div class="check pending">
+      <span class="check-icon">⏳</span>
+      <span>Initializing Firebase App...</span>
+    </div>
+  </div>
+
+  <div id="status-auth" class="status pending hidden">
+    <div class="check pending">
+      <span class="check-icon">⏳</span>
+      <span>Authentication Service Ready</span>
+    </div>
+  </div>
+
+  <div id="status-firestore" class="status pending hidden">
+    <div class="check pending">
+      <span class="check-icon">⏳</span>
+      <span>Firestore Database Connected</span>
+    </div>
+  </div>
+
+  <div id="status-seed" class="status pending hidden">
+    <div class="check pending">
+      <span class="check-icon">⏳</span>
+      <span>Checking Business Data...</span>
+    </div>
+    <div id="seed-result" style="margin-top: 10px;"></div>
+  </div>
+
+  <div id="final-status" class="hidden">
+    <h2 style="margin-top: 30px; font-family: 'Cormorant Garamond'; font-size: 24px;">Test Results</h2>
+    <pre id="results-log"></pre>
+    <button class="btn" onclick="window.location.href='signup-firebase.html'">Go to Signup →</button>
+    <button class="btn" onclick="window.location.href='feed.html'" style="margin-left: 10px;">Go to Feed →</button>
+  </div>
+</div>
+
+<script type="module">
+import { app, auth, db, onAuthStateChanged } from './firebase-config.js';
+import { collection, getDocs, query, limit } from 'https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js';
+
+const log = [];
+
+function updateStatus(id, success, message) {
+  const el = document.getElementById(id);
+  const icon = success ? '✅' : '❌';
+  const statusClass = success ? 'success' : 'error';
+  el.className = `status ${statusClass}`;
+  el.querySelector('.check-icon').textContent = icon;
+  el.querySelector('span:last-child').textContent = message;
+  log.push(`${icon} ${message}`);
+}
+
+function showNext(id) {
+  document.getElementById(id).classList.remove('hidden');
+}
+
+async function runTests() {
+  // Test 1: Firebase App
+  try {
+    if (app && app.name) {
+      updateStatus('status-app', true, `Firebase App initialized: ${app.name}`);
+      showNext('status-auth');
+    } else {
+      updateStatus('status-app', false, 'Firebase App failed to initialize');
+    }
+  } catch (e) {
+    updateStatus('status-app', false, `Error: ${e.message}`);
+  }
+
+  await sleep(500);
+
+  // Test 2: Auth Service
+  try {
+    if (auth && auth.currentUser !== undefined) {
+      const user = auth.currentUser;
+      updateStatus('status-auth', true, user
+        ? `Auth ready - Signed in as: ${user.email}`
+        : 'Auth ready - No user signed in');
+      showNext('status-firestore');
+    } else {
+      updateStatus('status-auth', false, 'Auth service not available');
+    }
+  } catch (e) {
+    updateStatus('status-auth', false, `Error: ${e.message}`);
+  }
+
+  await sleep(500);
+
+  // Test 3: Firestore
+  try {
+    const businessesRef = collection(db, 'businesses');
+    const q = query(businessesRef, limit(1));
+    const snapshot = await getDocs(q);
+
+    updateStatus('status-firestore', true, `Firestore connected - ${snapshot.size} document(s) found`);
+    showNext('status-seed');
+
+    // Test 4: Check for seed data
+    const allBiz = await getDocs(collection(db, 'businesses'));
+    const bizList = [];
+    allBiz.forEach(doc => bizList.push(doc.data().name));
+
+    const seedEl = document.getElementById('seed-result');
+    if (bizList.length > 0) {
+      updateStatus('status-seed', true, `Found ${bizList.length} businesses in database`);
+      seedEl.innerHTML = `<pre>${JSON.stringify(bizList, null, 2)}</pre>`;
+    } else {
+      updateStatus('status-seed', false, 'No businesses found - run seed-data.js');
+      seedEl.innerHTML = `<p style="color: #EF4444;">Run <code>seed-data.js</code> to populate initial data</p>`;
+    }
+  } catch (e) {
+    updateStatus('status-firestore', false, `Error: ${e.message}`);
+    updateStatus('status-seed', false, 'Skipped - Firestore not connected');
+    document.getElementById('seed-result').innerHTML = `<p style="color: #EF4444;">${e.message}</p>`;
+  }
+
+  await sleep(500);
+
+  // Show final results
+  document.getElementById('final-status').classList.remove('hidden');
+  document.getElementById('results-log').textContent = log.join('\n');
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// Run tests on load
+runTests();
+</script>
+</body>
+</html>

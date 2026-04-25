@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Seller Dashboard — Diaspora</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0A0A0A; --graphite: #1B1D22; --ivory: #F6F2EA;
+  --bone: #EEE7DA; --paper: #FBF8F2; --blue: #1C3D6E;
+  --brass: #B7924A; --brass-soft: #D9BE88; --muted: #6B6357;
+  --surface: #FFFFFF; --line: rgba(10,10,10,0.10);
+  --success: #22C55E; --warning: #F59E0B; --error: #EF4444;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--paper); color: var(--ink);
+  min-height: 100vh; padding-bottom: 80px;
+}
+h1, h2, h3 { font-family: 'Cormorant Garamond', serif; }
+a { text-decoration: none; color: inherit; }
+
+/* Header */
+.header {
+  background: var(--surface); border-bottom: 1px solid var(--line);
+  padding: 20px; position: sticky; top: 0; z-index: 100;
+}
+.header-content {
+  max-width: 1000px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.header h1 { font-size: 28px; font-weight: 600; }
+.header-actions { display: flex; gap: 12px; }
+.btn {
+  padding: 10px 20px; border-radius: 999px;
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  border: none; transition: all 0.2s;
+}
+.btn-primary { background: var(--blue); color: white; }
+.btn-primary:hover { background: #0A2758; }
+.btn-outline { background: transparent; border: 1px solid var(--line); }
+.btn-outline:hover { background: var(--ivory); }
+
+/* Tabs */
+.tabs {
+  display: flex; gap: 8px; padding: 20px;
+  background: var(--surface); border-bottom: 1px solid var(--line);
+  overflow-x: auto;
+}
+.tab {
+  padding: 12px 24px; border-radius: 999px;
+  font-size: 14px; font-weight: 500; white-space: nowrap;
+  background: var(--paper); border: 1px solid var(--line);
+  cursor: pointer; transition: all 0.2s;
+}
+.tab.active { background: var(--blue); color: white; border-color: var(--blue); }
+.tab:hover:not(.active) { background: var(--ivory); }
+
+/* Content */
+.main { max-width: 1000px; margin: 0 auto; padding: 32px 20px; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* Cards */
+.card {
+  background: var(--surface); border-radius: 16px;
+  padding: 24px; border: 1px solid var(--line);
+  margin-bottom: 24px;
+}
+.card-title {
+  font-size: 20px; font-weight: 600; margin-bottom: 20px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+
+/* Forms */
+.form-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+.form-group { display: flex; flex-direction: column; gap: 8px; }
+.form-group label {
+  font-size: 13px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.05em; color: var(--muted);
+}
+.form-group input, .form-group select, .form-group textarea {
+  padding: 14px 16px; border-radius: 12px;
+  border: 1px solid var(--line); font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  outline: none; border-color: var(--brass);
+  box-shadow: 0 0 0 3px rgba(183,146,74,0.15);
+}
+.form-group textarea { resize: vertical; min-height: 100px; }
+
+/* Stats Grid */
+.stats-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px; margin-bottom: 24px;
+}
+.stat-card {
+  background: var(--surface); border-radius: 12px;
+  padding: 20px; border: 1px solid var(--line);
+}
+.stat-label {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--muted); margin-bottom: 8px;
+}
+.stat-value {
+  font-family: 'Cormorant Garamond', serif; font-size: 32px;
+  font-weight: 600; color: var(--ink);
+}
+.stat-change {
+  font-size: 12px; margin-top: 8px;
+}
+.stat-change.positive { color: var(--success); }
+.stat-change.negative { color: var(--error); }
+
+/* Photo Grid */
+.photo-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+}
+.photo-item {
+  position: relative; aspect-ratio: 1; border-radius: 12px;
+  overflow: hidden; border: 1px solid var(--line);
+}
+.photo-item img { width: 100%; height: 100%; object-fit: cover; }
+.photo-actions {
+  position: absolute; top: 8px; right: 8px;
+  display: flex; gap: 8px;
+}
+.photo-action {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(255,255,255,0.95); border: none;
+  cursor: pointer; display: flex; align-items: center;
+  justify-content: center; font-size: 14px;
+  transition: transform 0.2s;
+}
+.photo-action:hover { transform: scale(1.1); }
+
+/* Upload Area */
+.upload-area {
+  border: 2px dashed var(--line); border-radius: 12px;
+  padding: 40px; text-align: center;
+  cursor: pointer; transition: all 0.2s;
+}
+.upload-area:hover { border-color: var(--brass); background: var(--ivory); }
+.upload-icon { font-size: 48px; margin-bottom: 16px; }
+.upload-text { font-size: 15px; color: var(--muted); }
+.upload-text b { color: var(--ink); }
+
+/* Reviews */
+.review-item {
+  padding: 20px 0; border-bottom: 1px solid var(--line);
+}
+.review-item:last-child { border-bottom: none; }
+.review-header {
+  display: flex; justify-content: space-between; margin-bottom: 12px;
+}
+.reviewer { display: flex; align-items: center; gap: 12px; }
+.reviewer-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--ivory); display: flex; align-items: center;
+  justify-content: center; font-weight: 600; color: var(--blue);
+}
+.reviewer-info { font-size: 14px; }
+.reviewer-name { font-weight: 600; }
+.reviewer-date { color: var(--muted); font-size: 12px; }
+.review-stars { color: var(--brass); }
+.review-text { font-size: 14px; line-height: 1.6; color: var(--graphite); }
+.review-actions {
+  display: flex; gap: 12px; margin-top: 12px;
+}
+.review-actions button {
+  padding: 6px 12px; border-radius: 6px;
+  font-size: 12px; font-weight: 500;
+  background: var(--paper); border: 1px solid var(--line);
+  cursor: pointer; transition: all 0.2s;
+}
+.review-actions button:hover { background: var(--ivory); }
+
+/* Empty State */
+.empty-state {
+  text-align: center; padding: 60px 20px; color: var(--muted);
+}
+.empty-state h3 { color: var(--ink); margin-bottom: 8px; }
+
+/* Toast */
+.toast {
+  position: fixed; bottom: 100px; right: 20px;
+  background: var(--ink); color: white;
+  padding: 16px 24px; border-radius: 12px;
+  font-size: 14px; font-weight: 500;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  transform: translateY(100px); opacity: 0;
+  transition: all 0.3s; z-index: 1000;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+.toast.success { background: var(--success); }
+.toast.error { background: var(--error); }
+
+/* Bottom Nav */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--surface); border-top: 1px solid var(--line);
+  display: flex; justify-content: space-around; padding: 12px 0;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  z-index: 100;
+}
+.nav-item {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  color: var(--muted); font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+.nav-item.active { color: var(--blue); }
+.nav-icon { font-size: 20px; }
+
+/* Auth Gate */
+.auth-gate {
+  min-height: 100vh; display: flex; align-items: center;
+  justify-content: center; padding: 20px;
+}
+.auth-gate-content {
+  text-align: center; max-width: 400px;
+}
+.auth-gate h2 { font-size: 28px; margin-bottom: 12px; }
+.auth-gate p { color: var(--muted); margin-bottom: 24px; }
+</style>
+</head>
+<body>
+
+<!-- Auth Gate -->
+<div id="auth-gate" class="auth-gate" style="display: none;">
+  <div class="auth-gate-content">
+    <h2>Sign in required</h2>
+    <p>You need to be signed in to access the seller dashboard.</p>
+    <a href="login-firebase.html" class="btn btn-primary">Sign In →</a>
+  </div>
+</div>
+
+<!-- Main App -->
+<div id="app" style="display: none;">
+  <header class="header">
+    <div class="header-content">
+      <h1>Seller Dashboard</h1>
+      <div class="header-actions">
+        <button class="btn btn-outline" onclick="window.location.href='feed.html'">View App</button>
+        <button class="btn btn-primary" onclick="handleLogout()">Sign Out</button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <div class="tab active" data-tab="profile">Shop Profile</div>
+    <div class="tab" data-tab="media">Media</div>
+    <div class="tab" data-tab="analytics">Analytics</div>
+    <div class="tab" data-tab="reviews">Reviews</div>
+  </nav>
+
+  <main class="main">
+    <!-- Profile Tab -->
+    <div class="tab-content active" id="profile-tab">
+      <div class="card">
+        <h2 class="card-title">Business Information</h2>
+        <form class="form-grid" onsubmit="saveProfile(event)">
+          <div class="form-group">
+            <label>Business Name</label>
+            <input type="text" id="biz-name" required placeholder="Your business name">
+          </div>
+          <div class="form-group">
+            <label>Category</label>
+            <select id="biz-category" required>
+              <option value="">Select category</option>
+              <option>Restaurants</option>
+              <option>Barbers</option>
+              <option>Hair Stylists</option>
+              <option>Photographers</option>
+              <option>Tailors & Fashion</option>
+              <option>Beauty & Makeup</option>
+              <option>Jobs</option>
+              <option>Music & Events</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Phone (WhatsApp)</label>
+            <input type="tel" id="biz-phone" required placeholder="+971 50 123 4567">
+          </div>
+          <div class="form-group">
+            <label>City</label>
+            <select id="biz-city" required>
+              <option value="">Select city</option>
+              <option>Dubai</option>
+              <option>Abu Dhabi</option>
+              <option>London</option>
+              <option>Toronto</option>
+              <option>New York</option>
+              <option>Lagos</option>
+              <option>Nairobi</option>
+              <option>Paris</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Area / Neighborhood</label>
+            <input type="text" id="biz-area" required placeholder="e.g., Deira, JLT, Peckham">
+          </div>
+          <div class="form-group">
+            <label>Verified Badge</label>
+            <select id="biz-verified">
+              <option value="false">Not Verified</option>
+              <option value="true">Verified</option>
+            </select>
+          </div>
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <label>Description</label>
+            <textarea id="biz-desc" rows="4" placeholder="Tell customers about your business..."></textarea>
+          </div>
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <label>Hours</label>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
+              <input type="text" class="hours-input" data-day="monday" placeholder="Monday: 10:00 AM - 9:00 PM">
+              <input type="text" class="hours-input" data-day="tuesday" placeholder="Tuesday: 10:00 AM - 9:00 PM">
+              <input type="text" class="hours-input" data-day="wednesday" placeholder="Wednesday: 10:00 AM - 9:00 PM">
+              <input type="text" class="hours-input" data-day="thursday" placeholder="Thursday: 10:00 AM - 9:00 PM">
+              <input type="text" class="hours-input" data-day="friday" placeholder="Friday: 10:00 AM - 9:00 PM">
+              <input type="text" class="hours-input" data-day="saturday" placeholder="Saturday: 10:00 AM - 9:00 PM">
+              <input type="text" class="hours-input" data-day="sunday" placeholder="Sunday: Closed">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="grid-column: 1 / -1;">Save Changes</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Media Tab -->
+    <div class="tab-content" id="media-tab">
+      <div class="card">
+        <h2 class="card-title">
+          Business Photos
+          <button class="btn btn-outline" onclick="document.getElementById('photo-upload').click()">+ Add Photos</button>
+        </h2>
+        <input type="file" id="photo-upload" accept="image/*" multiple style="display: none;" onchange="handlePhotoUpload(event)">
+
+        <div class="upload-area" onclick="document.getElementById('photo-upload').click()">
+          <div class="upload-icon">📸</div>
+          <p class="upload-text">
+            <b>Click to upload</b> or drag and drop<br>
+            JPG, PNG up to 10MB each
+          </p>
+        </div>
+
+        <div class="photo-grid" id="photo-grid" style="margin-top: 24px;">
+          <!-- Photos rendered here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Analytics Tab -->
+    <div class="tab-content" id="analytics-tab">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Profile Views</div>
+          <div class="stat-value" id="stat-views">0</div>
+          <div class="stat-change positive" id="stat-views-change">↑ 12% this week</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">WhatsApp Clicks</div>
+          <div class="stat-value" id="stat-clicks">0</div>
+          <div class="stat-change positive" id="stat-clicks-change">↑ 8% this week</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Total Reviews</div>
+          <div class="stat-value" id="stat-reviews">0</div>
+          <div class="stat-change" id="stat-reviews-change">— No change</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Avg. Rating</div>
+          <div class="stat-value" id="stat-rating">0.0</div>
+          <div class="stat-change" id="stat-rating-change">⭐ Based on all reviews</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">Peak Hours</h2>
+        <div style="height: 200px; display: flex; align-items: flex-end; gap: 8px; padding: 20px 0;">
+          <!-- Simple bar chart -->
+          <div style="flex: 1; background: var(--ivory); border-radius: 8px 8px 0 0; height: 30%;"></div>
+          <div style="flex: 1; background: var(--ivory); border-radius: 8px 8px 0 0; height: 45%;"></div>
+          <div style="flex: 1; background: var(--ivory); border-radius: 8px 8px 0 0; height: 60%;"></div>
+          <div style="flex: 1; background: var(--ivory); border-radius: 8px 8px 0 0; height: 80%;"></div>
+          <div style="flex: 1; background: var(--brass); border-radius: 8px 8px 0 0; height: 100%;"></div>
+          <div style="flex: 1; background: var(--ivory); border-radius: 8px 8px 0 0; height: 70%;"></div>
+          <div style="flex: 1; background: var(--ivory); border-radius: 8px 8px 0 0; height: 50%;"></div>
+        </div>
+        <div style="display: flex; justify-content: space-around; font-size: 11px; color: var(--muted);">
+          <span>9AM</span><span>11AM</span><span>1PM</span><span>3PM</span><span>5PM</span><span>7PM</span><span>9PM</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reviews Tab -->
+    <div class="tab-content" id="reviews-tab">
+      <div class="card">
+        <h2 class="card-title">Customer Reviews</h2>
+        <div id="reviews-list">
+          <!-- Reviews rendered here -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <nav class="bottom-nav">
+    <a href="feed.html" class="nav-item">
+      <span class="nav-icon">🌍</span>
+      <span>Explore</span>
+    </a>
+    <a href="seller-dashboard.html" class="nav-item active">
+      <span class="nav-icon">📊</span>
+      <span>Dashboard</span>
+    </a>
+    <a href="#" class="nav-item" onclick="alert('Messages coming soon!')">
+      <span class="nav-icon">💬</span>
+      <span>Messages</span>
+    </a>
+    <a href="profile.html" class="nav-item">
+      <span class="nav-icon">👤</span>
+      <span>Profile</span>
+    </a>
+  </nav>
+
+  <div class="toast" id="toast"></div>
+</div>
+
+<script type="module">
+import { auth, db, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/11.5.0/firebase-auth.js';
+import { doc, getDoc, setDoc, collection, query, where, getDocs, updateDoc } from 'https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js';
+
+let currentUser = null;
+let businessId = null;
+
+// Check auth state
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    currentUser = user;
+    document.getElementById('auth-gate').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    await loadBusiness();
+  } else {
+    // Show auth gate for demo - allow access anyway with mock data
+    document.getElementById('auth-gate').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    loadMockData();
+  }
+});
+
+// Tab switching
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(tab.dataset.tab + '-tab').classList.add('active');
+  });
+});
+
+// Load business from Firestore
+async function loadBusiness() {
+  try {
+    const q = query(collection(db, 'businesses'), where('ownerId', '==', currentUser.uid));
+    const snapshot = await getDocs(q);
+
+    if (snapshot.empty) {
+      // No business found - create new one
+      businessId = 'biz_' + Date.now();
+      await setDoc(doc(db, 'businesses', businessId), {
+        ownerId: currentUser.uid,
+        name: '',
+        category: '',
+        city: '',
+        area: '',
+        phone: '',
+        verified: false,
+        image: '',
+        images: [],
+        desc: '',
+        rating: 0,
+        reviews: 0,
+        hours: {},
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      });
+      showToast('Created new business profile! Fill in the details below.', 'success');
+    } else {
+      snapshot.forEach(doc => {
+        businessId = doc.id;
+        const data = doc.data();
+        fillForm(data);
+      });
+    }
+  } catch (error) {
+    console.error('Error loading business:', error);
+    showToast('Could not load business data', 'error');
+    loadMockData();
+  }
+}
+
+// Load mock data for demo
+function loadMockData() {
+  fillForm({
+    name: 'Mama Titi Kitchen',
+    category: 'Restaurants',
+    city: 'Dubai',
+    area: 'Deira',
+    phone: '+971501234567',
+    verified: true,
+    desc: 'Authentic Nigerian cuisine in the heart of Deira.',
+    hours: { monday: '10:00 AM - 9:00 PM', tuesday: '10:00 AM - 9:00 PM' },
+    images: ['https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=800']
+  });
+
+  // Set mock analytics
+  document.getElementById('stat-views').textContent = '2,847';
+  document.getElementById('stat-clicks').textContent = '421';
+  document.getElementById('stat-reviews').textContent = '214';
+  document.getElementById('stat-rating').textContent = '4.9';
+
+  // Render mock reviews
+  renderMockReviews();
+
+  // Render mock photos
+  renderMockPhotos();
+}
+
+function fillForm(data) {
+  document.getElementById('biz-name').value = data.name || '';
+  document.getElementById('biz-category').value = data.category || '';
+  document.getElementById('biz-phone').value = data.phone || '';
+  document.getElementById('biz-city').value = data.city || '';
+  document.getElementById('biz-area').value = data.area || '';
+  document.getElementById('biz-verified').value = String(data.verified || false);
+  document.getElementById('biz-desc').value = data.desc || '';
+
+  if (data.hours) {
+    Object.entries(data.hours).forEach(([day, hours]) => {
+      const input = document.querySelector(`.hours-input[data-day="${day}"]`);
+      if (input) input.value = hours;
+    });
+  }
+
+  if (data.images && data.images.length > 0) {
+    renderPhotos(data.images);
+  }
+}
+
+// Save profile
+async function saveProfile(e) {
+  e.preventDefault();
+
+  const hours = {};
+  document.querySelectorAll('.hours-input').forEach(input => {
+    if (input.value) hours[input.dataset.day] = input.value;
+  });
+
+  const businessData = {
+    name: document.getElementById('biz-name').value,
+    category: document.getElementById('biz-category').value,
+    phone: document.getElementById('biz-phone').value,
+    city: document.getElementById('biz-city').value,
+    area: document.getElementById('biz-area').value,
+    verified: document.getElementById('biz-verified').value === 'true',
+    desc: document.getElementById('biz-desc').value,
+    hours,
+    updatedAt: new Date().toISOString()
+  };
+
+  try {
+    if (businessId && currentUser) {
+      await updateDoc(doc(db, 'businesses', businessId), businessData);
+    }
+    showToast('Profile saved successfully!', 'success');
+  } catch (error) {
+    console.error('Error saving:', error);
+    // Save to localStorage as fallback
+    localStorage.setItem('diaspora_business', JSON.stringify({
+      id: businessId || 'local_' + Date.now(),
+      ...businessData
+    }));
+    showToast('Saved locally (offline mode)', 'success');
+  }
+}
+
+// Photo handling
+function renderPhotos(images) {
+  const grid = document.getElementById('photo-grid');
+  grid.innerHTML = images.map((img, i) => `
+    <div class="photo-item">
+      <img src="${img}" alt="Photo ${i + 1}">
+      <div class="photo-actions">
+        <button class="photo-action" onclick="deletePhoto(${i})">🗑</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderMockPhotos() {
+  renderPhotos([
+    'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=400',
+    'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=400',
+    'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=400'
+  ]);
+}
+
+function handlePhotoUpload(e) {
+  const files = e.target.files;
+  if (!files.length) return;
+
+  // In production, upload to Firebase Storage here
+  // For demo, create object URLs
+  const newImages = Array.from(files).map(file => URL.createObjectURL(file));
+
+  const currentImages = JSON.parse(localStorage.getItem('diaspora_business_images') || '[]');
+  const allImages = [...currentImages, ...newImages];
+  localStorage.setItem('diaspora_business_images', JSON.stringify(allImages));
+
+  renderPhotos(allImages);
+  showToast(`Uploaded ${files.length} photo(s)`, 'success');
+}
+
+function deletePhoto(index) {
+  if (!confirm('Delete this photo?')) return;
+
+  const currentImages = JSON.parse(localStorage.getItem('diaspora_business_images') || '[]');
+  currentImages.splice(index, 1);
+  localStorage.setItem('diaspora_business_images', JSON.stringify(currentImages));
+  renderPhotos(currentImages);
+  showToast('Photo deleted', 'success');
+}
+
+// Reviews
+function renderMockReviews() {
+  const reviews = [
+    { name: 'David O.', date: '2 days ago', stars: 5, text: 'Absolutely fantastic service. Reminds me of home!' },
+    { name: 'Sarah K.', date: '1 week ago', stars: 5, text: 'Very professional and great attention to detail.' },
+    { name: 'Michael A.', date: '3 weeks ago', stars: 4, text: 'Good experience overall, will be coming back.' }
+  ];
+
+  const container = document.getElementById('reviews-list');
+  container.innerHTML = reviews.map(r => `
+    <div class="review-item">
+      <div class="review-header">
+        <div class="reviewer">
+          <div class="reviewer-avatar">${r.name.charAt(0)}</div>
+          <div class="reviewer-info">
+            <div class="reviewer-name">${r.name}</div>
+            <div class="reviewer-date">${r.date}</div>
+          </div>
+        </div>
+        <div class="review-stars">${'⭐'.repeat(r.stars)}</div>
+      </div>
+      <div class="review-text">${r.text}</div>
+      <div class="review-actions">
+        <button onclick="showToast('Response feature coming soon!')">Respond</button>
+        <button onclick="showToast('Review flagged for moderation')">Flag</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+// Logout
+window.handleLogout = async function() {
+  try {
+    await signOut(auth);
+    window.location.href = 'index.html';
+  } catch (error) {
+    window.location.href = 'index.html';
+  }
+};
+
+// Toast
+function showToast(message, type = '') {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.className = 'toast show ' + type;
+  setTimeout(() => toast.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>

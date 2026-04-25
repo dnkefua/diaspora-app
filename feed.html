@@ -28,7 +28,7 @@ body {
   background-color: var(--paper);
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
-  padding-bottom: 80px; /* Space for bottom nav */
+  padding-bottom: 80px;
 }
 h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; font-weight: 600; }
 a { text-decoration: none; color: inherit; }
@@ -76,6 +76,7 @@ a { text-decoration: none; color: inherit; }
 .chip.active {
   background: var(--blue); color: #fff; border-color: var(--blue);
 }
+.chip:disabled { opacity: 0.5; cursor: not-allowed; }
 
 /* Feed Grid */
 .feed-container {
@@ -129,6 +130,17 @@ a { text-decoration: none; color: inherit; }
 }
 .empty-state h3 { color: var(--ink); font-size: 24px; margin-bottom: 8px; }
 
+/* Loading State */
+.loading-state {
+  text-align: center; padding: 64px 20px; grid-column: 1 / -1;
+}
+.spinner {
+  width: 40px; height: 40px; border: 3px solid var(--line);
+  border-top-color: var(--blue); border-radius: 50%;
+  animation: spin 1s linear infinite; margin: 0 auto 16px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
 /* Bottom Nav */
 .bottom-nav {
   position: fixed; bottom: 0; left: 0; right: 0;
@@ -152,6 +164,7 @@ a { text-decoration: none; color: inherit; }
   cursor: pointer; transition: all 0.2s;
 }
 .load-more:hover { background: var(--ivory); }
+.load-more:disabled { opacity: 0.5; cursor: not-allowed; }
 </style>
 </head>
 <body>
@@ -160,7 +173,7 @@ a { text-decoration: none; color: inherit; }
   <div class="header-top">
     <h1 class="logo">Diaspora</h1>
     <div class="header-actions">
-      <button aria-label="Notifications">🔔</button>
+      <button aria-label="Notifications" onclick="alert('Notifications coming soon!')">🔔</button>
     </div>
   </div>
   <div class="search-bar">
@@ -181,7 +194,10 @@ a { text-decoration: none; color: inherit; }
 </div>
 
 <div class="feed-container" id="feedContainer">
-  <!-- Cards rendered by JS -->
+  <div class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading businesses...</p>
+  </div>
 </div>
 <button class="load-more" id="loadMoreBtn" style="display: none;">Load More</button>
 
@@ -190,11 +206,11 @@ a { text-decoration: none; color: inherit; }
     <span class="nav-icon">🌍</span>
     <span>Explore</span>
   </a>
-  <a href="#" class="nav-item">
+  <a href="feed.html#search" class="nav-item">
     <span class="nav-icon">🔍</span>
     <span>Search</span>
   </a>
-  <a href="#" class="nav-item">
+  <a href="#" class="nav-item" onclick="alert('Messages coming soon!')">
     <span class="nav-icon">💬</span>
     <span>Messages</span>
   </a>
@@ -204,52 +220,85 @@ a { text-decoration: none; color: inherit; }
   </a>
 </nav>
 
-<script>
-const BUSINESSES = [
-  { id:'b1', name:'Mama Titi Kitchen', category:'Restaurants', city:'Dubai', area:'Deira',
-    rating:4.9, reviews:214, phone:'+971501234567', verified:true,
-    image:'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=800',
-    desc:'Authentic Nigerian cuisine in the heart of Deira. Jollof rice, egusi soup, suya grills.' },
-  { id:'b2', name:'Kwame\'s Barbershop', category:'Barbers', city:'Dubai', area:'Al Karama',
-    rating:4.8, reviews:189, phone:'+971502345678', verified:true,
-    image:'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=800',
-    desc:'Premium fades and line-ups by West African master barbers.' },
-  { id:'b3', name:'Zara African Hair', category:'Hair Stylists', city:'Dubai', area:'Bur Dubai',
-    rating:4.7, reviews:156, phone:'+971503456789', verified:false,
-    image:'https://images.unsplash.com/photo-1605497788044-5a32c7078486?q=80&w=800',
-    desc:'Braiding, weaves, locs, and natural hair care specialists.' },
-  { id:'b4', name:'Kofi Lens Photography', category:'Photographers', city:'Dubai', area:'Downtown',
-    rating:5.0, reviews:88, phone:'+971504567890', verified:true,
-    image:'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=800',
-    desc:'Wedding, event, and portrait photography. Ghanaian storytelling through your lens.' },
-  { id:'b5', name:'Adunola Fashion House', category:'Tailors & Fashion', city:'Dubai', area:'JLT',
-    rating:4.6, reviews:72, phone:'+971505678901', verified:true,
-    image:'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=800',
-    desc:'Bespoke Ankara and African prints. Wedding attire and everyday fashion.' },
-  { id:'b6', name:'Grace Beauty Studio', category:'Beauty & Makeup', city:'Dubai', area:'Jumeirah',
-    rating:4.8, reviews:131, phone:'+971506789012', verified:true,
-    image:'https://images.unsplash.com/photo-1487412912498-0447578fcca8?q=80&w=800',
-    desc:'Bridal makeup, glam looks, and skincare for melanin-rich skin.' },
-  { id:'b7', name:'Nairobi Bites', category:'Restaurants', city:'London', area:'Peckham',
-    rating:4.5, reviews:203, phone:'+447911234567', verified:true,
-    image:'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?q=80&w=800',
-    desc:'Kenyan nyama choma, ugali, and sukuma wiki in the heart of South London.' },
-  { id:'b8', name:'AfroTech Jobs — Dubai', category:'Jobs', city:'Dubai', area:'DIFC',
-    rating:4.3, reviews:44, phone:'+971507890123', verified:true,
-    image:'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=800',
-    desc:'Tech and finance roles at diaspora-friendly companies across the UAE.' },
-];
+<script type="module">
+import { db, collection, getDocs, query, orderBy } from 'https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js';
 
+let allBusinesses = [];
 let activeCategory = 'All';
 let searchQuery = '';
 
+// Fetch businesses from Firestore
+async function fetchBusinesses() {
+  try {
+    const businessesRef = collection(db, 'businesses');
+    const q = query(businessesRef, orderBy('createdAt', 'desc'));
+    const snapshot = await getDocs(q);
+
+    allBusinesses = [];
+    snapshot.forEach(doc => {
+      allBusinesses.push({ id: doc.id, ...doc.data() });
+    });
+
+    // Fallback to seed data if Firestore is empty
+    if (allBusinesses.length === 0) {
+      console.log('No businesses in Firestore, using fallback data');
+      allBusinesses = getFallbackData();
+    }
+
+    renderFeed();
+  } catch (error) {
+    console.error('Error fetching businesses:', error);
+    // Use fallback data on error
+    allBusinesses = getFallbackData();
+    renderFeed();
+  }
+}
+
+// Fallback mock data
+function getFallbackData() {
+  return [
+    { id:'b1', name:'Mama Titi Kitchen', category:'Restaurants', city:'Dubai', area:'Deira',
+      rating:4.9, reviews:214, phone:'+971501234567', verified:true,
+      image:'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=800',
+      desc:'Authentic Nigerian cuisine in the heart of Deira. Jollof rice, egusi soup, suya grills.' },
+    { id:'b2', name:'Kwame\'s Barbershop', category:'Barbers', city:'Dubai', area:'Al Karama',
+      rating:4.8, reviews:189, phone:'+971502345678', verified:true,
+      image:'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=800',
+      desc:'Premium fades and line-ups by West African master barbers.' },
+    { id:'b3', name:'Zara African Hair', category:'Hair Stylists', city:'Dubai', area:'Bur Dubai',
+      rating:4.7, reviews:156, phone:'+971503456789', verified:false,
+      image:'https://images.unsplash.com/photo-1605497788044-5a32c7078486?q=80&w=800',
+      desc:'Braiding, weaves, locs, and natural hair care specialists.' },
+    { id:'b4', name:'Kofi Lens Photography', category:'Photographers', city:'Dubai', area:'Downtown',
+      rating:5.0, reviews:88, phone:'+971504567890', verified:true,
+      image:'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=800',
+      desc:'Wedding, event, and portrait photography. Ghanaian storytelling through your lens.' },
+    { id:'b5', name:'Adunola Fashion House', category:'Tailors & Fashion', city:'Dubai', area:'JLT',
+      rating:4.6, reviews:72, phone:'+971505678901', verified:true,
+      image:'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=800',
+      desc:'Bespoke Ankara and African prints. Wedding attire and everyday fashion.' },
+    { id:'b6', name:'Grace Beauty Studio', category:'Beauty & Makeup', city:'Dubai', area:'Jumeirah',
+      rating:4.8, reviews:131, phone:'+971506789012', verified:true,
+      image:'https://images.unsplash.com/photo-1487412912498-0447578fcca8?q=80&w=800',
+      desc:'Bridal makeup, glam looks, and skincare for melanin-rich skin.' },
+    { id:'b7', name:'Nairobi Bites', category:'Restaurants', city:'London', area:'Peckham',
+      rating:4.5, reviews:203, phone:'+447911234567', verified:true,
+      image:'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?q=80&w=800',
+      desc:'Kenyan nyama choma, ugali, and sukuma wiki in the heart of South London.' },
+    { id:'b8', name:'AfroTech Jobs — Dubai', category:'Jobs', city:'Dubai', area:'DIFC',
+      rating:4.3, reviews:44, phone:'+971507890123', verified:true,
+      image:'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=800',
+      desc:'Tech and finance roles at diaspora-friendly companies across the UAE.' },
+  ];
+}
+
 function renderFeed() {
   const container = document.getElementById('feedContainer');
-  let filtered = BUSINESSES.filter(b => {
+  let filtered = allBusinesses.filter(b => {
     const matchCat = activeCategory === 'All' || b.category === activeCategory;
     const searchLower = searchQuery.toLowerCase();
-    const matchSearch = b.name.toLowerCase().includes(searchLower) || 
-                        b.desc.toLowerCase().includes(searchLower) || 
+    const matchSearch = b.name.toLowerCase().includes(searchLower) ||
+                        b.desc.toLowerCase().includes(searchLower) ||
                         b.area.toLowerCase().includes(searchLower) ||
                         b.city.toLowerCase().includes(searchLower);
     return matchCat && matchSearch;
@@ -283,7 +332,7 @@ function renderFeed() {
       </div>
     </a>
   `).join('');
-  
+
   document.getElementById('loadMoreBtn').style.display = filtered.length > 0 ? 'block' : 'none';
 }
 
@@ -310,8 +359,8 @@ document.getElementById('loadMoreBtn').addEventListener('click', function() {
   }, 1000);
 });
 
-// Initial Render
-renderFeed();
+// Initial fetch
+fetchBusinesses();
 </script>
 </body>
 </html>
