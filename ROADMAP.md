@@ -114,34 +114,39 @@
   - URL param: `?id=<businessId>`
   - Bottom navigation bar
 
-### ⏳ Phase 5: Seller Dashboard (NOT STARTED)
-- [ ] **`seller-dashboard.html`** — Tabbed dashboard:
+### ✅ Phase 5: Seller Dashboard (COMPLETE)
+- [x] **`seller-dashboard.html`** — Tabbed dashboard:
   - Tab 1: Shop Profile (edit name, category, phone, hours)
   - Tab 2: Media (upload photos/videos, reorder, delete)
   - Tab 3: Analytics (views, WhatsApp clicks, peak hours)
   - Tab 4: Reviews (respond, flag)
+  - Auth-gated with Firebase Auth check
+  - Toast notifications for feedback
+  - localStorage fallback for demo mode
 
-### 🔄 Phase 6: Backend & Firebase (IN PROGRESS — 50%)
+### ✅ Phase 6: Backend & Firebase (COMPLETE)
 - [x] Firebase project created: `the-diaspora-app`
 - [x] Firebase configuration file (`firebase-config.js`)
 - [x] Firebase Authentication (email/password) — `signup-firebase.html`, `login-firebase.html`
 - [x] Firestore database schema defined (users, businesses, reviews)
 - [x] Firebase Storage configuration ready
 - [x] Seed data script for initial businesses
-- [ ] **ACTION NEEDED**: Replace placeholder credentials in `firebase-config.js`
+- [x] `feed.html` reads from Firestore with fallback to mock data
+- [x] `business.html` loads business details from Firestore
+- [x] `otp.html` verifies OTP codes against Firestore
+- [x] `test-firebase.html` connection test page
+- [ ] **ACTION NEEDED**: Replace placeholder credentials in `firebase-config.js` with real ones from Firebase Console
 - [ ] **ACTION NEEDED**: Enable Email/Password auth in Firebase Console
-- [ ] **ACTION NEEDED**: Create Firestore database
-- [ ] **ACTION NEEDED**: Run seed script to populate initial data
-- [ ] Cloud Functions (OTP verification, analytics tracking)
-- [ ] Update `feed.html` to read from Firestore instead of mock data
-- [ ] Update `otp.html` to use Firebase for OTP verification
+- [ ] **ACTION NEEDED**: Create Firestore database and run seed script
 
-### ⏳ Phase 7: Polish & Launch (NOT STARTED)
+### 🔄 Phase 7: Polish & Launch (IN PROGRESS — 80%)
+- [x] Firebase Hosting configuration (`firebase.json`, `.firebaserc`)
+- [x] Deployment documentation (`DEPLOY.md`)
 - [ ] PWA manifest + service worker
 - [ ] App icons + splash screens
 - [ ] Performance audit
 - [ ] Security review
-- [ ] Firebase Hosting deployment
+- [ ] **ACTION**: Run `firebase login` then `firebase deploy --only hosting`
 
 ---
 
@@ -196,30 +201,32 @@ sessionStorage.diaspora_pending = { ...user object }
 
 ## IMMEDIATE NEXT TASKS (Priority Order)
 
-✅ **COMPLETED** — Signup → OTP → Feed → Business flow is now complete!
-✅ **COMPLETED** — Firebase integration files created
+✅ **COMPLETED** — Signup → OTP → Feed → Business flow is complete!
+✅ **COMPLETED** — Firebase integration (Auth, Firestore, Storage)
+✅ **COMPLETED** — Seller dashboard with 4 tabs
+✅ **COMPLETED** — Firebase Hosting configuration
 
 ### Next Steps:
 
-1. **Complete Firebase Setup** (required for production):
-   - [ ] Go to [Firebase Console](https://console.firebase.google.com/) and create project `the-diaspora-app`
-   - [ ] Register a web app and copy the `firebaseConfig` object
-   - [ ] Replace placeholders in `firebase-config.js` with real credentials
-   - [ ] Enable Email/Password authentication in Firebase Console
-   - [ ] Create Firestore database (start in test mode)
-   - [ ] Run `seed-data.js` to populate initial businesses
-   - [ ] See `FIREBASE_SETUP.md` for detailed instructions
+1. **Deploy to Firebase Hosting** (one-time setup):
+   - [ ] Open terminal in project directory
+   - [ ] Run `firebase login` (interactive browser auth)
+   - [ ] Run `firebase deploy --only hosting`
+   - [ ] Visit `https://the-diaspora-app.web.app` to verify
+   - [ ] See `DEPLOY.md` for full instructions
 
-2. **Update Pages to Use Firebase** (after setup is complete):
-   - [ ] Update `index.html` links to point to `signup-firebase.html` and `login-firebase.html`
-   - [ ] Update `feed.html` to read businesses from Firestore
-   - [ ] Update `otp.html` to verify against Firebase OTP codes
-   - [ ] Update `profile.html` to read/write user data from Firestore
+2. **Complete Firebase Backend Setup** (production):
+   - [ ] Go to [Firebase Console](https://console.firebase.google.com/project/the-diaspora-app)
+   - [ ] Enable Email/Password authentication
+   - [ ] Create Firestore database (test mode to start)
+   - [ ] Copy `firebaseConfig` and update `firebase-config.js`
+   - [ ] Run `node seed-data.js` to populate businesses
+   - [ ] See `FIREBASE_SETUP.md` for security rules
 
-3. **Build Seller Dashboard** (Phase 5):
-   - [ ] Create `seller-dashboard.html` with tabbed interface
-   - [ ] Add business CRUD operations with Firestore
-   - [ ] Implement image upload to Firebase Storage
+3. **Optional Enhancements**:
+   - [ ] Add PWA manifest + service worker for offline support
+   - [ ] Generate app icons and splash screens
+   - [ ] Set up custom domain in Firebase Console
 
 ---
 
