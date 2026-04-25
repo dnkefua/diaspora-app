@@ -121,8 +121,9 @@ function handleSignup(e){
   if (accounts[user.email]){ err.textContent='An account already exists for that email. Try signing in.'; err.classList.add('show'); return; }
   accounts[user.email] = { password: document.getElementById('password').value, profile: user };
   localStorage.setItem('diaspora_accounts', JSON.stringify(accounts));
-  localStorage.setItem('diaspora_user', JSON.stringify(user));
-  window.location.href = 'profile.html';
+  // Save pending user for OTP verification
+  sessionStorage.setItem('diaspora_pending', JSON.stringify(user));
+  window.location.href = 'otp.html';
 }
 </script>
 </body>

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Feed — Diaspora</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0A0A0A;
+  --graphite: #1B1D22;
+  --ivory: #F6F2EA;
+  --bone: #EEE7DA;
+  --paper: #FBF8F2;
+  --blue: #1C3D6E;
+  --brass: #B7924A;
+  --brass-soft: #D9BE88;
+  --rust: #8F3A26;
+  --muted: #6B6357;
+  --surface: #FFFFFF;
+  --line: rgba(10,10,10,0.10);
+  --radius-lg: 16px;
+  --radius-sm: 8px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--paper);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: 80px; /* Space for bottom nav */
+}
+h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; font-weight: 600; }
+a { text-decoration: none; color: inherit; }
+
+/* Header & Search */
+.header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(251, 248, 242, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--line);
+}
+.header-top {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;
+}
+.logo { font-size: 24px; letter-spacing: -0.02em; color: var(--blue); }
+.header-actions button {
+  background: none; border: none; font-size: 20px; cursor: pointer; padding: 4px;
+}
+.search-bar {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 999px; padding: 10px 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+}
+.search-bar input {
+  border: none; background: transparent; outline: none;
+  font-family: 'Inter', sans-serif; font-size: 15px; width: 100%;
+}
+.search-bar input::placeholder { color: var(--muted); }
+
+/* Category Chips */
+.categories {
+  display: flex; gap: 12px; overflow-x: auto;
+  padding: 16px 20px; scrollbar-width: none;
+  border-bottom: 1px solid var(--line);
+}
+.categories::-webkit-scrollbar { display: none; }
+.chip {
+  padding: 8px 16px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--surface);
+  font-size: 14px; font-weight: 500; white-space: nowrap;
+  cursor: pointer; transition: all 0.2s;
+}
+.chip.active {
+  background: var(--blue); color: #fff; border-color: var(--blue);
+}
+
+/* Feed Grid */
+.feed-container {
+  padding: 20px;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px;
+  max-width: 1200px; margin: 0 auto;
+}
+.biz-card {
+  background: var(--surface); border-radius: var(--radius-lg);
+  overflow: hidden; border: 1px solid var(--line);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+.biz-card:hover {
+  transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.06);
+}
+.biz-img {
+  width: 100%; height: 200px; object-fit: cover;
+  border-bottom: 1px solid var(--line);
+}
+.biz-info { padding: 16px; }
+.biz-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+.biz-title { font-size: 20px; line-height: 1.2; }
+.biz-rating {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 13px; font-weight: 600; font-family: 'Inter', sans-serif;
+}
+.biz-category {
+  display: inline-block; padding: 4px 8px; border-radius: 4px;
+  background: var(--ivory); color: var(--muted);
+  font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+  margin-bottom: 12px;
+}
+.biz-desc {
+  font-size: 14px; color: var(--muted); line-height: 1.5;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  margin-bottom: 16px;
+}
+.biz-footer {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 13px; color: var(--muted); font-weight: 500;
+  border-top: 1px solid var(--line); padding-top: 12px;
+}
+.biz-location { display: flex; align-items: center; gap: 4px; }
+.verified-badge { color: var(--blue); margin-left: 4px; font-size: 14px; }
+
+/* Empty State */
+.empty-state {
+  text-align: center; padding: 64px 20px; grid-column: 1 / -1; color: var(--muted);
+}
+.empty-state h3 { color: var(--ink); font-size: 24px; margin-bottom: 8px; }
+
+/* Bottom Nav */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--surface); border-top: 1px solid var(--line);
+  display: flex; justify-content: space-around; padding: 12px 0;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  z-index: 100;
+}
+.nav-item {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  color: var(--muted); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+}
+.nav-item.active { color: var(--blue); }
+.nav-icon { font-size: 20px; }
+
+/* Load More */
+.load-more {
+  display: block; width: 100%; max-width: 200px; margin: 32px auto;
+  padding: 12px; background: transparent; border: 1px solid var(--blue);
+  color: var(--blue); border-radius: 999px; font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: all 0.2s;
+}
+.load-more:hover { background: var(--ivory); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <h1 class="logo">Diaspora</h1>
+    <div class="header-actions">
+      <button aria-label="Notifications">🔔</button>
+    </div>
+  </div>
+  <div class="search-bar">
+    <span style="opacity:0.5">🔍</span>
+    <input type="text" id="searchInput" placeholder="Search businesses, services, or locations...">
+  </div>
+</div>
+
+<div class="categories" id="categoryTabs">
+  <div class="chip active" data-cat="All">All</div>
+  <div class="chip" data-cat="Restaurants">Restaurants</div>
+  <div class="chip" data-cat="Barbers">Barbers</div>
+  <div class="chip" data-cat="Hair Stylists">Stylists</div>
+  <div class="chip" data-cat="Photographers">Photographers</div>
+  <div class="chip" data-cat="Tailors & Fashion">Tailors</div>
+  <div class="chip" data-cat="Beauty & Makeup">Beauty</div>
+  <div class="chip" data-cat="Jobs">Jobs</div>
+</div>
+
+<div class="feed-container" id="feedContainer">
+  <!-- Cards rendered by JS -->
+</div>
+<button class="load-more" id="loadMoreBtn" style="display: none;">Load More</button>
+
+<nav class="bottom-nav">
+  <a href="feed.html" class="nav-item active">
+    <span class="nav-icon">🌍</span>
+    <span>Explore</span>
+  </a>
+  <a href="#" class="nav-item">
+    <span class="nav-icon">🔍</span>
+    <span>Search</span>
+  </a>
+  <a href="#" class="nav-item">
+    <span class="nav-icon">💬</span>
+    <span>Messages</span>
+  </a>
+  <a href="profile.html" class="nav-item">
+    <span class="nav-icon">👤</span>
+    <span>Profile</span>
+  </a>
+</nav>
+
+<script>
+const BUSINESSES = [
+  { id:'b1', name:'Mama Titi Kitchen', category:'Restaurants', city:'Dubai', area:'Deira',
+    rating:4.9, reviews:214, phone:'+971501234567', verified:true,
+    image:'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=800',
+    desc:'Authentic Nigerian cuisine in the heart of Deira. Jollof rice, egusi soup, suya grills.' },
+  { id:'b2', name:'Kwame\'s Barbershop', category:'Barbers', city:'Dubai', area:'Al Karama',
+    rating:4.8, reviews:189, phone:'+971502345678', verified:true,
+    image:'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=800',
+    desc:'Premium fades and line-ups by West African master barbers.' },
+  { id:'b3', name:'Zara African Hair', category:'Hair Stylists', city:'Dubai', area:'Bur Dubai',
+    rating:4.7, reviews:156, phone:'+971503456789', verified:false,
+    image:'https://images.unsplash.com/photo-1605497788044-5a32c7078486?q=80&w=800',
+    desc:'Braiding, weaves, locs, and natural hair care specialists.' },
+  { id:'b4', name:'Kofi Lens Photography', category:'Photographers', city:'Dubai', area:'Downtown',
+    rating:5.0, reviews:88, phone:'+971504567890', verified:true,
+    image:'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=800',
+    desc:'Wedding, event, and portrait photography. Ghanaian storytelling through your lens.' },
+  { id:'b5', name:'Adunola Fashion House', category:'Tailors & Fashion', city:'Dubai', area:'JLT',
+    rating:4.6, reviews:72, phone:'+971505678901', verified:true,
+    image:'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=800',
+    desc:'Bespoke Ankara and African prints. Wedding attire and everyday fashion.' },
+  { id:'b6', name:'Grace Beauty Studio', category:'Beauty & Makeup', city:'Dubai', area:'Jumeirah',
+    rating:4.8, reviews:131, phone:'+971506789012', verified:true,
+    image:'https://images.unsplash.com/photo-1487412912498-0447578fcca8?q=80&w=800',
+    desc:'Bridal makeup, glam looks, and skincare for melanin-rich skin.' },
+  { id:'b7', name:'Nairobi Bites', category:'Restaurants', city:'London', area:'Peckham',
+    rating:4.5, reviews:203, phone:'+447911234567', verified:true,
+    image:'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?q=80&w=800',
+    desc:'Kenyan nyama choma, ugali, and sukuma wiki in the heart of South London.' },
+  { id:'b8', name:'AfroTech Jobs — Dubai', category:'Jobs', city:'Dubai', area:'DIFC',
+    rating:4.3, reviews:44, phone:'+971507890123', verified:true,
+    image:'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=800',
+    desc:'Tech and finance roles at diaspora-friendly companies across the UAE.' },
+];
+
+let activeCategory = 'All';
+let searchQuery = '';
+
+function renderFeed() {
+  const container = document.getElementById('feedContainer');
+  let filtered = BUSINESSES.filter(b => {
+    const matchCat = activeCategory === 'All' || b.category === activeCategory;
+    const searchLower = searchQuery.toLowerCase();
+    const matchSearch = b.name.toLowerCase().includes(searchLower) || 
+                        b.desc.toLowerCase().includes(searchLower) || 
+                        b.area.toLowerCase().includes(searchLower) ||
+                        b.city.toLowerCase().includes(searchLower);
+    return matchCat && matchSearch;
+  });
+
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <h3>No results found</h3>
+        <p>Try adjusting your filters or search terms.</p>
+      </div>
+    `;
+    document.getElementById('loadMoreBtn').style.display = 'none';
+    return;
+  }
+
+  container.innerHTML = filtered.map(b => `
+    <a href="business.html?id=${b.id}" class="biz-card">
+      <img src="${b.image}" class="biz-img" alt="${b.name}" loading="lazy">
+      <div class="biz-info">
+        <div class="biz-header">
+          <h3 class="biz-title">${b.name} ${b.verified ? '<span class="verified-badge" title="Verified">✓</span>' : ''}</h3>
+          <div class="biz-rating">⭐ ${b.rating}</div>
+        </div>
+        <div class="biz-category">${b.category}</div>
+        <p class="biz-desc">${b.desc}</p>
+        <div class="biz-footer">
+          <div class="biz-location">📍 ${b.area}, ${b.city}</div>
+          <div>${b.reviews} reviews</div>
+        </div>
+      </div>
+    </a>
+  `).join('');
+  
+  document.getElementById('loadMoreBtn').style.display = filtered.length > 0 ? 'block' : 'none';
+}
+
+// Event Listeners
+document.getElementById('searchInput').addEventListener('input', (e) => {
+  searchQuery = e.target.value;
+  renderFeed();
+});
+
+document.querySelectorAll('.chip').forEach(chip => {
+  chip.addEventListener('click', (e) => {
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    e.target.classList.add('active');
+    activeCategory = e.target.dataset.cat;
+    renderFeed();
+  });
+});
+
+document.getElementById('loadMoreBtn').addEventListener('click', function() {
+  this.textContent = 'Loading...';
+  setTimeout(() => {
+    this.textContent = 'No more results';
+    this.disabled = true;
+  }, 1000);
+});
+
+// Initial Render
+renderFeed();
+</script>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Business Details — Diaspora</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0A0A0A; --graphite: #1B1D22; --ivory: #F6F2EA;
+  --bone: #EEE7DA; --paper: #FBF8F2; --blue: #1C3D6E;
+  --brass: #B7924A; --brass-soft: #D9BE88; --muted: #6B6357;
+  --surface: #FFFFFF; --line: rgba(10,10,10,0.10);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--paper); color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: 80px;
+}
+a { text-decoration: none; color: inherit; }
+
+/* Hero Section */
+.hero { position: relative; width: 100%; height: 320px; background: #ddd; }
+.hero img { width: 100%; height: 100%; object-fit: cover; }
+.back-btn {
+  position: absolute; top: 16px; left: 16px;
+  background: rgba(255,255,255,0.9); border-radius: 50%;
+  width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+  font-size: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); backdrop-filter: blur(4px);
+}
+.hero-gradient {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 120px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.6));
+}
+
+/* Container */
+.container { max-width: 800px; margin: 0 auto; padding: 0 20px; position: relative; top: -32px; }
+
+/* Header Info */
+.info-card {
+  background: var(--surface); border-radius: 20px; padding: 24px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06); margin-bottom: 24px;
+}
+.biz-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 700; margin-bottom: 8px; line-height: 1.1; }
+.verified { color: var(--blue); font-size: 20px; margin-left: 6px; }
+.biz-meta { display: flex; flex-wrap: wrap; gap: 12px; font-size: 14px; color: var(--muted); margin-bottom: 16px; }
+.biz-cat { background: var(--ivory); padding: 4px 10px; border-radius: 6px; font-weight: 600; color: var(--ink); text-transform: uppercase; letter-spacing: 0.05em; font-size: 11px; }
+.biz-desc { font-size: 15px; line-height: 1.6; color: var(--graphite); }
+
+/* Quick Actions */
+.actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px; }
+.btn {
+  padding: 16px; border-radius: 12px; font-size: 15px; font-weight: 600;
+  text-align: center; cursor: pointer; transition: transform 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.btn-primary { background: #25D366; color: #fff; border: none; } /* WhatsApp Green */
+.btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+.btn-secondary { background: var(--surface); color: var(--ink); border: 1px solid var(--line); }
+.btn-secondary:hover { background: var(--ivory); }
+
+/* Sections */
+.section { margin-bottom: 32px; }
+.section-title { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600; margin-bottom: 16px; }
+.details-box { background: var(--surface); border-radius: 16px; padding: 20px; border: 1px solid var(--line); }
+.detail-row { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px; font-size: 15px; }
+.detail-row:last-child { margin-bottom: 0; }
+.detail-icon { font-size: 18px; color: var(--brass); width: 24px; text-align: center; }
+
+/* Photos */
+.photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.photo-grid img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 12px; cursor: pointer; }
+
+/* Reviews */
+.review-card { border-bottom: 1px solid var(--line); padding: 16px 0; }
+.review-card:last-child { border-bottom: none; padding-bottom: 0; }
+.review-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
+.reviewer-name { font-weight: 600; font-size: 15px; }
+.review-date { font-size: 13px; color: var(--muted); }
+.review-stars { color: var(--brass); font-size: 14px; margin-bottom: 8px; }
+.review-text { font-size: 14px; line-height: 1.5; color: var(--graphite); }
+.see-all { color: var(--blue); font-weight: 600; font-size: 14px; display: inline-block; margin-top: 16px; }
+
+.error-state { text-align: center; padding: 60px 20px; }
+.error-state h2 { font-family: 'Cormorant Garamond', serif; font-size: 28px; margin-bottom: 12px; }
+</style>
+</head>
+<body>
+
+<div id="content"></div>
+
+<nav class="bottom-nav">
+  <a href="feed.html" class="nav-item">
+    <span class="nav-icon">🌍</span>
+    <span>Explore</span>
+  </a>
+  <a href="feed.html" class="nav-item">
+    <span class="nav-icon">🔍</span>
+    <span>Search</span>
+  </a>
+  <a href="#" class="nav-item">
+    <span class="nav-icon">💬</span>
+    <span>Messages</span>
+  </a>
+  <a href="profile.html" class="nav-item">
+    <span class="nav-icon">👤</span>
+    <span>Profile</span>
+  </a>
+</nav>
+
+<script>
+const BUSINESSES = [
+  { id:'b1', name:'Mama Titi Kitchen', category:'Restaurants', city:'Dubai', area:'Deira',
+    rating:4.9, reviews:214, phone:'+971501234567', verified:true,
+    image:'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=800',
+    desc:'Authentic Nigerian cuisine in the heart of Deira. Jollof rice, egusi soup, suya grills.' },
+  { id:'b2', name:'Kwame\'s Barbershop', category:'Barbers', city:'Dubai', area:'Al Karama',
+    rating:4.8, reviews:189, phone:'+971502345678', verified:true,
+    image:'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=800',
+    desc:'Premium fades and line-ups by West African master barbers.' },
+  { id:'b3', name:'Zara African Hair', category:'Hair Stylists', city:'Dubai', area:'Bur Dubai',
+    rating:4.7, reviews:156, phone:'+971503456789', verified:false,
+    image:'https://images.unsplash.com/photo-1605497788044-5a32c7078486?q=80&w=800',
+    desc:'Braiding, weaves, locs, and natural hair care specialists.' },
+  { id:'b4', name:'Kofi Lens Photography', category:'Photographers', city:'Dubai', area:'Downtown',
+    rating:5.0, reviews:88, phone:'+971504567890', verified:true,
+    image:'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=800',
+    desc:'Wedding, event, and portrait photography. Ghanaian storytelling through your lens.' },
+  { id:'b5', name:'Adunola Fashion House', category:'Tailors & Fashion', city:'Dubai', area:'JLT',
+    rating:4.6, reviews:72, phone:'+971505678901', verified:true,
+    image:'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=800',
+    desc:'Bespoke Ankara and African prints. Wedding attire and everyday fashion.' },
+  { id:'b6', name:'Grace Beauty Studio', category:'Beauty & Makeup', city:'Dubai', area:'Jumeirah',
+    rating:4.8, reviews:131, phone:'+971506789012', verified:true,
+    image:'https://images.unsplash.com/photo-1487412912498-0447578fcca8?q=80&w=800',
+    desc:'Bridal makeup, glam looks, and skincare for melanin-rich skin.' },
+  { id:'b7', name:'Nairobi Bites', category:'Restaurants', city:'London', area:'Peckham',
+    rating:4.5, reviews:203, phone:'+447911234567', verified:true,
+    image:'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?q=80&w=800',
+    desc:'Kenyan nyama choma, ugali, and sukuma wiki in the heart of South London.' },
+  { id:'b8', name:'AfroTech Jobs — Dubai', category:'Jobs', city:'Dubai', area:'DIFC',
+    rating:4.3, reviews:44, phone:'+971507890123', verified:true,
+    image:'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=800',
+    desc:'Tech and finance roles at diaspora-friendly companies across the UAE.' },
+];
+
+const MOCK_REVIEWS = [
+  { name: 'David O.', date: '2 days ago', stars: '⭐⭐⭐⭐⭐', text: 'Absolutely fantastic service. Reminds me of home!' },
+  { name: 'Sarah K.', date: '1 week ago', stars: '⭐⭐⭐⭐⭐', text: 'Very professional and great attention to detail. Highly recommend.' },
+  { name: 'Michael A.', date: '3 weeks ago', stars: '⭐⭐⭐⭐', text: 'Good experience overall, will definitely be coming back.' }
+];
+
+function renderPage() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = urlParams.get('id') || 'b1'; // default to b1 for preview
+  const biz = BUSINESSES.find(b => b.id === id);
+
+  const container = document.getElementById('content');
+
+  if (!biz) {
+    container.innerHTML = `
+      <div class="error-state">
+        <h2>Business not found</h2>
+        <a href="feed.html" class="see-all">← Back to Feed</a>
+      </div>
+    `;
+    return;
+  }
+
+  const waText = encodeURIComponent(`Hi ${biz.name}, I found you on the Diaspora App and would like to make an inquiry.`);
+
+  container.innerHTML = `
+    <div class="hero">
+      <img src="${biz.image}" alt="${biz.name}">
+      <div class="hero-gradient"></div>
+      <a href="feed.html" class="back-btn">←</a>
+    </div>
+
+    <div class="container">
+      <div class="info-card">
+        <h1 class="biz-title">${biz.name} ${biz.verified ? '<span class="verified" title="Verified">✓</span>' : ''}</h1>
+        <div class="biz-meta">
+          <span class="biz-cat">${biz.category}</span>
+          <span>⭐ ${biz.rating} (${biz.reviews} reviews)</span>
+          <span>📍 ${biz.city}</span>
+        </div>
+        <p class="biz-desc">${biz.desc}</p>
+
+        <div class="actions">
+          <a href="https://wa.me/${biz.phone.replace('+','')}?text=${waText}" target="_blank" class="btn btn-primary">
+            💬 WhatsApp
+          </a>
+          <button class="btn btn-secondary">
+            ⭐ Review
+          </button>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">Details & Info</h2>
+        <div class="details-box">
+          <div class="detail-row">
+            <div class="detail-icon">📞</div>
+            <div>
+              <strong>Phone Number</strong><br>
+              <span style="color:var(--muted)">${biz.phone}</span>
+            </div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-icon">📍</div>
+            <div>
+              <strong>Location</strong><br>
+              <span style="color:var(--muted)">${biz.area}, ${biz.city}</span>
+            </div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-icon">🕒</div>
+            <div>
+              <strong>Opening Hours</strong><br>
+              <span style="color:var(--muted)">Mon - Sat: 10:00 AM - 9:00 PM<br>Sun: Closed</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">Gallery</h2>
+        <div class="photo-grid">
+          <img src="${biz.image}" alt="Gallery 1">
+          <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=400" alt="Gallery 2">
+          <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=400" alt="Gallery 3">
+        </div>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">Reviews</h2>
+        <div class="details-box">
+          ${MOCK_REVIEWS.map(r => `
+            <div class="review-card">
+              <div class="review-header">
+                <div class="reviewer-name">${r.name}</div>
+                <div class="review-date">${r.date}</div>
+              </div>
+              <div class="review-stars">${r.stars}</div>
+              <div class="review-text">${r.text}</div>
+            </div>
+          `).join('')}
+          <a href="#" class="see-all">See all ${biz.reviews} reviews →</a>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+renderPage();
+</script>
+</body>
+</html>

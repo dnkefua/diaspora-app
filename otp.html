@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Verify Your Phone — Diaspora</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="auth.css">
+<style>
+/* OTP-specific overrides */
+.otp-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  padding: 24px;
+}
+.otp-card {
+  width: 100%;
+  max-width: 480px;
+  background: var(--surface);
+  border-radius: 28px;
+  padding: 56px 48px;
+  box-shadow: 0 32px 80px rgba(10,10,10,0.12), 0 0 0 1px rgba(10,10,10,0.06);
+  text-align: center;
+}
+.otp-icon {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: linear-gradient(135deg, #0A2758 0%, #1C3D6E 100%);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 28px;
+  font-size: 32px;
+}
+.otp-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px; font-weight: 700;
+  color: var(--ink); margin-bottom: 10px;
+  letter-spacing: -0.02em;
+}
+.otp-sub {
+  font-size: 15px; color: var(--muted);
+  line-height: 1.6; margin-bottom: 10px;
+}
+.otp-phone-display {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--bg); border: 1px solid var(--line);
+  border-radius: 12px; padding: 8px 16px;
+  font-size: 15px; font-weight: 600; color: var(--ink);
+  margin-bottom: 36px;
+}
+.otp-phone-display a {
+  font-size: 12px; font-weight: 500; color: var(--gold);
+  text-decoration: none; margin-left: 8px;
+  letter-spacing: 0.05em; text-transform: uppercase;
+}
+.otp-boxes {
+  display: flex; gap: 12px; justify-content: center; margin-bottom: 32px;
+}
+.otp-box {
+  width: 60px; height: 68px;
+  border: 2px solid var(--line);
+  border-radius: 16px;
+  font-size: 28px; font-weight: 700;
+  text-align: center; color: var(--ink);
+  background: var(--bg);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.1s;
+  font-family: 'Inter', sans-serif;
+  caret-color: transparent;
+}
+.otp-box:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 4px rgba(183,146,74,0.15);
+  background: var(--surface);
+}
+.otp-box.filled {
+  border-color: #0A2758;
+  background: var(--surface);
+  color: #0A2758;
+}
+.otp-box.error {
+  border-color: #E53E3E;
+  box-shadow: 0 0 0 4px rgba(229,62,62,0.15);
+  animation: shake 0.3s ease;
+}
+@keyframes shake {
+  0%,100%{ transform: translateX(0) }
+  25%{ transform: translateX(-6px) }
+  75%{ transform: translateX(6px) }
+}
+.otp-verify-btn {
+  width: 100%; padding: 18px;
+  background: linear-gradient(135deg, #0A2758, #1C3D6E);
+  color: #fff; border: none; border-radius: 14px;
+  font-size: 15px; font-weight: 600; letter-spacing: 0.03em;
+  cursor: pointer; transition: all 0.25s;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  margin-bottom: 24px;
+}
+.otp-verify-btn:hover { transform: translateY(-1px); box-shadow: 0 12px 32px rgba(10,39,88,0.35); }
+.otp-verify-btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+.resend-row {
+  font-size: 14px; color: var(--muted);
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.resend-btn {
+  background: none; border: none; cursor: pointer;
+  color: var(--gold); font-weight: 600; font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  transition: opacity 0.2s;
+}
+.resend-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.countdown { font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
+
+.otp-success {
+  display: none;
+  flex-direction: column; align-items: center;
+  animation: fadeUp 0.5s ease forwards;
+}
+.otp-success.show { display: flex; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.success-checkmark {
+  width: 80px; height: 80px; border-radius: 50%;
+  background: linear-gradient(135deg, #22C55E, #16A34A);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px; font-size: 36px;
+}
+.err-msg { color: #E53E3E; font-size: 14px; margin-bottom: 12px; display: none; }
+.err-msg.show { display: block; }
+
+.back-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; color: var(--muted); text-decoration: none;
+  margin-bottom: 32px; transition: color 0.2s;
+}
+.back-link:hover { color: var(--ink); }
+</style>
+</head>
+<body>
+<div class="otp-wrap">
+  <div class="otp-card">
+    <a href="signup.html" class="back-link">← Back to sign up</a>
+
+    <!-- Verification Form -->
+    <div id="verify-form">
+      <div class="otp-icon">📱</div>
+      <h1 class="otp-title">Check your phone</h1>
+      <p class="otp-sub">We sent a 6-digit code to</p>
+      <div class="otp-phone-display">
+        <span id="phone-display">+971 50 *** 4567</span>
+        <a href="signup.html">Edit</a>
+      </div>
+
+      <div class="otp-boxes" id="otp-boxes">
+        <input class="otp-box" id="d0" maxlength="1" type="tel" inputmode="numeric" autocomplete="one-time-code" autofocus>
+        <input class="otp-box" id="d1" maxlength="1" type="tel" inputmode="numeric">
+        <input class="otp-box" id="d2" maxlength="1" type="tel" inputmode="numeric">
+        <input class="otp-box" id="d3" maxlength="1" type="tel" inputmode="numeric">
+        <input class="otp-box" id="d4" maxlength="1" type="tel" inputmode="numeric">
+        <input class="otp-box" id="d5" maxlength="1" type="tel" inputmode="numeric">
+      </div>
+
+      <div class="err-msg" id="err-msg">Incorrect code. Please try again.</div>
+
+      <button class="otp-verify-btn" id="verify-btn" onclick="verifyOTP()" disabled>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+        Verify & Continue
+      </button>
+
+      <div class="resend-row">
+        Didn't receive it?
+        <button class="resend-btn" id="resend-btn" onclick="resendCode()" disabled>Resend</button>
+        <span class="countdown" id="countdown">in 30s</span>
+      </div>
+
+      <p style="font-size:12px;color:var(--muted);margin-top:20px;line-height:1.5">
+        Demo: use code <strong>123456</strong> to proceed
+      </p>
+    </div>
+
+    <!-- Success State -->
+    <div class="otp-success" id="success-state">
+      <div class="success-checkmark">✓</div>
+      <h2 class="otp-title">Verified!</h2>
+      <p class="otp-sub">Your phone number is confirmed.<br>Welcome to the Diaspora family.</p>
+      <button class="otp-verify-btn" style="margin-top:24px" onclick="goToFeed()">
+        Explore the App →
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+const DEMO_OTP = '123456';
+const boxes = document.querySelectorAll('.otp-box');
+const verifyBtn = document.getElementById('verify-btn');
+const errMsg = document.getElementById('err-msg');
+
+// Load phone from session
+const pendingUser = JSON.parse(sessionStorage.getItem('diaspora_pending') || 'null');
+if (pendingUser && pendingUser.phone) {
+  const ph = pendingUser.phone;
+  const masked = ph.slice(0, 5) + ' *** ' + ph.slice(-4);
+  document.getElementById('phone-display').textContent = masked;
+}
+
+// OTP box behavior
+boxes.forEach((box, i) => {
+  box.addEventListener('input', e => {
+    const val = e.target.value.replace(/\D/g, '');
+    box.value = val.slice(-1);
+    if (val) {
+      box.classList.add('filled');
+      box.classList.remove('error');
+      if (i < boxes.length - 1) boxes[i + 1].focus();
+    } else {
+      box.classList.remove('filled');
+    }
+    checkComplete();
+  });
+
+  box.addEventListener('keydown', e => {
+    if (e.key === 'Backspace' && !box.value && i > 0) {
+      boxes[i - 1].focus();
+      boxes[i - 1].value = '';
+      boxes[i - 1].classList.remove('filled');
+      checkComplete();
+    }
+    if (e.key === 'ArrowLeft' && i > 0) boxes[i - 1].focus();
+    if (e.key === 'ArrowRight' && i < boxes.length - 1) boxes[i + 1].focus();
+  });
+
+  box.addEventListener('paste', e => {
+    e.preventDefault();
+    const paste = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '');
+    [...paste].slice(0, 6).forEach((ch, j) => {
+      if (boxes[j]) { boxes[j].value = ch; boxes[j].classList.add('filled'); }
+    });
+    boxes[Math.min(paste.length, 5)].focus();
+    checkComplete();
+  });
+});
+
+function checkComplete() {
+  const code = getCode();
+  verifyBtn.disabled = code.length < 6;
+  errMsg.classList.remove('show');
+}
+
+function getCode() {
+  return [...boxes].map(b => b.value).join('');
+}
+
+function verifyOTP() {
+  const code = getCode();
+  if (code === DEMO_OTP) {
+    // Save user to localStorage
+    const user = pendingUser || {
+      firstName: 'Diaspora', lastName: 'Member',
+      email: 'member@diaspora.app', phone: '+971 50 123 4567',
+      city: 'Dubai', joined: new Date().toISOString(), avatar: null, bio: ''
+    };
+    localStorage.setItem('diaspora_user', JSON.stringify(user));
+    sessionStorage.removeItem('diaspora_pending');
+
+    // Show success
+    document.getElementById('verify-form').style.display = 'none';
+    document.getElementById('success-state').classList.add('show');
+  } else {
+    boxes.forEach(b => b.classList.add('error'));
+    errMsg.classList.add('show');
+    verifyBtn.disabled = false;
+  }
+}
+
+function goToFeed() {
+  window.location.href = 'feed.html';
+}
+
+// Countdown timer for resend
+let timer = 30;
+const countdownEl = document.getElementById('countdown');
+const resendBtn = document.getElementById('resend-btn');
+const interval = setInterval(() => {
+  timer--;
+  if (timer <= 0) {
+    clearInterval(interval);
+    countdownEl.textContent = '';
+    resendBtn.disabled = false;
+  } else {
+    countdownEl.textContent = `in ${timer}s`;
+  }
+}, 1000);
+
+function resendCode() {
+  resendBtn.disabled = true;
+  timer = 30;
+  countdownEl.textContent = `in ${timer}s`;
+  const interval2 = setInterval(() => {
+    timer--;
+    if (timer <= 0) { clearInterval(interval2); countdownEl.textContent = ''; resendBtn.disabled = false; }
+    else countdownEl.textContent = `in ${timer}s`;
+  }, 1000);
+  // Flash feedback
+  boxes.forEach(b => { b.value = ''; b.classList.remove('filled', 'error'); });
+  boxes[0].focus();
+  verifyBtn.disabled = true;
+  errMsg.classList.remove('show');
+  alert('A new code has been sent! (Demo: use 123456)');
+}
+</script>
+</body>
+</html>
