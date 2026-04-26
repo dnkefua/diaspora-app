@@ -597,6 +597,119 @@ footer{
   .brand-sub{display:none}
 }
 
+/* Advertising landing experience */
+.spotlight{position:relative;min-height:100vh;width:100%;overflow:hidden;color:var(--paper);background:var(--ink)}
+.spotlight-stage{position:absolute;inset:0}
+.spotlight-slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity 900ms ease,visibility 900ms ease}
+.spotlight-slide.active{opacity:1;visibility:visible}
+.spotlight-media{position:absolute;inset:0;overflow:hidden}
+.spotlight-media img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 7s ease;filter:saturate(1.04) contrast(1.03) brightness(0.74)}
+.spotlight-slide.active .spotlight-media img{transform:scale(1)}
+.spotlight-slide::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(4,6,10,0.92) 0%,rgba(4,6,10,0.66) 42%,rgba(4,6,10,0.18) 100%),linear-gradient(180deg,rgba(4,6,10,0.62) 0%,rgba(4,6,10,0.08) 36%,rgba(4,6,10,0.82) 100%)}
+.spotlight-inner{position:relative;z-index:3;min-height:100vh;display:grid;grid-template-columns:minmax(0,0.94fr) minmax(320px,0.56fr);align-items:end;gap:56px;max-width:1320px;margin:0 auto;padding:140px 42px 96px}
+.spotlight-copy{max-width:760px}
+.sponsor-kicker{display:inline-flex;align-items:center;gap:12px;color:var(--brass-soft);margin-bottom:22px}
+.sponsor-kicker::before{content:"";width:42px;height:1px;background:var(--brass-soft)}
+.spotlight-title{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(48px,7.4vw,104px);line-height:0.96;letter-spacing:-0.02em;margin-bottom:24px;color:#fff;text-shadow:0 18px 70px rgba(0,0,0,0.5)}
+.spotlight-title em{font-style:italic;color:var(--brass-soft)}
+.spotlight-copy p{max-width:620px;color:rgba(246,242,234,0.88);font-size:17px;line-height:1.8;font-weight:500;text-shadow:0 8px 28px rgba(0,0,0,0.55)}
+.spotlight-meta{display:flex;flex-wrap:wrap;gap:10px;margin:30px 0 34px}
+.meta-pill{display:inline-flex;align-items:center;min-height:34px;padding:8px 13px;border:1px solid rgba(246,242,234,0.26);border-radius:999px;background:rgba(10,10,10,0.28);backdrop-filter:blur(16px);font-size:11px;letter-spacing:0.16em;text-transform:uppercase}
+.spotlight-card{justify-self:end;width:min(100%,420px);background:rgba(251,248,242,0.93);color:var(--ink);border:1px solid rgba(255,255,255,0.36);border-radius:8px;padding:26px;box-shadow:0 34px 90px rgba(0,0,0,0.38);backdrop-filter:blur(22px)}
+.slot-label{font-size:10px;letter-spacing:0.24em;text-transform:uppercase;color:var(--brass);font-weight:600;margin-bottom:14px}
+.spotlight-card h3{font-family:'Cormorant Garamond',serif;font-size:30px;line-height:1.05;font-weight:400;letter-spacing:-0.01em;margin-bottom:10px}
+.spotlight-card p{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:20px}
+.ad-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:22px}
+.ad-stat{border-top:1px solid var(--line);padding-top:12px}
+.ad-stat strong{display:block;font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;line-height:1}
+.ad-stat span{font-size:10px;color:var(--muted);letter-spacing:0.14em;text-transform:uppercase}
+.spotlight-controls{position:absolute;z-index:5;left:50%;bottom:28px;transform:translateX(-50%);width:min(92vw,1240px);display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center}
+.spot-btn{width:42px;height:42px;border-radius:50%;border:1px solid rgba(246,242,234,0.45);background:rgba(10,10,10,0.24);color:var(--paper);display:flex;align-items:center;justify-content:center;font-size:22px;transition:background 0.2s,color 0.2s}
+.spot-btn:hover{background:var(--paper);color:var(--ink)}
+.spot-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.spot-tab{border:1px solid rgba(246,242,234,0.22);background:rgba(10,10,10,0.28);color:rgba(246,242,234,0.72);border-radius:8px;padding:12px;text-align:left;min-height:68px;backdrop-filter:blur(16px);transition:background 0.2s,color 0.2s,border-color 0.2s}
+.spot-tab.active{background:rgba(251,248,242,0.94);color:var(--ink);border-color:rgba(251,248,242,0.94)}
+.spot-tab span{display:block;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--brass);margin-bottom:4px}
+.spot-tab strong{display:block;font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;line-height:1.1}
+.ad-strip{background:var(--ink);color:var(--paper);border-top:1px solid rgba(246,242,234,0.12);border-bottom:1px solid rgba(246,242,234,0.12);overflow:hidden;padding:14px 0}
+.ad-strip-track{display:flex;gap:36px;width:max-content;animation:adMarquee 34s linear infinite}
+.ad-strip:hover .ad-strip-track{animation-play-state:paused}
+.ad-strip span{font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:rgba(246,242,234,0.74);white-space:nowrap}
+.ad-strip b{color:var(--brass-soft);font-weight:500}
+@keyframes adMarquee{to{transform:translateX(-50%)}}
+.featured-ads{background:var(--paper);padding:110px 0 120px;overflow:hidden}
+.ads-head{max-width:1240px;margin:0 auto 34px;padding:0 40px;display:flex;justify-content:space-between;gap:28px;align-items:end}
+.ads-head .section-title{margin:0}
+.ads-head .section-lede{margin:0;max-width:430px;text-align:left}
+.ad-rail{display:flex;gap:22px;width:max-content;animation:adRail 46s linear infinite;padding:0 40px}
+.ad-rail:hover{animation-play-state:paused}
+@keyframes adRail{to{transform:translateX(calc(-50% - 11px))}}
+.ad-card{width:300px;background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:0 20px 55px rgba(10,10,10,0.08)}
+.ad-card-media{height:210px;overflow:hidden}
+.ad-card-media img{width:100%;height:100%;object-fit:cover;transition:transform 0.8s ease}
+.ad-card:hover .ad-card-media img{transform:scale(1.05)}
+.ad-card-body{padding:18px}
+.ad-card-tag{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--brass);font-weight:600;margin-bottom:8px}
+.ad-card h3{font-family:'Cormorant Garamond',serif;font-size:25px;font-weight:400;line-height:1.08;margin-bottom:8px}
+.ad-card p{font-size:13px;color:var(--muted);line-height:1.55;margin-bottom:14px}
+.ad-card-foot{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:13px;font-size:12px;color:var(--muted)}
+.ad-card-foot b{color:var(--ink);font-weight:600}
+.brand-story{background:var(--ivory);padding:110px 40px}
+.story-grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:0.85fr 1.15fr;gap:80px;align-items:center}
+.story-mark{width:100%;aspect-ratio:4/5;overflow:hidden;border-radius:8px;position:relative}
+.story-mark img{width:100%;height:100%;object-fit:cover}
+.story-mark::after{content:"";position:absolute;inset:18px;border:1px solid rgba(255,255,255,0.42)}
+.story-copy h2{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,5vw,66px);font-weight:300;line-height:1.04;letter-spacing:-0.02em;margin:18px 0 24px}
+.story-copy h2 em{font-style:italic;color:var(--brass)}
+.story-copy p{font-size:16px;line-height:1.85;color:var(--muted);max-width:650px}
+.city-spotlight{background:var(--graphite);color:var(--paper);padding:120px 40px}
+.city-spotlight .section-title{color:var(--paper)}
+.city-spotlight .section-lede{color:rgba(246,242,234,0.72)}
+.city-ad-grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1.1fr 0.9fr;gap:22px}
+.city-feature{min-height:560px;border-radius:8px;overflow:hidden;position:relative;background:#111}
+.city-feature img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;filter:brightness(0.72)}
+.city-feature::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.1),rgba(0,0,0,0.78))}
+.city-feature-copy{position:absolute;left:34px;right:34px;bottom:34px;z-index:2}
+.city-feature-copy h3{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;line-height:1;margin-bottom:12px}
+.city-feature-copy p{max-width:520px;color:rgba(246,242,234,0.78);line-height:1.7}
+.city-slots{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.city-slot{min-height:268px;background:rgba(255,255,255,0.05);border:1px solid rgba(246,242,234,0.14);border-radius:8px;padding:22px;display:flex;flex-direction:column;justify-content:space-between}
+.city-slot .slot-label{color:var(--brass-soft)}
+.city-slot h3{font-family:'Cormorant Garamond',serif;font-size:29px;font-weight:400;line-height:1.05}
+.city-slot p{font-size:13px;color:rgba(246,242,234,0.68);line-height:1.6}
+.sponsor-cats{background:var(--paper);padding:120px 40px}
+.sponsor-grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.sponsor-cat{position:relative;min-height:380px;border-radius:8px;overflow:hidden;color:var(--paper)}
+.sponsor-cat img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(0.66);transition:transform 0.8s ease}
+.sponsor-cat:hover img{transform:scale(1.05)}
+.sponsor-cat::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.05),rgba(0,0,0,0.78))}
+.sponsor-cat-content{position:absolute;left:22px;right:22px;bottom:22px;z-index:2}
+.sponsor-cat-content h3{font-family:'Cormorant Garamond',serif;font-size:31px;font-weight:400;line-height:1.05;margin:8px 0}
+.sponsor-cat-content p{font-size:13px;color:rgba(246,242,234,0.76);line-height:1.55}
+.ad-sales{position:relative;overflow:hidden;color:var(--paper);padding:150px 40px;background:var(--ink)}
+.ad-sales::before{content:"";position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=2200&auto=format');background-size:cover;background-position:center;filter:brightness(0.48) saturate(1.05)}
+.ad-sales::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,10,10,0.9),rgba(10,10,10,0.42))}
+.ad-sales-inner{position:relative;z-index:2;max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.ad-sales h2{font-family:'Cormorant Garamond',serif;font-size:clamp(42px,6vw,78px);font-weight:300;line-height:1;letter-spacing:-0.02em;margin:18px 0 24px}
+.ad-sales h2 em{font-style:italic;color:var(--brass-soft)}
+.ad-sales p{font-size:16px;line-height:1.8;color:rgba(246,242,234,0.78);max-width:590px}
+.pricing-panel{background:rgba(251,248,242,0.94);color:var(--ink);border-radius:8px;padding:28px;box-shadow:0 34px 90px rgba(0,0,0,0.35)}
+.pricing-row{display:flex;justify-content:space-between;gap:20px;padding:16px 0;border-bottom:1px solid var(--line)}
+.pricing-row:last-child{border-bottom:none}
+.pricing-row strong{font-family:'Cormorant Garamond',serif;font-size:25px;font-weight:400}
+.pricing-row span{font-size:13px;color:var(--muted);text-align:right}
+@media (max-width:1080px){.spotlight-inner{grid-template-columns:1fr;align-items:end;padding-bottom:150px}.spotlight-card{justify-self:start}.spot-tabs{grid-template-columns:repeat(2,1fr)}.story-grid,.city-ad-grid,.ad-sales-inner{grid-template-columns:1fr}.sponsor-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:700px){.spotlight{min-height:880px}.spotlight-inner{min-height:880px;padding:118px 20px 150px;gap:28px}.spotlight-title{font-size:clamp(42px,13vw,60px)}.spotlight-copy p{font-size:15px}.spotlight-card{padding:20px}.spotlight-controls{grid-template-columns:42px 1fr 42px;gap:8px;bottom:18px}.spot-tabs{display:flex;overflow-x:auto;scrollbar-width:none}.spot-tabs::-webkit-scrollbar{display:none}.spot-tab{min-width:180px}.ads-head{display:block;padding:0 20px}.ad-rail{padding:0 20px}.ad-card{width:270px}.brand-story,.city-spotlight,.sponsor-cats,.ad-sales{padding:90px 20px}.story-grid,.ad-sales-inner{gap:34px}.city-slots,.sponsor-grid{grid-template-columns:1fr}.city-feature{min-height:430px}.pricing-row{display:block}.pricing-row span{text-align:left;display:block;margin-top:4px}}
+.ad-landing ~ .hero,
+.ad-landing ~ .search-section,
+.ad-landing ~ .chapter,
+.ad-landing ~ .editorial,
+.ad-landing ~ .cats,
+.ad-landing ~ .trending,
+.ad-landing ~ .cities,
+.ad-landing ~ .hours,
+.ad-landing ~ .closing{display:none}
+
 /* Reveal on scroll */
 .reveal{opacity:0; transform:translateY(30px); transition:opacity 1s, transform 1s}
 .reveal.in{opacity:1; transform:translateY(0)}
@@ -608,19 +721,143 @@ footer{
 <nav class="topnav light" id="topnav">
   <div class="nav-left">
     <button class="nav-menu-btn nav-link"><span class="bars"><i></i><i></i><i></i></span> Menu</button>
-    <a href="#trending" class="nav-link">Discover</a>
-    <a href="#cats" class="nav-link">Categories</a>
+    <a href="#featured" class="nav-link">Featured</a>
+    <a href="#cats-new" class="nav-link">Ad Products</a>
   </div>
   <a href="index.html" class="brand" aria-label="The Diaspora App home">
     <img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="The Diaspora App logo" class="brand-logo">
     <span class="brand-sub">Est. 2026 · Global</span>
   </a>
   <div class="nav-right">
-    <a href="#cities" class="nav-link">Cities</a>
+    <a href="#cities-new" class="nav-link">Cities</a>
     <a href="#sellers" class="nav-link">For Sellers</a>
     <a href="login-firebase.html" class="nav-account" id="nav-account">Sign in</a>
   </div>
 </nav>
+
+<main class="ad-landing">
+  <section class="spotlight" id="spotlight" aria-label="Featured advertisers">
+    <div class="spotlight-stage">
+      <article class="spotlight-slide active">
+        <div class="spotlight-media"><img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?q=80&w=2400&auto=format" alt="Featured Nigerian restaurant meal"></div>
+        <div class="spotlight-inner">
+          <div class="spotlight-copy">
+            <div class="kicker sponsor-kicker">Featured Partner · Dubai</div>
+            <h1 class="spotlight-title">Tonight's table<br><em>belongs</em> to Amara.</h1>
+            <p>Premium jollof bowls, suya platters, and weekend catering for the diaspora community across Deira and Downtown Dubai.</p>
+            <div class="spotlight-meta"><span class="meta-pill">Restaurant</span><span class="meta-pill">Deira, Dubai</span><span class="meta-pill">WhatsApp Orders</span></div>
+            <div class="hero-ctas"><a href="business.html?id=b1" class="btn btn-light">View Business</a><a href="https://wa.me/971501234567?text=Hi%2C%20I%20found%20you%20on%20The%20Diaspora%20App" class="btn btn-outline">Order on WhatsApp</a></div>
+          </div>
+          <aside class="spotlight-card">
+            <div class="slot-label">Hero Spotlight Slot</div>
+            <h3>Premium top-of-page placement for businesses ready to be seen.</h3>
+            <p>Designed for restaurants, salons, fashion houses, photographers, events, and hiring campaigns.</p>
+            <div class="ad-stats"><div class="ad-stat"><strong>24h</strong><span>Visibility</span></div><div class="ad-stat"><strong>47</strong><span>Cities</span></div><div class="ad-stat"><strong>0%</strong><span>Commission</span></div></div>
+            <a href="#sellers" class="btn btn-dark">Advertise</a>
+          </aside>
+        </div>
+      </article>
+      <article class="spotlight-slide">
+        <div class="spotlight-media"><img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?q=80&w=2400&auto=format" alt="Featured hair stylist studio"></div>
+        <div class="spotlight-inner">
+          <div class="spotlight-copy">
+            <div class="kicker sponsor-kicker">Sponsored · Hair & Beauty</div>
+            <h1 class="spotlight-title">Book the chair<br>everyone is <em>talking</em> about.</h1>
+            <p>Protective styles, braids, loc care, and bridal looks from diaspora beauty specialists trusted across Jumeirah.</p>
+            <div class="spotlight-meta"><span class="meta-pill">Hair Stylist</span><span class="meta-pill">Jumeirah</span><span class="meta-pill">Booking CTA</span></div>
+            <div class="hero-ctas"><a href="feed.html" class="btn btn-light">See Stylists</a><a href="#sellers" class="btn btn-outline">Buy This Slot</a></div>
+          </div>
+          <aside class="spotlight-card">
+            <div class="slot-label">Category Takeover</div>
+            <h3>Own the first impression in Hair, Beauty, Food, Fashion, Jobs, or Events.</h3>
+            <p>Each placement feels editorial, not intrusive, so the brand stays premium while the seller gets leads.</p>
+            <div class="ad-stats"><div class="ad-stat"><strong>5-7s</strong><span>Rotation</span></div><div class="ad-stat"><strong>1st</strong><span>Viewport</span></div><div class="ad-stat"><strong>CTA</strong><span>Direct Lead</span></div></div>
+            <a href="#cats-new" class="btn btn-dark">Ad Products</a>
+          </aside>
+        </div>
+      </article>
+      <article class="spotlight-slide">
+        <div class="spotlight-media"><img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=2400&auto=format" alt="Featured fashion house"></div>
+        <div class="spotlight-inner">
+          <div class="spotlight-copy">
+            <div class="kicker sponsor-kicker">Product Drop · Fashion</div>
+            <h1 class="spotlight-title">New season Ankara<br>made for <em>arrival</em>.</h1>
+            <p>Promote collections, made-to-measure services, wedding looks, product drops, and limited-time offers.</p>
+            <div class="spotlight-meta"><span class="meta-pill">Fashion</span><span class="meta-pill">JLT, Dubai</span><span class="meta-pill">Product Drop</span></div>
+            <div class="hero-ctas"><a href="feed.html" class="btn btn-light">Browse Fashion</a><a href="#featured" class="btn btn-outline">See Featured</a></div>
+          </div>
+          <aside class="spotlight-card">
+            <div class="slot-label">Launch Campaign</div>
+            <h3>Promote one dish, service, event, job, product, or full business profile.</h3>
+            <p>Great for product drops, restaurant specials, barber availability, hiring pushes, and event tickets.</p>
+            <div class="ad-stats"><div class="ad-stat"><strong>Image</strong><span>Rich</span></div><div class="ad-stat"><strong>Lead</strong><span>Ready</span></div><div class="ad-stat"><strong>Local</strong><span>Targeted</span></div></div>
+            <a href="#sellers" class="btn btn-dark">Start Campaign</a>
+          </aside>
+        </div>
+      </article>
+      <article class="spotlight-slide">
+        <div class="spotlight-media"><img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=2400&auto=format" alt="Featured diaspora hiring campaign"></div>
+        <div class="spotlight-inner">
+          <div class="spotlight-copy">
+            <div class="kicker sponsor-kicker">Hiring Now · DIFC</div>
+            <h1 class="spotlight-title">The next hire<br>is already <em>here</em>.</h1>
+            <p>Featured hiring campaigns for diaspora-friendly businesses, hospitality teams, salons, creative studios, and tech companies.</p>
+            <div class="spotlight-meta"><span class="meta-pill">Jobs</span><span class="meta-pill">Dubai</span><span class="meta-pill">Applications</span></div>
+            <div class="hero-ctas"><a href="feed.html" class="btn btn-light">Explore Jobs</a><a href="#sellers" class="btn btn-outline">Post a Job</a></div>
+          </div>
+          <aside class="spotlight-card">
+            <div class="slot-label">Recruitment Spotlight</div>
+            <h3>Turn job posts into visible, trusted community campaigns.</h3>
+            <p>Put your opportunity in front of the members who already trust the Diaspora network.</p>
+            <div class="ad-stats"><div class="ad-stat"><strong>AED</strong><span>Roles</span></div><div class="ad-stat"><strong>Apply</strong><span>CTA</span></div><div class="ad-stat"><strong>City</strong><span>Target</span></div></div>
+            <a href="#sellers" class="btn btn-dark">Promote Role</a>
+          </aside>
+        </div>
+      </article>
+    </div>
+    <div class="spotlight-controls" aria-label="Spotlight controls">
+      <button class="spot-btn" id="spotPrev" aria-label="Previous spotlight">‹</button>
+      <div class="spot-tabs" id="spotTabs">
+        <button class="spot-tab active"><span>Restaurant</span><strong>Amara's Kitchen</strong></button>
+        <button class="spot-tab"><span>Beauty</span><strong>Kemi Braids Studio</strong></button>
+        <button class="spot-tab"><span>Fashion</span><strong>Adaeze Couture</strong></button>
+        <button class="spot-tab"><span>Jobs</span><strong>AfroTech Hiring</strong></button>
+      </div>
+      <button class="spot-btn" id="spotNext" aria-label="Next spotlight">›</button>
+    </div>
+  </section>
+
+  <div class="ad-strip" aria-label="Advertising inventory"><div class="ad-strip-track">
+    <span><b>Hero Spotlight</b> top viewport placement</span><span><b>City Spotlight</b> Dubai, London, Toronto, Lagos</span><span><b>Category Takeover</b> food, hair, fashion, jobs</span><span><b>WhatsApp Lead Ads</b> direct customer action</span><span><b>Product Drops</b> dishes, styles, events, openings</span>
+    <span><b>Hero Spotlight</b> top viewport placement</span><span><b>City Spotlight</b> Dubai, London, Toronto, Lagos</span><span><b>Category Takeover</b> food, hair, fashion, jobs</span><span><b>WhatsApp Lead Ads</b> direct customer action</span><span><b>Product Drops</b> dishes, styles, events, openings</span>
+  </div></div>
+
+  <section class="featured-ads reveal" id="featured">
+    <div class="ads-head"><div><div class="kicker">Featured This Week</div><h2 class="section-title">Premium placements<br><em>that move.</em></h2></div><p class="section-lede">A curated moving panel for products, services, openings, jobs, and offers without turning the homepage into a cheap banner wall.</p></div>
+    <div class="ad-rail">
+      <article class="ad-card"><div class="ad-card-media"><img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=900&auto=format" alt="Restaurant ad"></div><div class="ad-card-body"><div class="ad-card-tag">Sponsored Food</div><h3>Mama Titi Kitchen</h3><p>Weekend family trays, suya grills, and WhatsApp ordering in Deira.</p><div class="ad-card-foot"><span>Dubai</span><b>Order Now</b></div></div></article>
+      <article class="ad-card"><div class="ad-card-media"><img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=900&auto=format" alt="Barber ad"></div><div class="ad-card-body"><div class="ad-card-tag">Featured Barber</div><h3>Royal Cuts</h3><p>Premium fades, line-ups, and grooming appointments in Al Karama.</p><div class="ad-card-foot"><span>Al Karama</span><b>Book</b></div></div></article>
+      <article class="ad-card"><div class="ad-card-media"><img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=900&auto=format" alt="Photographer ad"></div><div class="ad-card-body"><div class="ad-card-tag">Event Media</div><h3>Obi Photography</h3><p>Wedding, birthday, launch, and event coverage across Business Bay.</p><div class="ad-card-foot"><span>Dubai</span><b>Inquire</b></div></div></article>
+      <article class="ad-card"><div class="ad-card-media"><img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=900&auto=format" alt="Fashion ad"></div><div class="ad-card-body"><div class="ad-card-tag">Product Drop</div><h3>Adaeze Couture</h3><p>Custom Ankara, wedding looks, and made-to-measure fittings.</p><div class="ad-card-foot"><span>JLT</span><b>Shop</b></div></div></article>
+      <article class="ad-card"><div class="ad-card-media"><img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=900&auto=format" alt="Beauty ad"></div><div class="ad-card-body"><div class="ad-card-tag">Beauty</div><h3>Makeda Beauty</h3><p>Bridal makeup, soft glam, and melanin-rich skincare appointments.</p><div class="ad-card-foot"><span>Marina</span><b>Reserve</b></div></div></article>
+      <article class="ad-card"><div class="ad-card-media"><img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=900&auto=format" alt="Jobs ad"></div><div class="ad-card-body"><div class="ad-card-tag">Hiring</div><h3>AfroTech Jobs</h3><p>Tech and finance roles at diaspora-friendly teams across the UAE.</p><div class="ad-card-foot"><span>DIFC</span><b>Apply</b></div></div></article>
+      <article class="ad-card"><div class="ad-card-media"><img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=900&auto=format" alt="Restaurant ad"></div><div class="ad-card-body"><div class="ad-card-tag">Sponsored Food</div><h3>Mama Titi Kitchen</h3><p>Weekend family trays, suya grills, and WhatsApp ordering in Deira.</p><div class="ad-card-foot"><span>Dubai</span><b>Order Now</b></div></div></article>
+      <article class="ad-card"><div class="ad-card-media"><img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=900&auto=format" alt="Barber ad"></div><div class="ad-card-body"><div class="ad-card-tag">Featured Barber</div><h3>Royal Cuts</h3><p>Premium fades, line-ups, and grooming appointments in Al Karama.</p><div class="ad-card-foot"><span>Al Karama</span><b>Book</b></div></div></article>
+      <article class="ad-card"><div class="ad-card-media"><img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=900&auto=format" alt="Photographer ad"></div><div class="ad-card-body"><div class="ad-card-tag">Event Media</div><h3>Obi Photography</h3><p>Wedding, birthday, launch, and event coverage across Business Bay.</p><div class="ad-card-foot"><span>Dubai</span><b>Inquire</b></div></div></article>
+      <article class="ad-card"><div class="ad-card-media"><img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=900&auto=format" alt="Fashion ad"></div><div class="ad-card-body"><div class="ad-card-tag">Product Drop</div><h3>Adaeze Couture</h3><p>Custom Ankara, wedding looks, and made-to-measure fittings.</p><div class="ad-card-foot"><span>JLT</span><b>Shop</b></div></div></article>
+      <article class="ad-card"><div class="ad-card-media"><img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=900&auto=format" alt="Beauty ad"></div><div class="ad-card-body"><div class="ad-card-tag">Beauty</div><h3>Makeda Beauty</h3><p>Bridal makeup, soft glam, and melanin-rich skincare appointments.</p><div class="ad-card-foot"><span>Marina</span><b>Reserve</b></div></div></article>
+      <article class="ad-card"><div class="ad-card-media"><img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=900&auto=format" alt="Jobs ad"></div><div class="ad-card-body"><div class="ad-card-tag">Hiring</div><h3>AfroTech Jobs</h3><p>Tech and finance roles at diaspora-friendly teams across the UAE.</p><div class="ad-card-foot"><span>DIFC</span><b>Apply</b></div></div></article>
+    </div>
+  </section>
+
+  <section class="brand-story reveal"><div class="story-grid"><div class="story-mark"><img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=1200&auto=format" alt="Diaspora community gathering"></div><div class="story-copy"><div class="kicker">Brand Standard</div><h2>Advertising should feel<br>like <em>discovery</em>.</h2><p>Diaspora gives businesses visibility without clutter. Every sponsored placement is built like an editorial feature: high quality image, location, category, clear CTA, and a tasteful sponsored label. Sellers get leads. Members get useful discovery. The brand stays premium.</p></div></div></section>
+
+  <section class="city-spotlight reveal" id="cities-new"><div class="section-head"><div class="kicker">City Spotlight</div><h2 class="section-title">Local ads for<br><em>global</em> neighborhoods.</h2><p class="section-lede">Rotate placements by city so Dubai users see Dubai businesses, while London, Toronto, Lagos, Nairobi, and New York build their own local ad economies.</p></div><div class="city-ad-grid"><article class="city-feature"><img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1600&auto=format" alt="Dubai skyline"><div class="city-feature-copy"><div class="slot-label">Now Selling · Dubai</div><h3>Dubai Spotlight</h3><p>Premium placements for Deira, Al Karama, JLT, Marina, Business Bay, and Downtown sellers.</p></div></article><div class="city-slots"><article class="city-slot"><div><div class="slot-label">London</div><h3>Peckham Food Week</h3></div><p>Restaurants and food sellers can own a weekly city strip.</p></article><article class="city-slot"><div><div class="slot-label">Toronto</div><h3>Beauty Bookings</h3></div><p>Hair, makeup, and skincare lead ads by neighborhood.</p></article><article class="city-slot"><div><div class="slot-label">Lagos</div><h3>Talent & Jobs</h3></div><p>Featured job campaigns for community-friendly employers.</p></article><article class="city-slot"><div><div class="slot-label">Nairobi</div><h3>Events & Creatives</h3></div><p>Promote launches, photo shoots, music nights, and markets.</p></article></div></div></section>
+
+  <section class="sponsor-cats reveal" id="cats-new"><div class="section-head"><div class="kicker">Sponsored Categories</div><h2 class="section-title">Every vertical gets<br>its own <em>stage.</em></h2><p class="section-lede">Sell category takeovers without diluting the homepage. Each card can become a paid placement for a seller or weekly sponsor.</p></div><div class="sponsor-grid"><article class="sponsor-cat"><img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=900&auto=format" alt="Food sponsorship"><div class="sponsor-cat-content"><div class="slot-label">Food</div><h3>Restaurant Takeover</h3><p>Promote menus, catering, specials, and WhatsApp orders.</p></div></article><article class="sponsor-cat"><img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?q=80&w=900&auto=format" alt="Hair sponsorship"><div class="sponsor-cat-content"><div class="slot-label">Hair</div><h3>Booking Slot</h3><p>Showcase styles, availability, location, and direct booking.</p></div></article><article class="sponsor-cat"><img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=900&auto=format" alt="Fashion sponsorship"><div class="sponsor-cat-content"><div class="slot-label">Fashion</div><h3>Product Drop</h3><p>Launch collections, wedding outfits, and custom fittings.</p></div></article><article class="sponsor-cat"><img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=900&auto=format" alt="Jobs sponsorship"><div class="sponsor-cat-content"><div class="slot-label">Jobs</div><h3>Hiring Campaign</h3><p>Put open roles in front of trusted diaspora candidates.</p></div></article></div></section>
+
+  <section class="ad-sales reveal" id="sellers"><div class="ad-sales-inner"><div><div class="kicker sponsor-kicker">For Sellers</div><h2>Turn the homepage<br>into your <em>market.</em></h2><p>Restaurants, salons, barbers, stylists, photographers, tailors, event teams, and employers can advertise without paying marketplace commission. Diaspora creates premium visibility and sends customers straight to your profile or WhatsApp.</p><div class="hero-ctas" style="margin-top:34px"><a href="signup-firebase.html" class="btn btn-light">Advertise Your Business</a><a href="feed.html" class="btn btn-outline">Explore the App</a></div></div><div class="pricing-panel"><div class="slot-label">Ad Inventory</div><div class="pricing-row"><strong>Hero Spotlight</strong><span>Full-screen rotating placement</span></div><div class="pricing-row"><strong>City Spotlight</strong><span>Local placement by market</span></div><div class="pricing-row"><strong>Category Takeover</strong><span>Food, hair, fashion, jobs, events</span></div><div class="pricing-row"><strong>WhatsApp Lead Ad</strong><span>Direct inquiry and order CTA</span></div></div></div></section>
+</main>
 
 <!-- ═══════════ HERO ═══════════ -->
 <section class="hero">
@@ -1013,7 +1250,7 @@ footer{
 </section>
 
 <!-- ═══════════ CLOSING ═══════════ -->
-<section class="closing reveal" id="sellers">
+<section class="closing reveal" id="legacy-sellers">
   <div class="closing-bg"></div>
   <div class="closing-inner">
     <div class="kicker">For Sellers</div>
@@ -1024,7 +1261,7 @@ footer{
     </p>
     <div class="hero-ctas">
       <a href="signup-firebase.html" class="btn btn-light">Become a Seller</a>
-      <a href="#cats" class="btn btn-outline">Explore Categories</a>
+      <a href="#cats-new" class="btn btn-outline">Explore Categories</a>
     </div>
   </div>
 </section>
@@ -1044,11 +1281,11 @@ footer{
     </div>
     <div class="foot-col">
       <h4>Discover</h4>
-      <a href="#trending">Trending</a>
-      <a href="#cats">Categories</a>
-      <a href="#cities">Cities</a>
-      <a href="#">New This Week</a>
-      <a href="#">Gift Cards</a>
+      <a href="#featured">Featured Ads</a>
+      <a href="#cats-new">Ad Products</a>
+      <a href="#cities-new">Cities</a>
+      <a href="#featured">New This Week</a>
+      <a href="#sellers">Advertise</a>
     </div>
     <div class="foot-col">
       <h4>For Sellers</h4>
@@ -1081,6 +1318,56 @@ function onScroll(){
 }
 onScroll();
 window.addEventListener('scroll', onScroll, {passive:true});
+
+/* Spotlight carousel */
+(function(){
+  const slides = Array.from(document.querySelectorAll('.spotlight-slide'));
+  const tabs = Array.from(document.querySelectorAll('.spot-tab'));
+  const prev = document.getElementById('spotPrev');
+  const next = document.getElementById('spotNext');
+  const spotlight = document.querySelector('.spotlight');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let index = 0;
+  let timer = null;
+
+  if (!slides.length) return;
+
+  function setSpotlight(nextIndex){
+    index = (nextIndex + slides.length) % slides.length;
+    slides.forEach((slide, i)=>{
+      const isActive = i === index;
+      slide.classList.toggle('active', isActive);
+      slide.setAttribute('aria-hidden', String(!isActive));
+    });
+    tabs.forEach((tab, i)=>{
+      const isActive = i === index;
+      tab.classList.toggle('active', isActive);
+      tab.setAttribute('aria-selected', String(isActive));
+    });
+  }
+
+  function stop(){
+    if (timer) window.clearInterval(timer);
+    timer = null;
+  }
+
+  function start(){
+    if (prefersReducedMotion || timer) return;
+    timer = window.setInterval(()=>setSpotlight(index + 1), 6500);
+  }
+
+  prev?.addEventListener('click', ()=>{ setSpotlight(index - 1); stop(); start(); });
+  next?.addEventListener('click', ()=>{ setSpotlight(index + 1); stop(); start(); });
+  tabs.forEach((tab, i)=>{
+    tab.setAttribute('role', 'tab');
+    tab.addEventListener('click', ()=>{ setSpotlight(i); stop(); start(); });
+  });
+  spotlight?.addEventListener('mouseenter', stop);
+  spotlight?.addEventListener('mouseleave', start);
+
+  setSpotlight(0);
+  start();
+})();
 
 /* ═══ Search dropdowns ═══ */
 function toggleDD(el, key){
