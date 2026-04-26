@@ -1,0 +1,30 @@
+# The Diaspora App
+
+> Premium discovery, events, blogs, and advertising for diaspora-owned businesses and communities.
+
+The Diaspora App helps people discover diaspora-owned restaurants, salons, barbers, fashion houses, photographers, jobs, events, and local services across global cities.
+
+## Priority URLs
+
+- Home: https://www.thediaspora.app/
+- Business directory: https://www.thediaspora.app/feed.html
+- Blog: https://www.thediaspora.app/blog.html
+- Events: https://www.thediaspora.app/events.html
+- Sitemap: https://www.thediaspora.app/sitemap.xml
+- RSS feed: https://www.thediaspora.app/feed.xml
+
+## Blog URLs
+
+- https://www.thediaspora.app/blog-diaspora-business-advertising.html
+- https://www.thediaspora.app/blog-how-to-launch-diaspora-event.html
+- https://www.thediaspora.app/blog-google-ready-marketplace-seo.html
+
+## Event URLs
+
+- https://www.thediaspora.app/event-dubai-diaspora-market.html
+- https://www.thediaspora.app/event-london-food-week.html
+- https://www.thediaspora.app/event-toronto-beauty-connect.html
+
+## Publisher
+
+Created by NDN Analytics. Public website: https://www.ndnanalytics.com/

@@ -4,9 +4,53 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" type="image/png" href="Media%20resources/TheDiaspora%20app%20logo%203D.png">
-<title>Diaspora — A Tribute to the Global Diaspora Soul</title>
-<meta name="description" content="Authentic restaurants, stylists, barbers, photographers, and jobs — curated for the global diaspora. From Dubai to Toronto to London.">
+<title>The Diaspora App | Businesses, Events, Blogs and Local Ads</title>
+<meta name="description" content="Discover diaspora-owned restaurants, salons, barbers, fashion, jobs, blogs, events, and local advertising opportunities across Dubai, London, Toronto, Lagos, Nairobi, and more.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="NDN Analytics">
+<link rel="canonical" href="https://www.thediaspora.app/">
+<link rel="alternate" type="application/rss+xml" title="The Diaspora App Blog" href="https://www.thediaspora.app/feed.xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Diaspora App">
+<meta property="og:description" content="A premium discovery and advertising home for diaspora businesses, events, jobs, and community stories.">
+<meta property="og:url" content="https://www.thediaspora.app/">
+<meta property="og:image" content="https://www.thediaspora.app/Media%20resources/TheDiaspora%20app%20logo%203D.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Diaspora App">
+<meta name="twitter:description" content="Discover diaspora businesses, events, jobs, blogs, and premium local ads.">
+<meta name="twitter:image" content="https://www.thediaspora.app/Media%20resources/TheDiaspora%20app%20logo%203D.png">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.thediaspora.app/#organization",
+      "name": "The Diaspora App",
+      "url": "https://www.thediaspora.app/",
+      "logo": "https://www.thediaspora.app/Media%20resources/TheDiaspora%20app%20logo%203D.png",
+      "founder": {
+        "@type": "Organization",
+        "name": "NDN Analytics",
+        "url": "https://www.ndnanalytics.com/"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.thediaspora.app/#website",
+      "url": "https://www.thediaspora.app/",
+      "name": "The Diaspora App",
+      "publisher": {"@id": "https://www.thediaspora.app/#organization"},
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.thediaspora.app/feed.html?search={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  ]
+}
+</script>
 <style>
 /* ═══════════════════════════════════════════════════════
    DIASPORA — Gaia-inspired editorial luxury
@@ -118,6 +162,37 @@ button{font-family:inherit;cursor:pointer}
 .nav-account:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .topnav.light .nav-account{border-color:rgba(255,255,255,0.55);color:var(--paper)}
 .topnav.light .nav-account:hover{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+
+/* Editorial menu drawer */
+.menu-overlay{
+  position:fixed; inset:0; z-index:180;
+  background:rgba(10,10,10,0.56);
+  opacity:0; visibility:hidden;
+  transition:opacity 0.25s ease, visibility 0.25s ease;
+}
+.menu-overlay.open{opacity:1; visibility:visible}
+.menu-drawer{
+  position:fixed; z-index:190; top:18px; left:18px; bottom:18px;
+  width:min(420px, calc(100vw - 36px));
+  background:var(--paper); color:var(--ink);
+  border:1px solid rgba(10,10,10,0.12);
+  border-radius:8px;
+  box-shadow:0 40px 110px rgba(0,0,0,0.34);
+  padding:28px;
+  transform:translateX(calc(-100% - 32px));
+  transition:transform 0.32s cubic-bezier(.2,.7,.2,1);
+  display:flex; flex-direction:column;
+}
+.menu-drawer.open{transform:translateX(0)}
+.menu-head{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:28px}
+.menu-head img{width:132px;height:48px;object-fit:contain;border-radius:12px;background:#fff;padding:4px}
+.menu-close{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:24px;line-height:1}
+.menu-group{border-top:1px solid var(--line);padding:18px 0}
+.menu-group-label{font-size:10px;letter-spacing:0.24em;text-transform:uppercase;color:var(--brass);font-weight:600;margin-bottom:12px}
+.menu-item{display:flex;justify-content:space-between;gap:18px;padding:13px 0;color:var(--ink);font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:400;line-height:1.05;transition:color 0.2s}
+.menu-item:hover{color:var(--brass)}
+.menu-item span{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);padding-top:8px;white-space:nowrap}
+.menu-note{margin-top:auto;color:var(--muted);font-size:13px;line-height:1.7}
 
 /* ═══════════ HERO ═══════════ */
 .hero{
@@ -720,7 +795,7 @@ footer{
 <!-- ═══════════ NAV ═══════════ -->
 <nav class="topnav light" id="topnav">
   <div class="nav-left">
-    <button class="nav-menu-btn nav-link"><span class="bars"><i></i><i></i><i></i></span> Menu</button>
+    <button class="nav-menu-btn nav-link" id="menuOpen" aria-controls="siteMenu" aria-expanded="false"><span class="bars"><i></i><i></i><i></i></span> Menu</button>
     <a href="#featured" class="nav-link">Featured</a>
     <a href="#cats-new" class="nav-link">Ad Products</a>
   </div>
@@ -734,6 +809,26 @@ footer{
     <a href="login-firebase.html" class="nav-account" id="nav-account">Sign in</a>
   </div>
 </nav>
+<div class="menu-overlay" id="menuOverlay" aria-hidden="true"></div>
+<aside class="menu-drawer" id="siteMenu" aria-label="Site menu">
+  <div class="menu-head">
+    <img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="The Diaspora App logo">
+    <button class="menu-close" id="menuClose" aria-label="Close menu">&times;</button>
+  </div>
+  <div class="menu-group">
+    <div class="menu-group-label">Community</div>
+    <a href="blog.html" class="menu-item">Blogs <span>Stories</span></a>
+    <a href="events.html" class="menu-item">Events <span>Calendar</span></a>
+    <a href="events.html#register-event" class="menu-item">Register Event <span>Submit</span></a>
+  </div>
+  <div class="menu-group">
+    <div class="menu-group-label">Marketplace</div>
+    <a href="feed.html" class="menu-item">Explore Businesses <span>Directory</span></a>
+    <a href="#featured" class="menu-item">Featured Ads <span>Premium</span></a>
+    <a href="#sellers" class="menu-item">Advertise <span>Sellers</span></a>
+  </div>
+  <p class="menu-note">A quieter navigation layer for stories, events, and seller growth without crowding the landing page.</p>
+</aside>
 
 <main class="ad-landing">
   <section class="spotlight" id="spotlight" aria-label="Featured advertisers">
@@ -1284,12 +1379,13 @@ footer{
       <a href="#featured">Featured Ads</a>
       <a href="#cats-new">Ad Products</a>
       <a href="#cities-new">Cities</a>
-      <a href="#featured">New This Week</a>
-      <a href="#sellers">Advertise</a>
+      <a href="blog.html">Blog</a>
+      <a href="events.html">Events</a>
     </div>
     <div class="foot-col">
       <h4>For Sellers</h4>
       <a href="signup-firebase.html">List Your Business</a>
+      <a href="events.html#register-event">Register an Event</a>
       <a href="#">Pricing</a>
       <a href="#">Seller Guide</a>
       <a href="#">Success Stories</a>
@@ -1318,6 +1414,32 @@ function onScroll(){
 }
 onScroll();
 window.addEventListener('scroll', onScroll, {passive:true});
+
+/* Site menu */
+(function(){
+  const openBtn = document.getElementById('menuOpen');
+  const closeBtn = document.getElementById('menuClose');
+  const drawer = document.getElementById('siteMenu');
+  const overlay = document.getElementById('menuOverlay');
+
+  function setMenu(open){
+    drawer?.classList.toggle('open', open);
+    overlay?.classList.toggle('open', open);
+    openBtn?.setAttribute('aria-expanded', String(open));
+    overlay?.setAttribute('aria-hidden', String(!open));
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  openBtn?.addEventListener('click', ()=>setMenu(true));
+  closeBtn?.addEventListener('click', ()=>setMenu(false));
+  overlay?.addEventListener('click', ()=>setMenu(false));
+  document.addEventListener('keydown', (event)=>{
+    if (event.key === 'Escape') setMenu(false);
+  });
+  document.querySelectorAll('#siteMenu a').forEach(link=>{
+    link.addEventListener('click', ()=>setMenu(false));
+  });
+})();
 
 /* Spotlight carousel */
 (function(){

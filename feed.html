@@ -4,7 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <link rel="icon" type="image/png" href="Media%20resources/TheDiaspora%20app%20logo%203D.png">
-<title>Feed — Diaspora</title>
+<title>Diaspora Business Directory | The Diaspora App</title>
+<meta name="description" content="Search diaspora-owned restaurants, barbers, salons, stylists, photographers, fashion houses, beauty providers, and jobs across global cities.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://www.thediaspora.app/feed.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Diaspora Business Directory">
+<meta property="og:description" content="Discover diaspora-owned businesses, services, jobs, and local sellers.">
+<meta property="og:url" content="https://www.thediaspora.app/feed.html">
+<meta property="og:image" content="https://www.thediaspora.app/Media%20resources/TheDiaspora%20app%20logo%203D.png">
+<meta name="twitter:card" content="summary_large_image">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -229,7 +238,8 @@ import { db, collection, getDocs, query, orderBy } from './firebase-config.js';
 
 let allBusinesses = [];
 let activeCategory = 'All';
-let searchQuery = '';
+const initialParams = new URLSearchParams(window.location.search);
+let searchQuery = initialParams.get('search') || '';
 
 // Fetch businesses from Firestore
 async function fetchBusinesses() {
@@ -345,6 +355,10 @@ document.getElementById('searchInput').addEventListener('input', (e) => {
   searchQuery = e.target.value;
   renderFeed();
 });
+
+if (searchQuery) {
+  document.getElementById('searchInput').value = searchQuery;
+}
 
 document.querySelectorAll('.chip').forEach(chip => {
   chip.addEventListener('click', (e) => {

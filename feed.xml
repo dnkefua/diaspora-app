@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>The Diaspora App Blog</title>
+    <link>https://www.thediaspora.app/blog.html</link>
+    <atom:link href="https://www.thediaspora.app/feed.xml" rel="self" type="application/rss+xml" />
+    <description>Business guides, event playbooks, advertising strategy, and community stories for the global diaspora.</description>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 26 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>How Diaspora Businesses Can Turn Local Attention Into Real Orders</title>
+      <link>https://www.thediaspora.app/blog-diaspora-business-advertising.html</link>
+      <guid>https://www.thediaspora.app/blog-diaspora-business-advertising.html</guid>
+      <pubDate>Sun, 26 Apr 2026 00:00:00 +0000</pubDate>
+      <description>A practical approach to premium placements, city targeting, and direct WhatsApp leads for diaspora businesses.</description>
+    </item>
+    <item>
+      <title>A Simple Launch Plan for Community Events That Sell Out</title>
+      <link>https://www.thediaspora.app/blog-how-to-launch-diaspora-event.html</link>
+      <guid>https://www.thediaspora.app/blog-how-to-launch-diaspora-event.html</guid>
+      <pubDate>Sun, 26 Apr 2026 00:00:00 +0000</pubDate>
+      <description>How hosts can package an event page, registration flow, city targeting, and sponsor inventory.</description>
+    </item>
+    <item>
+      <title>Making a Marketplace Search-Ready for Google and AI Crawlers</title>
+      <link>https://www.thediaspora.app/blog-google-ready-marketplace-seo.html</link>
+      <guid>https://www.thediaspora.app/blog-google-ready-marketplace-seo.html</guid>
+      <pubDate>Sun, 26 Apr 2026 00:00:00 +0000</pubDate>
+      <description>The technical layer behind sitemap discovery, structured data, RSS, and public HTML pages.</description>
+    </item>
+  </channel>
+</rss>
