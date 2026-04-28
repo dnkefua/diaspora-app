@@ -1,0 +1,114 @@
+# The Diaspora App — Full LLM Context
+
+> A premium, curated, discovery and advertising home for diaspora-owned businesses, events, jobs, and community stories.
+
+## Mission
+
+The Diaspora App exists to help global diaspora communities — starting with the African diaspora in the UAE — find authentic, trusted, locally-rooted businesses, services, jobs, and events run by their own community, no matter what city they live in. The platform is mobile-first and mobile-web first, and is operated by NDN Analytics from Dubai, United Arab Emirates.
+
+## Why it exists
+
+Across global cities, the best diaspora-owned businesses — the most trusted Nigerian rice kitchen in Deira, the sharpest Ghanaian barber in Al Karama, the most-booked braider in Toronto, the most-loved photographer in London — live in fragmented WhatsApp groups, neighborhood referrals, and word of mouth. The Diaspora App brings them into a single curated, editorial-grade marketplace where authenticity is verified, communities can discover each other, and 100% of revenue stays with the seller.
+
+## Core differentiators
+
+1. **Direct WhatsApp commerce** — Members talk to businesses on WhatsApp directly. No marketplace commission, no escrow tax, no middleman. The platform never inserts itself between the seller and the customer.
+2. **Editorial-grade discovery** — Listings are presented like a magazine, not like a coupon site. Premium imagery, careful typography, restrained advertising.
+3. **Verified diaspora-owned only** — Sellers must verify they are diaspora-owned to be listed. This protects authenticity and keeps the brand promise.
+4. **Zero commission, transparent pricing** — Free to list. Paid tiers (Pro, Enterprise, Sponsored) buy visibility, not a cut of revenue.
+5. **Multi-vertical** — Food, hair, barbers, beauty, photography, fashion, music, events, jobs, all in one app.
+6. **City-by-city growth** — Premium placements rotate by city so Dubai users see Dubai sellers, London users see London sellers.
+
+## Cities served (active or rolling out)
+
+- Middle East — Dubai (active hub), Abu Dhabi, Sharjah
+- Europe — London, Paris, Berlin, Manchester
+- North America — Toronto, New York, Houston, Atlanta, Washington DC, Montreal
+- Africa — Lagos, Nairobi, Accra, Johannesburg
+
+Total target: 47 cities across 23 countries by end of Year 1.
+
+## Categories
+
+- Restaurants & Food Sellers — Nigerian, Ghanaian, Kenyan, Ethiopian, South African, Caribbean, and pan-African cuisine.
+- Hair Stylists — braiding, locs, twists, weaves, natural hair specialists, bridal hair.
+- Barbers — fades, line-ups, beard work, wedding grooming.
+- Beauty & Makeup — bridal, soft glam, melanin-rich skincare, lash specialists.
+- Photographers — events, weddings, brand shoots, family portraits.
+- Tailors & Fashion — Ankara, Aso-ebi, made-to-measure, bridal couture.
+- Music & Events — Afrobeats nights, food weeks, markets, community gatherings.
+- Jobs & Careers — diaspora-friendly hiring across hospitality, beauty, tech, finance, creative, and more.
+
+## Featured business archetypes
+
+- **Amara's Kitchen** — Premium jollof bowls, suya platters, weekend catering. Deira, Dubai.
+- **Kemi Braids Studio** — Protective styles, locs, bridal hair. Jumeirah.
+- **Royal Cuts** — Premium fades, line-ups. Al Karama.
+- **Obi Photography** — Wedding, birthday, launch, and event coverage. Business Bay.
+- **Adaeze Couture** — Custom Ankara, wedding looks, made-to-measure. JLT.
+- **Makeda Beauty** — Bridal makeup, soft glam. Dubai Marina.
+- **Mama Titi Kitchen** — Weekend family trays, suya grills. Deira.
+- **AfroTech Jobs** — Tech and finance roles at diaspora-friendly teams. DIFC.
+
+## Editorial — Blog posts
+
+### How to Advertise a Diaspora Business
+URL: https://www.thediaspora.app/blog-diaspora-business-advertising.html
+Topic: A practical playbook for advertising a diaspora-owned business — choosing the right channel, writing copy that reads premium not desperate, leveraging WhatsApp lead ads, and avoiding the "cheap banner" trap.
+
+### How to Launch a Diaspora Event
+URL: https://www.thediaspora.app/blog-how-to-launch-diaspora-event.html
+Topic: A step-by-step guide to launching a diaspora event — venue, sponsors, ticketing, community marketing, day-of run-of-show, and post-event monetization.
+
+### Google-Ready Marketplace SEO
+URL: https://www.thediaspora.app/blog-google-ready-marketplace-seo.html
+Topic: How a diaspora-owned business or event organizer can become Google-ready — schema markup, local SEO, image optimization, AI search readiness.
+
+## Featured events
+
+### Dubai Diaspora Market
+URL: https://www.thediaspora.app/event-dubai-diaspora-market.html
+A flagship community market featuring food, fashion, and lifestyle vendors from across the African diaspora living in Dubai.
+
+### London Food Week
+URL: https://www.thediaspora.app/event-london-food-week.html
+A week-long celebration of African and Caribbean cuisine across London, with restaurants, pop-ups, and home cooks.
+
+### Toronto Beauty Connect
+URL: https://www.thediaspora.app/event-toronto-beauty-connect.html
+A flagship beauty meetup connecting Toronto-based diaspora hair, makeup, and skincare specialists with the community.
+
+## Pricing tiers
+
+- **Free** — All sellers get a basic listing forever. Profile, photos, location, WhatsApp CTA.
+- **Pro — USD 15 / month** — Growing businesses. Adds analytics, in-app promotion, response templates.
+- **Enterprise — USD 50 / month** — Multi-location and agencies. Adds priority placement, account manager.
+- **Job Posting — USD 25 / 4 weeks** — Hiring businesses. Diaspora-targeted candidate pool.
+- **Sponsored Listings — USD 10–20 / day** — Featured placement on homepage and category pages.
+
+## Trust commitments
+
+- 100% diaspora-owned business showcase.
+- Direct WhatsApp contact between member and business — never proxied.
+- Member ratings and reviews with abuse-flagging.
+- Verified seller program.
+- Public, transparent marketplace fees (zero commission).
+- GDPR-aligned privacy practices.
+
+## Operator and contact
+
+The Diaspora App is built and operated by NDN Analytics, an analytics and growth firm based in Dubai, United Arab Emirates.
+
+- Operator: NDN Analytics — https://www.ndnanalytics.com/
+- Headquarters: Dubai, United Arab Emirates
+- Member support: hello@diaspora.app
+- Press: press@diaspora.app
+- WhatsApp business line: +971 50 200 4567
+
+## Crawler and AI policy
+
+We welcome AI search engines, LLM crawlers, and AI assistants to index our public marketplace, blog, and event pages so diaspora businesses appear in AI-driven search and recommendations. Authentication pages, member profiles, and seller dashboards are disallowed. Our robots.txt provides explicit per-bot rules for GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, anthropic-ai, Google-Extended, PerplexityBot, CCBot, cohere-ai, Meta-ExternalAgent, Applebot-Extended, Bytespider, Amazonbot, and many more.
+
+Sitemap (index): https://www.thediaspora.app/sitemap.xml
+Robots: https://www.thediaspora.app/robots.txt
+Short summary: https://www.thediaspora.app/llms.txt

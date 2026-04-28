@@ -1,0 +1,50 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    function isImage() {
+      return request.resource.contentType != null
+          && request.resource.contentType.matches('image/.*');
+    }
+
+    function maxSize(mb) {
+      return request.resource.size < mb * 1024 * 1024;
+    }
+
+    // ─────────────────────────── User avatars ──────────────────────
+    // Owner-only writes, public reads.
+    match /users/{uid}/avatar/{fileName} {
+      allow read: if true;
+      allow write: if isOwner(uid) && isImage() && maxSize(5);
+      allow delete: if isOwner(uid);
+    }
+
+    // ─────────────────────────── Business media ────────────────────
+    // Public read, owner-only write. Owner check is encoded in the path.
+    match /businesses/{ownerUid}/{businessId}/{type}/{fileName} {
+      allow read: if true;
+      allow write: if isOwner(ownerUid) && isImage() && maxSize(15);
+      allow delete: if isOwner(ownerUid);
+    }
+
+    // ─────────────────────────── Event posters ─────────────────────
+    match /events/{ownerUid}/{eventId}/{fileName} {
+      allow read: if true;
+      allow write: if isOwner(ownerUid) && isImage() && maxSize(10);
+      allow delete: if isOwner(ownerUid);
+    }
+
+    // ─────────────────────────── Default deny ──────────────────────
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

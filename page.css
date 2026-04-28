@@ -1,0 +1,168 @@
+/* ════════════════════════════════════════════════════════════════════
+   The Diaspora App — shared editorial page styles
+   Used on: about, pricing, contact, careers, press, privacy, terms, cookies
+   ════════════════════════════════════════════════════════════════════ */
+:root{
+  --ink:#0A0A0A; --graphite:#1B1D22;
+  --ivory:#F6F2EA; --bone:#EEE7DA; --paper:#FBF8F2;
+  --blue:#1C3D6E; --brass:#B7924A; --brass-soft:#D9BE88; --rust:#8F3A26;
+  --line:rgba(10,10,10,0.12); --muted:#5A5247;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  font-size:15px; line-height:1.7;
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+}
+a{color:inherit; text-decoration:none}
+img{display:block; max-width:100%}
+button{font-family:inherit; cursor:pointer; border:none; background:none}
+::selection{background:var(--brass-soft); color:var(--ink)}
+
+.serif{font-family:'Cormorant Garamond',Georgia,serif; font-weight:400}
+.kicker{font-size:11px; font-weight:500; letter-spacing:0.28em; text-transform:uppercase; color:var(--brass)}
+
+/* ─────────────── Top nav (shared, slim) ─────────────── */
+.topnav{
+  position:sticky; top:0; z-index:100;
+  background:rgba(251,248,242,0.92); backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--line);
+  padding:14px 32px;
+  display:grid; grid-template-columns:1fr auto 1fr; align-items:center;
+}
+.topnav .nav-link{font-size:12px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; opacity:0.78; transition:opacity 0.2s}
+.topnav .nav-link:hover{opacity:1}
+.topnav .brand{justify-self:center}
+.topnav .brand img{width:128px; height:46px; object-fit:contain; border-radius:12px; background:#fff; padding:4px}
+.topnav .nav-left,.topnav .nav-right{display:flex; gap:24px; align-items:center}
+.topnav .nav-right{justify-content:flex-end}
+.nav-account{padding:9px 16px; border:1px solid var(--ink); border-radius:999px; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; transition:all 0.2s}
+.nav-account:hover{background:var(--ink); color:var(--paper)}
+@media (max-width:780px){
+  .topnav{padding:10px 16px; grid-template-columns:auto 1fr auto}
+  .topnav .nav-left .nav-link, .topnav .nav-right .nav-link{display:none}
+  .topnav .brand img{width:108px; height:40px}
+}
+
+/* ─────────────── Page hero ─────────────── */
+.page-hero{
+  position:relative; padding:130px 32px 90px;
+  text-align:center; max-width:1240px; margin:0 auto;
+}
+.page-hero .kicker{display:inline-flex; gap:14px; align-items:center; margin-bottom:24px}
+.page-hero .kicker::before, .page-hero .kicker::after{content:""; width:32px; height:1px; background:var(--brass); opacity:0.55}
+.page-hero h1{
+  font-family:'Cormorant Garamond',serif; font-weight:400;
+  font-size:clamp(48px, 7vw, 96px); line-height:1; letter-spacing:-0.02em;
+  margin-bottom:22px;
+}
+.page-hero h1 em{font-style:italic; color:var(--brass); font-weight:500}
+.page-hero p{font-size:17px; line-height:1.75; color:var(--muted); max-width:640px; margin:0 auto}
+
+/* ─────────────── Sections / containers ─────────────── */
+.section{padding:80px 32px}
+.section .container{max-width:1100px; margin:0 auto}
+.section.alt{background:var(--ivory)}
+.section.dark{background:var(--ink); color:var(--paper)}
+.section.dark .muted, .section.dark p{color:rgba(246,242,234,0.78)}
+.section.dark h2,.section.dark h3{color:var(--paper)}
+
+h2{font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(34px,4vw,52px); line-height:1.05; letter-spacing:-0.015em; margin-bottom:24px}
+h2 em{font-style:italic; color:var(--brass); font-weight:500}
+h3{font-family:'Cormorant Garamond',serif; font-weight:400; font-size:24px; line-height:1.2; margin-bottom:10px}
+.lede{font-size:16px; line-height:1.85; color:var(--muted); max-width:680px; margin-bottom:32px}
+
+/* ─────────────── Cards / lists ─────────────── */
+.grid-2{display:grid; grid-template-columns:1fr 1fr; gap:40px}
+.grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:28px}
+.grid-4{display:grid; grid-template-columns:repeat(4,1fr); gap:22px}
+@media (max-width:900px){
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr; gap:28px}
+}
+
+.card{
+  background:#fff; border:1px solid var(--line); border-radius:14px;
+  padding:32px; transition:transform 0.4s ease, box-shadow 0.4s ease, border-color 0.3s;
+}
+.card:hover{transform:translateY(-4px); box-shadow:0 28px 70px -28px rgba(10,10,10,0.22); border-color:rgba(183,146,74,0.35)}
+.card .kicker{margin-bottom:14px; display:block}
+.card p{color:var(--muted); font-size:14.5px; line-height:1.7}
+
+.feature-list{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px; margin-top:24px}
+.feature{display:flex; gap:14px; align-items:flex-start}
+.feature .dot{flex:0 0 auto; width:10px; height:10px; border-radius:50%; background:var(--brass); margin-top:8px}
+.feature strong{display:block; font-family:'Cormorant Garamond',serif; font-size:21px; font-weight:500}
+.feature span{font-size:14px; color:var(--muted)}
+
+/* ─────────────── Buttons ─────────────── */
+.btn{
+  display:inline-flex; align-items:center; gap:10px;
+  padding:14px 28px; border-radius:999px;
+  font-size:11px; font-weight:500; letter-spacing:0.28em; text-transform:uppercase;
+  transition:all 0.25s ease; border:1px solid transparent;
+}
+.btn-dark{background:var(--ink); color:var(--paper)}
+.btn-dark:hover{background:var(--brass)}
+.btn-ghost{background:transparent; color:var(--ink); border-color:var(--ink)}
+.btn-ghost:hover{background:var(--ink); color:var(--paper)}
+.btn-light{background:var(--paper); color:var(--ink)}
+.btn-light:hover{background:var(--brass); color:var(--paper)}
+.btn-row{display:flex; flex-wrap:wrap; gap:14px; margin-top:32px}
+:focus-visible{outline:2px solid var(--brass); outline-offset:3px; border-radius:3px}
+
+/* ─────────────── Pricing ─────────────── */
+.tier{
+  background:#fff; border:1px solid var(--line); border-radius:18px;
+  padding:36px 30px; display:flex; flex-direction:column; gap:14px; min-height:480px;
+  transition:transform 0.4s ease, box-shadow 0.4s ease, border-color 0.3s;
+}
+.tier:hover{transform:translateY(-6px); box-shadow:0 30px 80px -30px rgba(10,10,10,0.25); border-color:var(--brass-soft)}
+.tier.featured{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.tier.featured h3{color:var(--paper)}
+.tier.featured .price{color:var(--brass-soft)}
+.tier.featured .feature span{color:rgba(246,242,234,0.78)}
+.tier .price{font-family:'Cormorant Garamond',serif; font-weight:500; font-size:54px; line-height:1; color:var(--brass)}
+.tier .price small{font-size:14px; color:var(--muted); font-family:'Inter',sans-serif; font-weight:500; letter-spacing:0.04em; margin-left:4px}
+.tier ul{list-style:none; display:flex; flex-direction:column; gap:10px; margin:14px 0 22px}
+.tier ul li{display:flex; gap:12px; align-items:flex-start; font-size:14px; line-height:1.55}
+.tier ul li::before{content:"·"; color:var(--brass); font-size:24px; line-height:0.6; margin-top:2px}
+.tier .btn{margin-top:auto; align-self:flex-start}
+
+/* ─────────────── Forms ─────────────── */
+form.stack{display:flex; flex-direction:column; gap:16px; max-width:520px}
+form.stack .field{display:flex; flex-direction:column; gap:6px}
+form.stack label{font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:var(--muted); font-weight:500}
+form.stack input, form.stack textarea, form.stack select{
+  border:1px solid var(--line); border-radius:12px; padding:14px 16px;
+  background:#fff; font:inherit; color:var(--ink);
+  transition:border-color 0.2s, box-shadow 0.2s;
+}
+form.stack input:focus, form.stack textarea:focus, form.stack select:focus{outline:none; border-color:var(--brass); box-shadow:0 0 0 4px rgba(183,146,74,0.15)}
+form.stack textarea{min-height:140px; resize:vertical}
+
+/* ─────────────── Legal text ─────────────── */
+.legal{max-width:780px; margin:0 auto}
+.legal h2{font-size:30px; margin-top:40px; margin-bottom:14px}
+.legal h3{font-size:18px; margin-top:24px; margin-bottom:10px; font-family:'Inter',sans-serif; font-weight:600; letter-spacing:-0.005em}
+.legal p, .legal li{color:var(--muted); font-size:15px; line-height:1.85; margin-bottom:14px}
+.legal ul{padding-left:22px}
+
+/* ─────────────── Footer ─────────────── */
+footer{background:var(--ink); color:var(--paper); padding:80px 32px 36px; margin-top:80px}
+.foot-top{max-width:1240px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; padding-bottom:48px; border-bottom:1px solid rgba(246,242,234,0.12)}
+.foot-top h4{font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:var(--brass-soft); font-weight:500; margin-bottom:18px}
+.foot-top a{display:block; padding:6px 0; color:rgba(246,242,234,0.7); font-size:13px; transition:color 0.2s}
+.foot-top a:hover{color:var(--paper)}
+.foot-tag{font-size:13px; line-height:1.8; color:rgba(246,242,234,0.6); max-width:300px; margin-top:14px}
+.foot-logo{width:148px; height:auto; border-radius:14px; background:#fff; padding:6px}
+.foot-bottom{max-width:1240px; margin:24px auto 0; display:flex; justify-content:space-between; flex-wrap:wrap; gap:14px; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(246,242,234,0.5)}
+@media (max-width:900px){.foot-top{grid-template-columns:1fr 1fr; gap:32px}}
+@media (max-width:560px){.foot-top{grid-template-columns:1fr}}
+
+/* ─────────────── Reveal ─────────────── */
+.reveal{opacity:0; transform:translateY(28px); transition:opacity 0.9s ease, transform 0.9s ease}
+.reveal.in{opacity:1; transform:translateY(0)}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1; transform:none; transition:none}}

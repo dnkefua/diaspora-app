@@ -1,0 +1,150 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ─────────────────────────── Helpers ───────────────────────────
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    function isVerifiedEmail() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && request.auth.token.admin == true;
+    }
+
+    function isString(v, max) {
+      return v is string && v.size() <= max;
+    }
+
+    // String/sanity checks for incoming data — keep documents compact and safe.
+    function validBusinessShape(d) {
+      return d.keys().hasOnly([
+        'ownerId','name','category','description','city','country','area',
+        'whatsapp','website','instagram','tags','photos','heroImage',
+        'rating','reviewCount','plan','status','createdAt','updatedAt','featured'
+      ])
+      && isString(d.name, 120)
+      && isString(d.category, 60)
+      && isString(d.description, 2000)
+      && isString(d.city, 80)
+      && isString(d.country, 80);
+    }
+
+    // ─────────────────────────── Users ─────────────────────────────
+    // /users/{uid}: a member's own profile. Only the owner can read or write
+    // their full profile. Authenticated users can read minimal public fields
+    // via /publicProfiles/{uid} (separate collection — never read users/* publicly).
+    match /users/{uid} {
+      allow read, update, delete: if isOwner(uid);
+      allow create: if isOwner(uid)
+                    && request.resource.data.uid == uid
+                    && request.resource.data.email == request.auth.token.email;
+    }
+
+    // /publicProfiles/{uid}: derived public-safe slice of a profile (display name, avatar).
+    match /publicProfiles/{uid} {
+      allow read: if true;
+      allow write: if isOwner(uid);
+    }
+
+    // ─────────────────────────── Businesses ────────────────────────
+    // Public listings. Anyone can read; only the verified owner can write.
+    match /businesses/{businessId} {
+      allow read: if true;
+
+      allow create: if isVerifiedEmail()
+                    && request.resource.data.ownerId == request.auth.uid
+                    && validBusinessShape(request.resource.data);
+
+      allow update: if (isOwner(resource.data.ownerId) || isAdmin())
+                    && validBusinessShape(request.resource.data)
+                    // Owner cannot escalate plan, featured flag, or rating themselves.
+                    && (isAdmin() || (
+                          request.resource.data.featured == resource.data.get('featured', false)
+                       && request.resource.data.rating == resource.data.get('rating', 0)
+                       && request.resource.data.reviewCount == resource.data.get('reviewCount', 0)
+                       && request.resource.data.ownerId == resource.data.ownerId
+                    ));
+
+      allow delete: if isOwner(resource.data.ownerId) || isAdmin();
+
+      // Reviews subcollection — anyone authenticated can read; only the
+      // review author or an admin can write.
+      match /reviews/{reviewId} {
+        allow read: if true;
+        allow create: if isSignedIn()
+                      && request.resource.data.userId == request.auth.uid
+                      && isString(request.resource.data.body, 2000)
+                      && request.resource.data.rating is number
+                      && request.resource.data.rating >= 1
+                      && request.resource.data.rating <= 5;
+        allow update, delete: if isOwner(resource.data.userId) || isAdmin();
+      }
+
+      // Owner-only response on a review.
+      match /reviews/{reviewId}/responses/{responseId} {
+        allow read: if true;
+        allow write: if isSignedIn()
+                     && get(/databases/$(database)/documents/businesses/$(businessId)).data.ownerId == request.auth.uid;
+      }
+    }
+
+    // ─────────────────────────── Jobs ──────────────────────────────
+    match /jobs/{jobId} {
+      allow read: if true;
+      allow create: if isVerifiedEmail()
+                    && request.resource.data.ownerId == request.auth.uid;
+      allow update, delete: if isOwner(resource.data.ownerId) || isAdmin();
+    }
+
+    // ─────────────────────────── Events ────────────────────────────
+    match /events/{eventId} {
+      allow read: if true;
+      allow create: if isVerifiedEmail()
+                    && request.resource.data.organizerId == request.auth.uid;
+      allow update, delete: if isOwner(resource.data.organizerId) || isAdmin();
+    }
+
+    // ─────────────────────────── Blog posts ────────────────────────
+    match /posts/{postId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // ─────────────────────────── Newsletter ────────────────────────
+    // Anyone can submit; only admins can read.
+    match /newsletter/{email} {
+      allow create: if request.resource.data.email is string
+                    && request.resource.data.email.matches('^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$');
+      allow read, update, delete: if isAdmin();
+    }
+
+    // ─────────────────────────── Lead/contact forms ────────────────
+    match /leads/{leadId} {
+      allow create: if request.resource.data.keys().hasOnly(['name','email','message','source','createdAt'])
+                    && isString(request.resource.data.email, 200)
+                    && isString(request.resource.data.message, 4000);
+      allow read, update, delete: if isAdmin();
+    }
+
+    // ─────────────────────────── Click + ad tracking ───────────────
+    // Append-only; clients can write a click event but cannot read or
+    // mutate. Admin can read for analytics.
+    match /clicks/{clickId} {
+      allow create: if request.resource.data.keys().hasAny(['type','target','at']);
+      allow read, update, delete: if isAdmin();
+    }
+
+    // ─────────────────────────── Default deny ──────────────────────
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

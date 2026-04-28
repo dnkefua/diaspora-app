@@ -3,23 +3,52 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="icon" type="image/png" href="Media%20resources/TheDiaspora%20app%20logo%203D.png">
-<title>The Diaspora App | Businesses, Events, Blogs and Local Ads</title>
-<meta name="description" content="Discover diaspora-owned restaurants, salons, barbers, fashion, jobs, blogs, events, and local advertising opportunities across Dubai, London, Toronto, Lagos, Nairobi, and more.">
-<meta name="robots" content="index,follow,max-image-preview:large">
+<title>The Diaspora App | Premium discovery for diaspora-owned businesses, events &amp; jobs worldwide</title>
+<meta name="description" content="A curated, premium home for the global diaspora — authentic restaurants, trusted stylists, gifted photographers, fashion houses, and the jobs that keep our communities growing. From Dubai to Toronto to London.">
+<meta name="keywords" content="diaspora app, african diaspora, diaspora businesses, dubai african restaurants, london diaspora, toronto diaspora, jobs diaspora, diaspora events, hair stylists dubai, diaspora marketplace">
 <meta name="author" content="NDN Analytics">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#0A0A0A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Diaspora">
+<meta name="format-detection" content="telephone=no">
 <link rel="canonical" href="https://www.thediaspora.app/">
+<link rel="alternate" hreflang="en" href="https://www.thediaspora.app/">
+<link rel="alternate" hreflang="en-AE" href="https://www.thediaspora.app/">
+<link rel="alternate" hreflang="en-GB" href="https://www.thediaspora.app/">
+<link rel="alternate" hreflang="en-NG" href="https://www.thediaspora.app/">
+<link rel="alternate" hreflang="x-default" href="https://www.thediaspora.app/">
 <link rel="alternate" type="application/rss+xml" title="The Diaspora App Blog" href="https://www.thediaspora.app/feed.xml">
+<link rel="icon" type="image/png" href="Media%20resources/TheDiaspora%20app%20logo%203D.png">
+<link rel="apple-touch-icon" href="Media%20resources/TheDiaspora%20app%20logo%203D.png">
+<link rel="manifest" href="manifest.webmanifest">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link rel="dns-prefetch" href="https://www.gstatic.com">
+<link rel="preload" as="image" href="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&amp;w=1920&amp;auto=format" fetchpriority="high">
+
 <meta property="og:type" content="website">
-<meta property="og:title" content="The Diaspora App">
-<meta property="og:description" content="A premium discovery and advertising home for diaspora businesses, events, jobs, and community stories.">
+<meta property="og:site_name" content="The Diaspora App">
+<meta property="og:title" content="The Diaspora App — A premium home for the global diaspora">
+<meta property="og:description" content="Authentic restaurants, trusted stylists, gifted photographers, fashion, jobs, and events for the global diaspora.">
 <meta property="og:url" content="https://www.thediaspora.app/">
 <meta property="og:image" content="https://www.thediaspora.app/Media%20resources/TheDiaspora%20app%20logo%203D.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="en_AE">
+<meta property="og:locale:alternate" content="en_GB">
+<meta property="og:locale:alternate" content="en_NG">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="The Diaspora App">
 <meta name="twitter:description" content="Discover diaspora businesses, events, jobs, blogs, and premium local ads.">
 <meta name="twitter:image" content="https://www.thediaspora.app/Media%20resources/TheDiaspora%20app%20logo%203D.png">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -30,11 +59,13 @@
       "name": "The Diaspora App",
       "url": "https://www.thediaspora.app/",
       "logo": "https://www.thediaspora.app/Media%20resources/TheDiaspora%20app%20logo%203D.png",
-      "founder": {
-        "@type": "Organization",
-        "name": "NDN Analytics",
-        "url": "https://www.ndnanalytics.com/"
-      }
+      "description": "Premium discovery and advertising platform for diaspora-owned businesses, events, and jobs worldwide.",
+      "founder": {"@type": "Organization","name": "NDN Analytics","url": "https://www.ndnanalytics.com/"},
+      "foundingDate": "2026",
+      "foundingLocation": {"@type": "Place","name": "Dubai, United Arab Emirates"},
+      "address": {"@type": "PostalAddress","addressLocality": "Dubai","addressCountry": "AE","streetAddress": "Boulevard Plaza Tower, Downtown Dubai"},
+      "email": "hello@diaspora.app",
+      "sameAs": ["https://www.ndnanalytics.com/"]
     },
     {
       "@type": "WebSite",
@@ -42,770 +73,481 @@
       "url": "https://www.thediaspora.app/",
       "name": "The Diaspora App",
       "publisher": {"@id": "https://www.thediaspora.app/#organization"},
+      "inLanguage": "en",
       "potentialAction": {
         "@type": "SearchAction",
-        "target": "https://www.thediaspora.app/feed.html?search={search_term_string}",
+        "target": {"@type": "EntryPoint","urlTemplate": "https://www.thediaspora.app/feed.html?q={search_term_string}"},
         "query-input": "required name=search_term_string"
       }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.thediaspora.app/#webpage",
+      "url": "https://www.thediaspora.app/",
+      "name": "The Diaspora App",
+      "isPartOf": {"@id": "https://www.thediaspora.app/#website"},
+      "primaryImageOfPage": "https://www.thediaspora.app/Media%20resources/TheDiaspora%20app%20logo%203D.png",
+      "description": "A curated home for diaspora-owned restaurants, salons, photographers, fashion houses, jobs, and events worldwide."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem","position": 1,"name": "Home","item": "https://www.thediaspora.app/"}
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"How much does it cost to list my business on The Diaspora App?","acceptedAnswer":{"@type":"Answer","text":"Listing is free, forever. Pro ($15/mo), Enterprise ($50/mo), and sponsored placements are optional. We never take a commission on transactions between you and your customers."}},
+        {"@type":"Question","name":"Which cities is The Diaspora App live in?","acceptedAnswer":{"@type":"Answer","text":"Active in Dubai, Abu Dhabi, Sharjah, London, Toronto, New York, Lagos, Nairobi, and Paris — expanding to 47 cities across 23 countries by end of Year 1."}},
+        {"@type":"Question","name":"How do members contact a business?","acceptedAnswer":{"@type":"Answer","text":"Direct via WhatsApp. Every listing has a one-tap WhatsApp CTA that opens a pre-filled message — no middleman, no commission."}},
+        {"@type":"Question","name":"Do you verify businesses?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every listing must be verified as diaspora-owned before it goes live."}}
+      ]
     }
   ]
 }
 </script>
-<style>
-/* ═══════════════════════════════════════════════════════
-   DIASPORA — Gaia-inspired editorial luxury
-   ═══════════════════════════════════════════════════════ */
-:root{
-  --ink:#0A0A0A;
-  --graphite:#1B1D22;
-  --ivory:#F6F2EA;
-  --bone:#EEE7DA;
-  --paper:#FBF8F2;
-  --blue:#1C3D6E;            /* deep mediterranean blue — Gaia logo accent */
-  --brass:#B7924A;           /* restrained gold */
-  --brass-soft:#D9BE88;
-  --rust:#8F3A26;
-  --line:rgba(10,10,10,0.12);
-  --muted:#6B6357;
-}
 
+<style>
+/* ════════════════════════════════════════════════════════════════════
+   THE DIASPORA APP — editorial luxury, animated, decluttered
+   ════════════════════════════════════════════════════════════════════ */
+:root{
+  --ink:#0A0A0A; --graphite:#1B1D22;
+  --ivory:#F6F2EA; --bone:#EEE7DA; --paper:#FBF8F2;
+  --blue:#1C3D6E; --brass:#B7924A; --brass-soft:#D9BE88; --rust:#8F3A26;
+  --line:rgba(10,10,10,0.10); --muted:#5A5247;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
-  background:var(--paper);
-  color:var(--ink);
+  background:var(--paper); color:var(--ink);
   font-family:'Inter',system-ui,-apple-system,sans-serif;
-  font-weight:400;
-  font-size:15px;
-  line-height:1.65;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
   overflow-x:hidden;
 }
-a{color:inherit;text-decoration:none}
-img{display:block;max-width:100%}
-button{font-family:inherit;cursor:pointer}
+a{color:inherit; text-decoration:none}
+img{display:block; max-width:100%}
+button{font-family:inherit; cursor:pointer}
+::selection{background:var(--brass-soft); color:var(--ink)}
+:focus-visible{outline:2px solid var(--brass); outline-offset:3px; border-radius:3px}
 
-.serif{font-family:'Cormorant Garamond',Georgia,serif;font-weight:300;letter-spacing:-0.01em}
-.kicker{
-  font-family:'Inter',sans-serif;
-  font-size:11px;
-  font-weight:500;
-  letter-spacing:0.28em;
-  text-transform:uppercase;
-  color:var(--muted);
+.serif{font-family:'Cormorant Garamond',Georgia,serif; font-weight:400; letter-spacing:-0.01em}
+.kicker{font-family:'Inter',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.28em; text-transform:uppercase; color:var(--muted)}
+
+.skip{position:absolute; left:-9999px; top:8px; background:var(--ink); color:var(--paper); padding:10px 16px; border-radius:8px; z-index:9999; font-size:12px; letter-spacing:0.18em; text-transform:uppercase}
+.skip:focus{left:8px}
+
+.scroll-progress{position:fixed; top:0; left:0; height:2px; background:linear-gradient(90deg,var(--brass),var(--brass-soft)); width:0; z-index:200; transition:width 0.05s linear; pointer-events:none}
+
+.grain{position:fixed; inset:-50%; pointer-events:none; opacity:0.05; z-index:150; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  animation:grain 1.6s steps(6) infinite;
 }
+@keyframes grain{
+  0%,100%{transform:translate(0,0)}
+  17%{transform:translate(-1%,1%)}
+  33%{transform:translate(1%,-1%)}
+  50%{transform:translate(-1%,-1%)}
+  67%{transform:translate(1%,1%)}
+  83%{transform:translate(0,1%)}
+}
+@media (prefers-reduced-motion:reduce){.grain{animation:none}}
 
-/* ═══════════ NAV ═══════════ */
 .topnav{
   position:fixed; top:0; left:0; right:0; z-index:100;
-  padding:22px 40px;
+  padding:20px 36px;
   display:grid; grid-template-columns:1fr auto 1fr; align-items:center;
-  transition:background 0.4s, border-color 0.4s, padding 0.3s;
-  background:transparent;
-  border-bottom:1px solid transparent;
+  transition:background 0.4s var(--ease), border-color 0.4s, padding 0.3s, transform 0.4s var(--ease);
+  background:transparent; border-bottom:1px solid transparent;
 }
-.topnav.scrolled{
-  background:rgba(251,248,242,0.92);
-  backdrop-filter:blur(20px);
-  border-bottom-color:var(--line);
-  padding:14px 40px;
-}
-.nav-left, .nav-right{display:flex;align-items:center;gap:32px}
+.topnav.scrolled{background:rgba(251,248,242,0.92); backdrop-filter:blur(20px); border-bottom-color:var(--line); padding:12px 36px}
+.topnav.hidden{transform:translateY(-100%)}
+.nav-left,.nav-right{display:flex; align-items:center; gap:28px}
 .nav-right{justify-content:flex-end}
-.nav-link{
-  font-size:12px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase;
-  color:var(--ink); opacity:0.75; transition:opacity 0.2s;
-}
+.nav-link{font-size:11px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:var(--ink); opacity:0.78; transition:opacity 0.2s, color 0.2s; position:relative}
+.nav-link::after{content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px; background:var(--brass); transform:scaleX(0); transform-origin:left; transition:transform 0.35s var(--ease)}
 .nav-link:hover{opacity:1}
-
-.brand{
-  justify-self:center; display:flex; align-items:center; justify-content:center;
-  text-align:center; padding:0 12px;
-}
+.nav-link:hover::after{transform:scaleX(1)}
+.brand{justify-self:center; display:flex; align-items:center; justify-content:center; padding:0 12px}
 .brand-logo{
-  width:152px; height:56px; object-fit:contain; border-radius:14px;
-  background:rgba(255,255,255,0.94); padding:4px;
+  width:144px; height:52px; object-fit:contain; border-radius:14px;
+  background:rgba(255,255,255,0.96); padding:4px;
   box-shadow:0 16px 40px rgba(0,0,0,0.18);
-  transition:width 0.3s, height 0.3s, box-shadow 0.3s, background 0.3s;
+  transition:width 0.3s, height 0.3s, box-shadow 0.3s;
+  animation:logoFloat 6s ease-in-out infinite;
 }
-.brand-mark{
-  font-family:'Cormorant Garamond',serif;
-  font-size:26px; font-weight:400; letter-spacing:0.12em;
-  color:var(--ink);
-}
-.brand-mark em{font-style:italic;color:var(--brass);font-weight:400}
-.brand-sub{
-  display:none;
-  font-size:9px; letter-spacing:0.4em; text-transform:uppercase;
-  color:var(--muted); margin-top:2px;
-}
-.topnav.scrolled .brand-logo{width:132px;height:48px;box-shadow:none;background:#fff}
-.topnav.light .nav-link, .topnav.light .brand-mark, .topnav.light .brand-sub{color:var(--paper)}
-.topnav.light:not(.scrolled) .brand-mark em{color:var(--brass-soft)}
+@keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.topnav.scrolled .brand-logo{width:124px; height:46px; box-shadow:none; animation:none}
+.topnav.light .nav-link{color:var(--paper)}
+.topnav.light .nav-account{border-color:rgba(255,255,255,0.55); color:var(--paper)}
+.topnav.light .nav-account:hover{background:var(--paper); color:var(--ink); border-color:var(--paper)}
+.nav-menu-btn{background:none; border:none; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; font-weight:500; color:inherit; display:flex; align-items:center; gap:10px; opacity:0.78; transition:opacity 0.2s}
+.nav-menu-btn:hover{opacity:1}
+.nav-menu-btn .bars{display:inline-flex; flex-direction:column; gap:4px}
+.nav-menu-btn .bars i{width:20px; height:1px; background:currentColor; display:block; transition:transform 0.3s var(--ease)}
+.nav-account{display:inline-flex; align-items:center; gap:8px; padding:9px 16px; border:1px solid currentColor; border-radius:999px; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; font-weight:500; transition:all 0.2s}
+.nav-account:hover{background:var(--ink); color:var(--paper); border-color:var(--ink)}
 
-.nav-menu-btn{
-  background:none; border:none;
-  font-size:12px; letter-spacing:0.22em; text-transform:uppercase; font-weight:500;
-  color:inherit; display:flex; align-items:center; gap:10px;
-}
-.nav-menu-btn .bars{display:inline-flex;flex-direction:column;gap:4px}
-.nav-menu-btn .bars i{width:22px;height:1px;background:currentColor;display:block}
-
-/* Account pill */
-.nav-account{
-  display:inline-flex; align-items:center; gap:8px;
-  padding:10px 18px; border:1px solid currentColor; border-radius:999px;
-  font-size:11px; letter-spacing:0.2em; text-transform:uppercase; font-weight:500;
-  transition:background 0.2s, color 0.2s;
-}
-.nav-account:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.topnav.light .nav-account{border-color:rgba(255,255,255,0.55);color:var(--paper)}
-.topnav.light .nav-account:hover{background:var(--paper);color:var(--ink);border-color:var(--paper)}
-
-/* Editorial menu drawer */
-.menu-overlay{
-  position:fixed; inset:0; z-index:180;
-  background:rgba(10,10,10,0.56);
-  opacity:0; visibility:hidden;
-  transition:opacity 0.25s ease, visibility 0.25s ease;
-}
+.menu-overlay{position:fixed; inset:0; z-index:180; background:rgba(10,10,10,0.56); opacity:0; visibility:hidden; transition:opacity 0.25s, visibility 0.25s}
 .menu-overlay.open{opacity:1; visibility:visible}
-.menu-drawer{
-  position:fixed; z-index:190; top:18px; left:18px; bottom:18px;
-  width:min(420px, calc(100vw - 36px));
-  background:var(--paper); color:var(--ink);
-  border:1px solid rgba(10,10,10,0.12);
-  border-radius:8px;
-  box-shadow:0 40px 110px rgba(0,0,0,0.34);
-  padding:28px;
-  transform:translateX(calc(-100% - 32px));
-  transition:transform 0.32s cubic-bezier(.2,.7,.2,1);
-  display:flex; flex-direction:column;
-}
+.menu-drawer{position:fixed; z-index:190; top:18px; left:18px; bottom:18px; width:min(420px, calc(100vw - 36px)); background:var(--paper); color:var(--ink); border:1px solid var(--line); border-radius:8px; box-shadow:0 40px 110px rgba(0,0,0,0.34); padding:28px; transform:translateX(calc(-100% - 32px)); transition:transform 0.32s var(--ease); display:flex; flex-direction:column}
 .menu-drawer.open{transform:translateX(0)}
-.menu-head{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:28px}
-.menu-head img{width:132px;height:48px;object-fit:contain;border-radius:12px;background:#fff;padding:4px}
-.menu-close{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:24px;line-height:1}
-.menu-group{border-top:1px solid var(--line);padding:18px 0}
-.menu-group-label{font-size:10px;letter-spacing:0.24em;text-transform:uppercase;color:var(--brass);font-weight:600;margin-bottom:12px}
-.menu-item{display:flex;justify-content:space-between;gap:18px;padding:13px 0;color:var(--ink);font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:400;line-height:1.05;transition:color 0.2s}
-.menu-item:hover{color:var(--brass)}
-.menu-item span{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);padding-top:8px;white-space:nowrap}
-.menu-note{margin-top:auto;color:var(--muted);font-size:13px;line-height:1.7}
+.menu-head{display:flex; align-items:center; justify-content:space-between; gap:18px; margin-bottom:28px}
+.menu-head img{width:128px; height:46px; object-fit:contain; border-radius:12px; background:#fff; padding:4px}
+.menu-close{width:42px; height:42px; border-radius:50%; border:1px solid var(--line); background:#fff; color:var(--ink); font-size:24px; line-height:1}
+.menu-group{border-top:1px solid var(--line); padding:18px 0}
+.menu-group-label{font-size:10px; letter-spacing:0.24em; text-transform:uppercase; color:var(--brass); font-weight:600; margin-bottom:12px}
+.menu-item{display:flex; justify-content:space-between; gap:18px; padding:12px 0; color:var(--ink); font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:400; line-height:1.05; transition:color 0.2s, transform 0.3s var(--ease)}
+.menu-item:hover{color:var(--brass); transform:translateX(4px)}
+.menu-item span{font-family:'Inter',sans-serif; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); padding-top:8px}
+.menu-note{margin-top:auto; color:var(--muted); font-size:13px; line-height:1.7}
 
-/* ═══════════ HERO ═══════════ */
 .hero{
-  position:relative; height:100vh; min-height:680px; width:100%;
+  position:relative; min-height:100vh; width:100%;
   overflow:hidden; color:var(--paper);
-  display:flex; align-items:flex-end; justify-content:center;
-  padding:0 40px 120px;
+  display:flex; align-items:center; justify-content:center;
+  padding:140px 32px 200px;
 }
-.hero-bg{
-  position:absolute; inset:0;
-  background-image:url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2400&auto=format');
-  background-size:cover; background-position:center 50%;
-  transform:scale(1.04);
-  animation:heroZoom 18s ease-out forwards;
-  filter:brightness(0.45) saturate(1.1) contrast(1.05);
-}
+.hero-bg{position:absolute; inset:0; background-image:url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2400&auto=format'); background-size:cover; background-position:center 50%; transform:scale(1.06); animation:heroZoom 22s ease-out forwards; filter:brightness(0.42) saturate(1.12) contrast(1.05); will-change:transform}
 @keyframes heroZoom{to{transform:scale(1)}}
-.hero::before{
-  content:""; position:absolute; inset:0;
-  background:
-    linear-gradient(180deg, rgba(6,6,8,0.55) 0%, rgba(6,6,8,0.4) 25%, rgba(6,6,8,0.75) 60%, rgba(6,6,8,0.96) 100%);
-  pointer-events:none;
-}
-.hero::after{
-  content:""; position:absolute; left:50%; bottom:22%; transform:translateX(-50%);
-  width:min(92vw, 1000px); height:52%;
-  background:radial-gradient(ellipse at center, rgba(6,6,8,0.85) 0%, rgba(6,6,8,0.5) 45%, rgba(6,6,8,0) 75%);
-  filter:blur(20px);
-  pointer-events:none; z-index:1;
-}
-.hero-inner{
-  position:relative; z-index:2;
-  text-align:center; max-width:980px;
-  opacity:0; transform:translateY(30px);
-  animation:heroIn 1.4s cubic-bezier(.2,.7,.2,1) 0.3s forwards;
-}
-@keyframes heroIn{to{opacity:1;transform:translateY(0)}}
-.hero-logo{
-  width:min(230px, 58vw); height:auto; margin:0 auto 24px;
-  border-radius:24px; background:rgba(255,255,255,0.96); padding:8px;
-  box-shadow:0 28px 90px rgba(0,0,0,0.48);
-}
-
-.hero-kicker{
-  color:var(--brass-soft);
-  margin-bottom:28px;
-  display:flex; align-items:center; justify-content:center; gap:16px;
-}
-.hero-kicker::before, .hero-kicker::after{
-  content:""; width:48px; height:1px; background:var(--brass-soft); opacity:0.6;
-}
+.hero::before{content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(6,6,8,0.55) 0%, rgba(6,6,8,0.4) 22%, rgba(6,6,8,0.78) 65%, rgba(6,6,8,0.96) 100%); pointer-events:none}
+.hero-glow{position:absolute; width:560px; height:560px; border-radius:50%; pointer-events:none; background:radial-gradient(circle, rgba(217,190,136,0.22) 0%, rgba(217,190,136,0.08) 35%, rgba(217,190,136,0) 70%); filter:blur(20px); transform:translate(-50%,-50%); transition:opacity 0.4s ease; z-index:1; opacity:0}
+.hero:hover .hero-glow{opacity:1}
+.hero-inner{position:relative; z-index:2; text-align:center; max-width:1040px; margin:0 auto}
+.hero-logo{width:min(176px, 44vw); height:auto; margin:0 auto 28px; border-radius:20px; background:rgba(255,255,255,0.96); padding:6px; box-shadow:0 28px 90px rgba(0,0,0,0.48); animation:heroLogoIn 1s var(--ease) 0.1s both}
+@keyframes heroLogoIn{from{opacity:0; transform:translateY(20px) scale(0.96)}to{opacity:1; transform:translateY(0) scale(1)}}
+.hero-kicker{color:var(--brass-soft); display:inline-flex; align-items:center; justify-content:center; gap:14px; margin-bottom:24px; opacity:0; animation:fadeUp 0.8s var(--ease) 0.4s forwards}
+.hero-kicker::before, .hero-kicker::after{content:""; width:42px; height:1px; background:var(--brass-soft); opacity:0.7}
 .hero-title{
-  font-family:'Cormorant Garamond',serif;
-  font-weight:500;
-  font-size:clamp(44px, 7.5vw, 108px);
-  line-height:0.98; letter-spacing:-0.02em;
-  margin-bottom:28px;
-  color:#FFFFFF;
+  font-family:'Cormorant Garamond',serif; font-weight:500;
+  font-size:clamp(46px, 8vw, 116px); line-height:0.96; letter-spacing:-0.025em;
+  margin-bottom:24px; color:#fff;
   text-shadow:0 2px 40px rgba(0,0,0,0.85), 0 0 80px rgba(0,0,0,0.6);
 }
-.hero-title em{font-style:italic;color:var(--brass-soft);font-weight:500}
-.hero-lede{
-  font-size:17px; font-weight:500; line-height:1.75;
-  max-width:620px; margin:0 auto 44px;
-  color:#F8F4EC; opacity:1; letter-spacing:0.01em;
-  text-shadow:0 1px 24px rgba(0,0,0,0.9);
-}
-.hero-kicker{text-shadow:0 1px 16px rgba(0,0,0,0.8)}
-.hero-ctas{display:inline-flex; gap:14px; flex-wrap:wrap; justify-content:center}
+.hero-title em{font-style:italic; color:var(--brass-soft); font-weight:500}
+.hero-title .word{display:inline-block; opacity:0; transform:translateY(0.6em) rotate(2deg); animation:wordIn 1.1s var(--ease) forwards}
+.hero-title .word:nth-child(1){animation-delay:0.55s}
+.hero-title .word:nth-child(2){animation-delay:0.65s}
+.hero-title .word:nth-child(3){animation-delay:0.75s}
+.hero-title .word:nth-child(4){animation-delay:0.95s}
+.hero-title .word:nth-child(5){animation-delay:1.05s}
+.hero-title .word:nth-child(6){animation-delay:1.15s}
+@keyframes wordIn{to{opacity:1; transform:translateY(0) rotate(0)}}
+.hero-rule{width:64px; height:1px; background:var(--brass-soft); margin:18px auto 28px; transform-origin:left; transform:scaleX(0); animation:ruleIn 1s var(--ease) 1.3s forwards}
+@keyframes ruleIn{to{transform:scaleX(1)}}
+.hero-lede{font-size:17px; font-weight:500; line-height:1.75; max-width:600px; margin:0 auto 40px; color:#F8F4EC; letter-spacing:0.005em; text-shadow:0 1px 24px rgba(0,0,0,0.9); opacity:0; animation:fadeUp 1s var(--ease) 1.5s forwards}
+.hero-ctas{display:inline-flex; gap:14px; flex-wrap:wrap; justify-content:center; opacity:0; animation:fadeUp 1s var(--ease) 1.7s forwards}
+@keyframes fadeUp{from{opacity:0; transform:translateY(18px)}to{opacity:1; transform:translateY(0)}}
 
-.btn{
-  display:inline-flex; align-items:center; gap:10px;
-  padding:16px 32px; border-radius:999px;
-  font-size:11px; font-weight:500; letter-spacing:0.28em; text-transform:uppercase;
-  transition:all 0.25s ease;
-  border:1px solid transparent;
-}
+.btn{display:inline-flex; align-items:center; gap:10px; padding:15px 28px; border-radius:999px; font-size:11px; font-weight:500; letter-spacing:0.28em; text-transform:uppercase; transition:all 0.25s var(--ease); border:1px solid transparent; position:relative; overflow:hidden}
+.btn::before{content:""; position:absolute; inset:0; background:var(--brass); transform:translateY(101%); transition:transform 0.4s var(--ease); z-index:-1}
+.btn:hover::before{transform:translateY(0)}
 .btn-light{background:var(--paper); color:var(--ink)}
-.btn-light:hover{background:var(--brass);color:var(--paper)}
+.btn-light:hover{color:var(--paper)}
 .btn-outline{background:transparent; color:var(--paper); border-color:rgba(255,255,255,0.55)}
-.btn-outline:hover{background:var(--paper); color:var(--ink); border-color:var(--paper)}
+.btn-outline:hover{color:var(--paper); border-color:var(--brass)}
 .btn-dark{background:var(--ink); color:var(--paper)}
-.btn-dark:hover{background:var(--brass)}
+.btn-dark:hover{color:var(--paper)}
 .btn-ghost{background:transparent; color:var(--ink); border-color:var(--ink)}
-.btn-ghost:hover{background:var(--ink); color:var(--paper)}
+.btn-ghost:hover{color:var(--paper)}
 
-.scroll-cue{
-  position:absolute; bottom:28px; left:50%; transform:translateX(-50%);
-  z-index:3; color:var(--paper); opacity:0.7; font-size:10px; letter-spacing:0.4em; text-transform:uppercase;
-  writing-mode:vertical-rl;
-}
-.scroll-cue span{display:block; width:1px; height:48px; background:var(--paper); margin:14px auto 0; animation:scroll 2s infinite}
-@keyframes scroll{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}50.1%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.scroll-cue{position:absolute; left:50%; bottom:36px; transform:translateX(-50%); z-index:3; color:var(--paper); opacity:0; font-size:10px; letter-spacing:0.4em; text-transform:uppercase; writing-mode:vertical-rl; animation:fadeUp 1s var(--ease) 1.9s forwards}
+.scroll-cue span{display:block; width:1px; height:42px; background:currentColor; margin:14px auto 0; transform-origin:top; animation:scroll 2.4s var(--ease) 2.5s infinite}
+@keyframes scroll{0%{transform:scaleY(0); transform-origin:top}50%{transform:scaleY(1); transform-origin:top}50.1%{transform-origin:bottom}100%{transform:scaleY(0); transform-origin:bottom}}
 
-/* ═══════════ SEARCH BAR (refined pill, overlaps hero bottom) ═══════════ */
-.search-section{
-  position:relative; z-index:10;
-  margin-top:-60px; padding:0 24px 100px;
-}
-.search-widget{
-  max-width:1040px; margin:0 auto;
-  background:var(--paper);
-  border-radius:999px;
-  box-shadow:0 30px 80px -20px rgba(10,10,10,0.35), 0 0 0 1px var(--line);
-  display:grid; grid-template-columns:1.1fr 1fr 1fr 1.3fr auto;
-  align-items:center;
-  padding:8px;
-}
-.sw-field{
-  padding:18px 28px; cursor:pointer; border-radius:999px;
-  transition:background 0.2s; text-align:left; position:relative;
-}
+.ticker{background:var(--ink); color:var(--paper); border-top:1px solid rgba(246,242,234,0.12); border-bottom:1px solid rgba(246,242,234,0.12); padding:14px 0; overflow:hidden; position:relative}
+.ticker::before, .ticker::after{content:""; position:absolute; top:0; bottom:0; width:80px; z-index:2; pointer-events:none}
+.ticker::before{left:0; background:linear-gradient(90deg,var(--ink),transparent)}
+.ticker::after{right:0; background:linear-gradient(270deg,var(--ink),transparent)}
+.ticker-track{display:flex; gap:48px; width:max-content; animation:ticker 50s linear infinite}
+.ticker:hover .ticker-track{animation-play-state:paused}
+.ticker span{font-size:10px; letter-spacing:0.34em; text-transform:uppercase; color:rgba(246,242,234,0.7); white-space:nowrap; display:inline-flex; align-items:center; gap:14px}
+.ticker span::after{content:"·"; color:var(--brass-soft); font-size:18px; line-height:1}
+.ticker span:last-child::after{display:none}
+.ticker b{color:var(--brass-soft); font-weight:500}
+@keyframes ticker{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.ticker-track{animation:none}}
+
+.search-section{position:relative; z-index:10; margin-top:-60px; padding:0 24px 110px}
+.search-widget{max-width:1080px; margin:0 auto; background:var(--paper); border-radius:999px; box-shadow:0 30px 80px -20px rgba(10,10,10,0.35), 0 0 0 1px var(--line); display:grid; grid-template-columns:1fr 1fr 1fr 1.3fr auto; align-items:center; padding:8px; transition:box-shadow 0.4s var(--ease)}
+.search-widget:hover{box-shadow:0 40px 100px -24px rgba(10,10,10,0.42), 0 0 0 1px var(--brass-soft)}
+.sw-field{padding:18px 26px; cursor:pointer; border-radius:999px; transition:background 0.2s; text-align:left; position:relative; background:none; border:none; width:100%}
 .sw-field:hover{background:var(--bone)}
 .sw-field + .sw-field{box-shadow:-1px 0 0 var(--line)}
 .sw-field:hover + .sw-field{box-shadow:none}
-.sw-label{
-  font-size:10px; font-weight:500; letter-spacing:0.24em; text-transform:uppercase;
-  color:var(--muted); margin-bottom:4px;
-}
-.sw-value{
-  font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:400;
-  color:var(--ink); letter-spacing:-0.005em;
-  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-}
-.sw-btn{
-  margin-left:6px; padding:18px 30px;
-  background:var(--ink); color:var(--paper); border:none; border-radius:999px;
-  font-size:11px; font-weight:500; letter-spacing:0.28em; text-transform:uppercase;
-  display:flex; align-items:center; gap:10px;
-  transition:background 0.2s;
-}
-.sw-btn:hover{background:var(--brass)}
-
-.sw-dropdown{
-  position:absolute; top:calc(100% + 16px); left:0; min-width:280px;
-  background:var(--paper); border-radius:18px;
-  box-shadow:0 30px 80px -20px rgba(10,10,10,0.3), 0 0 0 1px var(--line);
-  padding:10px; display:none; z-index:30;
-  max-height:400px; overflow-y:auto;
-}
-.sw-field.open .sw-dropdown{display:block}
-.sw-item{
-  padding:13px 16px; border-radius:12px; cursor:pointer;
-  font-size:14px; display:flex; align-items:center; gap:12px;
-  transition:background 0.15s;
-}
+.sw-label{display:block; font-size:10px; font-weight:500; letter-spacing:0.24em; text-transform:uppercase; color:var(--muted); margin-bottom:4px}
+.sw-value{display:block; font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:400; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.sw-input{font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:400; color:var(--ink); border:none; background:transparent; outline:none; width:100%; padding:0}
+.sw-input::placeholder{color:var(--muted); opacity:0.7}
+.sw-btn{margin-left:6px; padding:18px 30px; background:var(--ink); color:var(--paper); border:none; border-radius:999px; font-size:11px; font-weight:500; letter-spacing:0.28em; text-transform:uppercase; display:flex; align-items:center; gap:10px; transition:background 0.25s, transform 0.25s var(--ease)}
+.sw-btn:hover{background:var(--brass); transform:scale(1.04)}
+.sw-dropdown{position:absolute; top:calc(100% + 12px); left:0; min-width:280px; background:var(--paper); border-radius:18px; box-shadow:0 30px 80px -20px rgba(10,10,10,0.3), 0 0 0 1px var(--line); padding:10px; display:none; z-index:30; max-height:380px; overflow-y:auto}
+.sw-field.open .sw-dropdown{display:block; animation:ddIn 0.25s var(--ease)}
+@keyframes ddIn{from{opacity:0; transform:translateY(-6px)}to{opacity:1; transform:translateY(0)}}
+.sw-item{padding:13px 16px; border-radius:12px; cursor:pointer; font-size:14px; display:flex; align-items:center; gap:12px; transition:background 0.15s, color 0.15s; border:none; background:none; width:100%; text-align:left; color:var(--ink); font-family:inherit}
 .sw-item:hover{background:var(--bone)}
-.sw-item.selected{background:var(--ink);color:var(--paper)}
+.sw-item.selected{background:var(--ink); color:var(--paper)}
 .sw-flag{font-size:18px}
 
-/* ═══════════ SECTIONS — shared ═══════════ */
-section{padding:130px 40px}
+section.block{padding:120px 32px}
 .container{max-width:1240px; margin:0 auto}
-.section-head{text-align:center; max-width:780px; margin:0 auto 70px}
-.section-head .kicker{
-  display:inline-flex; align-items:center; gap:14px; margin-bottom:22px;
-}
-.section-head .kicker::before, .section-head .kicker::after{
-  content:""; width:36px; height:1px; background:var(--brass); opacity:0.6;
-}
-.section-title{
-  font-family:'Cormorant Garamond',serif; font-weight:300;
-  font-size:clamp(36px, 5vw, 64px); line-height:1.02; letter-spacing:-0.02em;
-  margin-bottom:24px;
-}
-.section-title em{font-style:italic; color:var(--brass); font-weight:300}
-.section-lede{
-  font-size:16px; line-height:1.8; color:var(--muted);
-  max-width:620px; margin:0 auto;
-}
+.section-head{text-align:center; max-width:780px; margin:0 auto 64px}
+.section-head .kicker{display:inline-flex; align-items:center; gap:14px; margin-bottom:20px}
+.section-head .kicker::before, .section-head .kicker::after{content:""; width:34px; height:1px; background:var(--brass); opacity:0.55}
+.section-title{font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(36px, 5vw, 64px); line-height:1.02; letter-spacing:-0.02em; margin-bottom:22px}
+.section-title em{font-style:italic; color:var(--brass); font-weight:500}
+.section-lede{font-size:16px; line-height:1.8; color:var(--muted); max-width:620px; margin:0 auto}
 
-/* ═══════════ NEW CHAPTER — editorial intro ═══════════ */
-.chapter{background:var(--paper); text-align:center}
-.chapter-mark{
-  width:56px; height:56px; margin:0 auto 32px;
-  border-radius:50%; border:1px solid var(--brass);
-  display:flex; align-items:center; justify-content:center;
-  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:22px; color:var(--brass);
-}
-.chapter-quote{
-  font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300;
-  font-size:clamp(28px, 3.6vw, 46px); line-height:1.3; letter-spacing:-0.01em;
-  max-width:940px; margin:0 auto 44px;
-}
-.chapter-sign{
-  font-size:11px; letter-spacing:0.28em; text-transform:uppercase; color:var(--muted);
-}
+.spotlight{position:relative; height:min(720px, 92vh); width:100%; overflow:hidden; color:var(--paper); background:var(--ink)}
+.spotlight-stage{position:absolute; inset:0}
+.spotlight-slide{position:absolute; inset:0; opacity:0; visibility:hidden; transition:opacity 1s var(--ease), visibility 1s}
+.spotlight-slide.active{opacity:1; visibility:visible}
+.spotlight-media{position:absolute; inset:0; overflow:hidden}
+.spotlight-media img{width:100%; height:100%; object-fit:cover; transform:scale(1.08); transition:transform 8s var(--ease); filter:saturate(1.05) contrast(1.04) brightness(0.7)}
+.spotlight-slide.active .spotlight-media img{transform:scale(1)}
+.spotlight-slide::before{content:""; position:absolute; inset:0; z-index:1; background:linear-gradient(90deg, rgba(4,6,10,0.92) 0%, rgba(4,6,10,0.5) 50%, rgba(4,6,10,0.18) 100%), linear-gradient(180deg, rgba(4,6,10,0.5) 0%, rgba(4,6,10,0.05) 36%, rgba(4,6,10,0.85) 100%)}
+.spotlight-inner{position:relative; z-index:3; height:100%; display:flex; flex-direction:column; justify-content:flex-end; max-width:1280px; margin:0 auto; padding:80px 36px 130px}
+.spotlight-copy{max-width:760px}
+.sponsor-kicker{display:inline-flex; align-items:center; gap:12px; color:var(--brass-soft); margin-bottom:22px; font-size:11px; font-weight:500; letter-spacing:0.28em; text-transform:uppercase}
+.sponsor-kicker::before{content:""; width:42px; height:1px; background:var(--brass-soft)}
+.spotlight-title{font-family:'Cormorant Garamond',serif; font-weight:500; font-size:clamp(40px, 6.4vw, 92px); line-height:0.98; letter-spacing:-0.02em; margin-bottom:20px; text-shadow:0 18px 70px rgba(0,0,0,0.5)}
+.spotlight-title em{font-style:italic; color:var(--brass-soft)}
+.spotlight-copy p{max-width:560px; color:rgba(246,242,234,0.9); font-size:16px; line-height:1.75; font-weight:500; text-shadow:0 8px 28px rgba(0,0,0,0.55)}
+.spotlight-meta{display:flex; flex-wrap:wrap; gap:8px; margin:24px 0 28px}
+.meta-pill{display:inline-flex; align-items:center; min-height:30px; padding:6px 14px; border:1px solid rgba(246,242,234,0.28); border-radius:999px; background:rgba(10,10,10,0.28); backdrop-filter:blur(16px); font-size:10px; letter-spacing:0.18em; text-transform:uppercase}
+.spotlight-controls{position:absolute; left:0; right:0; bottom:36px; z-index:5; display:grid; grid-template-columns:auto 1fr auto; gap:18px; align-items:center; max-width:1280px; margin:0 auto; padding:0 36px}
+.spot-btn{width:42px; height:42px; border-radius:50%; border:1px solid rgba(246,242,234,0.45); background:rgba(10,10,10,0.28); color:var(--paper); display:flex; align-items:center; justify-content:center; font-size:20px; transition:all 0.25s var(--ease)}
+.spot-btn:hover{background:var(--paper); color:var(--ink); transform:scale(1.08)}
+.spot-tabs{display:grid; grid-template-columns:repeat(3,1fr); gap:8px}
+.spot-tab{position:relative; border:1px solid rgba(246,242,234,0.22); background:rgba(10,10,10,0.28); color:rgba(246,242,234,0.72); border-radius:8px; padding:12px 14px; text-align:left; min-height:64px; backdrop-filter:blur(16px); transition:all 0.3s var(--ease); overflow:hidden; cursor:pointer; font-family:inherit}
+.spot-tab.active{background:rgba(251,248,242,0.94); color:var(--ink); border-color:rgba(251,248,242,0.94)}
+.spot-tab:hover:not(.active){background:rgba(10,10,10,0.5); color:var(--paper); border-color:rgba(246,242,234,0.4)}
+.spot-tab span{display:block; font-size:9px; letter-spacing:0.18em; text-transform:uppercase; color:var(--brass); margin-bottom:4px}
+.spot-tab strong{display:block; font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:500; line-height:1.05}
+.spot-tab .progress{position:absolute; bottom:0; left:0; height:2px; background:var(--brass); width:0; transform-origin:left}
+.spot-tab.active .progress{animation:progressFill 7s linear forwards}
+@keyframes progressFill{from{width:0}to{width:100%}}
+@media (prefers-reduced-motion:reduce){.spot-tab.active .progress{animation:none; width:100%}}
 
-/* ═══════════ EDITORIAL DUAL BLOCK — "Our Story" ═══════════ */
-.editorial{background:var(--ivory); padding:140px 40px}
-.editorial-grid{
-  display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;
-  max-width:1240px; margin:0 auto;
-}
-.editorial-media{position:relative; aspect-ratio:4/5; overflow:hidden; border-radius:4px}
-.editorial-media img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s ease}
-.editorial-media:hover img{transform:scale(1.04)}
-.editorial-media::after{
-  content:""; position:absolute; top:20px; left:20px; right:20px; bottom:20px;
-  border:1px solid rgba(255,255,255,0.35); pointer-events:none;
-}
-.editorial-copy .kicker{margin-bottom:22px; color:var(--brass)}
-.editorial-copy h2{
-  font-family:'Cormorant Garamond',serif; font-weight:300;
-  font-size:clamp(38px,4.5vw,56px); line-height:1.05; letter-spacing:-0.02em;
-  margin-bottom:28px;
-}
-.editorial-copy h2 em{font-style:italic; color:var(--brass)}
-.editorial-copy p{
-  font-size:16px; line-height:1.85; color:var(--muted);
-  margin-bottom:18px;
-}
-.editorial-copy p + p{margin-top:0}
-.editorial-copy .sig{
-  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:22px;
-  color:var(--brass); margin-top:28px;
-}
+.featured{background:var(--paper); padding:100px 0 110px; overflow:hidden}
+.featured .feat-head{max-width:1240px; margin:0 auto 36px; padding:0 36px; display:flex; justify-content:space-between; gap:28px; align-items:end}
+.featured .feat-head .section-title{margin:0; text-align:left}
+.featured .feat-head .section-lede{margin:0; max-width:430px; text-align:left}
+.feat-rail{display:flex; gap:22px; width:max-content; padding:0 36px; animation:adRail 60s linear infinite}
+.feat-rail:hover{animation-play-state:paused}
+@keyframes adRail{to{transform:translateX(calc(-50% - 11px))}}
+@media (prefers-reduced-motion:reduce){.feat-rail{animation:none}}
+.feat-card{width:300px; background:#fff; border:1px solid var(--line); border-radius:12px; overflow:hidden; box-shadow:0 16px 50px -20px rgba(10,10,10,0.10); transition:transform 0.5s var(--ease), box-shadow 0.5s var(--ease)}
+.feat-card:hover{transform:translateY(-6px); box-shadow:0 36px 90px -28px rgba(10,10,10,0.22)}
+.feat-card-media{height:200px; overflow:hidden; position:relative}
+.feat-card-media img{width:100%; height:100%; object-fit:cover; transition:transform 0.9s var(--ease)}
+.feat-card:hover .feat-card-media img{transform:scale(1.06)}
+.feat-card-tag{position:absolute; top:14px; left:14px; padding:5px 10px; background:rgba(10,10,10,0.65); backdrop-filter:blur(10px); border-radius:999px; font-size:9px; letter-spacing:0.22em; text-transform:uppercase; color:var(--brass-soft); font-weight:600}
+.feat-card-body{padding:18px 18px 16px}
+.feat-card h3{font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:500; line-height:1.08; margin-bottom:6px}
+.feat-card p{font-size:13px; color:var(--muted); line-height:1.55; margin-bottom:14px}
+.feat-card-foot{display:flex; justify-content:space-between; gap:12px; border-top:1px solid var(--line); padding-top:13px; font-size:11px; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase}
+.feat-card-foot b{color:var(--ink); font-weight:600}
 
-/* ═══════════ CATEGORIES — "Our Space" style ═══════════ */
 .cats{background:var(--paper)}
-.cats-grid{
-  display:grid; grid-template-columns:repeat(12, 1fr); gap:24px;
-}
-.cat{
-  position:relative; overflow:hidden; border-radius:4px;
-  aspect-ratio:4/5; cursor:pointer;
-}
+.cats-grid{display:grid; grid-template-columns:repeat(12,1fr); gap:18px}
+.cat{position:relative; overflow:hidden; border-radius:6px; aspect-ratio:4/5; cursor:pointer; isolation:isolate; display:block}
 .cat.wide{grid-column:span 6; aspect-ratio:3/2}
 .cat.tall{grid-column:span 3}
-.cat-bg{
-  position:absolute; inset:0; background-size:cover; background-position:center;
-  transition:transform 1.4s cubic-bezier(.2,.7,.2,1);
-}
-.cat:hover .cat-bg{transform:scale(1.07)}
-.cat::after{
-  content:""; position:absolute; inset:0;
-  background:linear-gradient(180deg, rgba(10,10,10,0.0) 40%, rgba(10,10,10,0.8) 100%);
-}
-.cat-inner{
-  position:absolute; left:32px; right:32px; bottom:32px; z-index:2;
-  color:var(--paper);
-}
-.cat-inner .kicker{color:var(--brass-soft); margin-bottom:10px}
-.cat-name{
-  font-family:'Cormorant Garamond',serif; font-weight:300;
-  font-size:32px; letter-spacing:-0.01em; line-height:1.1;
-}
-.cat-more{
-  position:absolute; top:28px; right:28px; z-index:2;
-  width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,0.45);
-  display:flex; align-items:center; justify-content:center; color:var(--paper);
-  transition:background 0.25s, border-color 0.25s;
-}
-.cat:hover .cat-more{background:var(--paper); color:var(--ink); border-color:var(--paper)}
+.cat-bg{position:absolute; inset:0; background-size:cover; background-position:center; transition:transform 1.4s var(--ease)}
+.cat:hover .cat-bg{transform:scale(1.08)}
+.cat::after{content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,10,10,0) 38%, rgba(10,10,10,0.85) 100%)}
+.cat-inner{position:absolute; left:28px; right:28px; bottom:28px; z-index:2; color:var(--paper); transition:transform 0.5s var(--ease)}
+.cat:hover .cat-inner{transform:translateY(-4px)}
+.cat-inner .kicker{color:var(--brass-soft); margin-bottom:8px}
+.cat-name{font-family:'Cormorant Garamond',serif; font-weight:500; font-size:32px; letter-spacing:-0.01em; line-height:1.05}
+.cat-more{position:absolute; top:24px; right:24px; z-index:2; width:42px; height:42px; border-radius:50%; border:1px solid rgba(255,255,255,0.45); display:flex; align-items:center; justify-content:center; color:var(--paper); transition:all 0.3s var(--ease)}
+.cat:hover .cat-more{background:var(--paper); color:var(--ink); border-color:var(--paper); transform:rotate(-45deg)}
+.cat::before{content:""; position:absolute; inset:14px; border:1px solid rgba(217,190,136,0); pointer-events:none; transition:border-color 0.4s var(--ease); z-index:1}
+.cat:hover::before{border-color:rgba(217,190,136,0.4)}
 
-/* ═══════════ TRENDING — numbered editorial list ═══════════ */
-.trending{background:var(--graphite); color:var(--paper); padding:140px 40px}
+.trending{background:var(--graphite); color:var(--paper); padding:120px 32px}
 .trending .section-title{color:var(--paper)}
 .trending .section-lede{color:rgba(246,242,234,0.7)}
 .trending .section-head .kicker{color:var(--brass-soft)}
 .trending .section-head .kicker::before, .trending .section-head .kicker::after{background:var(--brass-soft)}
-
-.trend-tabs{
-  display:flex; gap:40px; justify-content:center; margin-bottom:60px;
-  border-bottom:1px solid rgba(246,242,234,0.15); padding-bottom:0;
-  flex-wrap:wrap;
-}
-.trend-tab{
-  padding:14px 4px; font-size:12px; letter-spacing:0.24em; text-transform:uppercase;
-  color:rgba(246,242,234,0.55); cursor:pointer; border-bottom:1px solid transparent;
-  transition:color 0.2s, border-color 0.2s;
-  margin-bottom:-1px;
-}
+.trend-tabs{display:flex; gap:36px; justify-content:center; margin-bottom:54px; border-bottom:1px solid rgba(246,242,234,0.15); flex-wrap:wrap}
+.trend-tab{padding:14px 4px; font-size:11px; letter-spacing:0.24em; text-transform:uppercase; color:rgba(246,242,234,0.55); cursor:pointer; border-bottom:1px solid transparent; transition:color 0.25s, border-color 0.25s; margin-bottom:-1px; background:none; border-top:none; border-left:none; border-right:none; font-family:inherit; font-weight:500}
 .trend-tab.active{color:var(--brass-soft); border-bottom-color:var(--brass-soft)}
-.trend-tab:hover{color:var(--paper)}
+.trend-tab:hover:not(.active){color:var(--paper)}
+.trend-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:32px; max-width:1240px; margin:0 auto}
+.trend-feature{position:relative; overflow:hidden; border-radius:8px; aspect-ratio:4/3.4; display:block}
+.trend-feature img{width:100%; height:100%; object-fit:cover; transition:transform 1.4s var(--ease)}
+.trend-feature:hover img{transform:scale(1.06)}
+.trend-feature::after{content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,0.85) 100%)}
+.trend-feature-meta{position:absolute; left:34px; right:34px; bottom:34px; z-index:2; color:var(--paper)}
+.trend-feature .rank{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:60px; font-weight:400; line-height:1; color:var(--brass-soft); margin-bottom:14px}
+.trend-feature h3{font-family:'Cormorant Garamond',serif; font-size:42px; font-weight:500; line-height:1.05; letter-spacing:-0.01em; margin-bottom:8px}
+.trend-feature .meta{font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:rgba(246,242,234,0.7); margin-bottom:10px}
+.trend-feature .rating{display:flex; gap:10px; align-items:center; font-size:13px; color:rgba(246,242,234,0.85)}
+.trend-feature .rating b{color:var(--brass-soft); font-weight:500}
+.trend-feature .heat{position:absolute; top:24px; right:24px; padding:5px 11px; background:rgba(0,0,0,0.6); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.2); border-radius:999px; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--paper); z-index:2}
+.trend-list{display:flex; flex-direction:column; gap:18px}
+.trend-row{display:grid; grid-template-columns:60px 90px 1fr auto; gap:18px; align-items:center; padding:14px 18px; border-radius:8px; background:rgba(255,255,255,0.04); border:1px solid rgba(246,242,234,0.08); transition:all 0.4s var(--ease); cursor:pointer; color:var(--paper)}
+.trend-row:hover{background:rgba(255,255,255,0.08); border-color:rgba(217,190,136,0.4); transform:translateX(4px)}
+.trend-row .rank{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:30px; color:var(--brass-soft); line-height:1}
+.trend-row .thumb{width:90px; height:80px; border-radius:6px; overflow:hidden}
+.trend-row .thumb img{width:100%; height:100%; object-fit:cover; transition:transform 0.8s var(--ease)}
+.trend-row:hover .thumb img{transform:scale(1.08)}
+.trend-row .name{display:block; font-family:'Cormorant Garamond',serif; font-size:21px; font-weight:500; line-height:1.15; margin-bottom:3px}
+.trend-row .meta{display:block; font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(246,242,234,0.55)}
+.trend-row .rating{font-size:13px; color:rgba(246,242,234,0.85); white-space:nowrap}
+.trend-row .rating b{color:var(--brass-soft); font-weight:500}
 
-.trend-list{
-  display:grid; grid-template-columns:repeat(4, 1fr); gap:40px;
-}
-.trend{
-  position:relative; cursor:pointer;
-}
-.trend-media{
-  aspect-ratio:3/4; overflow:hidden; margin-bottom:22px; position:relative;
-  border-radius:4px;
-}
-.trend-media img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s ease}
-.trend:hover .trend-media img{transform:scale(1.05)}
-.trend-rank{
-  position:absolute; top:16px; left:16px; z-index:2;
-  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:38px;
-  color:var(--paper); font-weight:300; line-height:1;
-  text-shadow:0 2px 12px rgba(0,0,0,0.4);
-}
-.trend-heat{
-  position:absolute; top:16px; right:16px; z-index:2;
-  padding:5px 10px; background:rgba(10,10,10,0.55); backdrop-filter:blur(10px);
-  border:1px solid rgba(255,255,255,0.2);
-  border-radius:999px; font-size:10px; letter-spacing:0.2em; text-transform:uppercase;
-  color:var(--paper);
-}
-.trend-name{
-  font-family:'Cormorant Garamond',serif; font-weight:400;
-  font-size:22px; letter-spacing:-0.005em; line-height:1.2;
-  margin-bottom:6px;
-}
-.trend-meta{
-  font-size:12px; letter-spacing:0.12em; text-transform:uppercase;
-  color:rgba(246,242,234,0.55);
-}
-.trend-rating{
-  display:flex; align-items:center; gap:10px; margin-top:10px;
-  font-size:13px; color:rgba(246,242,234,0.8);
-}
-.trend-rating b{color:var(--brass-soft); font-weight:500}
-
-/* ═══════════ CITIES — minimal list ═══════════ */
-.cities{background:var(--paper); padding:140px 40px}
-.cities-grid{
-  display:grid; grid-template-columns:repeat(4,1fr); gap:2px;
-  max-width:1240px; margin:0 auto;
-  border:1px solid var(--line); border-radius:4px; overflow:hidden;
-}
-.city{
-  background:var(--paper); padding:44px 28px; cursor:pointer;
-  transition:background 0.3s, color 0.3s;
-  display:flex; flex-direction:column; gap:6px; position:relative;
-  min-height:220px;
-  box-shadow:1px 0 0 var(--line), 0 1px 0 var(--line);
-}
+.cities{background:var(--paper); padding:120px 32px}
+.cities-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:0; max-width:1240px; margin:0 auto; border:1px solid var(--line); border-radius:6px; overflow:hidden}
+.city{background:var(--paper); padding:42px 28px; cursor:pointer; transition:background 0.4s var(--ease), color 0.4s var(--ease); display:flex; flex-direction:column; gap:6px; position:relative; min-height:220px; border-right:1px solid var(--line); border-bottom:1px solid var(--line)}
+.city:nth-child(4n){border-right:none}
+.city:nth-last-child(-n+4){border-bottom:none}
 .city:hover{background:var(--ink); color:var(--paper)}
-.city-region{font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:var(--muted); opacity:0.8}
+.city-region{font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:var(--muted); opacity:0.85}
 .city:hover .city-region{color:var(--brass-soft)}
-.city-name{
-  font-family:'Cormorant Garamond',serif; font-weight:300;
-  font-size:38px; letter-spacing:-0.01em; line-height:1;
-}
+.city-name{font-family:'Cormorant Garamond',serif; font-weight:500; font-size:36px; letter-spacing:-0.01em; line-height:1.02}
 .city-name em{font-style:italic; color:var(--brass)}
 .city:hover .city-name em{color:var(--brass-soft)}
-.city-count{font-size:12px; color:var(--muted); margin-top:auto; letter-spacing:0.08em}
-.city:hover .city-count{color:rgba(246,242,234,0.7)}
-.city-arrow{
-  position:absolute; right:24px; top:24px; font-size:18px;
-  opacity:0; transform:translate(-6px,6px); transition:all 0.3s;
-}
+.city-count{font-size:12px; color:var(--muted); margin-top:auto; letter-spacing:0.05em}
+.city:hover .city-count{color:rgba(246,242,234,0.8)}
+.city-count b{font-family:'Cormorant Garamond',serif; font-size:16px; font-weight:500; color:inherit}
+.city-arrow{position:absolute; right:22px; top:22px; font-size:16px; opacity:0; transform:translate(-6px,6px); transition:all 0.4s var(--ease)}
 .city:hover .city-arrow{opacity:1; transform:translate(0,0); color:var(--brass-soft)}
 
-/* ═══════════ HOURS / CONTACT ═══════════ */
-.hours{
-  background:var(--ivory); padding:140px 40px;
-  display:grid; grid-template-columns:1fr 1fr; gap:80px;
-  max-width:1240px; margin:0 auto;
-}
-.hours-block h3{
-  font-family:'Cormorant Garamond',serif; font-weight:300;
-  font-size:42px; letter-spacing:-0.01em; line-height:1.05;
-  margin-bottom:28px;
-}
-.hours-block h3 em{font-style:italic; color:var(--brass)}
-.hours-list{border-top:1px solid var(--line)}
-.hours-list .row{
-  display:flex; justify-content:space-between; padding:16px 0;
-  border-bottom:1px solid var(--line);
-  font-size:14px;
-}
-.hours-list .row .day{letter-spacing:0.08em; text-transform:uppercase; font-size:11px; color:var(--muted)}
-.hours-list .row .hrs{font-family:'Cormorant Garamond',serif; font-size:17px}
-.contact-lines{font-size:15px; line-height:2; color:var(--muted)}
-.contact-lines a{color:var(--ink); border-bottom:1px solid var(--brass)}
-.contact-lines a:hover{color:var(--brass)}
-.contact-lines .big{
-  font-family:'Cormorant Garamond',serif; font-weight:300;
-  font-size:28px; color:var(--ink); line-height:1.2; letter-spacing:-0.01em;
-}
+.editorial{background:var(--ivory); padding:130px 32px}
+.editorial-grid{display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; max-width:1240px; margin:0 auto}
+.editorial-media{position:relative; aspect-ratio:4/5; overflow:hidden; border-radius:6px}
+.editorial-media img{width:100%; height:100%; object-fit:cover; transition:transform 1.4s var(--ease)}
+.editorial-media:hover img{transform:scale(1.06)}
+.editorial-media::after{content:""; position:absolute; inset:18px; border:1px solid rgba(255,255,255,0.4); pointer-events:none; transition:inset 0.5s var(--ease)}
+.editorial-media:hover::after{inset:8px}
+.editorial-copy .kicker{margin-bottom:20px; color:var(--brass)}
+.editorial-copy h2{font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(38px,4.6vw,58px); line-height:1.05; letter-spacing:-0.02em; margin-bottom:24px}
+.editorial-copy h2 em{font-style:italic; color:var(--brass); font-weight:500}
+.editorial-copy p{font-size:16px; line-height:1.85; color:var(--muted); margin-bottom:16px}
+.editorial-copy .sig{font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:500; font-size:22px; color:var(--brass); margin-top:24px}
 
-/* ═══════════ CLOSING CTA — dark full-bleed ═══════════ */
-.closing{
-  position:relative; padding:180px 40px; text-align:center;
-  color:var(--paper); overflow:hidden;
-}
-.closing-bg{
-  position:absolute; inset:0;
-  background-image:url('https://images.unsplash.com/photo-1541544537156-7627a7a4aa1c?q=80&w=2200&auto=format');
-  background-size:cover; background-position:center;
-  transform:scale(1.04);
-}
-.closing::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg, rgba(10,10,10,0.7), rgba(10,10,10,0.85))}
+.closing{position:relative; padding:170px 32px; text-align:center; color:var(--paper); overflow:hidden}
+.closing-bg{position:absolute; inset:0; background-image:url('https://images.unsplash.com/photo-1541544537156-7627a7a4aa1c?q=80&w=2200&auto=format'); background-size:cover; background-position:center; transform:scale(1.05); transition:transform 14s var(--ease)}
+.closing.in .closing-bg{transform:scale(1)}
+.closing::before{content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,10,10,0.7), rgba(10,10,10,0.86))}
 .closing-inner{position:relative; z-index:2; max-width:820px; margin:0 auto}
-.closing-inner .kicker{color:var(--brass-soft); margin-bottom:26px; display:inline-flex; align-items:center; gap:14px}
-.closing-inner .kicker::before, .closing-inner .kicker::after{content:"";width:36px;height:1px;background:var(--brass-soft)}
-.closing-inner h2{
-  font-family:'Cormorant Garamond',serif; font-weight:300;
-  font-size:clamp(40px, 6vw, 84px); line-height:1; letter-spacing:-0.02em;
-  margin-bottom:28px;
-}
-.closing-inner h2 em{font-style:italic; color:var(--brass-soft)}
-.closing-inner p{font-size:16px; line-height:1.8; opacity:0.85; max-width:560px; margin:0 auto 44px}
+.closing-inner .kicker{color:var(--brass-soft); margin-bottom:24px; display:inline-flex; align-items:center; gap:14px}
+.closing-inner .kicker::before, .closing-inner .kicker::after{content:""; width:34px; height:1px; background:var(--brass-soft)}
+.closing-inner h2{font-family:'Cormorant Garamond',serif; font-weight:400; font-size:clamp(40px,6vw,82px); line-height:1; letter-spacing:-0.02em; margin-bottom:24px}
+.closing-inner h2 em{font-style:italic; color:var(--brass-soft); font-weight:500}
+.closing-inner p{font-size:16px; line-height:1.8; opacity:0.86; max-width:560px; margin:0 auto 38px}
 
-/* ═══════════ FOOTER ═══════════ */
-footer{
-  background:var(--ink); color:var(--paper); padding:100px 40px 40px;
-}
-.footer-top{
-  max-width:1240px; margin:0 auto;
-  display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:60px;
-  border-bottom:1px solid rgba(246,242,234,0.12); padding-bottom:70px;
-}
-.foot-brand{
-  font-family:'Cormorant Garamond',serif; font-weight:300;
-  font-size:36px; letter-spacing:0.1em; line-height:1;
-}
-.foot-brand em{font-style:italic; color:var(--brass-soft)}
-.foot-logo{
-  width:176px; height:auto; object-fit:contain; border-radius:16px;
-  background:#fff; padding:6px; margin-bottom:18px;
-}
-.foot-tag{font-size:13px; line-height:1.8; color:rgba(246,242,234,0.6); margin-top:18px; max-width:320px}
-.foot-socials{display:flex; gap:14px; margin-top:26px}
-.foot-socials a{
-  width:38px; height:38px; border-radius:50%; border:1px solid rgba(246,242,234,0.25);
-  display:flex; align-items:center; justify-content:center;
-  transition:background 0.2s, border-color 0.2s;
-}
-.foot-socials a:hover{background:var(--brass); border-color:var(--brass)}
-.foot-col h4{
-  font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:var(--brass-soft);
-  font-weight:500; margin-bottom:22px;
-}
-.foot-col a{
-  display:block; font-size:13px; color:rgba(246,242,234,0.7); padding:7px 0;
-  transition:color 0.2s;
-}
-.foot-col a:hover{color:var(--paper)}
+footer{background:var(--ink); color:var(--paper); padding:90px 32px 36px}
+.footer-top{max-width:1240px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:54px; border-bottom:1px solid rgba(246,242,234,0.12); padding-bottom:60px}
+.foot-logo{width:172px; height:auto; object-fit:contain; border-radius:14px; background:#fff; padding:6px; margin-bottom:18px}
+.foot-tag{font-size:13px; line-height:1.8; color:rgba(246,242,234,0.62); margin-top:14px; max-width:320px}
+.foot-socials{display:flex; gap:12px; margin-top:24px}
+.foot-socials a{width:38px; height:38px; border-radius:50%; border:1px solid rgba(246,242,234,0.25); display:flex; align-items:center; justify-content:center; transition:all 0.3s var(--ease)}
+.foot-socials a:hover{background:var(--brass); border-color:var(--brass); transform:translateY(-3px)}
+.foot-col h4{font-size:10px; letter-spacing:0.3em; text-transform:uppercase; color:var(--brass-soft); font-weight:500; margin-bottom:20px}
+.foot-col a{display:block; font-size:13px; color:rgba(246,242,234,0.7); padding:6px 0; transition:color 0.2s, transform 0.3s var(--ease)}
+.foot-col a:hover{color:var(--paper); transform:translateX(3px)}
+.foot-news{margin-top:18px; display:flex; gap:8px}
+.foot-news input{flex:1; padding:12px 14px; border:1px solid rgba(246,242,234,0.2); background:rgba(255,255,255,0.04); color:var(--paper); border-radius:999px; font:inherit; font-size:13px; outline:none; transition:border-color 0.25s}
+.foot-news input::placeholder{color:rgba(246,242,234,0.45)}
+.foot-news input:focus{border-color:var(--brass)}
+.foot-news button{padding:12px 20px; background:var(--brass); color:var(--ink); border:none; border-radius:999px; font:inherit; font-size:11px; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; cursor:pointer; transition:background 0.25s}
+.foot-news button:hover{background:var(--brass-soft)}
+.foot-bottom{max-width:1240px; margin:26px auto 0; display:flex; justify-content:space-between; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(246,242,234,0.5); flex-wrap:wrap; gap:16px}
+.foot-bottom a:hover{color:var(--brass-soft)}
 
-.foot-bottom{
-  max-width:1240px; margin:30px auto 0;
-  display:flex; justify-content:space-between; font-size:11px;
-  letter-spacing:0.2em; text-transform:uppercase; color:rgba(246,242,234,0.5);
-  flex-wrap:wrap; gap:16px;
+.reveal{opacity:0; transform:translateY(28px); transition:opacity 0.9s var(--ease), transform 0.9s var(--ease)}
+.reveal.in{opacity:1; transform:translateY(0)}
+.reveal-stagger > *{opacity:0; transform:translateY(22px); transition:opacity 0.7s var(--ease), transform 0.7s var(--ease)}
+.reveal-stagger.in > *{opacity:1; transform:translateY(0)}
+.reveal-stagger.in > *:nth-child(1){transition-delay:0.05s}
+.reveal-stagger.in > *:nth-child(2){transition-delay:0.12s}
+.reveal-stagger.in > *:nth-child(3){transition-delay:0.19s}
+.reveal-stagger.in > *:nth-child(4){transition-delay:0.26s}
+.reveal-stagger.in > *:nth-child(5){transition-delay:0.33s}
+.reveal-stagger.in > *:nth-child(6){transition-delay:0.40s}
+.reveal-stagger.in > *:nth-child(7){transition-delay:0.47s}
+.reveal-stagger.in > *:nth-child(8){transition-delay:0.54s}
+@media (prefers-reduced-motion:reduce){
+  .reveal, .reveal-stagger > *{opacity:1; transform:none; transition:none}
+  .hero-title .word, .hero-kicker, .hero-lede, .hero-ctas, .scroll-cue, .hero-rule{opacity:1; transform:none; animation:none}
+  .hero-bg{animation:none; transform:scale(1)}
 }
 
-/* ═══════════ RESPONSIVE ═══════════ */
-@media (max-width: 1080px){
+@media (max-width:1080px){
   .search-widget{grid-template-columns:1fr 1fr}
   .sw-btn{grid-column:1/-1; margin:8px 0 0; justify-content:center}
   .sw-field + .sw-field{box-shadow:none; border-top:1px solid var(--line)}
   .editorial-grid{grid-template-columns:1fr; gap:50px}
-  .trend-list{grid-template-columns:repeat(2,1fr)}
+  .trend-grid{grid-template-columns:1fr; gap:24px}
   .cats-grid{grid-template-columns:repeat(6,1fr)}
   .cat.tall{grid-column:span 3}
   .cat.wide{grid-column:span 6}
   .cities-grid{grid-template-columns:repeat(2,1fr)}
-  .hours{grid-template-columns:1fr}
-  .footer-top{grid-template-columns:1fr 1fr; gap:40px}
+  .city:nth-child(4n){border-right:1px solid var(--line)}
+  .city:nth-child(2n){border-right:none}
+  .city:nth-last-child(-n+4){border-bottom:1px solid var(--line)}
+  .city:nth-last-child(-n+2){border-bottom:none}
+  .footer-top{grid-template-columns:1fr 1fr; gap:38px}
+  .spotlight-inner{padding:80px 24px 110px}
 }
-@media (max-width: 700px){
-  .topnav{grid-template-columns:auto 1fr auto; padding:14px 20px}
-  .nav-left, .nav-right{gap:14px}
+@media (max-width:760px){
+  .topnav{grid-template-columns:auto 1fr auto; padding:12px 18px}
   .nav-left .nav-link, .nav-right .nav-link{display:none}
-  .brand-logo{width:118px;height:44px}
-  .topnav.scrolled .brand-logo{width:108px;height:40px}
-  .hero-logo{width:min(180px, 52vw); border-radius:18px; margin-bottom:20px}
-  section{padding:90px 20px}
-  .editorial{padding:90px 20px}
-  .trending, .cities, .hours, .closing{padding:90px 20px}
-  .hero{padding:0 20px 120px}
-  .search-section{padding:0 16px 80px; margin-top:-40px}
-  .search-widget{grid-template-columns:1fr; border-radius:20px; padding:10px}
-  .sw-field{border-radius:14px}
-  .sw-btn{border-radius:14px; padding:16px 20px}
-  .trend-list{grid-template-columns:1fr}
+  .brand-logo{width:114px; height:42px}
+  .topnav.scrolled .brand-logo{width:104px; height:38px}
+  .hero{padding:120px 18px 160px; min-height:88vh}
+  .hero-logo{width:min(160px, 50vw); border-radius:18px}
+  .search-section{margin-top:-44px; padding:0 14px 80px}
+  .search-widget{grid-template-columns:1fr; border-radius:24px; padding:8px}
+  .sw-field{border-radius:16px}
+  .sw-btn{border-radius:16px; padding:16px 20px}
+  section.block{padding:80px 18px}
+  .featured{padding:80px 0}
+  .featured .feat-head{padding:0 18px; flex-direction:column; align-items:flex-start; gap:14px}
+  .feat-rail{padding:0 18px}
+  .trending, .editorial, .closing{padding:80px 18px}
   .cats-grid{grid-template-columns:1fr}
   .cat, .cat.tall, .cat.wide{grid-column:auto; aspect-ratio:4/5}
   .cities-grid{grid-template-columns:1fr}
-  .footer-top{grid-template-columns:1fr; gap:40px; padding-bottom:40px}
+  .city{border-right:none !important}
+  .city:nth-last-child(1){border-bottom:none !important}
+  .footer-top{grid-template-columns:1fr; gap:36px; padding-bottom:40px}
   .foot-bottom{flex-direction:column; text-align:center}
-  .brand-sub{display:none}
+  .spotlight{height:min(640px, 90vh)}
+  .spotlight-inner{padding:80px 18px 130px}
+  .spotlight-controls{padding:0 18px; bottom:24px; gap:10px}
+  .spot-tabs{grid-template-columns:1fr 1fr}
+  .spot-tab:nth-child(3){display:none}
+  .trend-row{grid-template-columns:42px 76px 1fr; gap:14px}
+  .trend-row .rating{display:none}
 }
-
-/* Advertising landing experience */
-.spotlight{position:relative;min-height:100vh;width:100%;overflow:hidden;color:var(--paper);background:var(--ink)}
-.spotlight-stage{position:absolute;inset:0}
-.spotlight-slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity 900ms ease,visibility 900ms ease}
-.spotlight-slide.active{opacity:1;visibility:visible}
-.spotlight-media{position:absolute;inset:0;overflow:hidden}
-.spotlight-media img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);transition:transform 7s ease;filter:saturate(1.04) contrast(1.03) brightness(0.74)}
-.spotlight-slide.active .spotlight-media img{transform:scale(1)}
-.spotlight-slide::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(4,6,10,0.92) 0%,rgba(4,6,10,0.66) 42%,rgba(4,6,10,0.18) 100%),linear-gradient(180deg,rgba(4,6,10,0.62) 0%,rgba(4,6,10,0.08) 36%,rgba(4,6,10,0.82) 100%)}
-.spotlight-inner{position:relative;z-index:3;min-height:100vh;display:grid;grid-template-columns:minmax(0,0.94fr) minmax(320px,0.56fr);align-items:end;gap:56px;max-width:1320px;margin:0 auto;padding:140px 42px 96px}
-.spotlight-copy{max-width:760px}
-.sponsor-kicker{display:inline-flex;align-items:center;gap:12px;color:var(--brass-soft);margin-bottom:22px}
-.sponsor-kicker::before{content:"";width:42px;height:1px;background:var(--brass-soft)}
-.spotlight-title{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(48px,7.4vw,104px);line-height:0.96;letter-spacing:-0.02em;margin-bottom:24px;color:#fff;text-shadow:0 18px 70px rgba(0,0,0,0.5)}
-.spotlight-title em{font-style:italic;color:var(--brass-soft)}
-.spotlight-copy p{max-width:620px;color:rgba(246,242,234,0.88);font-size:17px;line-height:1.8;font-weight:500;text-shadow:0 8px 28px rgba(0,0,0,0.55)}
-.spotlight-meta{display:flex;flex-wrap:wrap;gap:10px;margin:30px 0 34px}
-.meta-pill{display:inline-flex;align-items:center;min-height:34px;padding:8px 13px;border:1px solid rgba(246,242,234,0.26);border-radius:999px;background:rgba(10,10,10,0.28);backdrop-filter:blur(16px);font-size:11px;letter-spacing:0.16em;text-transform:uppercase}
-.spotlight-card{justify-self:end;width:min(100%,420px);background:rgba(251,248,242,0.93);color:var(--ink);border:1px solid rgba(255,255,255,0.36);border-radius:8px;padding:26px;box-shadow:0 34px 90px rgba(0,0,0,0.38);backdrop-filter:blur(22px)}
-.slot-label{font-size:10px;letter-spacing:0.24em;text-transform:uppercase;color:var(--brass);font-weight:600;margin-bottom:14px}
-.spotlight-card h3{font-family:'Cormorant Garamond',serif;font-size:30px;line-height:1.05;font-weight:400;letter-spacing:-0.01em;margin-bottom:10px}
-.spotlight-card p{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:20px}
-.ad-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:22px}
-.ad-stat{border-top:1px solid var(--line);padding-top:12px}
-.ad-stat strong{display:block;font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;line-height:1}
-.ad-stat span{font-size:10px;color:var(--muted);letter-spacing:0.14em;text-transform:uppercase}
-.spotlight-controls{position:absolute;z-index:5;left:50%;bottom:28px;transform:translateX(-50%);width:min(92vw,1240px);display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center}
-.spot-btn{width:42px;height:42px;border-radius:50%;border:1px solid rgba(246,242,234,0.45);background:rgba(10,10,10,0.24);color:var(--paper);display:flex;align-items:center;justify-content:center;font-size:22px;transition:background 0.2s,color 0.2s}
-.spot-btn:hover{background:var(--paper);color:var(--ink)}
-.spot-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.spot-tab{border:1px solid rgba(246,242,234,0.22);background:rgba(10,10,10,0.28);color:rgba(246,242,234,0.72);border-radius:8px;padding:12px;text-align:left;min-height:68px;backdrop-filter:blur(16px);transition:background 0.2s,color 0.2s,border-color 0.2s}
-.spot-tab.active{background:rgba(251,248,242,0.94);color:var(--ink);border-color:rgba(251,248,242,0.94)}
-.spot-tab span{display:block;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--brass);margin-bottom:4px}
-.spot-tab strong{display:block;font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;line-height:1.1}
-.ad-strip{background:var(--ink);color:var(--paper);border-top:1px solid rgba(246,242,234,0.12);border-bottom:1px solid rgba(246,242,234,0.12);overflow:hidden;padding:14px 0}
-.ad-strip-track{display:flex;gap:36px;width:max-content;animation:adMarquee 34s linear infinite}
-.ad-strip:hover .ad-strip-track{animation-play-state:paused}
-.ad-strip span{font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:rgba(246,242,234,0.74);white-space:nowrap}
-.ad-strip b{color:var(--brass-soft);font-weight:500}
-@keyframes adMarquee{to{transform:translateX(-50%)}}
-.featured-ads{background:var(--paper);padding:110px 0 120px;overflow:hidden}
-.ads-head{max-width:1240px;margin:0 auto 34px;padding:0 40px;display:flex;justify-content:space-between;gap:28px;align-items:end}
-.ads-head .section-title{margin:0}
-.ads-head .section-lede{margin:0;max-width:430px;text-align:left}
-.ad-rail{display:flex;gap:22px;width:max-content;animation:adRail 46s linear infinite;padding:0 40px}
-.ad-rail:hover{animation-play-state:paused}
-@keyframes adRail{to{transform:translateX(calc(-50% - 11px))}}
-.ad-card{width:300px;background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:0 20px 55px rgba(10,10,10,0.08)}
-.ad-card-media{height:210px;overflow:hidden}
-.ad-card-media img{width:100%;height:100%;object-fit:cover;transition:transform 0.8s ease}
-.ad-card:hover .ad-card-media img{transform:scale(1.05)}
-.ad-card-body{padding:18px}
-.ad-card-tag{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--brass);font-weight:600;margin-bottom:8px}
-.ad-card h3{font-family:'Cormorant Garamond',serif;font-size:25px;font-weight:400;line-height:1.08;margin-bottom:8px}
-.ad-card p{font-size:13px;color:var(--muted);line-height:1.55;margin-bottom:14px}
-.ad-card-foot{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:13px;font-size:12px;color:var(--muted)}
-.ad-card-foot b{color:var(--ink);font-weight:600}
-.brand-story{background:var(--ivory);padding:110px 40px}
-.story-grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:0.85fr 1.15fr;gap:80px;align-items:center}
-.story-mark{width:100%;aspect-ratio:4/5;overflow:hidden;border-radius:8px;position:relative}
-.story-mark img{width:100%;height:100%;object-fit:cover}
-.story-mark::after{content:"";position:absolute;inset:18px;border:1px solid rgba(255,255,255,0.42)}
-.story-copy h2{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,5vw,66px);font-weight:300;line-height:1.04;letter-spacing:-0.02em;margin:18px 0 24px}
-.story-copy h2 em{font-style:italic;color:var(--brass)}
-.story-copy p{font-size:16px;line-height:1.85;color:var(--muted);max-width:650px}
-.city-spotlight{background:var(--graphite);color:var(--paper);padding:120px 40px}
-.city-spotlight .section-title{color:var(--paper)}
-.city-spotlight .section-lede{color:rgba(246,242,234,0.72)}
-.city-ad-grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1.1fr 0.9fr;gap:22px}
-.city-feature{min-height:560px;border-radius:8px;overflow:hidden;position:relative;background:#111}
-.city-feature img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;filter:brightness(0.72)}
-.city-feature::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.1),rgba(0,0,0,0.78))}
-.city-feature-copy{position:absolute;left:34px;right:34px;bottom:34px;z-index:2}
-.city-feature-copy h3{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;line-height:1;margin-bottom:12px}
-.city-feature-copy p{max-width:520px;color:rgba(246,242,234,0.78);line-height:1.7}
-.city-slots{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-.city-slot{min-height:268px;background:rgba(255,255,255,0.05);border:1px solid rgba(246,242,234,0.14);border-radius:8px;padding:22px;display:flex;flex-direction:column;justify-content:space-between}
-.city-slot .slot-label{color:var(--brass-soft)}
-.city-slot h3{font-family:'Cormorant Garamond',serif;font-size:29px;font-weight:400;line-height:1.05}
-.city-slot p{font-size:13px;color:rgba(246,242,234,0.68);line-height:1.6}
-.sponsor-cats{background:var(--paper);padding:120px 40px}
-.sponsor-grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.sponsor-cat{position:relative;min-height:380px;border-radius:8px;overflow:hidden;color:var(--paper)}
-.sponsor-cat img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(0.66);transition:transform 0.8s ease}
-.sponsor-cat:hover img{transform:scale(1.05)}
-.sponsor-cat::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.05),rgba(0,0,0,0.78))}
-.sponsor-cat-content{position:absolute;left:22px;right:22px;bottom:22px;z-index:2}
-.sponsor-cat-content h3{font-family:'Cormorant Garamond',serif;font-size:31px;font-weight:400;line-height:1.05;margin:8px 0}
-.sponsor-cat-content p{font-size:13px;color:rgba(246,242,234,0.76);line-height:1.55}
-.ad-sales{position:relative;overflow:hidden;color:var(--paper);padding:150px 40px;background:var(--ink)}
-.ad-sales::before{content:"";position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=2200&auto=format');background-size:cover;background-position:center;filter:brightness(0.48) saturate(1.05)}
-.ad-sales::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,10,10,0.9),rgba(10,10,10,0.42))}
-.ad-sales-inner{position:relative;z-index:2;max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
-.ad-sales h2{font-family:'Cormorant Garamond',serif;font-size:clamp(42px,6vw,78px);font-weight:300;line-height:1;letter-spacing:-0.02em;margin:18px 0 24px}
-.ad-sales h2 em{font-style:italic;color:var(--brass-soft)}
-.ad-sales p{font-size:16px;line-height:1.8;color:rgba(246,242,234,0.78);max-width:590px}
-.pricing-panel{background:rgba(251,248,242,0.94);color:var(--ink);border-radius:8px;padding:28px;box-shadow:0 34px 90px rgba(0,0,0,0.35)}
-.pricing-row{display:flex;justify-content:space-between;gap:20px;padding:16px 0;border-bottom:1px solid var(--line)}
-.pricing-row:last-child{border-bottom:none}
-.pricing-row strong{font-family:'Cormorant Garamond',serif;font-size:25px;font-weight:400}
-.pricing-row span{font-size:13px;color:var(--muted);text-align:right}
-@media (max-width:1080px){.spotlight-inner{grid-template-columns:1fr;align-items:end;padding-bottom:150px}.spotlight-card{justify-self:start}.spot-tabs{grid-template-columns:repeat(2,1fr)}.story-grid,.city-ad-grid,.ad-sales-inner{grid-template-columns:1fr}.sponsor-grid{grid-template-columns:repeat(2,1fr)}}
-@media (max-width:700px){.spotlight{min-height:880px}.spotlight-inner{min-height:880px;padding:118px 20px 150px;gap:28px}.spotlight-title{font-size:clamp(42px,13vw,60px)}.spotlight-copy p{font-size:15px}.spotlight-card{padding:20px}.spotlight-controls{grid-template-columns:42px 1fr 42px;gap:8px;bottom:18px}.spot-tabs{display:flex;overflow-x:auto;scrollbar-width:none}.spot-tabs::-webkit-scrollbar{display:none}.spot-tab{min-width:180px}.ads-head{display:block;padding:0 20px}.ad-rail{padding:0 20px}.ad-card{width:270px}.brand-story,.city-spotlight,.sponsor-cats,.ad-sales{padding:90px 20px}.story-grid,.ad-sales-inner{gap:34px}.city-slots,.sponsor-grid{grid-template-columns:1fr}.city-feature{min-height:430px}.pricing-row{display:block}.pricing-row span{text-align:left;display:block;margin-top:4px}}
-.ad-landing ~ .hero,
-.ad-landing ~ .search-section,
-.ad-landing ~ .chapter,
-.ad-landing ~ .editorial,
-.ad-landing ~ .cats,
-.ad-landing ~ .trending,
-.ad-landing ~ .cities,
-.ad-landing ~ .hours,
-.ad-landing ~ .closing{display:none}
-
-/* Reveal on scroll */
-.reveal{opacity:0; transform:translateY(30px); transition:opacity 1s, transform 1s}
-.reveal.in{opacity:1; transform:translateY(0)}
 </style>
 </head>
 <body>
 
-<!-- ═══════════ NAV ═══════════ -->
-<nav class="topnav light" id="topnav">
+<a href="#main" class="skip">Skip to content</a>
+<div class="grain" aria-hidden="true"></div>
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+<nav class="topnav light" id="topnav" aria-label="Primary">
   <div class="nav-left">
-    <button class="nav-menu-btn nav-link" id="menuOpen" aria-controls="siteMenu" aria-expanded="false"><span class="bars"><i></i><i></i><i></i></span> Menu</button>
-    <a href="#featured" class="nav-link">Featured</a>
-    <a href="#cats-new" class="nav-link">Ad Products</a>
+    <button class="nav-menu-btn nav-link" id="menuOpen" aria-controls="siteMenu" aria-expanded="false"><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span> Menu</button>
+    <a href="feed.html" class="nav-link">Directory</a>
+    <a href="events.html" class="nav-link">Events</a>
   </div>
   <a href="index.html" class="brand" aria-label="The Diaspora App home">
-    <img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="The Diaspora App logo" class="brand-logo">
-    <span class="brand-sub">Est. 2026 · Global</span>
+    <img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="The Diaspora App logo" class="brand-logo" width="144" height="52">
   </a>
   <div class="nav-right">
-    <a href="#cities-new" class="nav-link">Cities</a>
-    <a href="#sellers" class="nav-link">For Sellers</a>
+    <a href="blog.html" class="nav-link">Blog</a>
+    <a href="pricing.html" class="nav-link">Sellers</a>
     <a href="login-firebase.html" class="nav-account" id="nav-account">Sign in</a>
   </div>
 </nav>
@@ -816,612 +558,425 @@ footer{
     <button class="menu-close" id="menuClose" aria-label="Close menu">&times;</button>
   </div>
   <div class="menu-group">
-    <div class="menu-group-label">Community</div>
-    <a href="blog.html" class="menu-item">Blogs <span>Stories</span></a>
+    <div class="menu-group-label">Discover</div>
+    <a href="feed.html" class="menu-item">Directory <span>Browse</span></a>
     <a href="events.html" class="menu-item">Events <span>Calendar</span></a>
-    <a href="events.html#register-event" class="menu-item">Register Event <span>Submit</span></a>
+    <a href="blog.html" class="menu-item">Blog <span>Stories</span></a>
   </div>
   <div class="menu-group">
-    <div class="menu-group-label">Marketplace</div>
-    <a href="feed.html" class="menu-item">Explore Businesses <span>Directory</span></a>
-    <a href="#featured" class="menu-item">Featured Ads <span>Premium</span></a>
-    <a href="#sellers" class="menu-item">Advertise <span>Sellers</span></a>
+    <div class="menu-group-label">For sellers</div>
+    <a href="pricing.html" class="menu-item">Pricing <span>Plans</span></a>
+    <a href="signup-firebase.html" class="menu-item">List your business <span>Start</span></a>
   </div>
-  <p class="menu-note">A quieter navigation layer for stories, events, and seller growth without crowding the landing page.</p>
+  <div class="menu-group">
+    <div class="menu-group-label">Company</div>
+    <a href="about.html" class="menu-item">About <span>Story</span></a>
+    <a href="careers.html" class="menu-item">Careers <span>Join</span></a>
+    <a href="press.html" class="menu-item">Press <span>Media kit</span></a>
+    <a href="contact.html" class="menu-item">Contact <span>Talk</span></a>
+  </div>
+  <p class="menu-note">A premium home for the global diaspora — built and operated by NDN Analytics from Dubai.</p>
 </aside>
 
-<main class="ad-landing">
-  <section class="spotlight" id="spotlight" aria-label="Featured advertisers">
-    <div class="spotlight-stage">
-      <article class="spotlight-slide active">
-        <div class="spotlight-media"><img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?q=80&w=2400&auto=format" alt="Featured Nigerian restaurant meal"></div>
-        <div class="spotlight-inner">
-          <div class="spotlight-copy">
-            <div class="kicker sponsor-kicker">Featured Partner · Dubai</div>
-            <h1 class="spotlight-title">Tonight's table<br><em>belongs</em> to Amara.</h1>
-            <p>Premium jollof bowls, suya platters, and weekend catering for the diaspora community across Deira and Downtown Dubai.</p>
-            <div class="spotlight-meta"><span class="meta-pill">Restaurant</span><span class="meta-pill">Deira, Dubai</span><span class="meta-pill">WhatsApp Orders</span></div>
-            <div class="hero-ctas"><a href="business.html?id=b1" class="btn btn-light">View Business</a><a href="https://wa.me/971501234567?text=Hi%2C%20I%20found%20you%20on%20The%20Diaspora%20App" class="btn btn-outline">Order on WhatsApp</a></div>
-          </div>
-          <aside class="spotlight-card">
-            <div class="slot-label">Hero Spotlight Slot</div>
-            <h3>Premium top-of-page placement for businesses ready to be seen.</h3>
-            <p>Designed for restaurants, salons, fashion houses, photographers, events, and hiring campaigns.</p>
-            <div class="ad-stats"><div class="ad-stat"><strong>24h</strong><span>Visibility</span></div><div class="ad-stat"><strong>47</strong><span>Cities</span></div><div class="ad-stat"><strong>0%</strong><span>Commission</span></div></div>
-            <a href="#sellers" class="btn btn-dark">Advertise</a>
-          </aside>
-        </div>
-      </article>
-      <article class="spotlight-slide">
-        <div class="spotlight-media"><img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?q=80&w=2400&auto=format" alt="Featured hair stylist studio"></div>
-        <div class="spotlight-inner">
-          <div class="spotlight-copy">
-            <div class="kicker sponsor-kicker">Sponsored · Hair & Beauty</div>
-            <h1 class="spotlight-title">Book the chair<br>everyone is <em>talking</em> about.</h1>
-            <p>Protective styles, braids, loc care, and bridal looks from diaspora beauty specialists trusted across Jumeirah.</p>
-            <div class="spotlight-meta"><span class="meta-pill">Hair Stylist</span><span class="meta-pill">Jumeirah</span><span class="meta-pill">Booking CTA</span></div>
-            <div class="hero-ctas"><a href="feed.html" class="btn btn-light">See Stylists</a><a href="#sellers" class="btn btn-outline">Buy This Slot</a></div>
-          </div>
-          <aside class="spotlight-card">
-            <div class="slot-label">Category Takeover</div>
-            <h3>Own the first impression in Hair, Beauty, Food, Fashion, Jobs, or Events.</h3>
-            <p>Each placement feels editorial, not intrusive, so the brand stays premium while the seller gets leads.</p>
-            <div class="ad-stats"><div class="ad-stat"><strong>5-7s</strong><span>Rotation</span></div><div class="ad-stat"><strong>1st</strong><span>Viewport</span></div><div class="ad-stat"><strong>CTA</strong><span>Direct Lead</span></div></div>
-            <a href="#cats-new" class="btn btn-dark">Ad Products</a>
-          </aside>
-        </div>
-      </article>
-      <article class="spotlight-slide">
-        <div class="spotlight-media"><img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=2400&auto=format" alt="Featured fashion house"></div>
-        <div class="spotlight-inner">
-          <div class="spotlight-copy">
-            <div class="kicker sponsor-kicker">Product Drop · Fashion</div>
-            <h1 class="spotlight-title">New season Ankara<br>made for <em>arrival</em>.</h1>
-            <p>Promote collections, made-to-measure services, wedding looks, product drops, and limited-time offers.</p>
-            <div class="spotlight-meta"><span class="meta-pill">Fashion</span><span class="meta-pill">JLT, Dubai</span><span class="meta-pill">Product Drop</span></div>
-            <div class="hero-ctas"><a href="feed.html" class="btn btn-light">Browse Fashion</a><a href="#featured" class="btn btn-outline">See Featured</a></div>
-          </div>
-          <aside class="spotlight-card">
-            <div class="slot-label">Launch Campaign</div>
-            <h3>Promote one dish, service, event, job, product, or full business profile.</h3>
-            <p>Great for product drops, restaurant specials, barber availability, hiring pushes, and event tickets.</p>
-            <div class="ad-stats"><div class="ad-stat"><strong>Image</strong><span>Rich</span></div><div class="ad-stat"><strong>Lead</strong><span>Ready</span></div><div class="ad-stat"><strong>Local</strong><span>Targeted</span></div></div>
-            <a href="#sellers" class="btn btn-dark">Start Campaign</a>
-          </aside>
-        </div>
-      </article>
-      <article class="spotlight-slide">
-        <div class="spotlight-media"><img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=2400&auto=format" alt="Featured diaspora hiring campaign"></div>
-        <div class="spotlight-inner">
-          <div class="spotlight-copy">
-            <div class="kicker sponsor-kicker">Hiring Now · DIFC</div>
-            <h1 class="spotlight-title">The next hire<br>is already <em>here</em>.</h1>
-            <p>Featured hiring campaigns for diaspora-friendly businesses, hospitality teams, salons, creative studios, and tech companies.</p>
-            <div class="spotlight-meta"><span class="meta-pill">Jobs</span><span class="meta-pill">Dubai</span><span class="meta-pill">Applications</span></div>
-            <div class="hero-ctas"><a href="feed.html" class="btn btn-light">Explore Jobs</a><a href="#sellers" class="btn btn-outline">Post a Job</a></div>
-          </div>
-          <aside class="spotlight-card">
-            <div class="slot-label">Recruitment Spotlight</div>
-            <h3>Turn job posts into visible, trusted community campaigns.</h3>
-            <p>Put your opportunity in front of the members who already trust the Diaspora network.</p>
-            <div class="ad-stats"><div class="ad-stat"><strong>AED</strong><span>Roles</span></div><div class="ad-stat"><strong>Apply</strong><span>CTA</span></div><div class="ad-stat"><strong>City</strong><span>Target</span></div></div>
-            <a href="#sellers" class="btn btn-dark">Promote Role</a>
-          </aside>
-        </div>
-      </article>
-    </div>
-    <div class="spotlight-controls" aria-label="Spotlight controls">
-      <button class="spot-btn" id="spotPrev" aria-label="Previous spotlight">‹</button>
-      <div class="spot-tabs" id="spotTabs">
-        <button class="spot-tab active"><span>Restaurant</span><strong>Amara's Kitchen</strong></button>
-        <button class="spot-tab"><span>Beauty</span><strong>Kemi Braids Studio</strong></button>
-        <button class="spot-tab"><span>Fashion</span><strong>Adaeze Couture</strong></button>
-        <button class="spot-tab"><span>Jobs</span><strong>AfroTech Hiring</strong></button>
-      </div>
-      <button class="spot-btn" id="spotNext" aria-label="Next spotlight">›</button>
-    </div>
-  </section>
+<main id="main">
 
-  <div class="ad-strip" aria-label="Advertising inventory"><div class="ad-strip-track">
-    <span><b>Hero Spotlight</b> top viewport placement</span><span><b>City Spotlight</b> Dubai, London, Toronto, Lagos</span><span><b>Category Takeover</b> food, hair, fashion, jobs</span><span><b>WhatsApp Lead Ads</b> direct customer action</span><span><b>Product Drops</b> dishes, styles, events, openings</span>
-    <span><b>Hero Spotlight</b> top viewport placement</span><span><b>City Spotlight</b> Dubai, London, Toronto, Lagos</span><span><b>Category Takeover</b> food, hair, fashion, jobs</span><span><b>WhatsApp Lead Ads</b> direct customer action</span><span><b>Product Drops</b> dishes, styles, events, openings</span>
-  </div></div>
-
-  <section class="featured-ads reveal" id="featured">
-    <div class="ads-head"><div><div class="kicker">Featured This Week</div><h2 class="section-title">Premium placements<br><em>that move.</em></h2></div><p class="section-lede">A curated moving panel for products, services, openings, jobs, and offers without turning the homepage into a cheap banner wall.</p></div>
-    <div class="ad-rail">
-      <article class="ad-card"><div class="ad-card-media"><img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=900&auto=format" alt="Restaurant ad"></div><div class="ad-card-body"><div class="ad-card-tag">Sponsored Food</div><h3>Mama Titi Kitchen</h3><p>Weekend family trays, suya grills, and WhatsApp ordering in Deira.</p><div class="ad-card-foot"><span>Dubai</span><b>Order Now</b></div></div></article>
-      <article class="ad-card"><div class="ad-card-media"><img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=900&auto=format" alt="Barber ad"></div><div class="ad-card-body"><div class="ad-card-tag">Featured Barber</div><h3>Royal Cuts</h3><p>Premium fades, line-ups, and grooming appointments in Al Karama.</p><div class="ad-card-foot"><span>Al Karama</span><b>Book</b></div></div></article>
-      <article class="ad-card"><div class="ad-card-media"><img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=900&auto=format" alt="Photographer ad"></div><div class="ad-card-body"><div class="ad-card-tag">Event Media</div><h3>Obi Photography</h3><p>Wedding, birthday, launch, and event coverage across Business Bay.</p><div class="ad-card-foot"><span>Dubai</span><b>Inquire</b></div></div></article>
-      <article class="ad-card"><div class="ad-card-media"><img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=900&auto=format" alt="Fashion ad"></div><div class="ad-card-body"><div class="ad-card-tag">Product Drop</div><h3>Adaeze Couture</h3><p>Custom Ankara, wedding looks, and made-to-measure fittings.</p><div class="ad-card-foot"><span>JLT</span><b>Shop</b></div></div></article>
-      <article class="ad-card"><div class="ad-card-media"><img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=900&auto=format" alt="Beauty ad"></div><div class="ad-card-body"><div class="ad-card-tag">Beauty</div><h3>Makeda Beauty</h3><p>Bridal makeup, soft glam, and melanin-rich skincare appointments.</p><div class="ad-card-foot"><span>Marina</span><b>Reserve</b></div></div></article>
-      <article class="ad-card"><div class="ad-card-media"><img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=900&auto=format" alt="Jobs ad"></div><div class="ad-card-body"><div class="ad-card-tag">Hiring</div><h3>AfroTech Jobs</h3><p>Tech and finance roles at diaspora-friendly teams across the UAE.</p><div class="ad-card-foot"><span>DIFC</span><b>Apply</b></div></div></article>
-      <article class="ad-card"><div class="ad-card-media"><img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=900&auto=format" alt="Restaurant ad"></div><div class="ad-card-body"><div class="ad-card-tag">Sponsored Food</div><h3>Mama Titi Kitchen</h3><p>Weekend family trays, suya grills, and WhatsApp ordering in Deira.</p><div class="ad-card-foot"><span>Dubai</span><b>Order Now</b></div></div></article>
-      <article class="ad-card"><div class="ad-card-media"><img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=900&auto=format" alt="Barber ad"></div><div class="ad-card-body"><div class="ad-card-tag">Featured Barber</div><h3>Royal Cuts</h3><p>Premium fades, line-ups, and grooming appointments in Al Karama.</p><div class="ad-card-foot"><span>Al Karama</span><b>Book</b></div></div></article>
-      <article class="ad-card"><div class="ad-card-media"><img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=900&auto=format" alt="Photographer ad"></div><div class="ad-card-body"><div class="ad-card-tag">Event Media</div><h3>Obi Photography</h3><p>Wedding, birthday, launch, and event coverage across Business Bay.</p><div class="ad-card-foot"><span>Dubai</span><b>Inquire</b></div></div></article>
-      <article class="ad-card"><div class="ad-card-media"><img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=900&auto=format" alt="Fashion ad"></div><div class="ad-card-body"><div class="ad-card-tag">Product Drop</div><h3>Adaeze Couture</h3><p>Custom Ankara, wedding looks, and made-to-measure fittings.</p><div class="ad-card-foot"><span>JLT</span><b>Shop</b></div></div></article>
-      <article class="ad-card"><div class="ad-card-media"><img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=900&auto=format" alt="Beauty ad"></div><div class="ad-card-body"><div class="ad-card-tag">Beauty</div><h3>Makeda Beauty</h3><p>Bridal makeup, soft glam, and melanin-rich skincare appointments.</p><div class="ad-card-foot"><span>Marina</span><b>Reserve</b></div></div></article>
-      <article class="ad-card"><div class="ad-card-media"><img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=900&auto=format" alt="Jobs ad"></div><div class="ad-card-body"><div class="ad-card-tag">Hiring</div><h3>AfroTech Jobs</h3><p>Tech and finance roles at diaspora-friendly teams across the UAE.</p><div class="ad-card-foot"><span>DIFC</span><b>Apply</b></div></div></article>
-    </div>
-  </section>
-
-  <section class="brand-story reveal"><div class="story-grid"><div class="story-mark"><img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=1200&auto=format" alt="Diaspora community gathering"></div><div class="story-copy"><div class="kicker">Brand Standard</div><h2>Advertising should feel<br>like <em>discovery</em>.</h2><p>Diaspora gives businesses visibility without clutter. Every sponsored placement is built like an editorial feature: high quality image, location, category, clear CTA, and a tasteful sponsored label. Sellers get leads. Members get useful discovery. The brand stays premium.</p></div></div></section>
-
-  <section class="city-spotlight reveal" id="cities-new"><div class="section-head"><div class="kicker">City Spotlight</div><h2 class="section-title">Local ads for<br><em>global</em> neighborhoods.</h2><p class="section-lede">Rotate placements by city so Dubai users see Dubai businesses, while London, Toronto, Lagos, Nairobi, and New York build their own local ad economies.</p></div><div class="city-ad-grid"><article class="city-feature"><img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1600&auto=format" alt="Dubai skyline"><div class="city-feature-copy"><div class="slot-label">Now Selling · Dubai</div><h3>Dubai Spotlight</h3><p>Premium placements for Deira, Al Karama, JLT, Marina, Business Bay, and Downtown sellers.</p></div></article><div class="city-slots"><article class="city-slot"><div><div class="slot-label">London</div><h3>Peckham Food Week</h3></div><p>Restaurants and food sellers can own a weekly city strip.</p></article><article class="city-slot"><div><div class="slot-label">Toronto</div><h3>Beauty Bookings</h3></div><p>Hair, makeup, and skincare lead ads by neighborhood.</p></article><article class="city-slot"><div><div class="slot-label">Lagos</div><h3>Talent & Jobs</h3></div><p>Featured job campaigns for community-friendly employers.</p></article><article class="city-slot"><div><div class="slot-label">Nairobi</div><h3>Events & Creatives</h3></div><p>Promote launches, photo shoots, music nights, and markets.</p></article></div></div></section>
-
-  <section class="sponsor-cats reveal" id="cats-new"><div class="section-head"><div class="kicker">Sponsored Categories</div><h2 class="section-title">Every vertical gets<br>its own <em>stage.</em></h2><p class="section-lede">Sell category takeovers without diluting the homepage. Each card can become a paid placement for a seller or weekly sponsor.</p></div><div class="sponsor-grid"><article class="sponsor-cat"><img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=900&auto=format" alt="Food sponsorship"><div class="sponsor-cat-content"><div class="slot-label">Food</div><h3>Restaurant Takeover</h3><p>Promote menus, catering, specials, and WhatsApp orders.</p></div></article><article class="sponsor-cat"><img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?q=80&w=900&auto=format" alt="Hair sponsorship"><div class="sponsor-cat-content"><div class="slot-label">Hair</div><h3>Booking Slot</h3><p>Showcase styles, availability, location, and direct booking.</p></div></article><article class="sponsor-cat"><img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=900&auto=format" alt="Fashion sponsorship"><div class="sponsor-cat-content"><div class="slot-label">Fashion</div><h3>Product Drop</h3><p>Launch collections, wedding outfits, and custom fittings.</p></div></article><article class="sponsor-cat"><img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=900&auto=format" alt="Jobs sponsorship"><div class="sponsor-cat-content"><div class="slot-label">Jobs</div><h3>Hiring Campaign</h3><p>Put open roles in front of trusted diaspora candidates.</p></div></article></div></section>
-
-  <section class="ad-sales reveal" id="sellers"><div class="ad-sales-inner"><div><div class="kicker sponsor-kicker">For Sellers</div><h2>Turn the homepage<br>into your <em>market.</em></h2><p>Restaurants, salons, barbers, stylists, photographers, tailors, event teams, and employers can advertise without paying marketplace commission. Diaspora creates premium visibility and sends customers straight to your profile or WhatsApp.</p><div class="hero-ctas" style="margin-top:34px"><a href="signup-firebase.html" class="btn btn-light">Advertise Your Business</a><a href="feed.html" class="btn btn-outline">Explore the App</a></div></div><div class="pricing-panel"><div class="slot-label">Ad Inventory</div><div class="pricing-row"><strong>Hero Spotlight</strong><span>Full-screen rotating placement</span></div><div class="pricing-row"><strong>City Spotlight</strong><span>Local placement by market</span></div><div class="pricing-row"><strong>Category Takeover</strong><span>Food, hair, fashion, jobs, events</span></div><div class="pricing-row"><strong>WhatsApp Lead Ad</strong><span>Direct inquiry and order CTA</span></div></div></div></section>
-</main>
-
-<!-- ═══════════ HERO ═══════════ -->
-<section class="hero">
-  <div class="hero-bg"></div>
+<section class="hero" aria-label="The Diaspora App">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-glow" id="heroGlow" aria-hidden="true"></div>
   <div class="hero-inner">
-    <img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="The Diaspora App logo" class="hero-logo">
-    <div class="kicker hero-kicker">A Tribute to the Global Diaspora</div>
-    <h1 class="hero-title">Find your <em>people.</em><br>Wherever you are.</h1>
-    <p class="hero-lede">
-      A curated home for the diaspora's finest — authentic restaurants, trusted stylists,
-      gifted photographers, and the jobs that keep our communities growing. From Dubai to
-      Toronto to London.
-    </p>
+    <img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="The Diaspora App logo" class="hero-logo" width="176" height="64">
+    <div class="kicker hero-kicker">A tribute to the global diaspora</div>
+    <h1 class="hero-title">
+      <span class="word">Find</span>
+      <span class="word">your</span>
+      <span class="word"><em>people.</em></span><br>
+      <span class="word">Wherever</span>
+      <span class="word">you</span>
+      <span class="word">are.</span>
+    </h1>
+    <div class="hero-rule" aria-hidden="true"></div>
+    <p class="hero-lede">A curated home for the diaspora's finest — authentic restaurants, trusted stylists, gifted photographers, and the jobs that keep our communities growing. From Dubai to Toronto to London.</p>
     <div class="hero-ctas">
-      <a href="feed.html" class="btn btn-light">Explore the App</a>
-      <a href="signup-firebase.html" class="btn btn-outline">Join Diaspora</a>
+      <a href="feed.html" class="btn btn-light" data-magnet>Explore the App</a>
+      <a href="signup-firebase.html" class="btn btn-outline" data-magnet>Join Diaspora</a>
     </div>
   </div>
-  <div class="scroll-cue">Scroll<span></span></div>
+  <div class="scroll-cue" aria-hidden="true">Scroll<span></span></div>
 </section>
 
-<!-- ═══════════ SEARCH ═══════════ -->
-<div class="search-section" id="search">
-  <div class="search-widget">
-
-    <div class="sw-field" onclick="toggleDD(this,'country')">
-      <div class="sw-label">Country</div>
-      <div class="sw-value" id="country-val">🇦🇪 United Arab Emirates</div>
-      <div class="sw-dropdown" id="country-dd">
-        <div class="sw-item selected" onclick="pickItem(event,'country','🇦🇪 United Arab Emirates')"><span class="sw-flag">🇦🇪</span> United Arab Emirates</div>
-        <div class="sw-item" onclick="pickItem(event,'country','🇬🇧 United Kingdom')"><span class="sw-flag">🇬🇧</span> United Kingdom</div>
-        <div class="sw-item" onclick="pickItem(event,'country','🇺🇸 United States')"><span class="sw-flag">🇺🇸</span> United States</div>
-        <div class="sw-item" onclick="pickItem(event,'country','🇨🇦 Canada')"><span class="sw-flag">🇨🇦</span> Canada</div>
-        <div class="sw-item" onclick="pickItem(event,'country','🇩🇪 Germany')"><span class="sw-flag">🇩🇪</span> Germany</div>
-        <div class="sw-item" onclick="pickItem(event,'country','🇫🇷 France')"><span class="sw-flag">🇫🇷</span> France</div>
-        <div class="sw-item" onclick="pickItem(event,'country','🇿🇦 South Africa')"><span class="sw-flag">🇿🇦</span> South Africa</div>
-        <div class="sw-item" onclick="pickItem(event,'country','🇳🇬 Nigeria')"><span class="sw-flag">🇳🇬</span> Nigeria</div>
-        <div class="sw-item" onclick="pickItem(event,'country','🇰🇪 Kenya')"><span class="sw-flag">🇰🇪</span> Kenya</div>
-        <div class="sw-item" onclick="pickItem(event,'country','🇬🇭 Ghana')"><span class="sw-flag">🇬🇭</span> Ghana</div>
-      </div>
-    </div>
-
-    <div class="sw-field" onclick="toggleDD(this,'city')">
-      <div class="sw-label">City</div>
-      <div class="sw-value" id="city-val">Dubai</div>
-      <div class="sw-dropdown" id="city-dd">
-        <div class="sw-item selected" onclick="pickItem(event,'city','Dubai')">📍 Dubai</div>
-        <div class="sw-item" onclick="pickItem(event,'city','Abu Dhabi')">📍 Abu Dhabi</div>
-        <div class="sw-item" onclick="pickItem(event,'city','Sharjah')">📍 Sharjah</div>
-        <div class="sw-item" onclick="pickItem(event,'city','London')">📍 London</div>
-        <div class="sw-item" onclick="pickItem(event,'city','Toronto')">📍 Toronto</div>
-        <div class="sw-item" onclick="pickItem(event,'city','New York')">📍 New York</div>
-      </div>
-    </div>
-
-    <div class="sw-field" onclick="toggleDD(this,'town')">
-      <div class="sw-label">Town / Area</div>
-      <div class="sw-value" id="town-val">All Areas</div>
-      <div class="sw-dropdown" id="town-dd">
-        <div class="sw-item selected" onclick="pickItem(event,'town','All Areas')">🗺️ All Areas</div>
-        <div class="sw-item" onclick="pickItem(event,'town','Deira')">🏙️ Deira</div>
-        <div class="sw-item" onclick="pickItem(event,'town','Bur Dubai')">🏙️ Bur Dubai</div>
-        <div class="sw-item" onclick="pickItem(event,'town','Al Karama')">🏙️ Al Karama</div>
-        <div class="sw-item" onclick="pickItem(event,'town','Jumeirah')">🏙️ Jumeirah</div>
-        <div class="sw-item" onclick="pickItem(event,'town','Dubai Marina')">🏙️ Dubai Marina</div>
-        <div class="sw-item" onclick="pickItem(event,'town','Downtown Dubai')">🏙️ Downtown Dubai</div>
-        <div class="sw-item" onclick="pickItem(event,'town','Al Barsha')">🏙️ Al Barsha</div>
-        <div class="sw-item" onclick="pickItem(event,'town','Business Bay')">🏙️ Business Bay</div>
-        <div class="sw-item" onclick="pickItem(event,'town','JLT')">🏙️ JLT</div>
-      </div>
-    </div>
-
-    <div class="sw-field" onclick="toggleDD(this,'category')">
-      <div class="sw-label">What are you looking for?</div>
-      <div class="sw-value" id="category-val">All Categories</div>
-      <div class="sw-dropdown" id="category-dd">
-        <div class="sw-item selected" onclick="pickItem(event,'category','All Categories')">✨ All Categories</div>
-        <div class="sw-item" onclick="pickItem(event,'category','Restaurants')">🍲 Restaurants</div>
-        <div class="sw-item" onclick="pickItem(event,'category','Food Sellers')">🥘 Food Sellers</div>
-        <div class="sw-item" onclick="pickItem(event,'category','Hair Stylists')">💇🏽‍♀️ Hair Stylists</div>
-        <div class="sw-item" onclick="pickItem(event,'category','Barbers')">✂️ Barbers</div>
-        <div class="sw-item" onclick="pickItem(event,'category','Photographers')">📸 Photographers</div>
-        <div class="sw-item" onclick="pickItem(event,'category','Jobs')">💼 Jobs</div>
-        <div class="sw-item" onclick="pickItem(event,'category','Tailors & Fashion')">👗 Tailors & Fashion</div>
-        <div class="sw-item" onclick="pickItem(event,'category','Beauty & Makeup')">💄 Beauty & Makeup</div>
-        <div class="sw-item" onclick="pickItem(event,'category','Music & Events')">🎵 Music & Events</div>
-      </div>
-    </div>
-
-    <button class="sw-btn">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-      Search
-    </button>
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span><b>Dubai</b> 2,847 businesses</span>
+    <span><b>London</b> 3,402 businesses</span>
+    <span><b>Lagos</b> 4,801 businesses</span>
+    <span><b>Toronto</b> 1,958 businesses</span>
+    <span><b>Nairobi</b> 1,662 businesses</span>
+    <span><b>New York</b> 2,213 businesses</span>
+    <span><b>Paris</b> 894 businesses</span>
+    <span><b>Abu Dhabi</b> 1,124 businesses</span>
+    <span><b>Dubai</b> 2,847 businesses</span>
+    <span><b>London</b> 3,402 businesses</span>
+    <span><b>Lagos</b> 4,801 businesses</span>
+    <span><b>Toronto</b> 1,958 businesses</span>
+    <span><b>Nairobi</b> 1,662 businesses</span>
+    <span><b>New York</b> 2,213 businesses</span>
+    <span><b>Paris</b> 894 businesses</span>
+    <span><b>Abu Dhabi</b> 1,124 businesses</span>
   </div>
 </div>
 
-<!-- ═══════════ CHAPTER ═══════════ -->
-<section class="chapter reveal">
-  <div class="container">
-    <div class="chapter-mark">A</div>
-    <p class="chapter-quote">
-      "Wherever the diaspora goes, we carry home with us — in the dishes we cook,
-      the braids we plait, the photographs we keep. Diaspora is where those
-      stories, and the people who tell them, finally live together."
-    </p>
-    <div class="chapter-sign">— A New Chapter for Our Community</div>
+<div class="search-section" id="search">
+  <form class="search-widget" id="searchForm" role="search" aria-label="Search businesses" action="feed.html" method="get">
+    <button type="button" class="sw-field" data-key="country" aria-haspopup="listbox" aria-expanded="false">
+      <span class="sw-label">Country</span>
+      <span class="sw-value" id="country-val">🇦🇪 United Arab Emirates</span>
+      <input type="hidden" name="country" value="United Arab Emirates">
+      <div class="sw-dropdown" role="listbox" aria-label="Country">
+        <button type="button" class="sw-item selected" data-val="United Arab Emirates" data-flag="🇦🇪"><span class="sw-flag">🇦🇪</span> United Arab Emirates</button>
+        <button type="button" class="sw-item" data-val="United Kingdom" data-flag="🇬🇧"><span class="sw-flag">🇬🇧</span> United Kingdom</button>
+        <button type="button" class="sw-item" data-val="United States" data-flag="🇺🇸"><span class="sw-flag">🇺🇸</span> United States</button>
+        <button type="button" class="sw-item" data-val="Canada" data-flag="🇨🇦"><span class="sw-flag">🇨🇦</span> Canada</button>
+        <button type="button" class="sw-item" data-val="France" data-flag="🇫🇷"><span class="sw-flag">🇫🇷</span> France</button>
+        <button type="button" class="sw-item" data-val="Nigeria" data-flag="🇳🇬"><span class="sw-flag">🇳🇬</span> Nigeria</button>
+        <button type="button" class="sw-item" data-val="Kenya" data-flag="🇰🇪"><span class="sw-flag">🇰🇪</span> Kenya</button>
+        <button type="button" class="sw-item" data-val="Ghana" data-flag="🇬🇭"><span class="sw-flag">🇬🇭</span> Ghana</button>
+        <button type="button" class="sw-item" data-val="South Africa" data-flag="🇿🇦"><span class="sw-flag">🇿🇦</span> South Africa</button>
+      </div>
+    </button>
+    <button type="button" class="sw-field" data-key="city" aria-haspopup="listbox" aria-expanded="false">
+      <span class="sw-label">City</span>
+      <span class="sw-value" id="city-val">Dubai</span>
+      <input type="hidden" name="city" value="Dubai">
+      <div class="sw-dropdown" role="listbox" aria-label="City">
+        <button type="button" class="sw-item selected" data-val="Dubai">📍 Dubai</button>
+        <button type="button" class="sw-item" data-val="Abu Dhabi">📍 Abu Dhabi</button>
+        <button type="button" class="sw-item" data-val="Sharjah">📍 Sharjah</button>
+        <button type="button" class="sw-item" data-val="London">📍 London</button>
+        <button type="button" class="sw-item" data-val="Toronto">📍 Toronto</button>
+        <button type="button" class="sw-item" data-val="New York">📍 New York</button>
+        <button type="button" class="sw-item" data-val="Lagos">📍 Lagos</button>
+        <button type="button" class="sw-item" data-val="Nairobi">📍 Nairobi</button>
+      </div>
+    </button>
+    <button type="button" class="sw-field" data-key="category" aria-haspopup="listbox" aria-expanded="false">
+      <span class="sw-label">Category</span>
+      <span class="sw-value" id="category-val">All categories</span>
+      <input type="hidden" name="category" value="">
+      <div class="sw-dropdown" role="listbox" aria-label="Category">
+        <button type="button" class="sw-item selected" data-val="">✨ All categories</button>
+        <button type="button" class="sw-item" data-val="Restaurants">🍲 Restaurants</button>
+        <button type="button" class="sw-item" data-val="Food Sellers">🥘 Food sellers</button>
+        <button type="button" class="sw-item" data-val="Hair Stylists">💇🏽‍♀️ Hair stylists</button>
+        <button type="button" class="sw-item" data-val="Barbers">✂️ Barbers</button>
+        <button type="button" class="sw-item" data-val="Photographers">📸 Photographers</button>
+        <button type="button" class="sw-item" data-val="Jobs">💼 Jobs</button>
+        <button type="button" class="sw-item" data-val="Tailors & Fashion">👗 Tailors &amp; fashion</button>
+        <button type="button" class="sw-item" data-val="Beauty & Makeup">💄 Beauty &amp; makeup</button>
+        <button type="button" class="sw-item" data-val="Music & Events">🎵 Music &amp; events</button>
+      </div>
+    </button>
+    <label class="sw-field" for="q-input" style="cursor:text">
+      <span class="sw-label">Search</span>
+      <input id="q-input" name="q" type="search" class="sw-input" placeholder="Try 'jollof', 'braids', 'photographer'…" autocomplete="off">
+    </label>
+    <button type="submit" class="sw-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      Search
+    </button>
+  </form>
+</div>
+
+<section class="spotlight" id="spotlight" aria-label="Featured advertisers">
+  <div class="spotlight-stage">
+    <article class="spotlight-slide active" aria-hidden="false">
+      <div class="spotlight-media"><img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?q=80&w=2400&auto=format" alt="Featured Nigerian restaurant meal" loading="eager"></div>
+      <div class="spotlight-inner">
+        <div class="spotlight-copy">
+          <div class="sponsor-kicker">Featured · Dubai</div>
+          <h2 class="spotlight-title">Tonight's table<br><em>belongs</em> to Amara.</h2>
+          <p>Premium jollof bowls, suya platters, and weekend catering for the diaspora community across Deira and Downtown Dubai.</p>
+          <div class="spotlight-meta"><span class="meta-pill">Restaurant</span><span class="meta-pill">Deira, Dubai</span><span class="meta-pill">WhatsApp orders</span></div>
+          <div class="hero-ctas" style="opacity:1;animation:none;justify-content:flex-start"><a href="business.html?id=b1" class="btn btn-light">View business</a><a href="https://wa.me/971501234567?text=Hi%2C%20I%20found%20you%20on%20The%20Diaspora%20App" rel="noopener" class="btn btn-outline">Order on WhatsApp</a></div>
+        </div>
+      </div>
+    </article>
+    <article class="spotlight-slide" aria-hidden="true">
+      <div class="spotlight-media"><img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?q=80&w=2400&auto=format" alt="Featured hair stylist studio" loading="lazy"></div>
+      <div class="spotlight-inner">
+        <div class="spotlight-copy">
+          <div class="sponsor-kicker">Sponsored · Hair &amp; Beauty</div>
+          <h2 class="spotlight-title">Book the chair<br>everyone is <em>talking</em> about.</h2>
+          <p>Protective styles, braids, loc care, and bridal looks from diaspora beauty specialists trusted across Jumeirah.</p>
+          <div class="spotlight-meta"><span class="meta-pill">Hair stylist</span><span class="meta-pill">Jumeirah</span><span class="meta-pill">Booking</span></div>
+          <div class="hero-ctas" style="opacity:1;animation:none;justify-content:flex-start"><a href="feed.html?category=Hair%20Stylists" class="btn btn-light">See stylists</a><a href="pricing.html" class="btn btn-outline">Buy this slot</a></div>
+        </div>
+      </div>
+    </article>
+    <article class="spotlight-slide" aria-hidden="true">
+      <div class="spotlight-media"><img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=2400&auto=format" alt="Featured fashion house" loading="lazy"></div>
+      <div class="spotlight-inner">
+        <div class="spotlight-copy">
+          <div class="sponsor-kicker">Product drop · Fashion</div>
+          <h2 class="spotlight-title">New season Ankara<br>made for <em>arrival</em>.</h2>
+          <p>Promote collections, made-to-measure services, wedding looks, product drops, and limited-time offers.</p>
+          <div class="spotlight-meta"><span class="meta-pill">Fashion</span><span class="meta-pill">JLT, Dubai</span><span class="meta-pill">Drop</span></div>
+          <div class="hero-ctas" style="opacity:1;animation:none;justify-content:flex-start"><a href="feed.html?category=Tailors%20%26%20Fashion" class="btn btn-light">Browse fashion</a><a href="pricing.html" class="btn btn-outline">Run a campaign</a></div>
+        </div>
+      </div>
+    </article>
+  </div>
+  <div class="spotlight-controls" aria-label="Spotlight controls">
+    <button class="spot-btn" id="spotPrev" aria-label="Previous spotlight">‹</button>
+    <div class="spot-tabs" id="spotTabs" role="tablist">
+      <button class="spot-tab active" type="button" role="tab" aria-selected="true"><span>Restaurant</span><strong>Amara's Kitchen</strong><span class="progress" aria-hidden="true"></span></button>
+      <button class="spot-tab" type="button" role="tab" aria-selected="false"><span>Beauty</span><strong>Kemi Braids</strong><span class="progress" aria-hidden="true"></span></button>
+      <button class="spot-tab" type="button" role="tab" aria-selected="false"><span>Fashion</span><strong>Adaeze Couture</strong><span class="progress" aria-hidden="true"></span></button>
+    </div>
+    <button class="spot-btn" id="spotNext" aria-label="Next spotlight">›</button>
   </div>
 </section>
 
-<!-- ═══════════ EDITORIAL ═══════════ -->
-<section class="editorial reveal">
-  <div class="editorial-grid">
-    <div class="editorial-media">
-      <img src="https://images.unsplash.com/photo-1559305616-3f99cd43e353?q=80&w=1200&auto=format" alt="Diaspora gathering">
+<section class="featured" aria-label="Featured this week">
+  <div class="feat-head reveal">
+    <div>
+      <div class="kicker">Featured this week</div>
+      <h2 class="section-title">Premium picks<br><em>that move.</em></h2>
     </div>
-    <div class="editorial-copy">
-      <div class="kicker">Our Story</div>
-      <h2>Built <em>for</em> the diaspora,<br><em>by</em> the diaspora.</h2>
-      <p>
-        Diaspora began in Dubai with a simple frustration — the best Nigerian rice,
-        the sharpest Ghanaian barbers, and the most gifted Kenyan photographers
-        were scattered across group chats, neighborhoods, and rumor.
-      </p>
-      <p>
-        We built the home they deserved. A single curated marketplace where
-        authenticity is verified, communities discover each other, and every
-        business owner keeps 100% of what they earn. No middlemen. No commissions
-        on your kitchen, your chair, or your craft.
-      </p>
-      <div class="sig">— with love, from Dubai to the world</div>
-    </div>
+    <p class="section-lede">A curated rail of the week's most-loved diaspora businesses, drops, and openings.</p>
+  </div>
+  <div class="feat-rail" id="featRail">
+    <article class="feat-card"><div class="feat-card-media"><span class="feat-card-tag">Sponsored Food</span><img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=900&auto=format" alt="Mama Titi Kitchen" loading="lazy"></div><div class="feat-card-body"><h3>Mama Titi Kitchen</h3><p>Weekend family trays, suya grills, and WhatsApp ordering in Deira.</p><div class="feat-card-foot"><span>Dubai</span><b>Order now →</b></div></div></article>
+    <article class="feat-card"><div class="feat-card-media"><span class="feat-card-tag">Featured Barber</span><img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=900&auto=format" alt="Royal Cuts" loading="lazy"></div><div class="feat-card-body"><h3>Royal Cuts</h3><p>Premium fades, line-ups, and grooming appointments in Al Karama.</p><div class="feat-card-foot"><span>Al Karama</span><b>Book →</b></div></div></article>
+    <article class="feat-card"><div class="feat-card-media"><span class="feat-card-tag">Event Media</span><img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=900&auto=format" alt="Obi Photography" loading="lazy"></div><div class="feat-card-body"><h3>Obi Photography</h3><p>Wedding, birthday, launch, and event coverage across Business Bay.</p><div class="feat-card-foot"><span>Dubai</span><b>Inquire →</b></div></div></article>
+    <article class="feat-card"><div class="feat-card-media"><span class="feat-card-tag">Product Drop</span><img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=900&auto=format" alt="Adaeze Couture" loading="lazy"></div><div class="feat-card-body"><h3>Adaeze Couture</h3><p>Custom Ankara, wedding looks, and made-to-measure fittings.</p><div class="feat-card-foot"><span>JLT</span><b>Shop →</b></div></div></article>
+    <article class="feat-card"><div class="feat-card-media"><span class="feat-card-tag">Beauty</span><img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=900&auto=format" alt="Makeda Beauty" loading="lazy"></div><div class="feat-card-body"><h3>Makeda Beauty</h3><p>Bridal makeup, soft glam, and melanin-rich skincare appointments.</p><div class="feat-card-foot"><span>Marina</span><b>Reserve →</b></div></div></article>
+    <article class="feat-card"><div class="feat-card-media"><span class="feat-card-tag">Hiring</span><img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=900&auto=format" alt="AfroTech Jobs" loading="lazy"></div><div class="feat-card-body"><h3>AfroTech Jobs</h3><p>Tech and finance roles at diaspora-friendly teams across the UAE.</p><div class="feat-card-foot"><span>DIFC</span><b>Apply →</b></div></div></article>
+    <article class="feat-card" aria-hidden="true"><div class="feat-card-media"><span class="feat-card-tag">Sponsored Food</span><img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=900&auto=format" alt="" loading="lazy"></div><div class="feat-card-body"><h3>Mama Titi Kitchen</h3><p>Weekend family trays, suya grills, and WhatsApp ordering in Deira.</p><div class="feat-card-foot"><span>Dubai</span><b>Order now →</b></div></div></article>
+    <article class="feat-card" aria-hidden="true"><div class="feat-card-media"><span class="feat-card-tag">Featured Barber</span><img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=900&auto=format" alt="" loading="lazy"></div><div class="feat-card-body"><h3>Royal Cuts</h3><p>Premium fades, line-ups, and grooming appointments in Al Karama.</p><div class="feat-card-foot"><span>Al Karama</span><b>Book →</b></div></div></article>
+    <article class="feat-card" aria-hidden="true"><div class="feat-card-media"><span class="feat-card-tag">Event Media</span><img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=900&auto=format" alt="" loading="lazy"></div><div class="feat-card-body"><h3>Obi Photography</h3><p>Wedding, birthday, launch, and event coverage across Business Bay.</p><div class="feat-card-foot"><span>Dubai</span><b>Inquire →</b></div></div></article>
+    <article class="feat-card" aria-hidden="true"><div class="feat-card-media"><span class="feat-card-tag">Product Drop</span><img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=900&auto=format" alt="" loading="lazy"></div><div class="feat-card-body"><h3>Adaeze Couture</h3><p>Custom Ankara, wedding looks, and made-to-measure fittings.</p><div class="feat-card-foot"><span>JLT</span><b>Shop →</b></div></div></article>
+    <article class="feat-card" aria-hidden="true"><div class="feat-card-media"><span class="feat-card-tag">Beauty</span><img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=900&auto=format" alt="" loading="lazy"></div><div class="feat-card-body"><h3>Makeda Beauty</h3><p>Bridal makeup, soft glam, and melanin-rich skincare appointments.</p><div class="feat-card-foot"><span>Marina</span><b>Reserve →</b></div></div></article>
+    <article class="feat-card" aria-hidden="true"><div class="feat-card-media"><span class="feat-card-tag">Hiring</span><img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=900&auto=format" alt="" loading="lazy"></div><div class="feat-card-body"><h3>AfroTech Jobs</h3><p>Tech and finance roles at diaspora-friendly teams across the UAE.</p><div class="feat-card-foot"><span>DIFC</span><b>Apply →</b></div></div></article>
   </div>
 </section>
 
-<!-- ═══════════ CATEGORIES ═══════════ -->
-<section class="cats reveal" id="cats">
+<section class="cats block reveal" id="cats" aria-label="Browse by category">
   <div class="container">
     <div class="section-head">
       <div class="kicker">Explore</div>
       <h2 class="section-title">The <em>communities</em><br>we serve.</h2>
       <p class="section-lede">From kitchens to studios to salon chairs — every corner of diaspora life, curated with care.</p>
     </div>
-
-    <div class="cats-grid">
-      <div class="cat wide">
-        <div class="cat-bg" style="background-image:url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1400&auto=format')"></div>
-        <div class="cat-more">→</div>
-        <div class="cat-inner">
-          <div class="kicker">01</div>
-          <div class="cat-name">Restaurants<br>& Food Sellers</div>
-        </div>
-      </div>
-      <div class="cat tall">
-        <div class="cat-bg" style="background-image:url('https://images.unsplash.com/photo-1605497788044-5a32c7078486?q=80&w=900&auto=format')"></div>
-        <div class="cat-more">→</div>
-        <div class="cat-inner">
-          <div class="kicker">02</div>
-          <div class="cat-name">Hair Stylists</div>
-        </div>
-      </div>
-      <div class="cat tall">
-        <div class="cat-bg" style="background-image:url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=900&auto=format')"></div>
-        <div class="cat-more">→</div>
-        <div class="cat-inner">
-          <div class="kicker">03</div>
-          <div class="cat-name">Barbers</div>
-        </div>
-      </div>
-      <div class="cat tall">
-        <div class="cat-bg" style="background-image:url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=900&auto=format')"></div>
-        <div class="cat-more">→</div>
-        <div class="cat-inner">
-          <div class="kicker">04</div>
-          <div class="cat-name">Photographers</div>
-        </div>
-      </div>
-      <div class="cat tall">
-        <div class="cat-bg" style="background-image:url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=900&auto=format')"></div>
-        <div class="cat-more">→</div>
-        <div class="cat-inner">
-          <div class="kicker">05</div>
-          <div class="cat-name">Jobs & Careers</div>
-        </div>
-      </div>
-      <div class="cat tall">
-        <div class="cat-bg" style="background-image:url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=900&auto=format')"></div>
-        <div class="cat-more">→</div>
-        <div class="cat-inner">
-          <div class="kicker">06</div>
-          <div class="cat-name">Tailors & Fashion</div>
-        </div>
-      </div>
-      <div class="cat wide">
-        <div class="cat-bg" style="background-image:url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1400&auto=format')"></div>
-        <div class="cat-more">→</div>
-        <div class="cat-inner">
-          <div class="kicker">07</div>
-          <div class="cat-name">Music, Events<br>& Creatives</div>
-        </div>
-      </div>
+    <div class="cats-grid reveal-stagger">
+      <a href="feed.html?category=Restaurants" class="cat wide"><div class="cat-bg" style="background-image:url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1400&auto=format')"></div><div class="cat-more" aria-hidden="true">→</div><div class="cat-inner"><div class="kicker">01</div><div class="cat-name">Restaurants<br>&amp; Food sellers</div></div></a>
+      <a href="feed.html?category=Hair%20Stylists" class="cat tall"><div class="cat-bg" style="background-image:url('https://images.unsplash.com/photo-1605497788044-5a32c7078486?q=80&w=900&auto=format')"></div><div class="cat-more" aria-hidden="true">→</div><div class="cat-inner"><div class="kicker">02</div><div class="cat-name">Hair stylists</div></div></a>
+      <a href="feed.html?category=Barbers" class="cat tall"><div class="cat-bg" style="background-image:url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=900&auto=format')"></div><div class="cat-more" aria-hidden="true">→</div><div class="cat-inner"><div class="kicker">03</div><div class="cat-name">Barbers</div></div></a>
+      <a href="feed.html?category=Photographers" class="cat tall"><div class="cat-bg" style="background-image:url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=900&auto=format')"></div><div class="cat-more" aria-hidden="true">→</div><div class="cat-inner"><div class="kicker">04</div><div class="cat-name">Photographers</div></div></a>
+      <a href="feed.html?category=Jobs" class="cat tall"><div class="cat-bg" style="background-image:url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=900&auto=format')"></div><div class="cat-more" aria-hidden="true">→</div><div class="cat-inner"><div class="kicker">05</div><div class="cat-name">Jobs &amp; careers</div></div></a>
+      <a href="feed.html?category=Tailors%20%26%20Fashion" class="cat tall"><div class="cat-bg" style="background-image:url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=900&auto=format')"></div><div class="cat-more" aria-hidden="true">→</div><div class="cat-inner"><div class="kicker">06</div><div class="cat-name">Tailors &amp; fashion</div></div></a>
+      <a href="events.html" class="cat wide"><div class="cat-bg" style="background-image:url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1400&auto=format')"></div><div class="cat-more" aria-hidden="true">→</div><div class="cat-inner"><div class="kicker">07</div><div class="cat-name">Music, events<br>&amp; creatives</div></div></a>
     </div>
   </div>
 </section>
 
-<!-- ═══════════ TRENDING ═══════════ -->
-<section class="trending reveal" id="trending">
-  <div class="container">
-    <div class="section-head">
-      <div class="kicker">Now Trending</div>
-      <h2 class="section-title">What the community<br>is <em>loving</em> this week.</h2>
-      <p class="section-lede">Live picks from members across 47 cities — from Dubai's newest jollof spot to Toronto's most booked braider.</p>
-    </div>
-
-    <div class="trend-tabs">
-      <div class="trend-tab active">All</div>
-      <div class="trend-tab">Food</div>
-      <div class="trend-tab">Hair & Beauty</div>
-      <div class="trend-tab">Photographers</div>
-      <div class="trend-tab">Jobs</div>
-    </div>
-
-    <div class="trend-list">
-      <article class="trend">
-        <div class="trend-media">
-          <span class="trend-rank">01</span>
-          <span class="trend-heat">Trending</span>
-          <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?q=80&w=800&auto=format" alt="Amara's Kitchen">
-        </div>
-        <div class="trend-name">Amara's Kitchen</div>
-        <div class="trend-meta">Nigerian · Deira, Dubai</div>
-        <div class="trend-rating"><b>4.9</b> · 847 reviews</div>
-      </article>
-      <article class="trend">
-        <div class="trend-media">
-          <span class="trend-rank">02</span>
-          <span class="trend-heat">Rising</span>
-          <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?q=80&w=800&auto=format" alt="Kemi Braids">
-        </div>
-        <div class="trend-name">Kemi Braids Studio</div>
-        <div class="trend-meta">Hair stylist · Jumeirah</div>
-        <div class="trend-rating"><b>5.0</b> · 312 reviews</div>
-      </article>
-      <article class="trend">
-        <div class="trend-media">
-          <span class="trend-rank">03</span>
-          <span class="trend-heat">Trending</span>
-          <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=800&auto=format" alt="Royal Cuts">
-        </div>
-        <div class="trend-name">Royal Cuts</div>
-        <div class="trend-meta">Barber · Al Karama</div>
-        <div class="trend-rating"><b>4.8</b> · 1,204 reviews</div>
-      </article>
-      <article class="trend">
-        <div class="trend-media">
-          <span class="trend-rank">04</span>
-          <span class="trend-heat">Featured</span>
-          <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=800&auto=format" alt="Obi Photography">
-        </div>
-        <div class="trend-name">Obi Photography</div>
-        <div class="trend-meta">Events · Business Bay</div>
-        <div class="trend-rating"><b>4.9</b> · 198 reviews</div>
-      </article>
-      <article class="trend">
-        <div class="trend-media">
-          <span class="trend-rank">05</span>
-          <span class="trend-heat">Rising</span>
-          <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800&auto=format" alt="Mama's Suya">
-        </div>
-        <div class="trend-name">Mama's Suya House</div>
-        <div class="trend-meta">Food seller · Bur Dubai</div>
-        <div class="trend-rating"><b>4.9</b> · 521 reviews</div>
-      </article>
-      <article class="trend">
-        <div class="trend-media">
-          <span class="trend-rank">06</span>
-          <span class="trend-heat">Trending</span>
-          <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=800&auto=format" alt="Adaeze Couture">
-        </div>
-        <div class="trend-name">Adaeze Couture</div>
-        <div class="trend-meta">Tailor · JLT</div>
-        <div class="trend-rating"><b>4.8</b> · 267 reviews</div>
-      </article>
-      <article class="trend">
-        <div class="trend-media">
-          <span class="trend-rank">07</span>
-          <span class="trend-heat">Hiring</span>
-          <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800&auto=format" alt="Lagos Kitchen">
-        </div>
-        <div class="trend-name">Lagos Kitchen — Head Chef</div>
-        <div class="trend-meta">Jobs · Downtown Dubai</div>
-        <div class="trend-rating"><b>AED 9K–12K</b> · Full-time</div>
-      </article>
-      <article class="trend">
-        <div class="trend-media">
-          <span class="trend-rank">08</span>
-          <span class="trend-heat">Rising</span>
-          <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=800&auto=format" alt="Makeda Beauty">
-        </div>
-        <div class="trend-name">Makeda Beauty</div>
-        <div class="trend-meta">Makeup · Dubai Marina</div>
-        <div class="trend-rating"><b>5.0</b> · 89 reviews</div>
-      </article>
+<section class="trending reveal" id="trending" aria-label="Trending this week">
+  <div class="section-head">
+    <div class="kicker">Now trending</div>
+    <h2 class="section-title">What the community<br>is <em>loving</em> this week.</h2>
+    <p class="section-lede">Live picks from members across 47 cities — from Dubai's newest jollof spot to Toronto's most-booked braider.</p>
+  </div>
+  <div class="trend-tabs" role="tablist">
+    <button class="trend-tab active" data-filter="all" type="button" role="tab" aria-selected="true">All</button>
+    <button class="trend-tab" data-filter="food" type="button" role="tab" aria-selected="false">Food</button>
+    <button class="trend-tab" data-filter="beauty" type="button" role="tab" aria-selected="false">Hair &amp; beauty</button>
+    <button class="trend-tab" data-filter="photo" type="button" role="tab" aria-selected="false">Photographers</button>
+    <button class="trend-tab" data-filter="jobs" type="button" role="tab" aria-selected="false">Jobs</button>
+  </div>
+  <div class="trend-grid">
+    <a class="trend-feature" href="business.html?id=amara" data-cat="food">
+      <span class="heat">Trending</span>
+      <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?q=80&w=1200&auto=format" alt="Amara's Kitchen" loading="lazy">
+      <div class="trend-feature-meta">
+        <div class="rank">01</div>
+        <h3>Amara's Kitchen</h3>
+        <div class="meta">Nigerian · Deira, Dubai</div>
+        <div class="rating"><b>4.9</b> · 847 reviews</div>
+      </div>
+    </a>
+    <div class="trend-list" id="trendList">
+      <a href="business.html?id=kemi" class="trend-row" data-cat="beauty">
+        <span class="rank">02</span>
+        <span class="thumb"><img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?q=80&w=400&auto=format" alt="" loading="lazy"></span>
+        <span><span class="name">Kemi Braids Studio</span><span class="meta">Hair stylist · Jumeirah</span></span>
+        <span class="rating"><b>5.0</b> · 312</span>
+      </a>
+      <a href="business.html?id=royal" class="trend-row" data-cat="beauty">
+        <span class="rank">03</span>
+        <span class="thumb"><img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=400&auto=format" alt="" loading="lazy"></span>
+        <span><span class="name">Royal Cuts</span><span class="meta">Barber · Al Karama</span></span>
+        <span class="rating"><b>4.8</b> · 1,204</span>
+      </a>
+      <a href="business.html?id=obi" class="trend-row" data-cat="photo">
+        <span class="rank">04</span>
+        <span class="thumb"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=400&auto=format" alt="" loading="lazy"></span>
+        <span><span class="name">Obi Photography</span><span class="meta">Events · Business Bay</span></span>
+        <span class="rating"><b>4.9</b> · 198</span>
+      </a>
+      <a href="business.html?id=suya" class="trend-row" data-cat="food">
+        <span class="rank">05</span>
+        <span class="thumb"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=400&auto=format" alt="" loading="lazy"></span>
+        <span><span class="name">Mama's Suya House</span><span class="meta">Food seller · Bur Dubai</span></span>
+        <span class="rating"><b>4.9</b> · 521</span>
+      </a>
+      <a href="business.html?id=lagos" class="trend-row" data-cat="jobs">
+        <span class="rank">06</span>
+        <span class="thumb"><img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=400&auto=format" alt="" loading="lazy"></span>
+        <span><span class="name">Lagos Kitchen — Head Chef</span><span class="meta">Jobs · Downtown Dubai</span></span>
+        <span class="rating"><b>AED 9–12K</b></span>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- ═══════════ CITIES ═══════════ -->
-<section class="cities reveal" id="cities">
-  <div class="container">
-    <div class="section-head">
-      <div class="kicker">Our Locations</div>
-      <h2 class="section-title">Where the<br><em>diaspora</em> gathers.</h2>
-      <p class="section-lede">We're live in 47 cities across 23 countries — with new homes opening every month.</p>
+<section class="editorial reveal" aria-label="Our story">
+  <div class="editorial-grid">
+    <div class="editorial-media">
+      <img src="https://images.unsplash.com/photo-1559305616-3f99cd43e353?q=80&w=1200&auto=format" alt="Diaspora gathering" loading="lazy">
     </div>
-
-    <div class="cities-grid">
-      <div class="city">
-        <span class="city-region">Middle East</span>
-        <span class="city-name">Dubai</span>
-        <span class="city-arrow">→</span>
-        <span class="city-count">2,847 businesses</span>
-      </div>
-      <div class="city">
-        <span class="city-region">Middle East</span>
-        <span class="city-name">Abu <em>Dhabi</em></span>
-        <span class="city-arrow">→</span>
-        <span class="city-count">1,124 businesses</span>
-      </div>
-      <div class="city">
-        <span class="city-region">Europe</span>
-        <span class="city-name">London</span>
-        <span class="city-arrow">→</span>
-        <span class="city-count">3,402 businesses</span>
-      </div>
-      <div class="city">
-        <span class="city-region">North America</span>
-        <span class="city-name">Toronto</span>
-        <span class="city-arrow">→</span>
-        <span class="city-count">1,958 businesses</span>
-      </div>
-      <div class="city">
-        <span class="city-region">North America</span>
-        <span class="city-name">New <em>York</em></span>
-        <span class="city-arrow">→</span>
-        <span class="city-count">2,213 businesses</span>
-      </div>
-      <div class="city">
-        <span class="city-region">Africa</span>
-        <span class="city-name">Lagos</span>
-        <span class="city-arrow">→</span>
-        <span class="city-count">4,801 businesses</span>
-      </div>
-      <div class="city">
-        <span class="city-region">Africa</span>
-        <span class="city-name">Nairobi</span>
-        <span class="city-arrow">→</span>
-        <span class="city-count">1,662 businesses</span>
-      </div>
-      <div class="city">
-        <span class="city-region">Europe</span>
-        <span class="city-name">Paris</span>
-        <span class="city-arrow">→</span>
-        <span class="city-count">894 businesses</span>
-      </div>
+    <div class="editorial-copy">
+      <div class="kicker">Our story</div>
+      <h2>Built <em>for</em> the diaspora,<br><em>by</em> the diaspora.</h2>
+      <p>Diaspora began in Dubai with a simple frustration — the best Nigerian rice, the sharpest Ghanaian barbers, and the most gifted Kenyan photographers were scattered across group chats, neighborhoods, and rumor.</p>
+      <p>We built the home they deserved. A single curated marketplace where authenticity is verified, communities discover each other, and every business owner keeps 100% of what they earn. No middlemen. No commission on your kitchen, your chair, or your craft.</p>
+      <a href="about.html" class="btn btn-ghost" style="margin-top:24px" data-magnet>Read more</a>
     </div>
   </div>
 </section>
 
-<!-- ═══════════ HOURS / CONTACT ═══════════ -->
-<section class="hours reveal">
-  <div class="hours-block">
-    <h3>Always <em>open</em>,<br>always <em>on.</em></h3>
-    <div class="hours-list">
-      <div class="row"><span class="day">App & Web</span><span class="hrs">24 / 7 / 365</span></div>
-      <div class="row"><span class="day">Member Support</span><span class="hrs">8:00 AM — 11:00 PM GST</span></div>
-      <div class="row"><span class="day">Seller Onboarding</span><span class="hrs">Mon — Sat, 10:00 — 19:00 GST</span></div>
-      <div class="row"><span class="day">Press & Partnerships</span><span class="hrs">By appointment</span></div>
-    </div>
+<section class="cities reveal" id="cities" aria-label="Cities">
+  <div class="section-head">
+    <div class="kicker">Our locations</div>
+    <h2 class="section-title">Where the<br><em>diaspora</em> gathers.</h2>
+    <p class="section-lede">Live in 47 cities across 23 countries — with new homes opening every month.</p>
   </div>
-  <div class="hours-block">
-    <h3>Stay in <em>touch.</em></h3>
-    <div class="contact-lines">
-      <p><span class="big">hello@diaspora.app</span></p>
-      <p>Global HQ — Dubai, United Arab Emirates<br>
-      Boulevard Plaza Tower, Downtown Dubai</p>
-      <p>WhatsApp business — <a href="#">+971 50 200 4567</a><br>
-      Press inquiries — <a href="#">press@diaspora.app</a></p>
-    </div>
+  <div class="cities-grid reveal-stagger">
+    <a href="feed.html?city=Dubai" class="city"><span class="city-region">Middle East</span><span class="city-name">Dubai</span><span class="city-arrow">→</span><span class="city-count"><b data-count="2847">0</b> businesses</span></a>
+    <a href="feed.html?city=Abu%20Dhabi" class="city"><span class="city-region">Middle East</span><span class="city-name">Abu <em>Dhabi</em></span><span class="city-arrow">→</span><span class="city-count"><b data-count="1124">0</b> businesses</span></a>
+    <a href="feed.html?city=London" class="city"><span class="city-region">Europe</span><span class="city-name">London</span><span class="city-arrow">→</span><span class="city-count"><b data-count="3402">0</b> businesses</span></a>
+    <a href="feed.html?city=Toronto" class="city"><span class="city-region">North America</span><span class="city-name">Toronto</span><span class="city-arrow">→</span><span class="city-count"><b data-count="1958">0</b> businesses</span></a>
+    <a href="feed.html?city=New%20York" class="city"><span class="city-region">North America</span><span class="city-name">New <em>York</em></span><span class="city-arrow">→</span><span class="city-count"><b data-count="2213">0</b> businesses</span></a>
+    <a href="feed.html?city=Lagos" class="city"><span class="city-region">Africa</span><span class="city-name">Lagos</span><span class="city-arrow">→</span><span class="city-count"><b data-count="4801">0</b> businesses</span></a>
+    <a href="feed.html?city=Nairobi" class="city"><span class="city-region">Africa</span><span class="city-name">Nairobi</span><span class="city-arrow">→</span><span class="city-count"><b data-count="1662">0</b> businesses</span></a>
+    <a href="feed.html?city=Paris" class="city"><span class="city-region">Europe</span><span class="city-name">Paris</span><span class="city-arrow">→</span><span class="city-count"><b data-count="894">0</b> businesses</span></a>
   </div>
 </section>
 
-<!-- ═══════════ CLOSING ═══════════ -->
-<section class="closing reveal" id="legacy-sellers">
-  <div class="closing-bg"></div>
+<section class="closing reveal" id="legacy-sellers" aria-label="For sellers">
+  <div class="closing-bg" aria-hidden="true"></div>
   <div class="closing-inner">
-    <div class="kicker">For Sellers</div>
+    <div class="kicker">For sellers</div>
     <h2>Your craft<br><em>deserves</em> a home.</h2>
-    <p>
-      Restaurants, salons, photographers, tailors — list your business in minutes and
-      reach 2.4 million diaspora members worldwide. Free to start. Zero commission. Forever.
-    </p>
-    <div class="hero-ctas">
-      <a href="signup-firebase.html" class="btn btn-light">Become a Seller</a>
-      <a href="#cats-new" class="btn btn-outline">Explore Categories</a>
+    <p>Restaurants, salons, photographers, tailors — list your business in minutes and reach the diaspora community worldwide. Free to start. Zero commission. Forever.</p>
+    <div class="hero-ctas" style="opacity:1;animation:none">
+      <a href="signup-firebase.html" class="btn btn-light" data-magnet>Become a seller</a>
+      <a href="pricing.html" class="btn btn-outline" data-magnet>See pricing</a>
     </div>
   </div>
 </section>
 
-<!-- ═══════════ FOOTER ═══════════ -->
-<footer>
+</main>
+
+<footer aria-label="Site footer">
   <div class="footer-top">
     <div>
-      <img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="The Diaspora App logo" class="foot-logo">
+      <img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="The Diaspora App logo" class="foot-logo" width="172" height="62">
       <p class="foot-tag">A tribute to the global diaspora soul — authentic food, skilled hands, and the jobs that keep our communities thriving.</p>
+      <form class="foot-news" id="newsletterForm" novalidate>
+        <input type="email" name="email" placeholder="Email for the weekly digest" required aria-label="Email for newsletter">
+        <button type="submit">Subscribe</button>
+      </form>
+      <p id="news-status" role="status" style="font-size:12px;color:rgba(246,242,234,0.6);margin-top:12px;min-height:14px"></p>
       <div class="foot-socials">
-        <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
-        <a href="#" aria-label="TikTok"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.1z"/></svg></a>
-        <a href="#" aria-label="X"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-        <a href="#" aria-label="WhatsApp"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg></a>
+        <a href="https://www.instagram.com/" rel="me noopener" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="https://www.tiktok.com/" rel="me noopener" aria-label="TikTok"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.84-.1z"/></svg></a>
+        <a href="https://x.com/" rel="me noopener" aria-label="X"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="https://wa.me/971502004567" rel="me noopener" aria-label="WhatsApp"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg></a>
       </div>
     </div>
-    <div class="foot-col">
-      <h4>Discover</h4>
-      <a href="#featured">Featured Ads</a>
-      <a href="#cats-new">Ad Products</a>
-      <a href="#cities-new">Cities</a>
-      <a href="blog.html">Blog</a>
-      <a href="events.html">Events</a>
-    </div>
-    <div class="foot-col">
-      <h4>For Sellers</h4>
-      <a href="signup-firebase.html">List Your Business</a>
-      <a href="events.html#register-event">Register an Event</a>
-      <a href="#">Pricing</a>
-      <a href="#">Seller Guide</a>
-      <a href="#">Success Stories</a>
-    </div>
-    <div class="foot-col">
-      <h4>Company</h4>
-      <a href="#">About</a>
-      <a href="#">Careers</a>
-      <a href="#">Press</a>
-      <a href="#">Contact</a>
-    </div>
+    <div class="foot-col"><h4>Discover</h4><a href="feed.html">Directory</a><a href="events.html">Events</a><a href="blog.html">Blog</a></div>
+    <div class="foot-col"><h4>For sellers</h4><a href="pricing.html">Pricing</a><a href="signup-firebase.html">List your business</a><a href="events.html#register-event">Register event</a></div>
+    <div class="foot-col"><h4>Company</h4><a href="about.html">About</a><a href="careers.html">Careers</a><a href="press.html">Press</a><a href="contact.html">Contact</a></div>
   </div>
   <div class="foot-bottom">
-    <span>© 2026 Diaspora — All rights reserved</span>
-    <span>Privacy · Terms · Cookies</span>
+    <span>© 2026 The Diaspora App — All rights reserved · Operated by NDN Analytics</span>
+    <span><a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="cookies.html">Cookies</a></span>
   </div>
 </footer>
 
 <script>
-/* ═══ Nav scroll state ═══ */
-const nav = document.getElementById('topnav');
-function onScroll(){
-  const y = window.scrollY;
-  nav.classList.toggle('scrolled', y > 60);
-  nav.classList.toggle('light', y < window.innerHeight - 120);
+function track(name, params){
+  try{
+    if(typeof gtag === 'function') gtag('event', name, params || {});
+    if(window.firebase && window.firebase.analytics) window.firebase.analytics().logEvent(name, params || {});
+  }catch(e){}
 }
-onScroll();
-window.addEventListener('scroll', onScroll, {passive:true});
 
-/* Site menu */
+(function(){
+  const nav = document.getElementById('topnav');
+  let lastY = 0;
+  function onScroll(){
+    const y = window.scrollY;
+    nav.classList.toggle('scrolled', y > 60);
+    nav.classList.toggle('light', y < window.innerHeight - 140);
+    nav.classList.toggle('hidden', y > 280 && y > lastY + 4);
+    lastY = y;
+    const sp = document.getElementById('scrollProgress');
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    if(sp) sp.style.width = max>0 ? (y/max*100)+'%' : '0';
+  }
+  onScroll();
+  window.addEventListener('scroll', onScroll, {passive:true});
+})();
+
+(function(){
+  const reduced = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const bg = document.getElementById('heroBg');
+  const glow = document.getElementById('heroGlow');
+  const hero = document.querySelector('.hero');
+  if(!reduced && bg){
+    window.addEventListener('scroll', ()=>{
+      const y = window.scrollY;
+      if(y < window.innerHeight) bg.style.transform = `translateY(${y*0.18}px) scale(${1.0 + y*0.00012})`;
+    }, {passive:true});
+  }
+  if(!reduced && hero && glow){
+    hero.addEventListener('pointermove', (e)=>{
+      const r = hero.getBoundingClientRect();
+      glow.style.left = (e.clientX - r.left) + 'px';
+      glow.style.top = (e.clientY - r.top) + 'px';
+    });
+  }
+})();
+
+(function(){
+  const reduced = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(reduced) return;
+  document.querySelectorAll('[data-magnet]').forEach(el=>{
+    el.addEventListener('pointermove', (e)=>{
+      const r = el.getBoundingClientRect();
+      const x = (e.clientX - r.left - r.width/2) / r.width;
+      const y = (e.clientY - r.top - r.height/2) / r.height;
+      el.style.transform = `translate(${x*8}px, ${y*6}px)`;
+    });
+    el.addEventListener('pointerleave', ()=>{ el.style.transform = ''; });
+  });
+})();
+
 (function(){
   const openBtn = document.getElementById('menuOpen');
   const closeBtn = document.getElementById('menuClose');
   const drawer = document.getElementById('siteMenu');
   const overlay = document.getElementById('menuOverlay');
-
   function setMenu(open){
     drawer?.classList.toggle('open', open);
     overlay?.classList.toggle('open', open);
@@ -1429,137 +984,199 @@ window.addEventListener('scroll', onScroll, {passive:true});
     overlay?.setAttribute('aria-hidden', String(!open));
     document.body.style.overflow = open ? 'hidden' : '';
   }
-
   openBtn?.addEventListener('click', ()=>setMenu(true));
   closeBtn?.addEventListener('click', ()=>setMenu(false));
   overlay?.addEventListener('click', ()=>setMenu(false));
-  document.addEventListener('keydown', (event)=>{
-    if (event.key === 'Escape') setMenu(false);
-  });
-  document.querySelectorAll('#siteMenu a').forEach(link=>{
-    link.addEventListener('click', ()=>setMenu(false));
-  });
+  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') setMenu(false); });
+  document.querySelectorAll('#siteMenu a').forEach(l=> l.addEventListener('click', ()=>setMenu(false)));
 })();
 
-/* Spotlight carousel */
 (function(){
   const slides = Array.from(document.querySelectorAll('.spotlight-slide'));
   const tabs = Array.from(document.querySelectorAll('.spot-tab'));
   const prev = document.getElementById('spotPrev');
   const next = document.getElementById('spotNext');
-  const spotlight = document.querySelector('.spotlight');
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let index = 0;
-  let timer = null;
-
-  if (!slides.length) return;
-
-  function setSpotlight(nextIndex){
-    index = (nextIndex + slides.length) % slides.length;
-    slides.forEach((slide, i)=>{
-      const isActive = i === index;
-      slide.classList.toggle('active', isActive);
-      slide.setAttribute('aria-hidden', String(!isActive));
-    });
-    tabs.forEach((tab, i)=>{
-      const isActive = i === index;
-      tab.classList.toggle('active', isActive);
-      tab.setAttribute('aria-selected', String(isActive));
+  const stage = document.querySelector('.spotlight');
+  const reduced = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  let index = 0, timer = null;
+  if(!slides.length) return;
+  function setSpotlight(n){
+    index = (n + slides.length) % slides.length;
+    slides.forEach((s,i)=>{ const a=i===index; s.classList.toggle('active',a); s.setAttribute('aria-hidden',String(!a)); });
+    tabs.forEach((t,i)=>{
+      const a = i===index;
+      t.classList.toggle('active', a);
+      t.setAttribute('aria-selected', String(a));
+      const p = t.querySelector('.progress');
+      if(p){ p.style.animation='none'; void p.offsetWidth; p.style.animation=''; }
     });
   }
-
-  function stop(){
-    if (timer) window.clearInterval(timer);
-    timer = null;
-  }
-
-  function start(){
-    if (prefersReducedMotion || timer) return;
-    timer = window.setInterval(()=>setSpotlight(index + 1), 6500);
-  }
-
-  prev?.addEventListener('click', ()=>{ setSpotlight(index - 1); stop(); start(); });
-  next?.addEventListener('click', ()=>{ setSpotlight(index + 1); stop(); start(); });
-  tabs.forEach((tab, i)=>{
-    tab.setAttribute('role', 'tab');
-    tab.addEventListener('click', ()=>{ setSpotlight(i); stop(); start(); });
+  function stop(){ if(timer){clearInterval(timer); timer=null;} }
+  function start(){ if(reduced || timer) return; timer = setInterval(()=>setSpotlight(index+1), 7000); }
+  prev?.addEventListener('click', ()=>{ setSpotlight(index-1); stop(); start(); });
+  next?.addEventListener('click', ()=>{ setSpotlight(index+1); stop(); start(); });
+  tabs.forEach((t,i)=> t.addEventListener('click', ()=>{ setSpotlight(i); stop(); start(); }));
+  stage?.addEventListener('keydown', (e)=>{
+    if(e.key==='ArrowLeft'){ setSpotlight(index-1); stop(); start(); }
+    if(e.key==='ArrowRight'){ setSpotlight(index+1); stop(); start(); }
   });
-  spotlight?.addEventListener('mouseenter', stop);
-  spotlight?.addEventListener('mouseleave', start);
-
-  setSpotlight(0);
-  start();
+  stage?.setAttribute('tabindex','-1');
+  let sx=0;
+  stage?.addEventListener('touchstart', e=>{ sx=e.touches[0].clientX; stop(); }, {passive:true});
+  stage?.addEventListener('touchend', e=>{
+    const dx = e.changedTouches[0].clientX - sx;
+    if(Math.abs(dx) > 40) setSpotlight(index + (dx<0 ? 1 : -1));
+    start();
+  });
+  stage?.addEventListener('mouseenter', stop);
+  stage?.addEventListener('mouseleave', start);
+  setSpotlight(0); start();
 })();
 
-/* ═══ Search dropdowns ═══ */
-function toggleDD(el, key){
-  const wasOpen = el.classList.contains('open');
-  document.querySelectorAll('.sw-field').forEach(f=>f.classList.remove('open'));
-  if (!wasOpen) el.classList.add('open');
-}
-function pickItem(ev, key, label){
-  ev.stopPropagation();
-  document.getElementById(key+'-val').textContent = label;
-  const dd = document.getElementById(key+'-dd');
-  dd.querySelectorAll('.sw-item').forEach(i=>i.classList.remove('selected'));
-  ev.currentTarget.classList.add('selected');
-  document.querySelectorAll('.sw-field').forEach(f=>f.classList.remove('open'));
-}
-document.addEventListener('click', e=>{
-  if (!e.target.closest('.sw-field')) {
-    document.querySelectorAll('.sw-field').forEach(f=>f.classList.remove('open'));
-  }
-});
-
-/* ═══ Trending tabs (presentational) ═══ */
-document.querySelectorAll('.trend-tab').forEach(t=>{
-  t.onclick = () => {
-    document.querySelectorAll('.trend-tab').forEach(x=>x.classList.remove('active'));
-    t.classList.add('active');
-  };
-});
-
-/* ═══ Reveal on scroll ═══ */
-const io = new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{ if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-},{threshold:0.12});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
-/* ═══ Auth state — swap nav ═══ */
 (function(){
-  try {
-    const u = JSON.parse(localStorage.getItem('diaspora_user') || 'null');
-    if (u && u.email){
-      const a = document.getElementById('nav-account');
-      if (a){ a.textContent = u.firstName || 'My Profile'; a.href = 'profile.html'; }
+  const fields = document.querySelectorAll('.sw-field[data-key]');
+  function closeAll(){ fields.forEach(f=>{ f.classList.remove('open'); f.setAttribute('aria-expanded','false'); }); }
+  fields.forEach(f=>{
+    f.addEventListener('click', (e)=>{
+      if(e.target.closest('.sw-item')) return;
+      const wasOpen = f.classList.contains('open');
+      closeAll();
+      if(!wasOpen){ f.classList.add('open'); f.setAttribute('aria-expanded','true'); }
+    });
+    f.querySelectorAll('.sw-item').forEach(item=>{
+      item.addEventListener('click', (ev)=>{
+        ev.stopPropagation();
+        const key = f.dataset.key;
+        const val = item.dataset.val;
+        const flag = item.dataset.flag || '';
+        const valEl = document.getElementById(key+'-val');
+        if(valEl) valEl.textContent = (flag ? flag+' ' : '') + (val || (key==='category'?'All categories':key==='city'?'Choose city':'Anywhere'));
+        const hidden = f.querySelector('input[type=hidden]');
+        if(hidden) hidden.value = val;
+        f.querySelectorAll('.sw-item').forEach(i=>i.classList.remove('selected'));
+        item.classList.add('selected');
+        closeAll();
+      });
+    });
+  });
+  document.addEventListener('click', e=>{ if(!e.target.closest('.sw-field')) closeAll(); });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeAll(); });
+  document.getElementById('searchForm')?.addEventListener('submit', ()=>{
+    track('search_submit', {
+      country: document.querySelector('input[name=country]')?.value,
+      city: document.querySelector('input[name=city]')?.value,
+      category: document.querySelector('input[name=category]')?.value,
+      q: document.getElementById('q-input')?.value || ''
+    });
+  });
+})();
+
+(function(){
+  const tabs = document.querySelectorAll('.trend-tab');
+  const rows = document.querySelectorAll('#trendList .trend-row');
+  const feature = document.querySelector('.trend-feature');
+  tabs.forEach(t=>{
+    t.addEventListener('click', ()=>{
+      tabs.forEach(x=>{ x.classList.remove('active'); x.setAttribute('aria-selected','false'); });
+      t.classList.add('active'); t.setAttribute('aria-selected','true');
+      const f = t.dataset.filter;
+      rows.forEach(r=>{
+        const match = (f==='all') || (r.dataset.cat===f);
+        r.style.display = match ? '' : 'none';
+      });
+      if(feature){
+        const fmatch = (f==='all') || (feature.dataset.cat===f);
+        feature.style.opacity = fmatch ? '1' : '0.35';
+      }
+      track('trend_filter', { filter:f });
+    });
+  });
+})();
+
+(function(){
+  const reduced = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const counters = document.querySelectorAll('[data-count]');
+  if(!counters.length) return;
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting) return;
+      const el = e.target;
+      const target = parseInt(el.dataset.count, 10);
+      if(reduced){ el.textContent = target.toLocaleString(); io.unobserve(el); return; }
+      const dur = 1400, t0 = performance.now();
+      function step(now){
+        const t = Math.min(1, (now - t0)/dur);
+        const eased = 1 - Math.pow(1-t, 3);
+        el.textContent = Math.floor(eased * target).toLocaleString();
+        if(t<1) requestAnimationFrame(step); else el.textContent = target.toLocaleString();
+      }
+      requestAnimationFrame(step);
+      io.unobserve(el);
+    });
+  },{threshold:0.4});
+  counters.forEach(c=>io.observe(c));
+})();
+
+(function(){
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:0.12});
+  document.querySelectorAll('.reveal, .reveal-stagger').forEach(el=>io.observe(el));
+})();
+
+(function(){
+  const form = document.getElementById('newsletterForm');
+  const status = document.getElementById('news-status');
+  if(!form) return;
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const email = form.email.value.trim();
+    if(!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){
+      status.textContent = 'Please enter a valid email.';
+      return;
     }
-  } catch(e){}
+    status.textContent = 'Adding you to the digest…';
+    try{
+      const mod = await import('./firebase-config.js').catch(()=>null);
+      if(mod && mod.db){
+        const { setDoc, doc, db } = mod;
+        await setDoc(doc(db, 'newsletter', email.toLowerCase()), { email: email.toLowerCase(), source:'home_footer', createdAt: new Date().toISOString() });
+      }
+      status.textContent = 'You\'re in. Look out for the weekly digest.';
+      track('newsletter_signup', {source:'home_footer'});
+      form.reset();
+    }catch(err){
+      console.warn(err);
+      status.textContent = 'You\'re in. Look out for the weekly digest.';
+      form.reset();
+    }
+  });
+})();
+
+(function(){
+  try{
+    const u = JSON.parse(localStorage.getItem('diaspora_user') || 'null');
+    if(u && u.email){
+      const a = document.getElementById('nav-account');
+      if(a){ a.textContent = u.firstName || 'My profile'; a.href = 'profile.html'; }
+    }
+  }catch(e){}
 })();
 </script>
 
 <script type="module">
 import { auth, db, onAuthStateChanged, doc, getDoc } from './firebase-config.js';
-
 onAuthStateChanged(auth, async (user) => {
   const account = document.getElementById('nav-account');
   if (!account) return;
-
-  if (!user) {
-    account.textContent = 'Sign in';
-    account.href = 'login-firebase.html';
-    return;
-  }
-
-  let profile = { uid: user.uid, email: user.email, firstName: user.displayName || 'My Profile' };
+  if (!user) { account.textContent = 'Sign in'; account.href = 'login-firebase.html'; return; }
+  let profile = { uid: user.uid, email: user.email, firstName: user.displayName || 'My profile' };
   try {
-    const userSnap = await getDoc(doc(db, 'users', user.uid));
-    if (userSnap.exists()) profile = { ...profile, ...userSnap.data() };
-  } catch (error) {
-    console.warn('Firebase profile lookup failed:', error);
-  }
-
+    const snap = await getDoc(doc(db, 'users', user.uid));
+    if (snap.exists()) profile = { ...profile, ...snap.data() };
+  } catch (e) { console.warn('Firebase profile lookup failed:', e); }
   localStorage.setItem('diaspora_user', JSON.stringify(profile));
-  account.textContent = profile.firstName || 'My Profile';
+  account.textContent = profile.firstName || 'My profile';
   account.href = 'profile.html';
 });
 </script>

@@ -1,0 +1,56 @@
+{
+  "name": "The Diaspora App",
+  "short_name": "Diaspora",
+  "description": "Premium discovery for diaspora-owned restaurants, salons, photographers, fashion houses, jobs, and events worldwide.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0A0A0A",
+  "theme_color": "#0A0A0A",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["lifestyle", "social", "shopping", "food", "business"],
+  "icons": [
+    {
+      "src": "Media%20resources/TheDiaspora%20app%20logo%203D.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "Media%20resources/TheDiaspora%20app%20logo%203D.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Explore Businesses",
+      "short_name": "Explore",
+      "description": "Browse the diaspora business directory",
+      "url": "/feed.html"
+    },
+    {
+      "name": "Events",
+      "short_name": "Events",
+      "description": "Diaspora events near you",
+      "url": "/events.html"
+    },
+    {
+      "name": "Blog",
+      "short_name": "Blog",
+      "description": "Diaspora business stories and guides",
+      "url": "/blog.html"
+    },
+    {
+      "name": "Become a Seller",
+      "short_name": "Sell",
+      "description": "List your diaspora business",
+      "url": "/signup-firebase.html"
+    }
+  ],
+  "screenshots": []
+}

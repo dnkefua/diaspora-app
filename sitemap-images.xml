@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://www.thediaspora.app/</loc>
+    <image:image>
+      <image:loc>https://www.thediaspora.app/Media%20resources/TheDiaspora%20app%20logo%203D.png</image:loc>
+      <image:title>The Diaspora App — 3D logo</image:title>
+      <image:caption>The Diaspora App brand mark</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&amp;w=2400&amp;auto=format</image:loc>
+      <image:title>Diaspora homepage hero</image:title>
+      <image:caption>Diaspora businesses, events, and community spaces worldwide</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.thediaspora.app/feed.html</loc>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&amp;w=900&amp;auto=format</image:loc>
+      <image:title>Diaspora restaurants and food sellers</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1605497788044-5a32c7078486?q=80&amp;w=900&amp;auto=format</image:loc>
+      <image:title>Diaspora hair stylists</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&amp;w=900&amp;auto=format</image:loc>
+      <image:title>Diaspora barbers</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&amp;w=900&amp;auto=format</image:loc>
+      <image:title>Diaspora photographers</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&amp;w=900&amp;auto=format</image:loc>
+      <image:title>Diaspora fashion houses and tailors</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.thediaspora.app/events.html</loc>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&amp;w=1400&amp;auto=format</image:loc>
+      <image:title>Diaspora music, events and creatives</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.thediaspora.app/blog.html</loc>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1559305616-3f99cd43e353?q=80&amp;w=1200&amp;auto=format</image:loc>
+      <image:title>The Diaspora App editorial</image:title>
+    </image:image>
+  </url>
+</urlset>

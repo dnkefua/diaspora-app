@@ -1,30 +1,62 @@
 # The Diaspora App
 
-> Premium discovery, events, blogs, and advertising for diaspora-owned businesses and communities.
+> Premium discovery, events, blogs, and advertising for diaspora-owned businesses and global communities.
 
-The Diaspora App helps people discover diaspora-owned restaurants, salons, barbers, fashion houses, photographers, jobs, events, and local services across global cities.
+The Diaspora App is a curated marketplace and discovery platform connecting the global diaspora — starting with the African diaspora in the UAE — to authentic, vetted, diaspora-owned restaurants, salons, barbers, fashion houses, photographers, tailors, event organizers, and hiring businesses. The platform is mobile-first, mobile-and-web accessible, and runs on Firebase. Direct WhatsApp contact between members and businesses is the primary engagement model — there is zero marketplace commission on sellers.
 
-## Priority URLs
+## Operator
+- Built and operated by NDN Analytics — https://www.ndnanalytics.com/
+- Headquarters: Dubai, United Arab Emirates
+- Contact: hello@diaspora.app
 
-- Home: https://www.thediaspora.app/
-- Business directory: https://www.thediaspora.app/feed.html
-- Blog: https://www.thediaspora.app/blog.html
-- Events: https://www.thediaspora.app/events.html
-- Sitemap: https://www.thediaspora.app/sitemap.xml
+## Cities and markets
+Active and rolling out: Dubai, Abu Dhabi, Sharjah, London, Toronto, New York, Lagos, Nairobi, Paris, Accra, Johannesburg, Houston.
+
+## Core sections
+
+- [Homepage](https://www.thediaspora.app/): Premium landing with featured spotlights, search, categories, trending businesses, cities, editorial story, seller call-to-action.
+- [Business Directory](https://www.thediaspora.app/feed.html): Filterable directory of diaspora-owned businesses by country, city, area, and category.
+- [Blog](https://www.thediaspora.app/blog.html): Editorial articles on diaspora business growth, events, marketing, and SEO.
+- [Events](https://www.thediaspora.app/events.html): Diaspora-led food weeks, beauty connects, markets, and community gatherings worldwide.
+- [Pricing](https://www.thediaspora.app/pricing.html): Free, Pro, Enterprise, job-posting, and sponsored placement tiers.
+- [About](https://www.thediaspora.app/about.html): Company background, mission, leadership, and trust commitments.
+- [Contact](https://www.thediaspora.app/contact.html): Member support, seller onboarding, press inquiries.
+- [Press](https://www.thediaspora.app/press.html): Press kit, founder photos, brand assets.
+- [Careers](https://www.thediaspora.app/careers.html): Open roles at NDN Analytics and The Diaspora App.
+- [Privacy](https://www.thediaspora.app/privacy.html), [Terms](https://www.thediaspora.app/terms.html), [Cookies](https://www.thediaspora.app/cookies.html): Legal.
+
+## Editorial — Blog posts
+
+- [How to Advertise a Diaspora Business](https://www.thediaspora.app/blog-diaspora-business-advertising.html)
+- [How to Launch a Diaspora Event](https://www.thediaspora.app/blog-how-to-launch-diaspora-event.html)
+- [Google-Ready Marketplace SEO](https://www.thediaspora.app/blog-google-ready-marketplace-seo.html)
+
+## Featured events
+
+- [Dubai Diaspora Market](https://www.thediaspora.app/event-dubai-diaspora-market.html)
+- [London Food Week](https://www.thediaspora.app/event-london-food-week.html)
+- [Toronto Beauty Connect](https://www.thediaspora.app/event-toronto-beauty-connect.html)
+
+## Categories
+Restaurants, Food Sellers, Hair Stylists, Barbers, Photographers, Jobs, Tailors & Fashion, Beauty & Makeup, Music & Events, Creatives.
+
+## Crawl targets
+
+- Sitemap index: https://www.thediaspora.app/sitemap.xml
+- Pages sitemap: https://www.thediaspora.app/sitemap-pages.xml
+- Blog sitemap: https://www.thediaspora.app/sitemap-blog.xml
+- Events sitemap: https://www.thediaspora.app/sitemap-events.xml
+- Image sitemap: https://www.thediaspora.app/sitemap-images.xml
 - RSS feed: https://www.thediaspora.app/feed.xml
+- Full LLM context: https://www.thediaspora.app/llms-full.txt
+- Robots: https://www.thediaspora.app/robots.txt
 
-## Blog URLs
+## Crawler policy
+Public marketplace, blog, and event pages are explicitly opted-in for AI search and LLM training. Authentication, profile, and seller dashboard pages are disallowed. See robots.txt for full directives covering GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, anthropic-ai, Google-Extended, PerplexityBot, CCBot, cohere-ai, Meta-ExternalAgent, Applebot-Extended, Bytespider, Amazonbot, and others.
 
-- https://www.thediaspora.app/blog-diaspora-business-advertising.html
-- https://www.thediaspora.app/blog-how-to-launch-diaspora-event.html
-- https://www.thediaspora.app/blog-google-ready-marketplace-seo.html
-
-## Event URLs
-
-- https://www.thediaspora.app/event-dubai-diaspora-market.html
-- https://www.thediaspora.app/event-london-food-week.html
-- https://www.thediaspora.app/event-toronto-beauty-connect.html
-
-## Publisher
-
-Created by NDN Analytics. Public website: https://www.ndnanalytics.com/
+## Trust commitments
+- Zero marketplace commission on diaspora businesses.
+- Verified, vetted seller profiles.
+- Direct WhatsApp contact — no middlemen between members and businesses.
+- Community-first review and rating system.
+- 100% diaspora-owned business showcase.
