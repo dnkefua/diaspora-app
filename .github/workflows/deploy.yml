@@ -3,7 +3,7 @@ name: Deploy to Firebase Hosting
 on:
   push:
     branches: [master]
-  workflow_dispatch:
+  workflow_dispatch: {}
 
 jobs:
   precheck:
@@ -52,5 +52,4 @@ jobs:
           fi
 
       - name: Deploy to Firebase Hosting
-        if: ${{ secrets.FIREBASE_TOKEN != '' }}
         run: firebase deploy --only hosting --token "${{ secrets.FIREBASE_TOKEN }}" --project the-diaspora-app
