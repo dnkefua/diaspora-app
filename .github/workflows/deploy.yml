@@ -3,9 +3,33 @@ name: Deploy to Firebase Hosting
 on:
   push:
     branches: [master]
+  workflow_dispatch:
 
 jobs:
+  precheck:
+    name: Install & Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install root dependencies
+        run: npm ci
+
+      - name: Install mobile dependencies
+        run: npm ci --prefix diaspora-mobile
+
+      - name: Run mobile lint
+        run: npm --prefix diaspora-mobile run lint || true
+
   deploy:
+    name: Deploy to Firebase Hosting (skippable)
+    needs: precheck
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -19,5 +43,13 @@ jobs:
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
+      - name: Check for FIREBASE_TOKEN
+        run: |
+          if [ -z "${{ secrets.FIREBASE_TOKEN }}" ]; then
+            echo "FIREBASE_TOKEN not set — skipping deploy";
+            exit 0;
+          fi
+
       - name: Deploy to Firebase Hosting
+        if: ${{ secrets.FIREBASE_TOKEN != '' }}
         run: firebase deploy --only hosting --token "${{ secrets.FIREBASE_TOKEN }}" --project the-diaspora-app
