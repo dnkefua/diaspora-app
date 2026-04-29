@@ -3,6 +3,17 @@
     "public": ".",
     "ignore": [
       "firebase.json",
+      ".firebaserc",
+      "package.json",
+      "package-lock.json",
+      "npm-debug.log",
+      "yarn.lock",
+      "pnpm-lock.yaml",
+      "tsconfig.json",
+      "README.md",
+      "*.md",
+      "*.yml",
+      "*.yaml",
       "**/.*",
       ".git",
       ".git/**",
@@ -10,18 +21,16 @@
       ".github/**",
       ".claude",
       ".claude/**",
+      ".expo",
+      ".expo/**",
+      ".firebase",
       "**/node_modules/**",
+      "diaspora-mobile/**",
       "Media resources/TheDiaspora app logo.png",
       "seed-data.js",
       "FIREBASE_SETUP.md",
       "firebase-debug.log",
       "*.log"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
     ],
     "headers": [
       {
@@ -34,8 +43,7 @@
         ]
       }
     ]
-  }
-  ,
+  },
   "firestore": {
     "rules": "firestore.rules"
   },

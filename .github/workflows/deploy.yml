@@ -41,9 +41,6 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install Firebase CLI
-        run: npm install -g firebase-tools
-
       - name: Check for FIREBASE_TOKEN
         run: |
           if [ -z "${{ secrets.FIREBASE_TOKEN }}" ]; then
@@ -52,4 +49,9 @@ jobs:
           fi
 
       - name: Deploy to Firebase Hosting
-        run: firebase deploy --only hosting --token "${{ secrets.FIREBASE_TOKEN }}" --project the-diaspora-app
+        if: ${{ secrets.FIREBASE_TOKEN != '' }}
+        uses: w9jds/firebase-action@v2
+        with:
+          args: deploy --only hosting --project the-diaspora-app
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

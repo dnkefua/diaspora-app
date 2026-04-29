@@ -4,11 +4,11 @@
  */
 
 // Import Firebase modules via CDN
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.5.0/firebase-app.js';
-import { getAnalytics } from 'https://www.gstatic.com/firebasejs/11.5.0/firebase-analytics.js';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, sendEmailVerification, updateProfile as updateAuthProfile } from 'https://www.gstatic.com/firebasejs/11.5.0/firebase-auth.js';
-import { getFirestore, collection, doc, setDoc, getDoc, updateDoc, query, where, getDocs, orderBy, limit, startAfter, addDoc, arrayUnion, deleteDoc } from 'https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js';
-import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'https://www.gstatic.com/firebasejs/11.5.0/firebase-storage.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js';
+import { getAnalytics } from 'https://www.gstatic.com/firebasejs/12.12.1/firebase-analytics.js';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, sendEmailVerification, updateProfile as updateAuthProfile } from 'https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js';
+import { getFirestore, collection, doc, setDoc, getDoc, updateDoc, query, where, getDocs, orderBy, limit, startAfter, addDoc, arrayUnion, deleteDoc } from 'https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js';
+import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'https://www.gstatic.com/firebasejs/12.12.1/firebase-storage.js';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {

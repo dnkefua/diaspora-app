@@ -594,4 +594,29 @@ Contingency:            $1,500 (15%)
 
 **Design System Owner**: Dez Dezzydez  
 **Last Updated**: 2026-04-24  
-**Status**: Ready for Development  
+**Status**: Ready for Development
+
+---
+
+## 14. CI/CD CONFIGURATION
+
+### 14.1 Service Account Setup
+- **Service Account Name**: `ci-deployer`
+- **Display Name**: "CI Deployer"
+- **Created with**: `gcloud iam service-accounts create ci-deployer --display-name="CI Deployer"`
+
+### 14.2 IAM Policy Bindings
+- **Project**: `the-diaspora-app`
+- **Member**: `serviceAccount:ci-deployer@the-diaspora-app.iam.gserviceaccount.com`
+- **Role**: `roles/firebasehosting.admin`
+- **Created with**: `gcloud projects add-iam-policy-binding the-diaspora-app --member="serviceAccount:ci-deployer@the-diaspora-app.iam.gserviceaccount.com" --role="roles/firebasehosting.admin"`
+
+- **Role**: `roles/firebaserules.admin`
+- **Created with**: `gcloud projects add-iam-policy-binding the-diaspora-app --member="serviceAccount:ci-deployer@the-diaspora-app.iam.gserviceaccount.com" --role="roles/firebaserules.admin"`
+
+- **Role**: `roles/storage.admin`
+- **Created with**: `gcloud projects add-iam-policy-binding the-diaspora-app --member="serviceAccount:ci-deployer@the-diaspora-app.iam.gserviceaccount.com" --role="roles/storage.admin"`
+
+### 14.3 Service Account Key
+- **Key File**: `./ci-deployer-key.json`
+- **Created with**: `gcloud iam service-accounts keys create ./ci-deployer-key.json --iam-account=ci-deployer@the-diaspora-app.iam.gserviceaccount.com`

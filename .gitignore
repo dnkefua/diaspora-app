@@ -3,12 +3,15 @@ node_modules/
 .env.local
 .DS_Store
 Thumbs.db
+.expo/
 *.log
+workflow_logs.zip
 dist/
 build/
 .vscode/
 .idea/
 .firebase/
+.claude/
 firebase-debug.log
 firestore-debug.log
 ui-debug.log
