@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
-import { Button } from '../components/Button';
-import { colors, typography, spacing } from '../constants/designTokens';
+import { View, Text, StyleSheet, FlatList, Platform } from 'react-native';
+import { Button } from '../../components/Button';
+import { colors, typography, spacing, radius } from '../../constants/designTokens';
 
 export const MessagesScreen = () => {
   const [messages, setMessages] = React.useState([]);
@@ -9,7 +9,7 @@ export const MessagesScreen = () => {
   React.useEffect(() => {
     // In a real app, this would fetch messages from Firebase
     setMessages([
-      { id: '1', name: 'Amara\\'s Kitchen', lastMessage: 'Thanks for your order!', time: '2:30 PM', unread: 2 },
+      { id: '1', name: "Amara's Kitchen", lastMessage: 'Thanks for your order!', time: '2:30 PM', unread: 2 },
       { id: '2', name: 'Kemi Braids Studio', lastMessage: 'Your appointment is confirmed for tomorrow', time: 'Yesterday', unread: 0 },
       { id: '3', name: 'Royal Cuts', lastMessage: 'Walk-ins welcome today!', time: 'Yesterday', unread: 1 },
     ]);
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     color: colors.textDark,
   },
   
-  messageItem: {
+    messageItem: {
     padding: spacing.md,
     backgroundColor: '#fff',
     marginVertical: spacing.xs,
@@ -129,16 +129,16 @@ const styles = StyleSheet.create({
     color: colors.textLight,
   },
   
-  unreadBadge: {
-    backgroundColor: colors.primaryGold,
-    paddingHorizontal: spacing.xs,
-    paddingVertical: spacing.xs,
-    borderRadius: 10,
-    minWidth:  minWidth: 20,
-    height: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+    unreadBadge: {
+      backgroundColor: colors.primaryGold,
+      paddingHorizontal: spacing.xs,
+      paddingVertical: spacing.xs,
+      borderRadius: 10,
+      minWidth: 20,
+      height: 20,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
   
   unreadText: {
     fontSize: typography.caption.fontSize,

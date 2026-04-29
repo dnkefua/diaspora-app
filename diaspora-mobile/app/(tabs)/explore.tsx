@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { FlatList, View, Text, StyleSheet, ActivityIndicator, RefreshControl } from 'react-native';
-import { BusinessCard } from '../components/BusinessCard';
-import { Button } from '../components/Button';
-import { colors, typography } from '../constants/designTokens';
+import { BusinessCard } from '../../components/BusinessCard';
+import { Button } from '../../components/Button';
+import { colors, typography } from '../../constants/designTokens';
 import { collection, getDocs, query, orderBy, limit } from 'firebase/firestore';
-import { db } from '../constants/firebase';
+import { db } from '../../constants/firebase';
 
 export default function ExploreScreen() {
   const [businesses, setBusinesses] = useState([]);

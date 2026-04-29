@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { Button } from '../components/Button';
-import { colors, typography, spacing } from '../constants/designTokens';
+import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native';
+import { Button } from '../../components/Button';
+import { colors, typography, spacing, radius } from '../../constants/designTokens';
 
 export const ProfileScreen = () => {
   return (
@@ -10,7 +10,7 @@ export const ProfileScreen = () => {
       <View style={styles.profileHeader}>
         {/* In a real app, this would be the user's avatar */}
         <View style={styles.avatarPlaceholder}>
-          <Text style={styles.avatarText>UD</Text>
+          <Text style={styles.avatarText}>UD</Text>
         </View>
         <View style={styles.profileInfo}>
           <Text style={styles.profileName}>User Name</Text>
@@ -25,20 +25,20 @@ export const ProfileScreen = () => {
       </View>
       
       {/* Stats */}
-      <View style={statsSection}>
+      <View style={styles.statsSection}>
         <Text style={styles.sectionTitle}>Your Stats</Text>
-        <View style={statsContainer}>
-          <View style={statsItem}>
-            <Text style={styles.statNumber>12</Text>
-            <Text style={styles.statLabel>Reviews Written</Text>
+        <View style={styles.statsContainer}>
+          <View style={styles.statsItem}>
+            <Text style={styles.statNumber}>12</Text>
+            <Text style={styles.statLabel}>Reviews Written</Text>
           </View>
-          <View style={statsItem}>
-            <Text style={styles.statNumber>5</Text>
-            <Text style={styles.statLabel>Saved Businesses</Text>
+          <View style={styles.statsItem}>
+            <Text style={styles.statNumber}>5</Text>
+            <Text style={styles.statLabel}>Saved Businesses</Text>
           </View>
-          <View style={statsItem}>
-            <Text style={styles.statNumber>3</Text>
-            <Text style={styles.statLabel>Messages Sent</Text>
+          <View style={styles.statsItem}>
+            <Text style={styles.statNumber}>3</Text>
+            <Text style={styles.statLabel}>Messages Sent</Text>
           </View>
         </View>
       </View>
@@ -51,25 +51,25 @@ export const ProfileScreen = () => {
             // Navigate to my reviews
             console.log('My reviews');
           }}>
-            <Text style={styles.actionText>My Reviews</Text>
+            <Text style={styles.actionText}>My Reviews</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.actionItem} onPress={() => {
             // Navigate to my applications
             console.log('My applications');
           }}>
-            <Text style={styles.actionText>My Job Applications</Text>
+            <Text style={styles.actionText}>My Job Applications</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.actionItem} onPress={() => {
             // Navigate to settings
             console.log('Settings');
           }}>
-            <Text style={styles.actionText>Settings</Text>
+            <Text style={styles.actionText}>Settings</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.actionItem, styles.dangerAction]} onPress={() => {
             // Handle logout
             console.log('Logout');
           }}>
-            <Text style={styles.actionText>Log Out</Text>
+            <Text style={styles.actionText}>Log Out</Text>
           </TouchableOpacity>
         </View>
       </View>

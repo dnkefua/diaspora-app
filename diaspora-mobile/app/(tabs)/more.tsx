@@ -1,7 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
-import { Button } from '../components/Button';
-import { colors, typography, spacing } from '../constants/designTokens';
+import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native';
+import { colors, typography, spacing, radius } from '../../constants/designTokens';
 
 export const MoreScreen = () => {
   const sections = [

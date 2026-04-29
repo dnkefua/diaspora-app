@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
-import { colors, typography, spacing } from '../constants/designTokens';
+import { View, Text, StyleSheet, Platform } from 'react-native';
+import { colors, typography, spacing, radius } from '../../constants/designTokens';
 
 export const SearchScreen = () => {
   return (
@@ -22,19 +22,19 @@ export const SearchScreen = () => {
         <View style={styles.categoriesContainer}>
           {/* Category chips - in a real app, these would be scrollable */}
           <View style={styles.categoryChip}>
-            <Text style={styles.categoryChipText>Restaurants</Text>
+            <Text style={styles.categoryChipText}>Restaurants</Text>
           </View>
           <View style={styles.categoryChip}>
-            <Text style={styles.categoryChipText>Food Sellers</Text>
+            <Text style={styles.categoryChipText}>Food Sellers</Text>
           </View>
           <View style={styles.categoryChip}>
-            <Text style={styles.categoryChipText>Barbers</Text>
+            <Text style={styles.categoryChipText}>Barbers</Text>
           </View>
           <View style={styles.categoryChip}>
-            <Text style={styles.categoryChipText>Stylists</Text>
+            <Text style={styles.categoryChipText}>Stylists</Text>
           </View>
           <View style={styles.categoryChip}>
-            <Text style={styles.categoryChipText>Jobs</Text>
+            <Text style={styles.categoryChipText}>Jobs</Text>
           </View>
         </View>
       </View>

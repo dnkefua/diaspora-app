@@ -1,10 +1,10 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ExploreScreen from './explore';
-import SearchScreen from './search';
-import MessagesScreen from './messages';
-import ProfileScreen from './profile';
-import MoreScreen from './more';
-import { colors } from '../constants/designTokens';
+import { SearchScreen } from './search';
+import { MessagesScreen } from './messages';
+import { ProfileScreen } from './profile';
+import { MoreScreen } from './more';
+import { colors } from '../../constants/designTokens';
 
 const Tab = createBottomTabNavigator();
 

@@ -56,15 +56,15 @@ export const Button = ({
     <TouchableOpacity
       onPress={onPress}
       disabled={disabled}
-      style>[
+      style={[
         styles.container,
         getButtonStyle(),
         getSizeStyle(),
         disabled && styles.disabled,
-        props.style
-      ]
+        props.style,
+      ]}
     >
-      <Text style=[styles.text, getTextStyle(), disabled && styles.disabledText]>
+      <Text style={[styles.text, getTextStyle(), disabled && styles.disabledText]}>
         {children}
       </Text>
     </TouchableOpacity>
