@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add *)",
+      "Bash(git commit)",
+      "Bash(git commit -m 'docs: update roadmap with completed Phase 2-4 *)",
+      "Bash(git commit *)",
+      "Bash(firebase login *)",
+      "Bash(firebase hosting:channel:deploy live --force)",
+      "Bash(git push *)"
+    ]
+  }
+}
