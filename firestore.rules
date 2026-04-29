@@ -1,0 +1,33 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Users: authenticated users can read/write their own profile
+    match /users/{userId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Businesses: public read, write only for owners
+    match /businesses/{bizId} {
+      allow read: if true;
+      allow write: if request.auth != null && request.auth.uid == request.resource.data.ownerId;
+    }
+
+    // Reviews: public read, authenticated write
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // Event submissions: authenticated users can create, admins can modify
+    match /event_submissions/{docId} {
+      allow create: if request.auth != null;
+      allow read, update, delete: if false; // restrict via admin console or Cloud Functions
+    }
+
+    // Fallback: deny anything else
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

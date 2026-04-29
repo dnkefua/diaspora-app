@@ -1,0 +1,15 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Allow public read for uploaded business images
+    match /businesses/{bizId}/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // Default: deny
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

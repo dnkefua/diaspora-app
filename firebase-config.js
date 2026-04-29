@@ -15,7 +15,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyAYzO3ZByiY_H2jkY6nKbaGfFWID7Woe-Y",
   authDomain: "the-diaspora-app.firebaseapp.com",
   projectId: "the-diaspora-app",
-  storageBucket: "the-diaspora-app.firebasestorage.app",
+  storageBucket: "the-diaspora-app.appspot.com",
   messagingSenderId: "530318956241",
   appId: "1:530318956241:web:9eec93a0bd2f73356717f0",
   measurementId: "G-KLK9TQV19S"
