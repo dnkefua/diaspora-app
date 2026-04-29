@@ -25,6 +25,7 @@ jobs:
         run: npm install --prefix diaspora-mobile --no-audit --no-fund
 
       - name: Run mobile lint
+        continue-on-error: true
         run: npm --prefix diaspora-mobile run lint || true
 
   deploy:
