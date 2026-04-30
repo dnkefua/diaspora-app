@@ -6,6 +6,24 @@
 <link rel="icon" type="image/png" href="Media%20resources/TheDiaspora%20app%20logo%203D.png">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#0A0A0A">
+
+<!-- iOS / iPadOS PWA -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Diaspora">
+<link rel="apple-touch-icon" href="Media%20resources/TheDiaspora%20app%20logo%203D.png">
+
+<!-- Microsoft tile -->
+<meta name="msapplication-TileColor" content="#0A0A0A">
+<meta name="msapplication-TileImage" content="Media%20resources/TheDiaspora%20app%20logo%203D.png">
+
+<!-- Hero image preload — LCP candidate -->
+<link rel="preload" as="image" fetchpriority="high"
+      href="https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=2400&auto=format&fit=crop"
+      imagesrcset="https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=1200&auto=format&fit=crop 1200w,
+                   https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=1800&auto=format&fit=crop 1800w,
+                   https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=2400&auto=format&fit=crop 2400w">
+
 <title>The Diaspora App | Premium Discovery for Diaspora Businesses</title>
 <meta name="description" content="A curated home for diaspora-owned restaurants, salons, barbers, photographers, fashion houses, and creative talent across Dubai, London, Toronto, Lagos, Nairobi, and beyond.">
 <meta name="robots" content="index,follow,max-image-preview:large">
@@ -978,7 +996,7 @@ footer{background:var(--graphite); color:var(--paper); padding:72px 0 24px}
       <div class="ad-tile-media">
         <span class="ad-tile-badge">Sponsored</span>
         <button class="ad-tile-bookmark" aria-label="Save Mama Titi Kitchen"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></button>
-        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1600&auto=format&fit=crop" alt="Family-style jollof tray with grilled meats" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1600&auto=format&fit=crop" alt="Family-style jollof tray with grilled meats" loading="lazy" decoding="async">
         <div class="ad-tile-overlay">
           <span class="ad-tile-loc">Deira · Dubai</span>
           <span class="ad-tile-rating">4.9</span>
@@ -999,7 +1017,7 @@ footer{background:var(--graphite); color:var(--paper); padding:72px 0 24px}
       <div class="ad-tile-media">
         <span class="ad-tile-badge">Featured</span>
         <button class="ad-tile-bookmark" aria-label="Save Mama's Suya House"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></button>
-        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1600&auto=format&fit=crop" alt="Open-flame suya skewers" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1600&auto=format&fit=crop" alt="Open-flame suya skewers" loading="lazy" decoding="async">
         <div class="ad-tile-overlay">
           <span class="ad-tile-loc">Bur Dubai</span>
           <span class="ad-tile-rating">4.9</span>
@@ -1020,7 +1038,7 @@ footer{background:var(--graphite); color:var(--paper); padding:72px 0 24px}
       <div class="ad-tile-media">
         <span class="ad-tile-badge">Sponsored</span>
         <button class="ad-tile-bookmark" aria-label="Save Lagos Kitchen"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></button>
-        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1600&auto=format&fit=crop" alt="Plated West African dinner spread" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1600&auto=format&fit=crop" alt="Plated West African dinner spread" loading="lazy" decoding="async">
         <div class="ad-tile-overlay">
           <span class="ad-tile-loc">Downtown Dubai</span>
           <span class="ad-tile-rating">4.8</span>
@@ -1041,7 +1059,7 @@ footer{background:var(--graphite); color:var(--paper); padding:72px 0 24px}
       <div class="ad-tile-media">
         <span class="ad-tile-badge">New</span>
         <button class="ad-tile-bookmark" aria-label="Save Accra Bites"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></button>
-        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=1600&auto=format&fit=crop" alt="Plantain rice bowl with grilled tilapia" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=1600&auto=format&fit=crop" alt="Plantain rice bowl with grilled tilapia" loading="lazy" decoding="async">
         <div class="ad-tile-overlay">
           <span class="ad-tile-loc">JLT</span>
           <span class="ad-tile-rating">5.0</span>
@@ -1077,7 +1095,7 @@ footer{background:var(--graphite); color:var(--paper); padding:72px 0 24px}
       <div class="ad-tile-media">
         <span class="ad-tile-badge">Sponsored</span>
         <button class="ad-tile-bookmark" aria-label="Save Kemi Braids Studio"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></button>
-        <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?q=80&w=1600&auto=format&fit=crop" alt="Knotless box braids portrait" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?q=80&w=1600&auto=format&fit=crop" alt="Knotless box braids portrait" loading="lazy" decoding="async">
         <div class="ad-tile-overlay">
           <span class="ad-tile-loc">Jumeirah</span>
           <span class="ad-tile-rating">5.0</span>
@@ -1098,7 +1116,7 @@ footer{background:var(--graphite); color:var(--paper); padding:72px 0 24px}
       <div class="ad-tile-media">
         <span class="ad-tile-badge">Featured</span>
         <button class="ad-tile-bookmark" aria-label="Save Royal Cuts"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></button>
-        <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=1600&auto=format&fit=crop" alt="Premium fade haircut in barber chair" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=1600&auto=format&fit=crop" alt="Premium fade haircut in barber chair" loading="lazy" decoding="async">
         <div class="ad-tile-overlay">
           <span class="ad-tile-loc">Al Karama</span>
           <span class="ad-tile-rating">4.8</span>
@@ -1119,7 +1137,7 @@ footer{background:var(--graphite); color:var(--paper); padding:72px 0 24px}
       <div class="ad-tile-media">
         <span class="ad-tile-badge">Sponsored</span>
         <button class="ad-tile-bookmark" aria-label="Save Makeda Beauty"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></button>
-        <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?q=80&w=1600&auto=format&fit=crop" alt="Bridal makeup artist at work" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?q=80&w=1600&auto=format&fit=crop" alt="Bridal makeup artist at work" loading="lazy" decoding="async">
         <div class="ad-tile-overlay">
           <span class="ad-tile-loc">Dubai Marina</span>
           <span class="ad-tile-rating">5.0</span>
@@ -1140,7 +1158,7 @@ footer{background:var(--graphite); color:var(--paper); padding:72px 0 24px}
       <div class="ad-tile-media">
         <span class="ad-tile-badge">New</span>
         <button class="ad-tile-bookmark" aria-label="Save Loc Theory"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></button>
-        <img src="https://images.unsplash.com/photo-1522336572468-97b06e8ef143?q=80&w=1600&auto=format&fit=crop" alt="Loc retwist styling session" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1522336572468-97b06e8ef143?q=80&w=1600&auto=format&fit=crop" alt="Loc retwist styling session" loading="lazy" decoding="async">
         <div class="ad-tile-overlay">
           <span class="ad-tile-loc">Business Bay</span>
           <span class="ad-tile-rating">4.9</span>
@@ -1221,42 +1239,42 @@ footer{background:var(--graphite); color:var(--paper); padding:72px 0 24px}
     <article class="trend" data-cat="food">
       <div class="trend-media">
         <span class="trend-rank">01</span><span class="trend-heat">Trending</span>
-        <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?q=80&w=600&auto=format&fit=crop" alt="Amara's Kitchen" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?q=80&w=600&auto=format&fit=crop" alt="Amara's Kitchen" loading="lazy" decoding="async">
       </div>
       <div><div class="trend-name">Amara's Kitchen</div><div class="trend-meta">Nigerian · Deira, Dubai</div><div class="trend-rating"><b>4.9</b>847 reviews</div></div>
     </article>
     <article class="trend" data-cat="beauty">
       <div class="trend-media">
         <span class="trend-rank">02</span><span class="trend-heat">Rising</span>
-        <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?q=80&w=600&auto=format&fit=crop" alt="Kemi Braids" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?q=80&w=600&auto=format&fit=crop" alt="Kemi Braids" loading="lazy" decoding="async">
       </div>
       <div><div class="trend-name">Kemi Braids Studio</div><div class="trend-meta">Hair stylist · Jumeirah</div><div class="trend-rating"><b>5.0</b>312 reviews</div></div>
     </article>
     <article class="trend" data-cat="beauty">
       <div class="trend-media">
         <span class="trend-rank">03</span><span class="trend-heat">Trending</span>
-        <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=600&auto=format&fit=crop" alt="Royal Cuts" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=600&auto=format&fit=crop" alt="Royal Cuts" loading="lazy" decoding="async">
       </div>
       <div><div class="trend-name">Royal Cuts</div><div class="trend-meta">Barber · Al Karama</div><div class="trend-rating"><b>4.8</b>1,204 reviews</div></div>
     </article>
     <article class="trend" data-cat="photo">
       <div class="trend-media">
         <span class="trend-rank">04</span><span class="trend-heat">Featured</span>
-        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=600&auto=format&fit=crop" alt="Obi Photography" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=600&auto=format&fit=crop" alt="Obi Photography" loading="lazy" decoding="async">
       </div>
       <div><div class="trend-name">Obi Photography</div><div class="trend-meta">Events · Business Bay</div><div class="trend-rating"><b>4.9</b>198 reviews</div></div>
     </article>
     <article class="trend" data-cat="food">
       <div class="trend-media">
         <span class="trend-rank">05</span><span class="trend-heat">Rising</span>
-        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=600&auto=format&fit=crop" alt="Mama's Suya" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=600&auto=format&fit=crop" alt="Mama's Suya" loading="lazy" decoding="async">
       </div>
       <div><div class="trend-name">Mama's Suya House</div><div class="trend-meta">Food seller · Bur Dubai</div><div class="trend-rating"><b>4.9</b>521 reviews</div></div>
     </article>
     <article class="trend" data-cat="jobs">
       <div class="trend-media">
         <span class="trend-rank">06</span><span class="trend-heat">Hiring</span>
-        <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=600&auto=format&fit=crop" alt="Lagos Kitchen hiring" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=600&auto=format&fit=crop" alt="Lagos Kitchen hiring" loading="lazy" decoding="async">
       </div>
       <div><div class="trend-name">Lagos Kitchen — Head Chef</div><div class="trend-meta">Jobs · Downtown Dubai</div><div class="trend-rating"><b>AED 9K–12K</b>Full-time</div></div>
     </article>
@@ -1399,26 +1417,35 @@ window.addEventListener('scroll', onScroll, {passive:true});
 
 /* ─── Spotlight carousel ─── */
 (function(){
-  const slides = Array.from(document.querySelectorAll('.spotlight-slide'));
-  const dots = Array.from(document.querySelectorAll('.spot-dot'));
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const stage = document.querySelector('.spotlight-stage');
   const prev = document.getElementById('spotPrev');
   const next = document.getElementById('spotNext');
-  const stage = document.querySelector('.spotlight-stage');
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let i = 0, timer = null;
-  if (!slides.length) return;
+  const getSlides = () => Array.from(document.querySelectorAll('.spotlight-slide'));
+  const getDots = () => Array.from(document.querySelectorAll('.spot-dot'));
   function go(n){
+    const slides = getSlides();
+    if (!slides.length) return;
     i = (n + slides.length) % slides.length;
     slides.forEach((s,k)=>{ s.classList.toggle('active', k===i); s.setAttribute('aria-hidden', String(k!==i)); });
-    dots.forEach((d,k)=>d.classList.toggle('active', k===i));
+    getDots().forEach((d,k)=>d.classList.toggle('active', k===i));
   }
   function stop(){ if (timer) clearInterval(timer); timer = null; }
-  function start(){ if (reduced || timer) return; timer = setInterval(()=>go(i+1), 6500); }
+  function start(){
+    if (reduced || timer) return;
+    if (getSlides().length < 2) return;
+    timer = setInterval(()=>go(i+1), 6500);
+  }
+  function bindDots(){
+    getDots().forEach((d,k)=>{ d.onclick = ()=>{ go(k); stop(); start(); }; });
+  }
   prev?.addEventListener('click', ()=>{ go(i-1); stop(); start(); });
   next?.addEventListener('click', ()=>{ go(i+1); stop(); start(); });
-  dots.forEach((d,k)=>d.addEventListener('click', ()=>{ go(k); stop(); start(); }));
+  bindDots();
   stage?.addEventListener('mouseenter', stop);
   stage?.addEventListener('mouseleave', start);
+  document.addEventListener('spotlight:reload', ()=>{ stop(); i = 0; bindDots(); go(0); start(); });
   go(0); start();
 })();
 
@@ -1511,7 +1538,9 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 </script>
 
 <script type="module">
-import { auth, db, onAuthStateChanged, doc, getDoc } from './firebase-config.js';
+import { auth, db, onAuthStateChanged, doc, getDoc, collection, getDocs, query, where } from './firebase-config.js';
+
+/* Auth-state nav swap */
 onAuthStateChanged(auth, async (user) => {
   const account = document.getElementById('nav-account');
   if (!account) return;
@@ -1531,6 +1560,113 @@ onAuthStateChanged(auth, async (user) => {
   account.textContent = profile.firstName || 'My Profile';
   account.href = 'profile.html';
 });
+
+/* Live sponsorships swap-in
+   Hardcoded HTML serves as fast-paint fallback. After load we fetch
+   active sponsorships from Firestore and swap them into the matching
+   slots. Public read on /sponsorships per firestore.rules. */
+(async function loadSponsorships(){
+  try {
+    const snap = await getDocs(query(collection(db, 'sponsorships'), where('status','==','active')));
+    if (snap.empty) return;
+    const now = Date.now();
+    const active = [];
+    snap.forEach(d => {
+      const s = { id: d.id, ...d.data() };
+      const startsOk = !s.startsAt || s.startsAt.toMillis() <= now;
+      const endsOk = !s.endsAt || s.endsAt.toMillis() > now;
+      if (startsOk && endsOk) active.push(s);
+    });
+    if (!active.length) return;
+
+    const bySlot = active.reduce((m, s) => { (m[s.slot] = m[s.slot] || []).push(s); return m; }, {});
+
+    /* Spotlight (rotating top of page) */
+    if (bySlot.spotlight && bySlot.spotlight.length){
+      const stage = document.querySelector('.spotlight-stage');
+      const dotsBar = document.getElementById('spotDots');
+      if (stage){
+        const list = bySlot.spotlight.slice(0, 3);
+        stage.innerHTML = list.map((s, i) => `
+          <article class="spotlight-slide ${i === 0 ? 'active' : ''}" aria-hidden="${i === 0 ? 'false' : 'true'}">
+            <div class="spotlight-media"><img src="${esc(s.imageUrl)}" alt="${esc(s.title)}"></div>
+            <div class="spotlight-content">
+              <div class="spotlight-card">
+                <div class="spotlight-tag">${esc(s.tagline || s.badge || 'Featured')}</div>
+                <h2 class="spotlight-title">${esc(s.title)}</h2>
+                ${s.location || s.rating ? `<div class="spotlight-meta">
+                  ${s.location ? `<span class="meta-pill">${esc(s.location)}</span>` : ''}
+                  ${s.rating ? `<span class="meta-pill">★ ${esc(s.rating)}</span>` : ''}
+                </div>` : ''}
+                ${s.description ? `<p class="spotlight-desc">${esc(s.description)}</p>` : ''}
+                <div class="spotlight-ctas">
+                  <a href="${esc(s.ctaPrimary?.href || '#')}" class="btn btn-light">${esc(s.ctaPrimary?.text || 'View')}</a>
+                  ${s.ctaSecondary?.href ? `<a href="${esc(s.ctaSecondary.href)}" class="btn btn-outline">${esc(s.ctaSecondary.text)}</a>` : ''}
+                </div>
+              </div>
+            </div>
+          </article>
+        `).join('');
+        if (dotsBar){
+          dotsBar.innerHTML = list.map((_, i) => `<button class="spot-dot ${i===0?'active':''}" data-i="${i}" aria-label="Show slide ${i+1}"></button>`).join('');
+        }
+        // Restart carousel against new slides
+        document.dispatchEvent(new CustomEvent('spotlight:reload'));
+      }
+    }
+
+    /* Food rail ("On the Menu") */
+    if (bySlot.menu && bySlot.menu.length){
+      replaceTiles('#food .ad-rail', bySlot.menu, 'Order Now');
+    }
+
+    /* Beauty rail ("In the Chair") */
+    if (bySlot.chair && bySlot.chair.length){
+      replaceTiles('#beauty .ad-rail', bySlot.chair, 'Book');
+    }
+
+  } catch (err) {
+    console.warn('Sponsorship load failed (using fallback):', err);
+  }
+})();
+
+function esc(s){
+  return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function replaceTiles(railSel, items, defaultCta){
+  const rail = document.querySelector(railSel);
+  if (!rail) return;
+  const list = items.slice(0, 4);
+  if (!list.length) return;
+  rail.innerHTML = list.map(s => `
+    <article class="ad-tile" data-href="${esc(s.ctaPrimary?.href || '#')}">
+      <div class="ad-tile-media">
+        ${s.badge ? `<span class="ad-tile-badge">${esc(s.badge)}</span>` : ''}
+        <img src="${esc(s.imageUrl)}" alt="${esc(s.title)}" loading="lazy" decoding="async">
+        <div class="ad-tile-overlay">
+          ${s.location ? `<span class="ad-tile-loc">${esc(s.location)}</span>` : ''}
+          ${s.rating ? `<span class="ad-tile-rating">${esc(s.rating)}</span>` : ''}
+        </div>
+      </div>
+      <div class="ad-tile-body">
+        ${s.tagline ? `<div class="ad-tile-tag">${esc(s.tagline)}</div>` : ''}
+        <h3 class="ad-tile-name">${esc(s.title)}</h3>
+        ${s.description ? `<p class="ad-tile-desc">${esc(s.description)}</p>` : ''}
+        <div class="ad-tile-foot">
+          <span class="ad-tile-price"></span>
+          <span class="ad-tile-cta">${esc(s.ctaPrimary?.text || defaultCta)} →</span>
+        </div>
+      </div>
+    </article>
+  `).join('');
+  // Re-bind click delegation for new tiles
+  rail.querySelectorAll('.ad-tile[data-href]').forEach(tile => {
+    tile.addEventListener('click', e => {
+      if (e.target.closest('.ad-tile-bookmark')) return;
+      window.location.href = tile.dataset.href;
+    });
+  });
+}
 </script>
 
 </body>

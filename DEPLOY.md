@@ -132,6 +132,45 @@ firebase hosting:rollback
 # Firebase Console → App Hosting → diaspora-app → Rollouts → previous → "Roll back"
 ```
 
+## Polish before launch
+
+### Generate proper PWA icons
+
+Currently `manifest.webmanifest` references the source logo at every size and
+lets the browser downscale. The source is 1254×1254 so that works, but for
+maximum visual fidelity (especially on Android adaptive icons and iOS sharper
+home-screen tiles) generate purpose-built sizes:
+
+1. Drop `Media resources/TheDiaspora app logo 3D.png` into
+   [realfavicongenerator.net](https://realfavicongenerator.net/) or
+   [maskable.app](https://maskable.app/) for the maskable variant.
+2. Replace the three `icons` entries in `manifest.webmanifest` with the
+   generated paths (typically `icon-192.png`, `icon-512.png`,
+   `icon-maskable-512.png`).
+3. Also drop a single `apple-touch-icon-180.png` and update the
+   `<link rel="apple-touch-icon">` in every page's `<head>` (currently
+   only `index.html` is wired up — see grep `apple-touch-icon`).
+4. Optional: generate iOS splash images (one per device class) and add
+   `<link rel="apple-touch-startup-image" media="…">` tags to `index.html`.
+
+### Lighthouse pass
+
+Once the live custom domain is up:
+
+```bash
+npx lighthouse https://www.thediaspora.app/ \
+  --output=html \
+  --output-path=./lighthouse.html \
+  --chrome-flags="--headless"
+```
+
+Targets: ≥90 on Performance, Accessibility, Best Practices, SEO.
+The redesigned landing already preloads the hero image as an LCP candidate
+and uses `decoding="async"` on every below-fold image; the main remaining
+wins are typically (a) self-host fonts to drop the third-party connection,
+(b) compress / convert ad-tile imagery to AVIF, (c) add a service worker
+for offline + repeat-visit speed.
+
 ## Troubleshooting
 
 **Rollout is red but I can't tell why.** Click the check on the GitHub

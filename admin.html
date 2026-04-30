@@ -111,6 +111,59 @@
 }
 .toast.show{opacity:1; transform:translateX(-50%) translateY(-6px)}
 .toast.error{background:var(--rust)}
+
+/* Modal */
+.modal-overlay{
+  position:fixed; inset:0; z-index:200;
+  background:rgba(10,10,10,0.6); backdrop-filter:blur(6px);
+  display:none; align-items:center; justify-content:center;
+  padding:24px;
+}
+.modal-overlay.open{display:flex}
+.modal{
+  background:#fff; border-radius:14px;
+  width:min(640px, 100%); max-height:90vh; overflow-y:auto;
+  box-shadow:0 40px 100px rgba(0,0,0,0.4);
+}
+.modal-head{
+  padding:22px 26px; border-bottom:1px solid var(--line);
+  display:flex; align-items:center; justify-content:space-between;
+}
+.modal-head h3{font-family:'Cormorant Garamond',serif; font-weight:400; font-size:24px}
+.modal-head h3 em{font-style:italic; color:var(--brass)}
+.modal-close{
+  width:36px; height:36px; border-radius:50%;
+  border:1px solid var(--line); background:#fff; font-size:20px;
+}
+.modal-body{padding:26px}
+.modal-foot{
+  padding:18px 26px; border-top:1px solid var(--line);
+  display:flex; justify-content:flex-end; gap:10px;
+}
+.modal .field{margin-bottom:14px}
+.modal .field label{
+  display:block; font-size:10.5px; letter-spacing:0.22em; text-transform:uppercase;
+  font-weight:600; color:var(--muted); margin-bottom:6px;
+}
+.modal .field input, .modal .field select, .modal .field textarea{
+  width:100%; padding:10px 14px; border:1px solid var(--line); border-radius:8px;
+  font-family:inherit; font-size:13.5px; background:#fff;
+}
+.modal .field input:focus, .modal .field select:focus, .modal .field textarea:focus{
+  outline:none; border-color:var(--brass);
+}
+.modal .field textarea{min-height:80px; resize:vertical}
+.modal-row-2{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+
+.toolbar{
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  margin-bottom:14px;
+}
+.toolbar select{
+  padding:8px 14px; border:1px solid var(--line); border-radius:999px;
+  font-family:inherit; font-size:12px; background:#fff;
+}
+.toolbar .spacer{flex:1}
 </style>
 </head>
 <body>
@@ -150,12 +203,17 @@
 
   <div class="admin-tabs" role="tablist">
     <button class="admin-tab active" data-tab="businesses" role="tab">Businesses <span class="count" id="cnt-biz">—</span></button>
+    <button class="admin-tab" data-tab="sponsorships" role="tab">Sponsorships <span class="count" id="cnt-spo">—</span></button>
     <button class="admin-tab" data-tab="reviews" role="tab">Reviews <span class="count" id="cnt-rev">—</span></button>
     <button class="admin-tab" data-tab="admins" role="tab">Admins <span class="count" id="cnt-adm">—</span></button>
   </div>
 
   <!-- BUSINESSES PANE -->
   <section class="admin-pane active" data-pane="businesses">
+    <div class="toolbar">
+      <span class="spacer"></span>
+      <button class="btn-mini" id="seedBtn" title="One-shot: seed 8 starter businesses if collection is empty">⚡ Seed sample businesses</button>
+    </div>
     <table class="admin-table" id="bizTable">
       <thead>
         <tr>
@@ -168,6 +226,35 @@
       </thead>
       <tbody id="bizRows">
         <tr><td colspan="5" class="admin-empty" style="border:none">Loading businesses…</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- SPONSORSHIPS PANE -->
+  <section class="admin-pane" data-pane="sponsorships">
+    <div class="toolbar">
+      <select id="spoFilter">
+        <option value="all">All</option>
+        <option value="active" selected>Active</option>
+        <option value="draft">Draft</option>
+        <option value="paused">Paused</option>
+        <option value="expired">Expired</option>
+      </select>
+      <span class="spacer"></span>
+      <button class="btn-mini brass" id="newSponsorshipBtn">+ New sponsorship</button>
+    </div>
+    <table class="admin-table" id="spoTable">
+      <thead>
+        <tr>
+          <th style="width:72px"></th>
+          <th>Title · Slot</th>
+          <th>Window</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="spoRows">
+        <tr><td colspan="5" class="admin-empty" style="border:none">Loading sponsorships…</td></tr>
       </tbody>
     </table>
   </section>
@@ -213,12 +300,117 @@
 
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
+<!-- Sponsorship modal -->
+<div class="modal-overlay" id="spoModal" role="dialog" aria-modal="true" aria-labelledby="spoModalTitle">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="spoModalTitle">New <em>sponsorship</em></h3>
+      <button class="modal-close" id="spoCloseBtn" aria-label="Close">&times;</button>
+    </div>
+    <form id="spoForm" class="modal-body">
+      <input type="hidden" id="spoId">
+      <div class="modal-row-2">
+        <div class="field">
+          <label for="spoSlot">Slot</label>
+          <select id="spoSlot" required>
+            <option value="spotlight">Featured Spotlight (top of page)</option>
+            <option value="menu">On the Menu (food rail)</option>
+            <option value="chair">In the Chair (hair &amp; beauty rail)</option>
+            <option value="city">City Spotlight</option>
+            <option value="whatsapp">WhatsApp Lead Ad</option>
+            <option value="jobs">Hiring Campaign</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="spoStatus">Status</label>
+          <select id="spoStatus" required>
+            <option value="draft">Draft</option>
+            <option value="active" selected>Active</option>
+            <option value="paused">Paused</option>
+            <option value="expired">Expired</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label for="spoTitle">Title (display)</label>
+        <input id="spoTitle" type="text" required maxlength="120" placeholder="Tonight's table belongs to Amara.">
+      </div>
+      <div class="field">
+        <label for="spoTagline">Tagline / kicker</label>
+        <input id="spoTagline" type="text" maxlength="80" placeholder="Featured This Week · Dubai">
+      </div>
+      <div class="field">
+        <label for="spoDescription">Description</label>
+        <textarea id="spoDescription" maxlength="280" placeholder="Premium jollof bowls, suya platters, and weekend catering…"></textarea>
+      </div>
+      <div class="modal-row-2">
+        <div class="field">
+          <label for="spoBadge">Badge</label>
+          <input id="spoBadge" type="text" maxlength="20" placeholder="Sponsored / Featured / New">
+        </div>
+        <div class="field">
+          <label for="spoLocation">Location label</label>
+          <input id="spoLocation" type="text" maxlength="60" placeholder="Deira · Dubai">
+        </div>
+      </div>
+      <div class="modal-row-2">
+        <div class="field">
+          <label for="spoCity">City filter (optional)</label>
+          <input id="spoCity" type="text" maxlength="40" placeholder="Dubai">
+        </div>
+        <div class="field">
+          <label for="spoRating">Rating (optional)</label>
+          <input id="spoRating" type="number" step="0.1" min="0" max="5" placeholder="4.9">
+        </div>
+      </div>
+      <div class="field">
+        <label for="spoImageUrl">Image URL (HD, &gt;= 1600 wide)</label>
+        <input id="spoImageUrl" type="url" required placeholder="https://images.unsplash.com/photo-...?q=80&w=2400&auto=format&fit=crop">
+      </div>
+      <div class="modal-row-2">
+        <div class="field">
+          <label for="spoStartsAt">Starts at</label>
+          <input id="spoStartsAt" type="datetime-local" required>
+        </div>
+        <div class="field">
+          <label for="spoEndsAt">Ends at</label>
+          <input id="spoEndsAt" type="datetime-local" required>
+        </div>
+      </div>
+      <div class="modal-row-2">
+        <div class="field">
+          <label for="spoCtaText">CTA text</label>
+          <input id="spoCtaText" type="text" maxlength="40" required placeholder="View Business">
+        </div>
+        <div class="field">
+          <label for="spoCtaHref">CTA href</label>
+          <input id="spoCtaHref" type="text" required placeholder="business.html?id=b1">
+        </div>
+      </div>
+      <div class="modal-row-2">
+        <div class="field">
+          <label for="spoBusinessId">Business ID (optional)</label>
+          <input id="spoBusinessId" type="text" maxlength="40" placeholder="b1">
+        </div>
+        <div class="field">
+          <label for="spoAmountUsd">Billed (USD, optional)</label>
+          <input id="spoAmountUsd" type="number" min="0" step="10" placeholder="890">
+        </div>
+      </div>
+    </form>
+    <div class="modal-foot">
+      <button class="btn-mini" id="spoCancelBtn" type="button">Cancel</button>
+      <button class="btn-mini brass" id="spoSaveBtn" type="button">Save sponsorship</button>
+    </div>
+  </div>
+</div>
+
 <script type="module">
 import {
   auth, db,
   onAuthStateChanged, signOut,
-  collection, doc, getDoc, getDocs, updateDoc, deleteDoc,
-  query, orderBy, limit
+  collection, doc, getDoc, getDocs, addDoc, setDoc, updateDoc, deleteDoc,
+  query, orderBy, limit, where
 } from './firebase-config.js';
 
 const $ = (sel) => document.querySelector(sel);
@@ -272,7 +464,7 @@ onAuthStateChanged(auth, async (user) => {
 
 /* ─── Loaders ─── */
 async function loadAll(){
-  await Promise.all([loadBusinesses(), loadReviews(), loadAdmins()]);
+  await Promise.all([loadBusinesses(), loadSponsorships(), loadReviews(), loadAdmins()]);
 }
 
 function escapeHtml(s){
@@ -391,6 +583,228 @@ async function loadAdmins(){
   }
 }
 
+/* ─── Sponsorships ─── */
+const SLOT_LABELS = {
+  spotlight: 'Featured Spotlight',
+  menu: 'On the Menu (Food)',
+  chair: 'In the Chair (Beauty)',
+  city: 'City Spotlight',
+  whatsapp: 'WhatsApp Lead Ad',
+  jobs: 'Hiring Campaign'
+};
+
+function fmtDate(ts){
+  if (!ts) return '—';
+  const d = ts.toDate ? ts.toDate() : new Date(ts);
+  return d.toISOString().slice(0,10);
+}
+function statusOf(spo){
+  // Compute effective status: if endsAt < now and status===active, treat as expired
+  if (spo.status === 'expired' || spo.status === 'paused' || spo.status === 'draft') return spo.status;
+  if (spo.endsAt && spo.endsAt.toMillis && spo.endsAt.toMillis() < Date.now()) return 'expired';
+  return spo.status || 'draft';
+}
+
+async function loadSponsorships(){
+  const tbody = $('#spoRows');
+  const filter = $('#spoFilter').value;
+  try {
+    const snap = await getDocs(collection(db, 'sponsorships'));
+    const rows = [];
+    snap.forEach(d => rows.push({ id: d.id, ...d.data() }));
+    rows.sort((a,b) => {
+      const ax = a.startsAt?.toMillis ? a.startsAt.toMillis() : 0;
+      const bx = b.startsAt?.toMillis ? b.startsAt.toMillis() : 0;
+      return bx - ax;
+    });
+    const filtered = filter === 'all' ? rows : rows.filter(r => statusOf(r) === filter);
+    $('#cnt-spo').textContent = String(rows.length);
+    if (!filtered.length){
+      tbody.innerHTML = `<tr><td colspan="5" class="admin-empty" style="border:none">No ${filter === 'all' ? '' : filter + ' '}sponsorships yet. Click <em>+ New sponsorship</em> to create one.</td></tr>`;
+      return;
+    }
+    tbody.innerHTML = filtered.map(s => {
+      const eff = statusOf(s);
+      const pillClass = eff === 'active' ? 'pill-featured' : eff === 'draft' ? 'pill-pending' : eff === 'paused' ? 'pill-verified' : 'pill-pending';
+      return `
+      <tr data-id="${escapeHtml(s.id)}">
+        <td><img class="admin-thumb" loading="lazy" src="${escapeHtml(s.imageUrl || 'Media%20resources/TheDiaspora%20app%20logo%203D.png')}" alt=""></td>
+        <td>
+          <div><strong>${escapeHtml(s.title || '(untitled)')}</strong></div>
+          <div class="admin-cell-meta">${escapeHtml(SLOT_LABELS[s.slot] || s.slot || '')}${s.city ? ' · ' + escapeHtml(s.city) : ''}</div>
+        </td>
+        <td>
+          <div>${fmtDate(s.startsAt)} → ${fmtDate(s.endsAt)}</div>
+          ${s.amountUsd ? `<div class="admin-cell-meta">$${s.amountUsd}</div>` : ''}
+        </td>
+        <td><span class="admin-pill ${pillClass}">${eff}</span></td>
+        <td>
+          <div class="row-actions">
+            <button class="btn-mini" data-act="editSpo" data-id="${escapeHtml(s.id)}">Edit</button>
+            ${eff !== 'active' ? `<button class="btn-mini brass" data-act="activateSpo" data-id="${escapeHtml(s.id)}">Activate</button>` : `<button class="btn-mini" data-act="pauseSpo" data-id="${escapeHtml(s.id)}">Pause</button>`}
+            <button class="btn-mini danger" data-act="deleteSpo" data-id="${escapeHtml(s.id)}">Delete</button>
+          </div>
+        </td>
+      </tr>`;
+    }).join('');
+  } catch (err) {
+    console.error('Load sponsorships failed:', err);
+    tbody.innerHTML = `<tr><td colspan="5" class="admin-empty" style="border:none;color:var(--rust)">Failed to load: ${escapeHtml(err.message)}</td></tr>`;
+  }
+}
+
+$('#spoFilter').addEventListener('change', loadSponsorships);
+
+/* ─── Seed sample businesses (admin one-shot) ─── */
+const SEED_BUSINESSES = [
+  { id:'b1', name:"Mama Titi Kitchen", category:'Restaurants', city:'Dubai', area:'Deira', rating:4.9, reviews:214, phone:'+971501234567', verified:true,
+    image:'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1600&auto=format&fit=crop',
+    description:'Authentic Nigerian cuisine in the heart of Deira. Jollof rice, egusi soup, suya grills.' },
+  { id:'b2', name:"Kwame's Barbershop", category:'Barbers', city:'Dubai', area:'Al Karama', rating:4.8, reviews:189, phone:'+971502345678', verified:true,
+    image:'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=1600&auto=format&fit=crop',
+    description:'Premium fades and line-ups by West African master barbers.' },
+  { id:'b3', name:'Zara African Hair', category:'Hair Stylists', city:'Dubai', area:'Bur Dubai', rating:4.7, reviews:156, phone:'+971503456789', verified:false,
+    image:'https://images.unsplash.com/photo-1605497788044-5a32c7078486?q=80&w=1600&auto=format&fit=crop',
+    description:'Braiding, weaves, locs, and natural hair care specialists.' },
+  { id:'b4', name:'Kofi Lens Photography', category:'Photographers', city:'Dubai', area:'Downtown', rating:5.0, reviews:88, phone:'+971504567890', verified:true,
+    image:'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1600&auto=format&fit=crop',
+    description:'Wedding, event, and portrait photography. Ghanaian storytelling through your lens.' },
+  { id:'b5', name:'Adunola Fashion House', category:'Tailors & Fashion', city:'Dubai', area:'JLT', rating:4.6, reviews:72, phone:'+971505678901', verified:true,
+    image:'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=1600&auto=format&fit=crop',
+    description:'Bespoke Ankara and African prints. Wedding attire and everyday fashion.' },
+  { id:'b6', name:'Grace Beauty Studio', category:'Beauty & Makeup', city:'Dubai', area:'Jumeirah', rating:4.8, reviews:131, phone:'+971506789012', verified:true,
+    image:'https://images.unsplash.com/photo-1487412912498-0447578fcca8?q=80&w=1600&auto=format&fit=crop',
+    description:'Bridal makeup, glam looks, and skincare for melanin-rich skin.' },
+  { id:'b7', name:'Nairobi Bites', category:'Restaurants', city:'London', area:'Peckham', rating:4.5, reviews:203, phone:'+447911234567', verified:true,
+    image:'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?q=80&w=1600&auto=format&fit=crop',
+    description:'Kenyan nyama choma, ugali, and sukuma wiki in the heart of South London.' },
+  { id:'b8', name:'AfroTech Jobs — Dubai', category:'Jobs', city:'Dubai', area:'DIFC', rating:4.3, reviews:44, phone:'+971507890123', verified:true,
+    image:'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1600&auto=format&fit=crop',
+    description:'Tech and finance roles at diaspora-friendly companies across the UAE.' }
+];
+
+$('#seedBtn').addEventListener('click', async () => {
+  const btn = $('#seedBtn');
+  btn.disabled = true;
+  try {
+    const existing = await getDocs(collection(db, 'businesses'));
+    if (!existing.empty){
+      if (!confirm(`There are already ${existing.size} business(es). Seeding will create ${SEED_BUSINESSES.length} more (skipping any with duplicate IDs). Continue?`)){
+        btn.disabled = false; return;
+      }
+    }
+    let created = 0, skipped = 0;
+    for (const b of SEED_BUSINESSES){
+      const ref = doc(db, 'businesses', b.id);
+      const cur = await getDoc(ref);
+      if (cur.exists()){ skipped++; continue; }
+      await setDoc(ref, {
+        ...b,
+        ownerId: me.uid,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        images: [b.image]
+      });
+      created++;
+    }
+    flash(`Seeded ${created} business(es); skipped ${skipped} existing`);
+    await loadBusinesses();
+  } catch (err) {
+    console.error('Seed failed:', err);
+    flash(err.message || 'Seed failed', true);
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+/* Sponsorship modal */
+const spoModal = $('#spoModal');
+function openSpoModal(record){
+  document.getElementById('spoModalTitle').innerHTML = record ? `Edit <em>sponsorship</em>` : `New <em>sponsorship</em>`;
+  document.getElementById('spoId').value = record?.id || '';
+  document.getElementById('spoSlot').value = record?.slot || 'spotlight';
+  document.getElementById('spoStatus').value = record ? (record.status || 'draft') : 'active';
+  document.getElementById('spoTitle').value = record?.title || '';
+  document.getElementById('spoTagline').value = record?.tagline || '';
+  document.getElementById('spoDescription').value = record?.description || '';
+  document.getElementById('spoBadge').value = record?.badge || 'Sponsored';
+  document.getElementById('spoLocation').value = record?.location || '';
+  document.getElementById('spoCity').value = record?.city || '';
+  document.getElementById('spoRating').value = record?.rating ?? '';
+  document.getElementById('spoImageUrl').value = record?.imageUrl || '';
+  const toLocal = (d) => {
+    const dt = d?.toDate ? d.toDate() : (d ? new Date(d) : new Date());
+    const off = dt.getTimezoneOffset() * 60000;
+    return new Date(dt.getTime() - off).toISOString().slice(0,16);
+  };
+  const now = new Date();
+  const weekLater = new Date(now.getTime() + 7*24*60*60*1000);
+  document.getElementById('spoStartsAt').value = record?.startsAt ? toLocal(record.startsAt) : toLocal(now);
+  document.getElementById('spoEndsAt').value = record?.endsAt ? toLocal(record.endsAt) : toLocal(weekLater);
+  document.getElementById('spoCtaText').value = record?.ctaPrimary?.text || 'View Business';
+  document.getElementById('spoCtaHref').value = record?.ctaPrimary?.href || '';
+  document.getElementById('spoBusinessId').value = record?.businessId || '';
+  document.getElementById('spoAmountUsd').value = record?.amountUsd ?? '';
+  spoModal.classList.add('open');
+}
+function closeSpoModal(){ spoModal.classList.remove('open'); }
+
+$('#newSponsorshipBtn').addEventListener('click', ()=>openSpoModal(null));
+$('#spoCloseBtn').addEventListener('click', closeSpoModal);
+$('#spoCancelBtn').addEventListener('click', closeSpoModal);
+spoModal.addEventListener('click', (e)=>{ if (e.target === spoModal) closeSpoModal(); });
+
+$('#spoSaveBtn').addEventListener('click', async ()=>{
+  const btn = $('#spoSaveBtn'); btn.disabled = true;
+  try {
+    const id = document.getElementById('spoId').value || null;
+    const startsRaw = document.getElementById('spoStartsAt').value;
+    const endsRaw = document.getElementById('spoEndsAt').value;
+    if (!startsRaw || !endsRaw){ flash('Set start and end dates', true); btn.disabled = false; return; }
+    const data = {
+      slot: document.getElementById('spoSlot').value,
+      status: document.getElementById('spoStatus').value,
+      title: document.getElementById('spoTitle').value.trim(),
+      tagline: document.getElementById('spoTagline').value.trim() || null,
+      description: document.getElementById('spoDescription').value.trim() || null,
+      badge: document.getElementById('spoBadge').value.trim() || null,
+      location: document.getElementById('spoLocation').value.trim() || null,
+      city: document.getElementById('spoCity').value.trim() || null,
+      rating: document.getElementById('spoRating').value ? parseFloat(document.getElementById('spoRating').value) : null,
+      imageUrl: document.getElementById('spoImageUrl').value.trim(),
+      startsAt: new Date(startsRaw),
+      endsAt: new Date(endsRaw),
+      ctaPrimary: {
+        text: document.getElementById('spoCtaText').value.trim(),
+        href: document.getElementById('spoCtaHref').value.trim()
+      },
+      businessId: document.getElementById('spoBusinessId').value.trim() || null,
+      amountUsd: document.getElementById('spoAmountUsd').value ? parseFloat(document.getElementById('spoAmountUsd').value) : null,
+      updatedAt: new Date(),
+      updatedBy: me?.uid || null
+    };
+    if (!data.title || !data.imageUrl || !data.ctaPrimary.text || !data.ctaPrimary.href){
+      flash('Title, image URL, and CTA are required', true); btn.disabled = false; return;
+    }
+    if (id){
+      await updateDoc(doc(db, 'sponsorships', id), data);
+      flash('Sponsorship updated');
+    } else {
+      data.createdAt = new Date();
+      data.createdBy = me?.uid || null;
+      await addDoc(collection(db, 'sponsorships'), data);
+      flash('Sponsorship created');
+    }
+    closeSpoModal();
+    await loadSponsorships();
+  } catch (err) {
+    console.error('Save sponsorship failed:', err);
+    flash(err.message || 'Save failed', true);
+  } finally {
+    btn.disabled = false;
+  }
+});
+
 /* ─── Action delegation ─── */
 document.addEventListener('click', async (e) => {
   const btn = e.target.closest('button[data-act]');
@@ -414,6 +828,23 @@ document.addEventListener('click', async (e) => {
       await deleteDoc(doc(db, 'reviews', id));
       flash('Review deleted');
       await loadReviews();
+    } else if (act === 'editSpo'){
+      const snap = await getDoc(doc(db, 'sponsorships', id));
+      if (!snap.exists()){ flash('Sponsorship not found', true); btn.disabled = false; return; }
+      openSpoModal({ id, ...snap.data() });
+    } else if (act === 'activateSpo'){
+      await updateDoc(doc(db, 'sponsorships', id), { status: 'active', updatedAt: new Date(), updatedBy: me?.uid || null });
+      flash('Sponsorship activated');
+      await loadSponsorships();
+    } else if (act === 'pauseSpo'){
+      await updateDoc(doc(db, 'sponsorships', id), { status: 'paused', updatedAt: new Date(), updatedBy: me?.uid || null });
+      flash('Sponsorship paused');
+      await loadSponsorships();
+    } else if (act === 'deleteSpo'){
+      if (!confirm('Delete this sponsorship? This removes the placement from the landing page.')){ btn.disabled = false; return; }
+      await deleteDoc(doc(db, 'sponsorships', id));
+      flash('Sponsorship deleted');
+      await loadSponsorships();
     }
   } catch (err) {
     console.error(`${act} failed:`, err);

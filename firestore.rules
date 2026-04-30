@@ -13,12 +13,6 @@ service cloud.firestore {
     function isOwner(uid) {
       return isSignedIn() && request.auth.uid == uid;
     }
-    function unchanged(field) {
-      return request.resource.data[field] == resource.data[field];
-    }
-    function changedKeys() {
-      return request.resource.data.diff(resource.data).affectedKeys();
-    }
 
     // ── admins/{uid} ─────────────────────────────────────
     // Source of truth for admin role.
@@ -46,22 +40,56 @@ service cloud.firestore {
     match /businesses/{bizId} {
       allow read: if true;
 
-      allow create: if isSignedIn()
+      allow create: if isAdmin() || (
+        isSignedIn()
         && request.resource.data.ownerId == request.auth.uid
         // Owner cannot self-mark verified or featured at creation
         && (!('verified' in request.resource.data) || request.resource.data.verified == false)
-        && (!('featured' in request.resource.data) || request.resource.data.featured == false);
+        && (!('featured' in request.resource.data) || request.resource.data.featured == false)
+      );
 
       allow update: if (
           // Owner can update their listing, but cannot change protected fields
           isOwner(resource.data.ownerId)
-          && !changedKeys().hasAny(['verified', 'featured', 'verifiedAt', 'featuredAt', 'ownerId'])
+          && !request.resource.data.diff(resource.data).affectedKeys()
+              .hasAny(['verified', 'featured', 'verifiedAt', 'featuredAt', 'ownerId'])
         ) || (
           // Admin can change anything
           isAdmin()
         );
 
       allow delete: if isAdmin() || isOwner(resource.data.ownerId);
+    }
+
+    // ── sponsorships/{id} ────────────────────────────────
+    // Source of truth for paid placements that override the landing-page
+    // hardcoded slides/tiles. Public read (landing page reads on each load).
+    // Admin-only write — until payment flow lands, admin manually creates
+    // sponsorships from the moderation console.
+    //
+    // Schema:
+    //   businessId   string?      // optional ref to businesses/{id}
+    //   slot         string       // 'spotlight' | 'menu' | 'chair' | 'city' | ...
+    //   city         string?      // for city-targeted slots
+    //   status       string       // 'draft' | 'active' | 'paused' | 'expired'
+    //   startsAt     timestamp
+    //   endsAt       timestamp
+    //   imageUrl     string
+    //   title        string
+    //   tagline      string?
+    //   description  string?
+    //   badge        string?      // 'Sponsored' | 'Featured' | 'New'
+    //   location     string?
+    //   rating       number?
+    //   ctaPrimary   {text, href}
+    //   ctaSecondary {text, href}?
+    //   amountUsd    number?      // billed amount (placeholder until Stripe)
+    //   invoiceId    string?
+    //   createdAt    timestamp
+    //   createdBy    uid
+    match /sponsorships/{id} {
+      allow read: if true;
+      allow write: if isAdmin();
     }
 
     // ── reviews/{id} ─────────────────────────────────────
