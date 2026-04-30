@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Page not found · The Diaspora App</title>
+<meta name="robots" content="noindex,follow">
+<link rel="icon" type="image/png" href="Media%20resources/TheDiaspora%20app%20logo%203D.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="page.css">
+<style>
+.notfound{
+  min-height:100vh;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center;
+  padding:48px 24px;
+  background:var(--paper);
+}
+.notfound .code{
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-weight:300; font-size:clamp(120px, 22vw, 220px);
+  line-height:1; color:var(--brass);
+  letter-spacing:-0.04em;
+}
+.notfound h1{
+  font-family:'Cormorant Garamond',serif; font-weight:300;
+  font-size:clamp(36px, 5vw, 56px); line-height:1.05;
+  letter-spacing:-0.02em; margin:8px 0 14px; max-width:18ch;
+}
+.notfound h1 em{font-style:italic; color:var(--brass)}
+.notfound p{color:var(--muted); max-width:46ch; margin-bottom:32px}
+.notfound .ctas{display:flex; gap:12px; flex-wrap:wrap; justify-content:center}
+.notfound .brand-mark{
+  position:absolute; top:24px; left:50%; transform:translateX(-50%);
+}
+.notfound .brand-mark img{width:120px; height:42px; object-fit:contain; border-radius:10px; background:#fff; padding:3px}
+</style>
+</head>
+<body>
+<div class="notfound">
+  <a href="index.html" class="brand-mark"><img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="The Diaspora App"></a>
+  <div class="code">404</div>
+  <h1>This page<br><em>wandered off.</em></h1>
+  <p>The link is broken or the page has moved. Try the home page, or search the directory for what you needed.</p>
+  <div class="ctas">
+    <a href="index.html" class="btn btn-dark">Back to home</a>
+    <a href="feed.html" class="btn btn-outline">Search the directory</a>
+  </div>
+</div>
+</body>
+</html>

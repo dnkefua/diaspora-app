@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin · The Diaspora App</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="Media%20resources/TheDiaspora%20app%20logo%203D.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="page.css">
+<style>
+.admin-shell{max-width:1200px; margin:0 auto; padding:32px}
+.admin-banner{
+  background:var(--ink); color:var(--paper);
+  padding:14px 22px; border-radius:12px;
+  display:flex; align-items:center; gap:12px;
+  font-size:13px; margin-bottom:24px;
+}
+.admin-banner::before{content:""; width:8px; height:8px; border-radius:50%; background:var(--brass)}
+.admin-banner strong{font-weight:600}
+.admin-banner .who{margin-left:auto; opacity:0.7; font-size:12px}
+
+.admin-tabs{display:flex; gap:6px; border-bottom:1px solid var(--line); margin-bottom:24px; flex-wrap:wrap}
+.admin-tab{
+  padding:12px 22px; font-size:11.5px; letter-spacing:0.2em;
+  text-transform:uppercase; font-weight:600; color:var(--muted);
+  border-bottom:2px solid transparent; cursor:pointer;
+  transition:color 0.2s, border-color 0.2s;
+  margin-bottom:-1px;
+}
+.admin-tab.active{color:var(--ink); border-bottom-color:var(--brass)}
+.admin-tab:hover{color:var(--ink)}
+.admin-tab .count{
+  display:inline-block; margin-left:8px;
+  font-size:10px; padding:2px 8px; border-radius:999px;
+  background:var(--bone); color:var(--ink);
+}
+
+.admin-pane{display:none}
+.admin-pane.active{display:block}
+
+.admin-table{
+  width:100%; border-collapse:collapse;
+  background:#fff; border:1px solid var(--line); border-radius:12px;
+  overflow:hidden;
+}
+.admin-table th, .admin-table td{
+  text-align:left; padding:14px 18px;
+  font-size:13.5px; vertical-align:middle;
+  border-bottom:1px solid var(--line-soft);
+}
+.admin-table th{
+  background:var(--ivory);
+  font-size:10.5px; letter-spacing:0.22em; text-transform:uppercase;
+  font-weight:600; color:var(--muted);
+}
+.admin-table tr:last-child td{border-bottom:none}
+.admin-table tr:hover td{background:rgba(183,146,74,0.04)}
+.admin-thumb{width:56px; height:56px; border-radius:8px; object-fit:cover; background:#1a1a1a}
+.admin-cell-meta{font-size:11.5px; color:var(--muted); margin-top:2px}
+.admin-pill{
+  display:inline-flex; align-items:center; gap:5px;
+  font-size:10px; letter-spacing:0.18em; text-transform:uppercase;
+  font-weight:600; padding:4px 9px; border-radius:999px;
+  margin-right:4px;
+}
+.pill-verified{background:rgba(28,61,110,0.10); color:var(--blue)}
+.pill-featured{background:rgba(183,146,74,0.16); color:var(--brass)}
+.pill-pending{background:rgba(143,58,38,0.10); color:var(--rust)}
+.pill-admin{background:var(--ink); color:var(--paper)}
+
+.row-actions{display:flex; gap:6px; flex-wrap:wrap}
+.btn-mini{
+  padding:6px 12px; border-radius:999px;
+  font-size:10.5px; letter-spacing:0.18em; text-transform:uppercase; font-weight:600;
+  background:transparent; color:var(--ink); border:1px solid var(--line);
+  cursor:pointer; transition:all 0.18s;
+  white-space:nowrap;
+}
+.btn-mini:hover{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.btn-mini.brass{border-color:var(--brass); color:var(--brass)}
+.btn-mini.brass:hover{background:var(--brass); color:#fff; border-color:var(--brass)}
+.btn-mini.danger{border-color:var(--rust); color:var(--rust)}
+.btn-mini.danger:hover{background:var(--rust); color:#fff; border-color:var(--rust)}
+.btn-mini[disabled]{opacity:0.4; cursor:not-allowed}
+
+.admin-empty{
+  background:#fff; border:1px dashed var(--line); border-radius:12px;
+  padding:48px 24px; text-align:center; color:var(--muted);
+}
+
+.gate{
+  min-height:80vh; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; text-align:center;
+  padding:48px 24px; gap:18px;
+}
+.gate h1{
+  font-family:'Cormorant Garamond',serif; font-weight:300;
+  font-size:48px; line-height:1; margin-bottom:6px;
+}
+.gate h1 em{font-style:italic; color:var(--brass)}
+.gate p{color:var(--muted); max-width:46ch}
+.toast{
+  position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
+  background:var(--ink); color:var(--paper);
+  padding:14px 22px; border-radius:999px;
+  font-size:13px; box-shadow:0 16px 40px rgba(0,0,0,0.3);
+  opacity:0; transition:opacity 0.3s, transform 0.3s;
+  pointer-events:none;
+}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(-6px)}
+.toast.error{background:var(--rust)}
+</style>
+</head>
+<body>
+<header class="page-header">
+  <a href="index.html" class="brand"><img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="The Diaspora App"></a>
+  <nav>
+    <a href="index.html">Site</a>
+    <a href="seller-dashboard.html">Seller view</a>
+    <a href="#" id="signOutBtn" class="nav-account">Sign out</a>
+  </nav>
+</header>
+
+<div id="loading" class="gate">
+  <p class="kicker">Checking access</p>
+  <h1>One moment.</h1>
+</div>
+
+<div id="denied" class="gate" style="display:none">
+  <div class="kicker">403 · Restricted</div>
+  <h1>Admin <em>only.</em></h1>
+  <p>This area requires an admin role. If you believe you should have access, contact <a href="mailto:hello@thediaspora.app" style="color:var(--brass)">hello@thediaspora.app</a> from your account email.</p>
+  <a href="index.html" class="btn btn-dark" style="margin-top:14px">Back to site</a>
+</div>
+
+<div id="signedOut" class="gate" style="display:none">
+  <div class="kicker">Sign in required</div>
+  <h1>Please <em>sign in.</em></h1>
+  <p>The admin console is for verified moderators only. Sign in with your admin account to continue.</p>
+  <a href="login-firebase.html?next=admin.html" class="btn btn-dark" style="margin-top:14px">Sign in →</a>
+</div>
+
+<main id="adminApp" class="admin-shell" style="display:none">
+  <div class="admin-banner">
+    <span><strong>Moderation console</strong> · Production data. Every action is logged.</span>
+    <span class="who" id="whoami"></span>
+  </div>
+
+  <div class="admin-tabs" role="tablist">
+    <button class="admin-tab active" data-tab="businesses" role="tab">Businesses <span class="count" id="cnt-biz">—</span></button>
+    <button class="admin-tab" data-tab="reviews" role="tab">Reviews <span class="count" id="cnt-rev">—</span></button>
+    <button class="admin-tab" data-tab="admins" role="tab">Admins <span class="count" id="cnt-adm">—</span></button>
+  </div>
+
+  <!-- BUSINESSES PANE -->
+  <section class="admin-pane active" data-pane="businesses">
+    <table class="admin-table" id="bizTable">
+      <thead>
+        <tr>
+          <th style="width:72px"></th>
+          <th>Business</th>
+          <th>Category · City</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="bizRows">
+        <tr><td colspan="5" class="admin-empty" style="border:none">Loading businesses…</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- REVIEWS PANE -->
+  <section class="admin-pane" data-pane="reviews">
+    <table class="admin-table" id="revTable">
+      <thead>
+        <tr>
+          <th>Author</th>
+          <th>Business</th>
+          <th>Rating</th>
+          <th>Excerpt</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="revRows">
+        <tr><td colspan="5" class="admin-empty" style="border:none">Loading reviews…</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ADMINS PANE -->
+  <section class="admin-pane" data-pane="admins">
+    <table class="admin-table" id="admTable">
+      <thead>
+        <tr>
+          <th>UID</th>
+          <th>Email / Name</th>
+          <th>Granted</th>
+        </tr>
+      </thead>
+      <tbody id="admRows">
+        <tr><td colspan="3" class="admin-empty" style="border:none">Loading admins…</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:18px; font-size:13px; color:var(--muted)">
+      To grant admin access: in Firebase Console → Firestore → <code>admins</code> collection, create a document with the user's UID as the doc ID. The doc may contain <code>{ email, name, grantedAt }</code> fields.
+      <strong>Do not</strong> add admin write logic to the client — bootstrap is intentionally manual for security.
+    </p>
+  </section>
+</main>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script type="module">
+import {
+  auth, db,
+  onAuthStateChanged, signOut,
+  collection, doc, getDoc, getDocs, updateDoc, deleteDoc,
+  query, orderBy, limit
+} from './firebase-config.js';
+
+const $ = (sel) => document.querySelector(sel);
+const loading = $('#loading');
+const denied = $('#denied');
+const signedOut = $('#signedOut');
+const app = $('#adminApp');
+const toast = $('#toast');
+let me = null;
+
+function show(el){ [loading, denied, signedOut, app].forEach(x => x.style.display='none'); el.style.display = el === app ? 'block' : 'flex'; }
+function flash(msg, isError = false){
+  toast.textContent = msg;
+  toast.classList.toggle('error', isError);
+  toast.classList.add('show');
+  setTimeout(()=>toast.classList.remove('show'), 2400);
+}
+
+/* ─── Tab switching ─── */
+document.querySelectorAll('.admin-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.admin-pane').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.querySelector(`[data-pane="${tab.dataset.tab}"]`).classList.add('active');
+  });
+});
+
+/* ─── Sign out ─── */
+$('#signOutBtn').addEventListener('click', async (e) => {
+  e.preventDefault();
+  await signOut(auth);
+  location.href = 'index.html';
+});
+
+/* ─── Auth + admin gate ─── */
+onAuthStateChanged(auth, async (user) => {
+  if (!user){ show(signedOut); return; }
+  me = user;
+  try {
+    const adminSnap = await getDoc(doc(db, 'admins', user.uid));
+    if (!adminSnap.exists()){ show(denied); return; }
+    $('#whoami').textContent = `${user.email || user.displayName || user.uid.slice(0,8)} · admin`;
+    show(app);
+    loadAll();
+  } catch (err) {
+    console.error('Admin check failed:', err);
+    show(denied);
+  }
+});
+
+/* ─── Loaders ─── */
+async function loadAll(){
+  await Promise.all([loadBusinesses(), loadReviews(), loadAdmins()]);
+}
+
+function escapeHtml(s){
+  return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+async function loadBusinesses(){
+  const tbody = $('#bizRows');
+  try {
+    const snap = await getDocs(collection(db, 'businesses'));
+    if (snap.empty){
+      tbody.innerHTML = `<tr><td colspan="5" class="admin-empty" style="border:none">No businesses yet. Run <code>node seed-data.js</code> to populate.</td></tr>`;
+      $('#cnt-biz').textContent = '0';
+      return;
+    }
+    const rows = [];
+    snap.forEach(d => rows.push({ id: d.id, ...d.data() }));
+    rows.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+    $('#cnt-biz').textContent = String(rows.length);
+    tbody.innerHTML = rows.map(b => `
+      <tr data-id="${escapeHtml(b.id)}">
+        <td><img class="admin-thumb" loading="lazy" src="${escapeHtml(b.image || b.photo || 'Media%20resources/TheDiaspora%20app%20logo%203D.png')}" alt=""></td>
+        <td>
+          <div><strong>${escapeHtml(b.name || '(unnamed)')}</strong></div>
+          <div class="admin-cell-meta">${escapeHtml(b.id)}</div>
+        </td>
+        <td>
+          <div>${escapeHtml(b.category || '—')}</div>
+          <div class="admin-cell-meta">${escapeHtml(b.city || '')}${b.area ? ' · ' + escapeHtml(b.area) : ''}</div>
+        </td>
+        <td>
+          ${b.verified ? '<span class="admin-pill pill-verified">Verified</span>' : '<span class="admin-pill pill-pending">Pending</span>'}
+          ${b.featured ? '<span class="admin-pill pill-featured">Featured</span>' : ''}
+        </td>
+        <td>
+          <div class="row-actions">
+            <button class="btn-mini" data-act="toggleVerified" data-id="${escapeHtml(b.id)}" data-cur="${b.verified ? '1' : '0'}">${b.verified ? 'Unverify' : 'Verify'}</button>
+            <button class="btn-mini brass" data-act="toggleFeatured" data-id="${escapeHtml(b.id)}" data-cur="${b.featured ? '1' : '0'}">${b.featured ? 'Unfeature' : 'Feature'}</button>
+            <a class="btn-mini" href="business.html?id=${encodeURIComponent(b.id)}" target="_blank">View</a>
+          </div>
+        </td>
+      </tr>
+    `).join('');
+  } catch (err) {
+    console.error('Load businesses failed:', err);
+    tbody.innerHTML = `<tr><td colspan="5" class="admin-empty" style="border:none;color:var(--rust)">Failed to load: ${escapeHtml(err.message)}</td></tr>`;
+  }
+}
+
+async function loadReviews(){
+  const tbody = $('#revRows');
+  try {
+    let snap;
+    try {
+      snap = await getDocs(query(collection(db, 'reviews'), orderBy('createdAt', 'desc'), limit(100)));
+    } catch (_) {
+      // Fallback for missing index/field
+      snap = await getDocs(query(collection(db, 'reviews'), limit(100)));
+    }
+    if (snap.empty){
+      tbody.innerHTML = `<tr><td colspan="5" class="admin-empty" style="border:none">No reviews yet.</td></tr>`;
+      $('#cnt-rev').textContent = '0';
+      return;
+    }
+    const rows = [];
+    snap.forEach(d => rows.push({ id: d.id, ...d.data() }));
+    $('#cnt-rev').textContent = String(rows.length);
+    tbody.innerHTML = rows.map(r => `
+      <tr data-id="${escapeHtml(r.id)}">
+        <td>
+          <div><strong>${escapeHtml(r.authorName || r.author || 'Anonymous')}</strong></div>
+          <div class="admin-cell-meta">${escapeHtml(r.authorUid || '')}</div>
+        </td>
+        <td>
+          <div>${escapeHtml(r.businessName || r.businessId || '—')}</div>
+        </td>
+        <td><strong>${escapeHtml(r.rating ?? '—')}</strong> / 5</td>
+        <td style="max-width:380px"><div style="overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical">${escapeHtml(r.text || r.body || '')}</div></td>
+        <td>
+          <div class="row-actions">
+            <button class="btn-mini danger" data-act="deleteReview" data-id="${escapeHtml(r.id)}">Delete</button>
+          </div>
+        </td>
+      </tr>
+    `).join('');
+  } catch (err) {
+    console.error('Load reviews failed:', err);
+    tbody.innerHTML = `<tr><td colspan="5" class="admin-empty" style="border:none;color:var(--rust)">Failed to load: ${escapeHtml(err.message)}</td></tr>`;
+  }
+}
+
+async function loadAdmins(){
+  const tbody = $('#admRows');
+  try {
+    const snap = await getDocs(collection(db, 'admins'));
+    const rows = [];
+    snap.forEach(d => rows.push({ id: d.id, ...d.data() }));
+    $('#cnt-adm').textContent = String(rows.length);
+    if (!rows.length){
+      tbody.innerHTML = `<tr><td colspan="3" class="admin-empty" style="border:none">No admins yet — paradoxically, you should not be reading this.</td></tr>`;
+      return;
+    }
+    tbody.innerHTML = rows.map(a => `
+      <tr>
+        <td><code style="font-size:11.5px">${escapeHtml(a.id)}</code> ${a.id === me?.uid ? '<span class="admin-pill pill-admin" style="margin-left:8px">You</span>' : ''}</td>
+        <td>
+          <div>${escapeHtml(a.email || '—')}</div>
+          <div class="admin-cell-meta">${escapeHtml(a.name || '')}</div>
+        </td>
+        <td><div class="admin-cell-meta">${a.grantedAt?.toDate ? a.grantedAt.toDate().toISOString().slice(0,10) : (a.grantedAt || '—')}</div></td>
+      </tr>
+    `).join('');
+  } catch (err) {
+    console.error('Load admins failed:', err);
+    tbody.innerHTML = `<tr><td colspan="3" class="admin-empty" style="border:none;color:var(--rust)">Failed to load: ${escapeHtml(err.message)}</td></tr>`;
+  }
+}
+
+/* ─── Action delegation ─── */
+document.addEventListener('click', async (e) => {
+  const btn = e.target.closest('button[data-act]');
+  if (!btn) return;
+  const act = btn.dataset.act;
+  const id = btn.dataset.id;
+  btn.disabled = true;
+  try {
+    if (act === 'toggleVerified'){
+      const next = btn.dataset.cur !== '1';
+      await updateDoc(doc(db, 'businesses', id), { verified: next, verifiedAt: next ? new Date() : null });
+      flash(next ? 'Business verified' : 'Verification removed');
+      await loadBusinesses();
+    } else if (act === 'toggleFeatured'){
+      const next = btn.dataset.cur !== '1';
+      await updateDoc(doc(db, 'businesses', id), { featured: next, featuredAt: next ? new Date() : null });
+      flash(next ? 'Business featured' : 'Removed from featured');
+      await loadBusinesses();
+    } else if (act === 'deleteReview'){
+      if (!confirm('Delete this review? This cannot be undone.')){ btn.disabled = false; return; }
+      await deleteDoc(doc(db, 'reviews', id));
+      flash('Review deleted');
+      await loadReviews();
+    }
+  } catch (err) {
+    console.error(`${act} failed:`, err);
+    flash(err.message || 'Action failed', true);
+  } finally {
+    btn.disabled = false;
+  }
+});
+</script>
+</body>
+</html>

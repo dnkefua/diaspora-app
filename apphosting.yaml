@@ -1,0 +1,32 @@
+# Firebase App Hosting configuration
+# Reference: https://firebase.google.com/docs/app-hosting/configure
+#
+# Backend: diaspora-app
+# Region: europe-west4
+# Project: the-diaspora-app
+# Start command (auto-detected): npm start → node dev-server.js
+
+runConfig:
+  cpu: 1
+  memoryMiB: 512
+  maxInstances: 5
+  minInstances: 0
+  concurrency: 80
+  timeoutSeconds: 60
+
+env:
+  - variable: NODE_ENV
+    value: production
+    availability:
+      - BUILD
+      - RUNTIME
+
+  - variable: FIREBASE_PROJECT_ID
+    value: the-diaspora-app
+    availability:
+      - RUNTIME
+
+  - variable: PORT
+    value: "8080"
+    availability:
+      - RUNTIME

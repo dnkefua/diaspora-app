@@ -1,31 +1,97 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Users: authenticated users can read/write their own profile
-    match /users/{userId} {
-      allow read: if request.auth != null;
-      allow write: if request.auth != null && request.auth.uid == userId;
+
+    // ── Helpers ──────────────────────────────────────────
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    function isAdmin() {
+      return isSignedIn()
+        && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+    function unchanged(field) {
+      return request.resource.data[field] == resource.data[field];
+    }
+    function changedKeys() {
+      return request.resource.data.diff(resource.data).affectedKeys();
     }
 
-    // Businesses: public read, write only for owners
+    // ── admins/{uid} ─────────────────────────────────────
+    // Source of truth for admin role.
+    // Bootstrap: create the first doc manually in Firebase Console
+    // (Firestore → admins → add document, doc ID = the user's UID).
+    // No client write path — admins are managed via Console / gcloud.
+    match /admins/{uid} {
+      allow read: if isOwner(uid) || isAdmin();
+      allow write: if false;
+    }
+
+    // ── users/{uid} ──────────────────────────────────────
+    // Auth'd users can read directory of users; only owner writes own profile.
+    // Admin can edit any user (e.g. to flag/disable).
+    match /users/{userId} {
+      allow read: if isSignedIn();
+      allow create: if isOwner(userId);
+      allow update: if isOwner(userId) || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // ── businesses/{bizId} ───────────────────────────────
+    // Public read. Owner creates and edits content fields.
+    // verified / featured / featuredAt / verifiedAt are admin-only.
     match /businesses/{bizId} {
       allow read: if true;
-      allow write: if request.auth != null && request.auth.uid == request.resource.data.ownerId;
+
+      allow create: if isSignedIn()
+        && request.resource.data.ownerId == request.auth.uid
+        // Owner cannot self-mark verified or featured at creation
+        && (!('verified' in request.resource.data) || request.resource.data.verified == false)
+        && (!('featured' in request.resource.data) || request.resource.data.featured == false);
+
+      allow update: if (
+          // Owner can update their listing, but cannot change protected fields
+          isOwner(resource.data.ownerId)
+          && !changedKeys().hasAny(['verified', 'featured', 'verifiedAt', 'featuredAt', 'ownerId'])
+        ) || (
+          // Admin can change anything
+          isAdmin()
+        );
+
+      allow delete: if isAdmin() || isOwner(resource.data.ownerId);
     }
 
-    // Reviews: public read, authenticated write
+    // ── reviews/{id} ─────────────────────────────────────
+    // Public read. Authenticated create. Only author or admin can edit/delete.
     match /reviews/{reviewId} {
       allow read: if true;
-      allow write: if request.auth != null;
+
+      allow create: if isSignedIn()
+        && request.resource.data.authorUid == request.auth.uid;
+
+      allow update: if isOwner(resource.data.authorUid) || isAdmin();
+      allow delete: if isOwner(resource.data.authorUid) || isAdmin();
     }
 
-    // Event submissions: authenticated users can create, admins can modify
+    // ── event_submissions/{id} ───────────────────────────
+    // Authenticated users create; admin moderates.
     match /event_submissions/{docId} {
-      allow create: if request.auth != null;
-      allow read, update, delete: if false; // restrict via admin console or Cloud Functions
+      allow create: if isSignedIn();
+      allow read, update, delete: if isAdmin();
     }
 
-    // Fallback: deny anything else
+    // ── moderation_log/{id} ──────────────────────────────
+    // Append-only audit log for admin actions. Admin reads, no client writes
+    // (server / Cloud Functions write these).
+    match /moderation_log/{docId} {
+      allow read: if isAdmin();
+      allow write: if false;
+    }
+
+    // ── Default deny ─────────────────────────────────────
     match /{document=**} {
       allow read, write: if false;
     }

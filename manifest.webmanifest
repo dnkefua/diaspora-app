@@ -1,0 +1,45 @@
+{
+  "name": "The Diaspora App",
+  "short_name": "Diaspora",
+  "description": "A premium discovery and advertising home for diaspora businesses, events, jobs, and community stories.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FBF8F2",
+  "theme_color": "#0A0A0A",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["lifestyle", "shopping", "social", "food"],
+  "icons": [
+    {
+      "src": "Media%20resources/TheDiaspora%20app%20logo%203D.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Explore the directory",
+      "short_name": "Explore",
+      "description": "Browse diaspora businesses near you",
+      "url": "/feed.html",
+      "icons": [{"src": "Media%20resources/TheDiaspora%20app%20logo%203D.png", "sizes": "192x192"}]
+    },
+    {
+      "name": "List your business",
+      "short_name": "List",
+      "description": "Open the seller dashboard",
+      "url": "/seller-dashboard.html",
+      "icons": [{"src": "Media%20resources/TheDiaspora%20app%20logo%203D.png", "sizes": "192x192"}]
+    },
+    {
+      "name": "Featured this week",
+      "short_name": "Featured",
+      "description": "See sponsored placements",
+      "url": "/index.html#featured",
+      "icons": [{"src": "Media%20resources/TheDiaspora%20app%20logo%203D.png", "sizes": "192x192"}]
+    }
+  ]
+}
