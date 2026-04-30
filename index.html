@@ -218,7 +218,14 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 /* ─── HERO ─── */
 .hero{
   position:relative; min-height:100vh; width:100%;
-  overflow:hidden; color:var(--paper);
+  /* overflow stays visible so the search-widget dropdowns can extend below
+     the hero. The bg/grain layers below are absolutely positioned with
+     inset:0, so they're already constrained — no clipping needed here. */
+  overflow:visible;
+  /* Bump the hero above subsequent siblings (.spotlight, etc.) so the
+     dropdowns render on top of them. */
+  z-index:5;
+  color:var(--paper);
   display:flex; flex-direction:column; justify-content:flex-end;
   padding-bottom:0;
 }
@@ -226,6 +233,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   position:absolute; inset:0; z-index:0;
   background:#0a0a0a url('https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=2400&auto=format&fit=crop') center/cover no-repeat;
   filter:saturate(0.9);
+  /* Self-clip the bg in case any tiny rounding extends beyond the hero box. */
+  clip-path:inset(0);
 }
 .hero-bg::after{
   content:""; position:absolute; inset:0;
@@ -294,7 +303,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
   max-height:320px; overflow-y:auto;
   opacity:0; visibility:hidden; transform:translateY(-4px);
   transition:opacity 0.18s, transform 0.18s, visibility 0.18s;
-  z-index:10;
+  /* High z-index to clear any later sections that paint above the hero */
+  z-index:100;
   -webkit-overflow-scrolling:touch;
   scrollbar-width:thin; scrollbar-color:var(--line) transparent;
 }
