@@ -1,0 +1,105 @@
+# ─────────────────────────────────────────────────────────────
+# THE DIASPORA APP — Data Connect schema (Postgres-backed)
+#
+# Mirrors the entities currently stored in Firestore so we can
+# migrate read paths to SQL when ready, and run analytics against
+# a real relational store. Firestore stays in place until the
+# client cutover; both can run side-by-side.
+# ─────────────────────────────────────────────────────────────
+
+# A user of the platform — created on Firebase Auth signup.
+# Auth UID is the primary key (string, set by the app).
+type User @table(name: "users", key: ["uid"]) {
+  uid: String!
+  email: String!
+  firstName: String
+  lastName: String
+  phone: String
+  city: String
+  bio: String
+  avatar: String
+  joinedAt: Timestamp! @default(expr: "request.time")
+}
+
+# Owner-listed business / advertiser.
+type Business @table(name: "businesses") {
+  id: UUID! @default(expr: "uuidV4()")
+  owner: User
+  name: String!
+  category: String!
+  city: String!
+  area: String
+  rating: Float
+  reviewsCount: Int @default(value: 0)
+  phone: String
+  whatsapp: String
+  image: String
+  description: String
+  verified: Boolean! @default(value: false)
+  featured: Boolean! @default(value: false)
+  verifiedAt: Timestamp
+  featuredAt: Timestamp
+  createdAt: Timestamp! @default(expr: "request.time")
+  updatedAt: Timestamp! @default(expr: "request.time")
+}
+
+# Customer review on a business.
+type Review @table(name: "reviews") {
+  id: UUID! @default(expr: "uuidV4()")
+  business: Business!
+  author: User!
+  authorName: String
+  rating: Float!
+  text: String
+  createdAt: Timestamp! @default(expr: "request.time")
+}
+
+# A paid placement that overrides hardcoded landing-page tiles.
+# slot is one of: spotlight | menu | chair | city | whatsapp | jobs
+# status is one of: draft | active | paused | expired
+type Sponsorship @table(name: "sponsorships") {
+  id: UUID! @default(expr: "uuidV4()")
+  business: Business
+  slot: String!
+  status: String! @default(value: "draft")
+  city: String
+  startsAt: Timestamp!
+  endsAt: Timestamp!
+  imageUrl: String!
+  title: String!
+  tagline: String
+  description: String
+  badge: String
+  location: String
+  rating: Float
+  ctaText: String!
+  ctaHref: String!
+  ctaSecondaryText: String
+  ctaSecondaryHref: String
+  amountUsd: Float
+  invoiceId: String
+  createdAt: Timestamp! @default(expr: "request.time")
+  updatedAt: Timestamp! @default(expr: "request.time")
+  createdBy: String
+  updatedBy: String
+}
+
+# Admin / moderator role. Mirror of the Firestore admins/{uid} doc;
+# uid is the Firebase Auth UID.
+type Admin @table(name: "admins", key: ["uid"]) {
+  uid: String!
+  email: String
+  name: String
+  grantedAt: Timestamp! @default(expr: "request.time")
+}
+
+# Append-only audit log — Cloud Function writes; only admin reads.
+type ModerationLog @table(name: "moderation_log") {
+  id: UUID! @default(expr: "uuidV4()")
+  actorUid: String!
+  action: String!
+  targetType: String!
+  targetId: String!
+  detail: String
+  createdAt: Timestamp! @default(expr: "request.time")
+}

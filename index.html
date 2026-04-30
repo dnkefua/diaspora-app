@@ -288,17 +288,29 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 .sw-value{font-size:14px;font-weight:500;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sw-dropdown{
   position:absolute; top:calc(100% + 6px); left:0; right:0;
-  background:#fff; border:1px solid var(--line); border-radius:14px;
-  box-shadow:0 24px 60px rgba(0,0,0,0.18);
-  max-height:300px; overflow-y:auto;
+  background:#fff; color:var(--ink);
+  border:1px solid var(--line); border-radius:14px;
+  box-shadow:0 24px 60px rgba(0,0,0,0.22), 0 2px 6px rgba(0,0,0,0.06);
+  max-height:320px; overflow-y:auto;
   opacity:0; visibility:hidden; transform:translateY(-4px);
   transition:opacity 0.18s, transform 0.18s, visibility 0.18s;
   z-index:10;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin; scrollbar-color:var(--line) transparent;
 }
+.sw-dropdown::-webkit-scrollbar{width:8px}
+.sw-dropdown::-webkit-scrollbar-thumb{background:var(--line); border-radius:4px}
 .sw-field.open .sw-dropdown{opacity:1; visibility:visible; transform:translateY(0)}
-.sw-item{padding:11px 18px; font-size:13.5px; cursor:pointer; transition:background 0.15s}
-.sw-item:hover{background:var(--bone)}
-.sw-item.selected{background:var(--ivory); font-weight:500}
+.sw-item{
+  padding:11px 18px; font-size:13.5px; cursor:pointer;
+  color:var(--ink);
+  border-bottom:1px solid var(--line-soft);
+  transition:background 0.15s, color 0.15s;
+}
+.sw-item:last-child{border-bottom:none}
+.sw-item:hover{background:var(--ink); color:var(--paper)}
+.sw-item.selected{background:var(--ivory); color:var(--ink); font-weight:600}
+.sw-item.selected:hover{background:var(--ink); color:var(--paper)}
 .sw-flag{margin-right:6px}
 .sw-btn{
   background:var(--ink); color:var(--paper);
@@ -861,11 +873,34 @@ footer{background:var(--graphite); color:var(--paper); padding:72px 0 24px}
           <div class="sw-item selected" data-value="Dubai">📍 Dubai</div>
           <div class="sw-item" data-value="Abu Dhabi">📍 Abu Dhabi</div>
           <div class="sw-item" data-value="Sharjah">📍 Sharjah</div>
+          <div class="sw-item" data-value="Doha">📍 Doha</div>
+          <div class="sw-item" data-value="Riyadh">📍 Riyadh</div>
           <div class="sw-item" data-value="London">📍 London</div>
+          <div class="sw-item" data-value="Manchester">📍 Manchester</div>
+          <div class="sw-item" data-value="Birmingham">📍 Birmingham</div>
           <div class="sw-item" data-value="Toronto">📍 Toronto</div>
+          <div class="sw-item" data-value="Vancouver">📍 Vancouver</div>
+          <div class="sw-item" data-value="Montreal">📍 Montreal</div>
           <div class="sw-item" data-value="New York">📍 New York</div>
+          <div class="sw-item" data-value="Atlanta">📍 Atlanta</div>
+          <div class="sw-item" data-value="Washington DC">📍 Washington DC</div>
+          <div class="sw-item" data-value="Houston">📍 Houston</div>
+          <div class="sw-item" data-value="Chicago">📍 Chicago</div>
+          <div class="sw-item" data-value="Los Angeles">📍 Los Angeles</div>
+          <div class="sw-item" data-value="Miami">📍 Miami</div>
           <div class="sw-item" data-value="Lagos">📍 Lagos</div>
+          <div class="sw-item" data-value="Abuja">📍 Abuja</div>
+          <div class="sw-item" data-value="Accra">📍 Accra</div>
           <div class="sw-item" data-value="Nairobi">📍 Nairobi</div>
+          <div class="sw-item" data-value="Mombasa">📍 Mombasa</div>
+          <div class="sw-item" data-value="Kampala">📍 Kampala</div>
+          <div class="sw-item" data-value="Johannesburg">📍 Johannesburg</div>
+          <div class="sw-item" data-value="Cape Town">📍 Cape Town</div>
+          <div class="sw-item" data-value="Paris">📍 Paris</div>
+          <div class="sw-item" data-value="Berlin">📍 Berlin</div>
+          <div class="sw-item" data-value="Amsterdam">📍 Amsterdam</div>
+          <div class="sw-item" data-value="Brussels">📍 Brussels</div>
+          <div class="sw-item" data-value="Singapore">📍 Singapore</div>
         </div>
       </div>
       <div class="sw-field" data-key="town">
@@ -889,14 +924,42 @@ footer{background:var(--graphite); color:var(--paper); padding:72px 0 24px}
         <div class="sw-dropdown" id="category-dd">
           <div class="sw-item selected" data-value="All Categories">✨ All Categories</div>
           <div class="sw-item" data-value="Restaurants">🍲 Restaurants</div>
-          <div class="sw-item" data-value="Food Sellers">🥘 Food Sellers</div>
+          <div class="sw-item" data-value="Home Cooks &amp; Food Sellers">🥘 Home Cooks &amp; Food Sellers</div>
+          <div class="sw-item" data-value="Caterers">🍱 Caterers</div>
+          <div class="sw-item" data-value="Bakers &amp; Pastries">🥐 Bakers &amp; Pastries</div>
+          <div class="sw-item" data-value="Grocery &amp; Specialty Foods">🛒 Grocery &amp; Specialty Foods</div>
+          <div class="sw-item" data-value="Butchers &amp; Halal Meat">🥩 Butchers &amp; Halal Meat</div>
           <div class="sw-item" data-value="Hair Stylists">💇🏽‍♀️ Hair Stylists</div>
           <div class="sw-item" data-value="Barbers">✂️ Barbers</div>
+          <div class="sw-item" data-value="Loc &amp; Natural Hair">🌀 Loc &amp; Natural Hair</div>
+          <div class="sw-item" data-value="Beauty &amp; Makeup">💄 Beauty &amp; Makeup</div>
+          <div class="sw-item" data-value="Nails">💅 Nails</div>
+          <div class="sw-item" data-value="Spa &amp; Wellness">🌿 Spa &amp; Wellness</div>
+          <div class="sw-item" data-value="Fitness Trainers">🏋🏽 Fitness Trainers</div>
           <div class="sw-item" data-value="Photographers">📸 Photographers</div>
+          <div class="sw-item" data-value="Videographers">🎥 Videographers</div>
+          <div class="sw-item" data-value="DJs &amp; Music">🎧 DJs &amp; Music</div>
+          <div class="sw-item" data-value="Event Planners">🎉 Event Planners</div>
+          <div class="sw-item" data-value="Florists">💐 Florists</div>
+          <div class="sw-item" data-value="Tailors &amp; Fashion">👗 Tailors &amp; Fashion</div>
+          <div class="sw-item" data-value="Jewelers">💎 Jewelers</div>
+          <div class="sw-item" data-value="Designers (Graphic &amp; Brand)">🎨 Designers (Graphic &amp; Brand)</div>
+          <div class="sw-item" data-value="Marketing &amp; Social Media">📣 Marketing &amp; Social Media</div>
+          <div class="sw-item" data-value="Software &amp; IT">💻 Software &amp; IT</div>
+          <div class="sw-item" data-value="Lawyers">⚖️ Lawyers</div>
+          <div class="sw-item" data-value="Accountants &amp; Tax">📊 Accountants &amp; Tax</div>
+          <div class="sw-item" data-value="Doctors &amp; Clinics">🩺 Doctors &amp; Clinics</div>
+          <div class="sw-item" data-value="Therapists &amp; Counseling">🧠 Therapists &amp; Counseling</div>
+          <div class="sw-item" data-value="Tutors &amp; Education">📚 Tutors &amp; Education</div>
+          <div class="sw-item" data-value="Childcare &amp; Nannies">👶🏽 Childcare &amp; Nannies</div>
+          <div class="sw-item" data-value="Cleaning Services">🧽 Cleaning Services</div>
+          <div class="sw-item" data-value="Movers">📦 Movers</div>
+          <div class="sw-item" data-value="Real Estate">🏠 Real Estate</div>
+          <div class="sw-item" data-value="Auto &amp; Mechanics">🔧 Auto &amp; Mechanics</div>
+          <div class="sw-item" data-value="Construction &amp; Trades">🛠️ Construction &amp; Trades</div>
+          <div class="sw-item" data-value="Travel &amp; Tour Operators">✈️ Travel &amp; Tour Operators</div>
+          <div class="sw-item" data-value="Pet Care">🐾 Pet Care</div>
           <div class="sw-item" data-value="Jobs">💼 Jobs</div>
-          <div class="sw-item" data-value="Tailors & Fashion">👗 Tailors & Fashion</div>
-          <div class="sw-item" data-value="Beauty & Makeup">💄 Beauty & Makeup</div>
-          <div class="sw-item" data-value="Music & Events">🎵 Music & Events</div>
         </div>
       </div>
       <button class="sw-btn" type="submit">

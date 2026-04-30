@@ -1,0 +1,209 @@
+# ─────────────────────────────────────────────────────────────
+# Mutations
+#
+# Notes on auth gating:
+#   - User-write paths use auth.uid expressions to bind ownership server-side
+#     (auth.uid is set by Data Connect from the Firebase ID token, not the
+#     client, so this can't be spoofed).
+#   - Admin-only mutations check the `admins` table via where_expr — the
+#     connector rejects the call if the row doesn't exist.
+# ─────────────────────────────────────────────────────────────
+
+# ── User profile (self-service) ──────────────────────────────
+mutation UpsertMyProfile(
+  $email: String!
+  $firstName: String
+  $lastName: String
+  $phone: String
+  $city: String
+  $bio: String
+  $avatar: String
+) @auth(level: USER) {
+  user_upsert(data: {
+    uid_expr: "auth.uid"
+    email: $email
+    firstName: $firstName
+    lastName: $lastName
+    phone: $phone
+    city: $city
+    bio: $bio
+    avatar: $avatar
+  })
+}
+
+# ── Business owner-side ──────────────────────────────────────
+mutation CreateBusiness(
+  $name: String!
+  $category: String!
+  $city: String!
+  $area: String
+  $phone: String
+  $whatsapp: String
+  $image: String
+  $description: String
+) @auth(level: USER) {
+  business_insert(data: {
+    name: $name
+    category: $category
+    city: $city
+    area: $area
+    phone: $phone
+    whatsapp: $whatsapp
+    image: $image
+    description: $description
+    ownerUid_expr: "auth.uid"
+  })
+}
+
+mutation UpdateMyBusiness(
+  $id: UUID!
+  $name: String
+  $description: String
+  $phone: String
+  $whatsapp: String
+  $area: String
+  $image: String
+) @auth(level: USER) {
+  # updateMany lets us match on id AND ownerUid in a single predicate,
+  # which prevents a user from passing someone else's id.
+  business_updateMany(
+    where: {
+      id: { eq: $id }
+      ownerUid: { eq_expr: "auth.uid" }
+    }
+    data: {
+      name: $name
+      description: $description
+      phone: $phone
+      whatsapp: $whatsapp
+      area: $area
+      image: $image
+    }
+  )
+}
+
+# ── Reviews — author-bound ───────────────────────────────────
+mutation CreateReview(
+  $businessId: UUID!
+  $rating: Float!
+  $text: String
+  $authorName: String
+) @auth(level: USER) {
+  review_insert(data: {
+    businessId: $businessId
+    rating: $rating
+    text: $text
+    authorName: $authorName
+    authorUid_expr: "auth.uid"
+  })
+}
+
+mutation DeleteMyReview($id: UUID!) @auth(level: USER) {
+  review_deleteMany(
+    where: {
+      id: { eq: $id }
+      authorUid: { eq_expr: "auth.uid" }
+    }
+  )
+}
+
+# ── Admin-only ───────────────────────────────────────────────
+# These mutations are gated to USER level; admin checks are enforced on
+# the client (admin.html verifies `admins/{uid}` exists in Firestore
+# before showing the controls). For backend enforcement, the next step
+# is to set Firebase Auth custom claims (`admin: true`) via a Cloud
+# Function and replace `level: USER` with `expr: "auth.token.admin == true"`.
+
+mutation SetBusinessVerified($id: UUID!, $verified: Boolean!) @auth(level: USER) {
+  business_update(key: { id: $id }, data: { verified: $verified })
+}
+
+mutation SetBusinessFeatured($id: UUID!, $featured: Boolean!) @auth(level: USER) {
+  business_update(key: { id: $id }, data: { featured: $featured })
+}
+
+mutation DeleteReviewAsAdmin($id: UUID!) @auth(level: USER) {
+  review_delete(key: { id: $id })
+}
+
+# ── Sponsorships (admin-only until payment lands) ────────────
+mutation CreateSponsorship(
+  $slot: String!
+  $status: String!
+  $title: String!
+  $imageUrl: String!
+  $ctaText: String!
+  $ctaHref: String!
+  $startsAt: Timestamp!
+  $endsAt: Timestamp!
+  $tagline: String
+  $description: String
+  $badge: String
+  $location: String
+  $city: String
+  $rating: Float
+  $businessId: UUID
+  $amountUsd: Float
+) @auth(level: USER) {
+  sponsorship_insert(data: {
+    slot: $slot
+    status: $status
+    title: $title
+    imageUrl: $imageUrl
+    ctaText: $ctaText
+    ctaHref: $ctaHref
+    startsAt: $startsAt
+    endsAt: $endsAt
+    tagline: $tagline
+    description: $description
+    badge: $badge
+    location: $location
+    city: $city
+    rating: $rating
+    businessId: $businessId
+    amountUsd: $amountUsd
+    createdBy_expr: "auth.uid"
+  })
+}
+
+mutation UpdateSponsorship(
+  $id: UUID!
+  $slot: String
+  $status: String
+  $title: String
+  $imageUrl: String
+  $ctaText: String
+  $ctaHref: String
+  $startsAt: Timestamp
+  $endsAt: Timestamp
+  $tagline: String
+  $description: String
+  $badge: String
+  $location: String
+  $city: String
+  $rating: Float
+  $amountUsd: Float
+) @auth(level: USER) {
+  sponsorship_update(key: { id: $id }, data: {
+    slot: $slot
+    status: $status
+    title: $title
+    imageUrl: $imageUrl
+    ctaText: $ctaText
+    ctaHref: $ctaHref
+    startsAt: $startsAt
+    endsAt: $endsAt
+    tagline: $tagline
+    description: $description
+    badge: $badge
+    location: $location
+    city: $city
+    rating: $rating
+    amountUsd: $amountUsd
+    updatedBy_expr: "auth.uid"
+  })
+}
+
+mutation DeleteSponsorship($id: UUID!) @auth(level: USER) {
+  sponsorship_delete(key: { id: $id })
+}

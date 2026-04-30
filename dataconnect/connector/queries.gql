@@ -1,0 +1,121 @@
+# ─────────────────────────────────────────────────────────────
+# Public + authenticated queries
+# Auth levels:
+#   PUBLIC     — anyone (browser visitors)
+#   USER       — any signed-in Firebase Auth user
+#   NO_ACCESS  — only callable from server contexts
+# ─────────────────────────────────────────────────────────────
+
+# Directory listing — paginated.
+query ListBusinesses(
+  $category: String
+  $city: String
+  $limit: Int = 24
+  $offset: Int = 0
+) @auth(level: PUBLIC) {
+  businesses(
+    where: {
+      _and: [
+        { category: { eq: $category } }
+        { city: { eq: $city } }
+      ]
+    }
+    orderBy: [{ featured: DESC }, { rating: DESC }, { name: ASC }]
+    limit: $limit
+    offset: $offset
+  ) {
+    id
+    name
+    category
+    city
+    area
+    rating
+    reviewsCount
+    image
+    description
+    verified
+    featured
+  }
+}
+
+# Single business detail page.
+query GetBusiness($id: UUID!) @auth(level: PUBLIC) {
+  business(id: $id) {
+    id
+    name
+    category
+    city
+    area
+    rating
+    reviewsCount
+    phone
+    whatsapp
+    image
+    description
+    verified
+    featured
+    createdAt
+    reviews_on_business(orderBy: [{ createdAt: DESC }], limit: 50) {
+      id
+      authorName
+      rating
+      text
+      createdAt
+    }
+  }
+}
+
+# Active sponsorships for landing-page swap-in. Filtered server-side
+# so the client gets only the slots it can render.
+query ListActiveSponsorships @auth(level: PUBLIC) {
+  sponsorships(
+    where: {
+      _and: [
+        { status: { eq: "active" } }
+        { endsAt: { gt_expr: "request.time" } }
+      ]
+    }
+    orderBy: [{ slot: ASC }, { startsAt: DESC }]
+    limit: 50
+  ) {
+    id
+    slot
+    title
+    tagline
+    description
+    badge
+    location
+    rating
+    city
+    imageUrl
+    ctaText
+    ctaHref
+    ctaSecondaryText
+    ctaSecondaryHref
+  }
+}
+
+# What's the signed-in user's profile?
+query Me @auth(level: USER) {
+  user(key: { uid_expr: "auth.uid" }) {
+    uid
+    email
+    firstName
+    lastName
+    phone
+    city
+    bio
+    avatar
+    joinedAt
+  }
+}
+
+# Am I an admin? Used to gate /admin.html on first paint.
+query AmIAdmin @auth(level: USER) {
+  admin(key: { uid_expr: "auth.uid" }) {
+    uid
+    email
+    name
+    grantedAt
+  }
+}

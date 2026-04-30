@@ -1,0 +1,10 @@
+# Connector config — declares the connector ID and which client SDKs to
+# auto-generate. The Web SDK output is committed alongside the app so the
+# browser can call deployed operations without a build step.
+
+connectorId: "default"
+generate:
+  javascriptSdk:
+    outputDir: "../../dataconnect-generated/web"
+    package: "@diaspora-app/dataconnect-default"
+    packageJsonDir: "../../dataconnect-generated/web"

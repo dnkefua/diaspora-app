@@ -26,6 +26,8 @@
       ".firebase",
       "**/node_modules/**",
       "diaspora-mobile/**",
+      "dataconnect/**",
+      "dataconnect-generated/**",
       "dev-server.js",
       "firestore.rules",
       "storage.rules",
@@ -53,5 +55,8 @@
   },
   "storage": {
     "rules": "storage.rules"
+  },
+  "dataconnect": {
+    "source": "dataconnect"
   }
 }

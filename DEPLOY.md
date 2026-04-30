@@ -103,6 +103,45 @@ echo | openssl s_client -servername www.thediaspora.app -connect www.thediaspora
 - [ ] Verify share previews: paste a few URLs into Slack / WhatsApp / Twitter
       to confirm OG tags resolve correctly
 
+## Firebase Data Connect (PostgreSQL)
+
+A Cloud SQL-backed Postgres database is provisioned alongside Firestore.
+Service: `the-diaspora-app-service` in `us-east4`. Schema and connector
+operations live in `dataconnect/`:
+
+```
+dataconnect/
+  dataconnect.yaml         # service / Cloud SQL config
+  schema/schema.gql        # entity definitions (User, Business, Review, Sponsorship, Admin, ModerationLog)
+  connector/connector.yaml # connector ID + generated-SDK paths
+  connector/queries.gql    # public + user-level reads
+  connector/mutations.gql  # owner-bound writes + admin operations
+```
+
+**Deploy** (any time the schema or connector changes):
+
+```bash
+firebase deploy --only dataconnect --project the-diaspora-app
+# or for SQL migrations only:
+firebase dataconnect:sql:migrate --project the-diaspora-app
+```
+
+**Generate the typed Web SDK** (run after schema or connector edits, then
+commit the output so the browser can consume operations without a build):
+
+```bash
+firebase dataconnect:sdk:generate --project the-diaspora-app
+# emits dataconnect-generated/web/ — referenced from connector.yaml
+```
+
+**Auth model.** Owner-bound mutations enforce ownership server-side via
+`auth.uid` expressions in the connector — they cannot be spoofed from the
+client. Admin-only mutations are currently `level: USER` and gated on the
+client (admin.html checks `admins/{uid}` in Firestore). For backend
+enforcement, the next step is a Cloud Function that sets a Firebase Auth
+custom claim `admin: true`, then change those mutations to
+`@auth(expr: "auth.token.admin == true")`.
+
 ## Database / auth setup (one-time)
 
 These are independent of code deploys but must be done before launch:
