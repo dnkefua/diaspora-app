@@ -66,7 +66,8 @@
 </div>
 
 <script type="module">
-import { auth, db, signInWithEmailAndPassword, doc, getDoc, onAuthStateChanged } from './firebase-config.js';
+import { auth, db, signInWithEmailAndPassword, doc, getDoc, setDoc, onAuthStateChanged } from './firebase-config.js';
+import { GoogleAuthProvider, signInWithPopup } from 'https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js';
 
 // Check if already logged in
 onAuthStateChanged(auth, (user) => {
@@ -76,8 +77,64 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-window.socialLogin = function(provider) {
-  alert(`${provider} sign-in requires OAuth configuration in Firebase Console.\n\nFor demo, please use email login.`);
+window.socialLogin = async function(provider) {
+  const err = document.getElementById('err');
+  err.classList.remove('show');
+
+  if (provider === 'Apple') {
+    err.textContent = 'Apple sign-in is coming soon. For now please use Google or email.';
+    err.classList.add('show');
+    return;
+  }
+
+  if (provider !== 'Google') return;
+
+  try {
+    const googleProvider = new GoogleAuthProvider();
+    googleProvider.setCustomParameters({ prompt: 'select_account' });
+    const result = await signInWithPopup(auth, googleProvider);
+    const user = result.user;
+
+    // Ensure users/{uid} doc exists; create on first Google sign-in.
+    const userRef = doc(db, 'users', user.uid);
+    const snap = await getDoc(userRef);
+    let profile;
+    if (snap.exists()){
+      profile = { uid: user.uid, email: user.email, ...snap.data() };
+    } else {
+      const [firstName, ...rest] = (user.displayName || '').split(' ');
+      profile = {
+        uid: user.uid,
+        email: user.email,
+        firstName: firstName || 'Diaspora',
+        lastName: rest.join(' ') || 'Member',
+        phone: user.phoneNumber || '',
+        city: '',
+        avatar: user.photoURL || null,
+        bio: '',
+        provider: 'google',
+        emailVerified: user.emailVerified,
+        joined: new Date().toISOString(),
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      };
+      await setDoc(userRef, profile);
+    }
+
+    localStorage.setItem('diaspora_user', JSON.stringify(profile));
+    window.location.href = 'feed.html';
+
+  } catch (error) {
+    console.error('Google sign-in error:', error);
+    let message = 'Could not sign in with Google. Try again.';
+    if (error.code === 'auth/popup-closed-by-user') message = 'Sign-in window closed before completing.';
+    else if (error.code === 'auth/popup-blocked') message = 'Pop-up was blocked. Allow pop-ups for this site and try again.';
+    else if (error.code === 'auth/account-exists-with-different-credential') message = 'An account already exists with this email using a different sign-in method.';
+    else if (error.code === 'auth/unauthorized-domain') message = "This domain isn't authorised in Firebase Auth settings yet.";
+    else if (error.code === 'auth/network-request-failed') message = 'Network error. Check your connection.';
+    err.textContent = message;
+    err.classList.add('show');
+  }
 };
 
 window.handleLogin = async function(e) {
