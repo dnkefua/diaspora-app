@@ -278,9 +278,11 @@ async function completeVerification() {
   document.getElementById('verify-form').style.display = 'none';
   document.getElementById('success-state').classList.add('show');
 
-  // Redirect after short delay
+  // Redirect after short delay — honour `next` from signup if present.
+  const next = (user && user.next) ? user.next : null;
+  const safeNext = (next && /^[a-zA-Z0-9_\-./?=&%]+$/.test(next) && !next.startsWith('/') && !next.includes(':')) ? next : null;
   setTimeout(() => {
-    window.location.href = 'feed.html';
+    window.location.href = safeNext || 'feed.html';
   }, 1500);
 }
 

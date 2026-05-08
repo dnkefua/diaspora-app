@@ -100,6 +100,15 @@
 import { auth, db, createUserWithEmailAndPassword, updateProfile, doc, getDoc, setDoc, collection } from './firebase-config.js';
 import { GoogleAuthProvider, signInWithPopup } from 'https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js';
 
+// Honour ?next= for post-auth redirect (same-origin only).
+function nextDest(){
+  const next = new URLSearchParams(location.search).get('next');
+  if (next && /^[a-zA-Z0-9_\-./?=&%]+$/.test(next) && !next.startsWith('/') && !next.includes(':')){
+    return next;
+  }
+  return null;
+}
+
 window.socialSignup = async function(provider) {
   const err = document.getElementById('err');
   err.classList.remove('show');
@@ -146,8 +155,8 @@ window.socialSignup = async function(provider) {
     }
 
     localStorage.setItem('diaspora_user', JSON.stringify(profile));
-    // Google verifies email on its end — skip the OTP page and go straight to feed.
-    window.location.href = 'feed.html';
+    // Google verifies email on its end — skip the OTP page and go to next= or feed.
+    window.location.href = nextDest() || 'feed.html';
 
   } catch (error) {
     console.error('Google sign-up error:', error);
@@ -224,11 +233,13 @@ window.handleSignup = async function(e) {
     // Send email verification
     // await sendEmailVerification(firebaseUser);
 
-    // Save pending user for OTP verification (phone verification)
+    // Save pending user for OTP verification (phone verification).
+    // Carry the post-auth `next` destination so OTP can return the user there.
     sessionStorage.setItem('diaspora_pending', JSON.stringify({
       ...userDoc,
       firebaseUid: firebaseUser.uid, // Store Firebase UID for OTP verification
-      password // Store temporarily for OTP flow
+      password, // Store temporarily for OTP flow
+      next: nextDest() || null
     }));
 
     // Redirect to OTP for phone verification
