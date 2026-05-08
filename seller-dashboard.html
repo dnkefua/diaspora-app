@@ -344,10 +344,12 @@ a { text-decoration: none; color: inherit; }
 
     <!-- Media Tab -->
     <div class="tab-content" id="media-tab">
+
+      <!-- Photos -->
       <div class="card">
         <h2 class="card-title">
           Business Photos
-          <button class="btn btn-outline" onclick="document.getElementById('photo-upload').click()">+ Add Photos</button>
+          <button class="btn btn-outline" type="button" onclick="document.getElementById('photo-upload').click()">+ Add Photos</button>
         </h2>
         <input type="file" id="photo-upload" accept="image/*" multiple style="display: none;" onchange="handlePhotoUpload(event)">
 
@@ -355,7 +357,7 @@ a { text-decoration: none; color: inherit; }
           <div class="upload-icon">📸</div>
           <p class="upload-text">
             <b>Click to upload</b> or drag and drop<br>
-            JPG, PNG up to 10MB each
+            JPG, PNG, WebP — up to 8 MB each
           </p>
         </div>
 
@@ -363,6 +365,51 @@ a { text-decoration: none; color: inherit; }
           <!-- Photos rendered here -->
         </div>
       </div>
+
+      <!-- Videos -->
+      <div class="card">
+        <h2 class="card-title">
+          Business Videos
+          <button class="btn btn-outline" type="button" onclick="document.getElementById('video-upload').click()">+ Add Video</button>
+        </h2>
+        <input type="file" id="video-upload" accept="video/*" multiple style="display: none;" onchange="handleVideoUpload(event)">
+
+        <div class="upload-area" onclick="document.getElementById('video-upload').click()">
+          <div class="upload-icon">🎬</div>
+          <p class="upload-text">
+            <b>Click to upload</b> or drag and drop<br>
+            MP4, MOV, WebM — up to 100 MB each
+          </p>
+        </div>
+
+        <div id="video-progress" style="margin-top:16px"></div>
+
+        <div class="video-grid" id="video-grid" style="margin-top:24px; display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:14px">
+          <!-- Videos rendered here -->
+        </div>
+      </div>
+
+      <!-- Files / Documents -->
+      <div class="card">
+        <h2 class="card-title">
+          Menus, Brochures &amp; Documents
+          <button class="btn btn-outline" type="button" onclick="document.getElementById('file-upload').click()">+ Add File</button>
+        </h2>
+        <input type="file" id="file-upload" accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.presentationml.presentation,application/vnd.ms-excel,application/vnd.ms-powerpoint,text/plain,text/csv,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv" multiple style="display: none;" onchange="handleFileUpload(event)">
+
+        <div class="upload-area" onclick="document.getElementById('file-upload').click()">
+          <div class="upload-icon">📄</div>
+          <p class="upload-text">
+            <b>Click to upload</b> or drag and drop<br>
+            PDF, DOCX, XLSX, PPTX, TXT, CSV — up to 10 MB each
+          </p>
+        </div>
+
+        <div class="file-list" id="file-list" style="margin-top:24px; display:flex; flex-direction:column; gap:10px">
+          <!-- Files rendered here -->
+        </div>
+      </div>
+
     </div>
 
     <!-- Analytics Tab -->
@@ -443,11 +490,13 @@ a { text-decoration: none; color: inherit; }
 
 <script type="module">
 import { auth, db, storage, onAuthStateChanged, signOut, doc, setDoc, collection, query, where, getDocs, updateDoc } from './firebase-config.js';
-import { ref, uploadBytes, getDownloadURL, deleteObject } from 'https://www.gstatic.com/firebasejs/12.12.1/firebase-storage.js';
+import { ref, uploadBytesResumable, uploadBytes, getDownloadURL, deleteObject } from 'https://www.gstatic.com/firebasejs/12.12.1/firebase-storage.js';
 
 let currentUser = null;
 let businessId = null;
 let currentImages = [];
+let currentVideos = []; // [{url, name, type, size, path}]
+let currentFiles = [];  // [{url, name, type, size, path}]
 
 // Check auth state — redirect to login if not signed in
 onAuthStateChanged(auth, async (user) => {
@@ -493,8 +542,12 @@ async function loadBusiness() {
       businessId = d.id;
       const data = d.data();
       currentImages = Array.isArray(data.images) ? data.images.slice() : (data.image ? [data.image] : []);
+      currentVideos = Array.isArray(data.videos) ? data.videos.slice() : [];
+      currentFiles = Array.isArray(data.files) ? data.files.slice() : [];
       fillForm(data);
       renderPhotos(currentImages);
+      renderVideos(currentVideos);
+      renderFiles(currentFiles);
       // Reviews + analytics from Firestore (best-effort)
       loadReviewsForBusiness();
       loadAnalyticsStub(data);
@@ -700,19 +753,7 @@ async function deletePhoto(index) {
   currentImages.splice(index, 1);
   renderPhotos(currentImages);
 
-  // Best-effort delete from Storage if the URL is one of ours
-  try {
-    if (url && url.includes('/businesses/')){
-      // Extract storage path from download URL (format: .../o/<path>?alt=media&token=...)
-      const m = url.match(/\/o\/([^?]+)/);
-      if (m){
-        const decoded = decodeURIComponent(m[1]);
-        await deleteObject(ref(storage, decoded)).catch(()=>{ /* ignore */ });
-      }
-    }
-  } catch (err) {
-    console.warn('Could not delete from Storage:', err);
-  }
+  await tryDeleteFromStorage(url);
 
   // Update Firestore
   try {
@@ -725,6 +766,270 @@ async function deletePhoto(index) {
   } catch (err) {
     console.error('Error updating after delete:', err);
     showToast('Could not save change', 'error');
+  }
+}
+
+/* ──────────────────────────────────────────────────────────
+ * Videos — uploads with progress, render with <video> player
+ * ────────────────────────────────────────────────────────── */
+async function handleVideoUpload(e){
+  const files = Array.from(e.target.files || []);
+  if (!files.length) return;
+  if (!businessId || !currentUser){ showToast('Sign in first', 'error'); return; }
+
+  const progressEl = document.getElementById('video-progress');
+  progressEl.innerHTML = '';
+
+  const accepted = [];
+  for (const file of files){
+    if (!file.type.startsWith('video/')){
+      showToast(`${file.name} is not a video — skipped`, 'error');
+      continue;
+    }
+    if (file.size > 100 * 1024 * 1024){
+      showToast(`${file.name} is over 100 MB — skipped`, 'error');
+      continue;
+    }
+    accepted.push(file);
+  }
+
+  for (const file of accepted){
+    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+    const path = `businesses/${businessId}/videos/${Date.now()}_${safeName}`;
+    const sref = ref(storage, path);
+
+    // Per-file progress bar
+    const row = document.createElement('div');
+    row.className = 'upload-progress-row';
+    row.style.cssText = 'background:var(--ivory); border:1px solid var(--line); border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; align-items:center; gap:12px';
+    row.innerHTML = `
+      <span style="flex:0 0 auto; font-size:18px">🎬</span>
+      <div style="flex:1; min-width:0">
+        <div style="font-size:13px; font-weight:500; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">${escapeHtml(file.name)}</div>
+        <div style="height:4px; background:rgba(10,10,10,0.08); border-radius:2px; margin-top:6px; overflow:hidden">
+          <div class="bar" style="height:100%; width:0%; background:var(--brass); transition:width 0.18s"></div>
+        </div>
+      </div>
+      <span class="pct" style="font-size:11px; color:var(--muted); flex:0 0 auto; min-width:40px; text-align:right">0%</span>
+    `;
+    progressEl.appendChild(row);
+
+    try {
+      const task = uploadBytesResumable(sref, file, { contentType: file.type });
+      await new Promise((resolve, reject) => {
+        task.on('state_changed',
+          (snap) => {
+            const pct = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
+            row.querySelector('.bar').style.width = pct + '%';
+            row.querySelector('.pct').textContent = pct + '%';
+          },
+          (err) => reject(err),
+          () => resolve()
+        );
+      });
+      const url = await getDownloadURL(sref);
+      const entry = { url, name: file.name, type: file.type, size: file.size, path };
+      currentVideos.push(entry);
+      row.querySelector('.bar').style.background = 'var(--success)';
+      row.querySelector('.pct').textContent = 'Done';
+      setTimeout(() => row.remove(), 1500);
+    } catch (err) {
+      console.error('Video upload failed:', err);
+      row.querySelector('.pct').textContent = 'Failed';
+      row.querySelector('.bar').style.background = 'var(--error)';
+      showToast(`Upload failed: ${file.name}`, 'error');
+    }
+  }
+
+  if (currentVideos.length){
+    renderVideos(currentVideos);
+    try {
+      await updateDoc(doc(db, 'businesses', businessId), {
+        videos: currentVideos,
+        updatedAt: new Date()
+      });
+      showToast(`Saved ${accepted.length} video${accepted.length === 1 ? '' : 's'}`, 'success');
+    } catch (err) {
+      console.error('Save video refs failed:', err);
+      showToast('Videos uploaded but not saved to profile', 'error');
+    }
+  }
+  e.target.value = '';
+}
+
+function renderVideos(videos){
+  const grid = document.getElementById('video-grid');
+  if (!grid) return;
+  if (!videos || !videos.length){
+    grid.innerHTML = '<p style="color:var(--muted); padding:18px 4px; grid-column:1/-1">No videos yet. Upload your first one above.</p>';
+    return;
+  }
+  grid.innerHTML = videos.map((v, i) => `
+    <div class="video-item" style="background:#000; border-radius:12px; overflow:hidden; position:relative; aspect-ratio:16/9">
+      <video src="${escapeHtml(v.url)}" controls playsinline preload="metadata" style="width:100%; height:100%; object-fit:cover; display:block"></video>
+      <button type="button" class="photo-action" onclick="deleteVideo(${i})" title="Delete" style="position:absolute; top:8px; right:8px">🗑</button>
+      <div style="position:absolute; bottom:0; left:0; right:0; padding:8px 12px; background:linear-gradient(to top, rgba(0,0,0,0.7), transparent); color:#fff; font-size:11.5px; pointer-events:none; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">
+        ${escapeHtml(v.name)} · ${formatSize(v.size)}
+      </div>
+    </div>
+  `).join('');
+}
+
+async function deleteVideo(index){
+  if (!confirm('Delete this video?')) return;
+  if (!businessId || !currentUser) return;
+  const v = currentVideos[index];
+  currentVideos.splice(index, 1);
+  renderVideos(currentVideos);
+  await tryDeleteFromStorage(v?.url, v?.path);
+  try {
+    await updateDoc(doc(db, 'businesses', businessId), {
+      videos: currentVideos,
+      updatedAt: new Date()
+    });
+    showToast('Video deleted', 'success');
+  } catch (err) {
+    console.error('Error updating after video delete:', err);
+    showToast('Could not save change', 'error');
+  }
+}
+
+/* ──────────────────────────────────────────────────────────
+ * Files — menus, brochures, certificates
+ * ────────────────────────────────────────────────────────── */
+const ALLOWED_FILE_TYPES = new Set([
+  'application/pdf',
+  'application/msword',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+  'application/vnd.ms-excel',
+  'application/vnd.ms-powerpoint',
+  'text/plain',
+  'text/csv'
+]);
+
+async function handleFileUpload(e){
+  const files = Array.from(e.target.files || []);
+  if (!files.length) return;
+  if (!businessId || !currentUser){ showToast('Sign in first', 'error'); return; }
+
+  const accepted = files.filter(f => {
+    if (f.size > 10 * 1024 * 1024){
+      showToast(`${f.name} is over 10 MB — skipped`, 'error');
+      return false;
+    }
+    // Allow even if MIME is empty (Windows sometimes omits) — extension will gate at rule
+    if (f.type && !ALLOWED_FILE_TYPES.has(f.type)){
+      showToast(`${f.name} type (${f.type}) not allowed — skipped`, 'error');
+      return false;
+    }
+    return true;
+  });
+
+  if (!accepted.length){ e.target.value = ''; return; }
+
+  showToast(`Uploading ${accepted.length} file${accepted.length === 1 ? '' : 's'}…`);
+
+  for (const file of accepted){
+    try {
+      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+      const path = `businesses/${businessId}/files/${Date.now()}_${safeName}`;
+      const sref = ref(storage, path);
+      await uploadBytes(sref, file, {
+        contentType: file.type || 'application/octet-stream',
+        customMetadata: { originalName: file.name }
+      });
+      const url = await getDownloadURL(sref);
+      currentFiles.push({ url, name: file.name, type: file.type || 'application/octet-stream', size: file.size, path });
+    } catch (err) {
+      console.error('File upload failed:', err);
+      showToast(`Upload failed: ${file.name}`, 'error');
+    }
+  }
+
+  renderFiles(currentFiles);
+  try {
+    await updateDoc(doc(db, 'businesses', businessId), {
+      files: currentFiles,
+      updatedAt: new Date()
+    });
+    showToast('Files saved', 'success');
+  } catch (err) {
+    console.error('Save file refs failed:', err);
+    showToast('Files uploaded but not saved to profile', 'error');
+  }
+  e.target.value = '';
+}
+
+function renderFiles(files){
+  const list = document.getElementById('file-list');
+  if (!list) return;
+  if (!files || !files.length){
+    list.innerHTML = '<p style="color:var(--muted); padding:14px 4px">No files yet. Upload menus, brochures, or certificates above.</p>';
+    return;
+  }
+  list.innerHTML = files.map((f, i) => `
+    <div class="file-item" style="display:flex; align-items:center; gap:12px; padding:12px 14px; background:var(--surface); border:1px solid var(--line); border-radius:10px">
+      <span style="font-size:22px; flex:0 0 auto">${fileIcon(f.type, f.name)}</span>
+      <div style="flex:1; min-width:0">
+        <div style="font-size:14px; font-weight:500; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">${escapeHtml(f.name)}</div>
+        <div style="font-size:12px; color:var(--muted)">${escapeHtml(f.type || 'file')} · ${formatSize(f.size)}</div>
+      </div>
+      <a href="${escapeHtml(f.url)}" target="_blank" rel="noopener" class="btn btn-outline" style="padding:6px 12px; font-size:11px">View</a>
+      <button type="button" class="photo-action" onclick="deleteFile(${i})" title="Delete">🗑</button>
+    </div>
+  `).join('');
+}
+
+async function deleteFile(index){
+  if (!confirm('Delete this file?')) return;
+  if (!businessId || !currentUser) return;
+  const f = currentFiles[index];
+  currentFiles.splice(index, 1);
+  renderFiles(currentFiles);
+  await tryDeleteFromStorage(f?.url, f?.path);
+  try {
+    await updateDoc(doc(db, 'businesses', businessId), {
+      files: currentFiles,
+      updatedAt: new Date()
+    });
+    showToast('File deleted', 'success');
+  } catch (err) {
+    console.error('Error updating after file delete:', err);
+    showToast('Could not save change', 'error');
+  }
+}
+
+function fileIcon(type, name){
+  const t = (type || '').toLowerCase();
+  const n = (name || '').toLowerCase();
+  if (t.includes('pdf') || n.endsWith('.pdf')) return '📕';
+  if (t.includes('word') || n.endsWith('.doc') || n.endsWith('.docx')) return '📘';
+  if (t.includes('sheet') || t.includes('excel') || n.endsWith('.xls') || n.endsWith('.xlsx') || t === 'text/csv' || n.endsWith('.csv')) return '📗';
+  if (t.includes('presentation') || n.endsWith('.ppt') || n.endsWith('.pptx')) return '📙';
+  return '📄';
+}
+function formatSize(bytes){
+  if (!bytes && bytes !== 0) return '';
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+}
+
+/* Shared Storage delete helper — accepts either a download URL or a path. */
+async function tryDeleteFromStorage(url, path){
+  try {
+    let storagePath = path;
+    if (!storagePath && url){
+      const m = url.match(/\/o\/([^?]+)/);
+      if (m) storagePath = decodeURIComponent(m[1]);
+    }
+    if (storagePath){
+      await deleteObject(ref(storage, storagePath)).catch(()=>{ /* tolerate already-deleted */ });
+    }
+  } catch (err) {
+    console.warn('Could not delete from Storage:', err);
   }
 }
 
@@ -751,6 +1056,10 @@ function showToast(message, type = '') {
 window.saveProfile = saveProfile;
 window.handlePhotoUpload = handlePhotoUpload;
 window.deletePhoto = deletePhoto;
+window.handleVideoUpload = handleVideoUpload;
+window.deleteVideo = deleteVideo;
+window.handleFileUpload = handleFileUpload;
+window.deleteFile = deleteFile;
 window.showToast = showToast;
 </script>
 </body>

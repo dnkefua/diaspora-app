@@ -1,13 +1,38 @@
 rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
-    // Allow public read for uploaded business images
-    match /businesses/{bizId}/{allPaths=**} {
-      allow read: if true;
-      allow write: if request.auth != null;
+
+    // Helpers
+    function authed() { return request.auth != null; }
+    function isImage() { return request.resource.contentType.matches('image/.*'); }
+    function isVideo() { return request.resource.contentType.matches('video/.*'); }
+    function isDoc() {
+      return request.resource.contentType == 'application/pdf'
+        || request.resource.contentType == 'application/msword'
+        || request.resource.contentType.matches('application/vnd\\.(openxmlformats-officedocument|ms-excel|ms-powerpoint|oasis\\..+|.+).*')
+        || request.resource.contentType == 'text/plain'
+        || request.resource.contentType == 'text/csv';
     }
 
-    // Default: deny
+    // Public read for everything under a business — visitors should be able
+    // to load images, watch videos, and download menus/brochures.
+    // Writes are gated by content-type + size to prevent abuse.
+    match /businesses/{bizId}/{path=**} {
+      allow read: if true;
+
+      allow write: if authed() && (
+        // Photos — up to 8 MB
+        (isImage() && request.resource.size < 8 * 1024 * 1024) ||
+        // Videos — up to 100 MB (App Hosting / browser-friendly clips)
+        (isVideo() && request.resource.size < 100 * 1024 * 1024) ||
+        // Documents (PDF, DOCX, XLSX, PPTX, TXT, CSV) — up to 10 MB
+        (isDoc() && request.resource.size < 10 * 1024 * 1024)
+      );
+
+      allow delete: if authed();
+    }
+
+    // Default: deny.
     match /{allPaths=**} {
       allow read, write: if false;
     }
