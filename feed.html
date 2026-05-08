@@ -135,6 +135,14 @@ a { text-decoration: none; color: inherit; }
 .biz-location { display: flex; align-items: center; gap: 4px; }
 .verified-badge { color: var(--blue); margin-left: 4px; font-size: 14px; }
 
+/* Trust badges on biz cards */
+.tb { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 999px; font-size: 10px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; vertical-align: middle; margin-left: 6px; }
+.tb svg { display: block; }
+.tb-verified { background: #1C3D6E; color: #fff; }
+.tb-verified svg { fill: #fff; }
+.tb-premium { background: linear-gradient(135deg, #D9BE88 0%, #B7924A 60%, #8C6B2E 100%); color: #fff; }
+.tb-premium svg { fill: #fff; }
+
 /* Empty State */
 .empty-state {
   text-align: center; padding: 64px 20px; grid-column: 1 / -1; color: var(--muted);
@@ -334,7 +342,7 @@ function renderFeed() {
       <img src="${b.image}" class="biz-img" alt="${b.name}" loading="lazy">
       <div class="biz-info">
         <div class="biz-header">
-          <h3 class="biz-title">${b.name} ${b.verified ? '<span class="verified-badge" title="Verified">✓</span>' : ''}</h3>
+          <h3 class="biz-title">${b.name}${b.premium ? '<span class="tb tb-premium" title="Premium · highest trust tier"><svg viewBox="0 0 24 24" width="10" height="10"><path d="M12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62z"/></svg>Premium</span>' : ''}${b.verified ? '<span class="tb tb-verified" title="Verified by Diaspora — physically inspected"><svg viewBox="0 0 24 24" width="10" height="10"><path d="M9 16.17 5.53 12.7a1 1 0 0 0-1.41 1.41l4.18 4.18a1 1 0 0 0 1.41 0l11.06-11.06a1 1 0 1 0-1.41-1.41z"/></svg>Verified</span>' : ''}</h3>
           <div class="biz-rating">⭐ ${b.rating}</div>
         </div>
         <div class="biz-category">${b.category}</div>

@@ -269,6 +269,19 @@ a { text-decoration: none; color: inherit; }
   </nav>
 
   <main class="main">
+
+    <!-- Trust status banner — shows current badges + verification CTA -->
+    <div id="trust-banner" style="display:none; background:#fff; border:1px solid var(--line); border-radius:14px; padding:18px 22px; margin-bottom:22px;">
+      <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px">
+        <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap">
+          <span style="font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:600">Trust status</span>
+          <span id="badge-slot"></span>
+        </div>
+        <div id="trust-cta" style="display:flex; gap:8px; flex-wrap:wrap"></div>
+      </div>
+      <div id="verification-report-block" style="display:none; margin-top:12px; padding:12px 14px; background:linear-gradient(135deg, rgba(28,61,110,0.04) 0%, rgba(183,146,74,0.06) 100%); border:1px solid rgba(183,146,74,0.20); border-radius:10px; font-size:13.5px; color:var(--graphite); white-space:pre-wrap"></div>
+    </div>
+
     <!-- Profile Tab -->
     <div class="tab-content active" id="profile-tab">
       <div class="card">
@@ -548,6 +561,7 @@ async function loadBusiness() {
       renderPhotos(currentImages);
       renderVideos(currentVideos);
       renderFiles(currentFiles);
+      renderTrustBanner(data);
       // Reviews + analytics from Firestore (best-effort)
       loadReviewsForBusiness();
       loadAnalyticsStub(data);
@@ -615,6 +629,47 @@ async function loadReviewsForBusiness(){
     if (cnt) cnt.textContent = String(rows.length);
   } catch (err) {
     console.warn('Reviews load failed:', err);
+  }
+}
+
+function renderTrustBanner(data){
+  const banner = document.getElementById('trust-banner');
+  if (!banner) return;
+  banner.style.display = 'block';
+
+  const badges = document.getElementById('badge-slot');
+  const VERIFIED_SVG = '<svg viewBox="0 0 24 24" width="11" height="11" style="display:block;fill:#fff"><path d="M9 16.17 5.53 12.7a1 1 0 0 0-1.41 1.41l4.18 4.18a1 1 0 0 0 1.41 0l11.06-11.06a1 1 0 1 0-1.41-1.41z"/></svg>';
+  const PREMIUM_SVG = '<svg viewBox="0 0 24 24" width="11" height="11" style="display:block;fill:#fff"><path d="M12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62z"/></svg>';
+
+  let badgeHtml = '';
+  if (data.premium){
+    badgeHtml += '<span style="display:inline-flex; align-items:center; gap:5px; padding:4px 11px; border-radius:999px; background:linear-gradient(135deg, #D9BE88 0%, #B7924A 60%, #8C6B2E 100%); color:#fff; font-size:11px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; box-shadow:0 2px 6px rgba(183,146,74,0.30); margin-right:6px">' + PREMIUM_SVG + ' Premium</span>';
+  }
+  if (data.verified){
+    badgeHtml += '<span style="display:inline-flex; align-items:center; gap:5px; padding:4px 11px; border-radius:999px; background:#1C3D6E; color:#fff; font-size:11px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase">' + VERIFIED_SVG + ' Verified</span>';
+  }
+  if (!badgeHtml){
+    badgeHtml = '<span style="font-size:13px; color:var(--muted)">Not yet verified — apply below to earn the blue tick.</span>';
+  }
+  badges.innerHTML = badgeHtml;
+
+  // CTA based on current tier
+  const cta = document.getElementById('trust-cta');
+  if (data.premium){
+    cta.innerHTML = '<a href="verification.html" class="btn btn-outline" style="text-decoration:none; padding:8px 16px">How verification works</a>';
+  } else if (data.verified){
+    cta.innerHTML = '<a href="mailto:hello@thediaspora.app?subject=Premium%20application%20-%20' + encodeURIComponent(data.name || businessId) + '" class="btn btn-primary" style="text-decoration:none; padding:8px 16px; background:linear-gradient(135deg, #D9BE88 0%, #B7924A 60%, #8C6B2E 100%)">★ Apply for Premium</a><a href="verification.html" class="btn btn-outline" style="text-decoration:none; padding:8px 16px">Learn more</a>';
+  } else {
+    cta.innerHTML = '<a href="mailto:hello@thediaspora.app?subject=Verification%20request%20-%20' + encodeURIComponent(data.name || businessId) + '" class="btn btn-primary" style="text-decoration:none; padding:8px 16px">Request verification</a><a href="verification.html" class="btn btn-outline" style="text-decoration:none; padding:8px 16px">Learn more</a>';
+  }
+
+  // Public verification report (read-only for owner)
+  const reportBlock = document.getElementById('verification-report-block');
+  if (data.verified && data.verificationReport){
+    reportBlock.textContent = data.verificationReport;
+    reportBlock.style.display = 'block';
+  } else {
+    reportBlock.style.display = 'none';
   }
 }
 

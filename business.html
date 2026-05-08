@@ -50,8 +50,18 @@ a { text-decoration: none; color: inherit; }
   background: var(--surface); border-radius: 20px; padding: 24px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.06); margin-bottom: 24px;
 }
-.biz-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 700; margin-bottom: 8px; line-height: 1.1; }
-.verified { color: var(--blue); font-size: 20px; margin-left: 6px; }
+.biz-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 700; margin-bottom: 8px; line-height: 1.15; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+
+/* ── Trust badges ──
+   Verified tick (admin-set, blue) — bestowed after physical site visit + records check.
+   Premium badge (admin-set, gold) — paid + verified, highest trust tier. */
+.badge { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; vertical-align: middle; }
+.badge svg { display: block; }
+.badge-verified { background: #1C3D6E; color: #fff; }
+.badge-verified svg { fill: #fff; }
+.badge-premium { background: linear-gradient(135deg, #D9BE88 0%, #B7924A 60%, #8C6B2E 100%); color: #fff; box-shadow: 0 2px 6px rgba(183,146,74,0.30); }
+.badge-premium svg { fill: #fff; }
+.badge-tick-only { padding: 0; width: 22px; height: 22px; justify-content: center; }
 .biz-meta { display: flex; flex-wrap: wrap; gap: 12px; font-size: 14px; color: var(--muted); margin-bottom: 16px; }
 .biz-cat { background: var(--ivory); padding: 4px 10px; border-radius: 6px; font-weight: 600; color: var(--ink); text-transform: uppercase; letter-spacing: 0.05em; font-size: 11px; }
 .biz-desc { font-size: 15px; line-height: 1.6; color: var(--graphite); }
@@ -82,12 +92,58 @@ a { text-decoration: none; color: inherit; }
 /* Reviews */
 .review-card { border-bottom: 1px solid var(--line); padding: 16px 0; }
 .review-card:last-child { border-bottom: none; padding-bottom: 0; }
-.review-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
+.review-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
 .reviewer-name { font-weight: 600; font-size: 15px; }
-.review-date { font-size: 13px; color: var(--muted); }
-.review-stars { color: var(--brass); font-size: 14px; margin-bottom: 8px; }
-.review-text { font-size: 14px; line-height: 1.5; color: var(--graphite); }
+.review-date { font-size: 12px; color: var(--muted); }
+.review-stars { color: var(--brass); font-size: 14px; margin-bottom: 8px; letter-spacing: 1px; }
+.review-text { font-size: 14px; line-height: 1.55; color: var(--graphite); white-space: pre-wrap; }
+.review-actions { margin-top: 6px; display: flex; gap: 12px; font-size: 12px; }
+.review-actions button { background: none; border: none; padding: 0; color: var(--muted); cursor: pointer; }
+.review-actions button:hover { color: var(--ink); }
+.review-actions button.danger:hover { color: #C53030; }
 .see-all { color: var(--blue); font-weight: 600; font-size: 14px; display: inline-block; margin-top: 16px; }
+
+/* Rating summary on the info card */
+.rating-summary { display: flex; align-items: center; gap: 8px; }
+.rating-summary .stars { color: var(--brass); font-size: 15px; letter-spacing: 1px; }
+.rating-summary .num { font-weight: 700; color: var(--ink); }
+.rating-summary .count { color: var(--muted); }
+
+/* Star input + review form */
+.review-form { background: var(--ivory); border-radius: 14px; padding: 18px; border: 1px solid var(--line); }
+.review-form h4 { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; margin-bottom: 12px; }
+.star-input { display: inline-flex; gap: 4px; margin-bottom: 12px; }
+.star-input button {
+  background: none; border: none; cursor: pointer; padding: 2px;
+  font-size: 28px; line-height: 1; color: rgba(10,10,10,0.18);
+  transition: color 0.15s, transform 0.15s;
+}
+.star-input button:hover, .star-input button.hover { color: var(--brass); }
+.star-input button.active { color: var(--brass); }
+.review-form textarea {
+  width: 100%; min-height: 90px; padding: 12px 14px;
+  border: 1px solid var(--line); border-radius: 10px;
+  font-family: inherit; font-size: 14px; resize: vertical;
+  background: var(--surface); color: var(--ink);
+}
+.review-form textarea:focus { outline: none; border-color: var(--brass); }
+.review-form .controls { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 10px; }
+.review-form .submit {
+  background: var(--ink); color: var(--paper); border: none;
+  padding: 11px 22px; border-radius: 999px;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  cursor: pointer;
+}
+.review-form .submit[disabled] { opacity: 0.4; cursor: not-allowed; }
+.review-form .hint { font-size: 12px; color: var(--muted); }
+.review-gate { background: var(--ivory); border: 1px dashed var(--line); border-radius: 14px; padding: 22px; text-align: center; }
+.review-gate p { color: var(--muted); margin-bottom: 12px; font-size: 14px; }
+
+/* Verification report panel — admin-written, public read */
+.verification-panel { background: linear-gradient(135deg, rgba(28,61,110,0.04) 0%, rgba(183,146,74,0.06) 100%); border: 1px solid rgba(183,146,74,0.20); border-radius: 14px; padding: 18px; margin-top: 16px; }
+.verification-panel h4 { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; margin-bottom: 8px; display: inline-flex; align-items: center; gap: 8px; }
+.verification-panel p { font-size: 14px; color: var(--graphite); line-height: 1.55; white-space: pre-wrap; }
+.verification-panel .meta { font-size: 11px; color: var(--muted); margin-top: 8px; letter-spacing: 0.06em; text-transform: uppercase; }
 
 /* Loading */
 .loading { text-align: center; padding: 60px 20px; }
@@ -146,7 +202,7 @@ a { text-decoration: none; color: inherit; }
 </nav>
 
 <script type="module">
-import { db, doc, getDoc } from './firebase-config.js';
+import { auth, db, onAuthStateChanged, doc, getDoc, addDoc, deleteDoc, collection, query, where, orderBy, getDocs } from './firebase-config.js';
 
 const FALLBACK_DATA = {
   'b1': { id:'b1', name:'Mama Titi Kitchen', category:'Restaurants', city:'Dubai', area:'Deira',
@@ -183,11 +239,26 @@ const FALLBACK_DATA = {
     desc:'Tech and finance roles at diaspora-friendly companies across the UAE.' },
 };
 
-const MOCK_REVIEWS = [
-  { name: 'David O.', date: '2 days ago', stars: '⭐⭐⭐⭐⭐', text: 'Absolutely fantastic service. Reminds me of home!' },
-  { name: 'Sarah K.', date: '1 week ago', stars: '⭐⭐⭐⭐⭐', text: 'Very professional and great attention to detail. Highly recommend.' },
-  { name: 'Michael A.', date: '3 weeks ago', stars: '⭐⭐⭐⭐', text: 'Good experience overall, will definitely be coming back.' }
-];
+/* ── State ── */
+let currentUser = null;
+let currentBiz = null;
+let allReviews = [];
+let myExistingReview = null;
+let isAdmin = false;
+
+const VERIFIED_SVG = '<svg viewBox="0 0 24 24" width="11" height="11"><path d="M9 16.17 5.53 12.7a1 1 0 0 0-1.41 1.41l4.18 4.18a1 1 0 0 0 1.41 0l11.06-11.06a1 1 0 1 0-1.41-1.41z"/></svg>';
+const PREMIUM_SVG = '<svg viewBox="0 0 24 24" width="11" height="11"><path d="M12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62z"/></svg>';
+
+function badgeHtml(biz, opts = {}){
+  const verified = !!biz.verified;
+  const premium = !!biz.premium;
+  if (!verified && !premium) return '';
+  const labelOnTick = opts.compact ? '' : ' Verified';
+  const labelOnPremium = opts.compact ? '' : ' Premium';
+  const tickEl = verified ? `<span class="badge badge-verified" title="Verified by Diaspora — physically inspected and records checked">${VERIFIED_SVG}${labelOnTick}</span>` : '';
+  const premiumEl = premium ? `<span class="badge badge-premium" title="Premium tier — verified + paid trust subscription">${PREMIUM_SVG}${labelOnPremium}</span>` : '';
+  return premiumEl + tickEl;
+}
 
 async function renderPage() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -232,29 +303,52 @@ async function renderPage() {
     };
 
     const waText = encodeURIComponent(`Hi ${biz.name}, I found you on the Diaspora App and would like to make an inquiry.`);
+    currentBiz = biz;
+
+    // Load reviews up front so we can show real average + count
+    await loadReviews(id);
+    const ratingNum = computeAverageRating();
+    const ratingCount = allReviews.length;
+    const description = biz.description || biz.desc || '';
+    const heroImg = biz.image || (Array.isArray(biz.images) && biz.images[0]) || 'Media%20resources/TheDiaspora%20app%20logo%203D.png';
 
     container.innerHTML = `
       <div class="hero">
-        <img src="${biz.image}" alt="${biz.name}">
+        <img src="${escHtml(heroImg)}" alt="${escHtml(biz.name)}">
         <div class="hero-gradient"></div>
         <a href="feed.html" class="back-btn">←</a>
       </div>
 
       <div class="container">
         <div class="info-card">
-          <h1 class="biz-title">${biz.name} ${biz.verified ? '<span class="verified" title="Verified">✓</span>' : ''}</h1>
+          <h1 class="biz-title">
+            <span>${escHtml(biz.name)}</span>
+            ${badgeHtml(biz)}
+          </h1>
           <div class="biz-meta">
-            <span class="biz-cat">${biz.category}</span>
-            <span>⭐ ${biz.rating} (${biz.reviews} reviews)</span>
-            <span>📍 ${biz.city}</span>
+            <span class="biz-cat">${escHtml(biz.category || '')}</span>
+            ${biz.area ? `<span>📍 ${escHtml(biz.area)}, ${escHtml(biz.city || '')}</span>` : `<span>📍 ${escHtml(biz.city || '')}</span>`}
           </div>
-          <p class="biz-desc">${biz.desc}</p>
+          <div class="rating-summary" style="margin-bottom:12px">
+            ${ratingCount > 0
+              ? `<span class="stars">${starsRow(ratingNum)}</span> <span class="num">${ratingNum.toFixed(1)}</span> <span class="count">· ${ratingCount} review${ratingCount === 1 ? '' : 's'}</span>`
+              : `<span class="count">No reviews yet — be the first to review.</span>`}
+          </div>
+          <p class="biz-desc">${escHtml(description)}</p>
+
+          ${biz.verified && biz.verificationReport ? `
+            <div class="verification-panel">
+              <h4>${VERIFIED_SVG} Verification report</h4>
+              <p>${escHtml(biz.verificationReport)}</p>
+              ${biz.verifiedAt ? `<div class="meta">Verified ${formatTimestamp(biz.verifiedAt)}</div>` : ''}
+            </div>
+          ` : ''}
 
           <div class="actions">
-            <a href="https://wa.me/${biz.phone.replace('+','')}?text=${waText}" target="_blank" class="btn btn-primary">
+            <a href="https://wa.me/${(biz.phone||'').replace(/[^0-9]/g,'')}?text=${waText}" target="_blank" class="btn btn-primary">
               💬 WhatsApp
             </a>
-            <button class="btn btn-secondary" onclick="alert('Review feature coming soon!')">
+            <button class="btn btn-secondary" onclick="document.getElementById('review-form-anchor').scrollIntoView({behavior:'smooth'})">
               ⭐ Write Review
             </button>
           </div>
@@ -294,23 +388,18 @@ async function renderPage() {
         ${renderFiles(biz)}
 
         <div class="section">
-          <h2 class="section-title">Reviews</h2>
-          <div class="details-box">
-            ${MOCK_REVIEWS.map(r => `
-              <div class="review-card">
-                <div class="review-header">
-                  <div class="reviewer-name">${r.name}</div>
-                  <div class="review-date">${r.date}</div>
-                </div>
-                <div class="review-stars">${r.stars}</div>
-                <div class="review-text">${r.text}</div>
-              </div>
-            `).join('')}
-            <a href="#" class="see-all" onclick="alert('Full reviews coming soon!')">See all ${biz.reviews} reviews →</a>
+          <h2 class="section-title">Reviews &amp; Comments</h2>
+          <div id="review-form-anchor"></div>
+          <div id="review-form-slot" style="margin-bottom:18px"></div>
+          <div class="details-box" id="reviews-list">
+            <p style="color:var(--muted); padding:8px 0">Loading reviews…</p>
           </div>
         </div>
       </div>
     `;
+
+    renderReviewForm();
+    renderReviewsList();
   } catch (error) {
     console.error('Error loading business:', error);
     // Use fallback data
@@ -394,6 +483,257 @@ function renderFiles(biz){
     </div>
   `;
 }
+
+/* ────────────────────── Reviews ────────────────────── */
+
+async function loadReviews(bizId){
+  try {
+    // Try ordered query first (requires composite index in some configs)
+    let snap;
+    try {
+      snap = await getDocs(query(
+        collection(db, 'reviews'),
+        where('businessId', '==', bizId),
+        orderBy('createdAt', 'desc')
+      ));
+    } catch (_) {
+      // Fallback without orderBy if index missing
+      snap = await getDocs(query(collection(db, 'reviews'), where('businessId', '==', bizId)));
+    }
+    allReviews = [];
+    snap.forEach(d => allReviews.push({ id: d.id, ...d.data() }));
+    // Client-side sort if not already sorted
+    allReviews.sort((a, b) => {
+      const ax = a.createdAt?.toMillis ? a.createdAt.toMillis() : 0;
+      const bx = b.createdAt?.toMillis ? b.createdAt.toMillis() : 0;
+      return bx - ax;
+    });
+    if (currentUser){
+      myExistingReview = allReviews.find(r => r.authorUid === currentUser.uid) || null;
+    }
+  } catch (err) {
+    console.warn('Could not load reviews:', err);
+    allReviews = [];
+  }
+}
+
+function computeAverageRating(){
+  if (!allReviews.length) return 0;
+  const sum = allReviews.reduce((s, r) => s + (Number(r.rating) || 0), 0);
+  return sum / allReviews.length;
+}
+
+function starsRow(num, max = 5){
+  const full = Math.round(num);
+  return '★'.repeat(full) + '☆'.repeat(max - full);
+}
+
+function formatTimestamp(ts){
+  try {
+    const d = ts?.toDate ? ts.toDate() : (typeof ts === 'string' ? new Date(ts) : ts);
+    if (!d || isNaN(d)) return '';
+    const now = Date.now();
+    const diff = now - d.getTime();
+    const minute = 60 * 1000, hour = 60 * minute, day = 24 * hour;
+    if (diff < minute) return 'just now';
+    if (diff < hour) return `${Math.round(diff / minute)}m ago`;
+    if (diff < day) return `${Math.round(diff / hour)}h ago`;
+    if (diff < 7 * day) return `${Math.round(diff / day)}d ago`;
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  } catch (_) { return ''; }
+}
+
+let pendingRating = 0;
+
+function renderReviewForm(){
+  const slot = document.getElementById('review-form-slot');
+  if (!slot) return;
+
+  if (!currentUser){
+    slot.innerHTML = `
+      <div class="review-gate">
+        <p>Sign in to write a review or comment.</p>
+        <a href="login-firebase.html?next=${encodeURIComponent('business.html?id=' + (currentBiz?.id || ''))}" class="btn btn-primary" style="display:inline-block; padding:11px 22px; text-decoration:none">Sign in to review</a>
+      </div>
+    `;
+    return;
+  }
+
+  // Owner can't review their own business
+  if (currentBiz?.ownerId && currentBiz.ownerId === currentUser.uid){
+    slot.innerHTML = `
+      <div class="review-gate">
+        <p>You own this listing — reviews from owners are disabled to keep ratings honest.</p>
+      </div>
+    `;
+    return;
+  }
+
+  // If already reviewed, show their review with delete option (allow re-write)
+  if (myExistingReview){
+    slot.innerHTML = `
+      <div class="review-gate" style="text-align:left">
+        <p style="text-align:left; margin-bottom:8px"><strong>You've already reviewed this business.</strong> Delete your review below to write a new one — only your most recent review is kept.</p>
+      </div>
+    `;
+    return;
+  }
+
+  pendingRating = 0;
+  slot.innerHTML = `
+    <div class="review-form" id="review-form">
+      <h4>Write a review</h4>
+      <div class="star-input" id="star-input" role="radiogroup" aria-label="Rating, 1 to 5 stars">
+        ${[1,2,3,4,5].map(n => `<button type="button" data-n="${n}" aria-label="${n} star${n===1?'':'s'}">★</button>`).join('')}
+      </div>
+      <textarea id="review-text" maxlength="1500" placeholder="Share your experience — what stood out, what you'd order again, who to ask for…"></textarea>
+      <div class="controls">
+        <span class="hint" id="review-counter">0 / 1500</span>
+        <button class="submit" id="review-submit" type="button" disabled>Post review</button>
+      </div>
+    </div>
+  `;
+
+  const stars = slot.querySelectorAll('.star-input button');
+  stars.forEach((btn, i) => {
+    btn.addEventListener('mouseenter', () => stars.forEach((s, j) => s.classList.toggle('hover', j <= i)));
+    btn.addEventListener('mouseleave', () => stars.forEach(s => s.classList.remove('hover')));
+    btn.addEventListener('click', () => {
+      pendingRating = i + 1;
+      stars.forEach((s, j) => s.classList.toggle('active', j <= i));
+      updateSubmitState();
+    });
+  });
+
+  const text = slot.querySelector('#review-text');
+  const counter = slot.querySelector('#review-counter');
+  text.addEventListener('input', () => {
+    counter.textContent = `${text.value.length} / 1500`;
+    updateSubmitState();
+  });
+
+  slot.querySelector('#review-submit').addEventListener('click', submitReview);
+}
+
+function updateSubmitState(){
+  const btn = document.getElementById('review-submit');
+  const text = document.getElementById('review-text');
+  if (!btn || !text) return;
+  btn.disabled = !(pendingRating >= 1 && text.value.trim().length > 0);
+}
+
+async function submitReview(){
+  if (!currentUser || !currentBiz) return;
+  const text = document.getElementById('review-text').value.trim();
+  if (pendingRating < 1 || !text){ return; }
+
+  const btn = document.getElementById('review-submit');
+  btn.disabled = true;
+  btn.textContent = 'Posting…';
+
+  try {
+    const authorName = (currentUser.displayName || (currentUser.email || '').split('@')[0] || 'Diaspora member').slice(0, 60);
+    await addDoc(collection(db, 'reviews'), {
+      businessId: currentBiz.id,
+      businessName: currentBiz.name || '',
+      authorUid: currentUser.uid,
+      authorName,
+      rating: pendingRating,
+      text,
+      createdAt: new Date()
+    });
+    await loadReviews(currentBiz.id);
+    refreshRatingSummary();
+    renderReviewForm();
+    renderReviewsList();
+  } catch (err) {
+    console.error('Failed to post review:', err);
+    btn.disabled = false;
+    btn.textContent = 'Post review';
+    alert(err.message || 'Could not post review. Please try again.');
+  }
+}
+
+function refreshRatingSummary(){
+  const summary = document.querySelector('.rating-summary');
+  if (!summary) return;
+  const num = computeAverageRating();
+  const cnt = allReviews.length;
+  summary.innerHTML = cnt > 0
+    ? `<span class="stars">${starsRow(num)}</span> <span class="num">${num.toFixed(1)}</span> <span class="count">· ${cnt} review${cnt === 1 ? '' : 's'}</span>`
+    : `<span class="count">No reviews yet — be the first to review.</span>`;
+}
+
+function renderReviewsList(){
+  const list = document.getElementById('reviews-list');
+  if (!list) return;
+  if (!allReviews.length){
+    list.innerHTML = '<p style="color:var(--muted); padding:8px 0">No reviews yet. Be the first to share your experience.</p>';
+    return;
+  }
+  list.innerHTML = allReviews.map(r => {
+    const canDelete = currentUser && (currentUser.uid === r.authorUid || isAdmin);
+    return `
+      <div class="review-card" data-id="${escHtml(r.id)}">
+        <div class="review-header">
+          <div>
+            <div class="reviewer-name">${escHtml(r.authorName || 'Diaspora member')}</div>
+            <div class="review-date">${formatTimestamp(r.createdAt)}</div>
+          </div>
+          <div class="review-stars">${starsRow(r.rating || 0)}</div>
+        </div>
+        <div class="review-text">${escHtml(r.text || '')}</div>
+        ${canDelete ? `
+          <div class="review-actions">
+            <button type="button" class="danger" data-action="delete-review" data-id="${escHtml(r.id)}">Delete</button>
+          </div>
+        ` : ''}
+      </div>
+    `;
+  }).join('');
+
+  list.querySelectorAll('button[data-action="delete-review"]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const id = btn.dataset.id;
+      if (!confirm('Delete this review?')) return;
+      btn.disabled = true;
+      try {
+        await deleteDoc(doc(db, 'reviews', id));
+        await loadReviews(currentBiz.id);
+        refreshRatingSummary();
+        renderReviewForm();
+        renderReviewsList();
+      } catch (err) {
+        console.error('Delete review failed:', err);
+        alert(err.message || 'Could not delete review.');
+        btn.disabled = false;
+      }
+    });
+  });
+}
+
+/* ── Auth state — ensures the form/CTA matches the user before reviews render ── */
+onAuthStateChanged(auth, async (user) => {
+  currentUser = user;
+  if (user){
+    try {
+      const adminSnap = await getDoc(doc(db, 'admins', user.uid));
+      isAdmin = adminSnap.exists();
+    } catch (_) { isAdmin = false; }
+  } else {
+    isAdmin = false;
+  }
+  // If reviews already loaded, refresh the form + list to reflect auth state
+  if (currentBiz){
+    if (currentUser){
+      myExistingReview = allReviews.find(r => r.authorUid === currentUser.uid) || null;
+    } else {
+      myExistingReview = null;
+    }
+    renderReviewForm();
+    renderReviewsList();
+  }
+});
 
 renderPage();
 </script>

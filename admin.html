@@ -69,6 +69,9 @@
 .pill-featured{background:rgba(183,146,74,0.16); color:var(--brass)}
 .pill-pending{background:rgba(143,58,38,0.10); color:var(--rust)}
 .pill-admin{background:var(--ink); color:var(--paper)}
+.pill-premium{background:linear-gradient(135deg, #D9BE88 0%, #B7924A 60%, #8C6B2E 100%); color:#fff; box-shadow:0 1px 3px rgba(183,146,74,0.30)}
+.btn-mini.gold{border-color:#B7924A; color:#B7924A}
+.btn-mini.gold:hover{background:linear-gradient(135deg, #D9BE88 0%, #B7924A 60%, #8C6B2E 100%); color:#fff; border-color:#B7924A}
 
 .row-actions{display:flex; gap:6px; flex-wrap:wrap}
 .btn-mini{
@@ -300,6 +303,32 @@
 
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
+<!-- Verification report editor -->
+<div class="modal-overlay" id="reportModal" role="dialog" aria-modal="true" aria-labelledby="reportModalTitle">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="reportModalTitle">Verification <em>report</em></h3>
+      <button class="modal-close" id="reportCloseBtn" aria-label="Close">&times;</button>
+    </div>
+    <form id="reportForm" class="modal-body">
+      <input type="hidden" id="reportBizId">
+      <p style="font-size:13px; color:var(--muted); margin-bottom:12px">
+        Recorded after a physical site visit. Visible to the public on the business page once the business is also marked Verified.
+      </p>
+      <div class="field">
+        <label for="reportText">Visit notes (public)</label>
+        <textarea id="reportText" rows="6" maxlength="2000" placeholder="Visited the kitchen on 12 Jun 2026. Halal-certified, hygiene rating Aâ€¦ Trade licence on file. Owner present. Recommended for verified status."></textarea>
+        <span style="font-size:12px; color:var(--muted)" id="reportCount">0 / 2000</span>
+      </div>
+    </form>
+    <div class="modal-foot">
+      <button class="btn-mini danger" id="reportClearBtn" type="button">Clear report</button>
+      <button class="btn-mini" id="reportCancelBtn" type="button">Cancel</button>
+      <button class="btn-mini brass" id="reportSaveBtn" type="button">Save report</button>
+    </div>
+  </div>
+</div>
+
 <!-- Sponsorship modal -->
 <div class="modal-overlay" id="spoModal" role="dialog" aria-modal="true" aria-labelledby="spoModalTitle">
   <div class="modal">
@@ -496,13 +525,16 @@ async function loadBusinesses(){
           <div class="admin-cell-meta">${escapeHtml(b.city || '')}${b.area ? ' · ' + escapeHtml(b.area) : ''}</div>
         </td>
         <td>
+          ${b.premium ? '<span class="admin-pill pill-premium">★ Premium</span>' : ''}
           ${b.verified ? '<span class="admin-pill pill-verified">Verified</span>' : '<span class="admin-pill pill-pending">Pending</span>'}
           ${b.featured ? '<span class="admin-pill pill-featured">Featured</span>' : ''}
         </td>
         <td>
           <div class="row-actions">
             <button class="btn-mini" data-act="toggleVerified" data-id="${escapeHtml(b.id)}" data-cur="${b.verified ? '1' : '0'}">${b.verified ? 'Unverify' : 'Verify'}</button>
+            <button class="btn-mini gold" data-act="togglePremium" data-id="${escapeHtml(b.id)}" data-cur="${b.premium ? '1' : '0'}">${b.premium ? 'Remove premium' : 'Mark premium'}</button>
             <button class="btn-mini brass" data-act="toggleFeatured" data-id="${escapeHtml(b.id)}" data-cur="${b.featured ? '1' : '0'}">${b.featured ? 'Unfeature' : 'Feature'}</button>
+            <button class="btn-mini" data-act="editReport" data-id="${escapeHtml(b.id)}" title="Add or edit verification report">Report</button>
             <a class="btn-mini" href="business.html?id=${encodeURIComponent(b.id)}" target="_blank">View</a>
           </div>
         </td>
@@ -805,6 +837,76 @@ $('#spoSaveBtn').addEventListener('click', async ()=>{
   }
 });
 
+/* ─── Verification report editor ─── */
+const reportModal = $('#reportModal');
+async function openReportEditor(bizId){
+  try {
+    const snap = await getDoc(doc(db, 'businesses', bizId));
+    if (!snap.exists()){ flash('Business not found', true); return; }
+    const data = snap.data();
+    $('#reportBizId').value = bizId;
+    const txt = data.verificationReport || '';
+    const ta = $('#reportText');
+    ta.value = txt;
+    $('#reportCount').textContent = `${txt.length} / 2000`;
+    $('#reportModalTitle').innerHTML = `Verification <em>report</em> · ${escapeHtml(data.name || bizId)}`;
+    reportModal.classList.add('open');
+    setTimeout(() => ta.focus(), 30);
+  } catch (err) {
+    console.error('Open report editor failed:', err);
+    flash(err.message || 'Could not open editor', true);
+  }
+}
+function closeReportEditor(){ reportModal.classList.remove('open'); }
+$('#reportCloseBtn').addEventListener('click', closeReportEditor);
+$('#reportCancelBtn').addEventListener('click', closeReportEditor);
+reportModal.addEventListener('click', (e) => { if (e.target === reportModal) closeReportEditor(); });
+$('#reportText').addEventListener('input', () => {
+  $('#reportCount').textContent = `${$('#reportText').value.length} / 2000`;
+});
+$('#reportSaveBtn').addEventListener('click', async () => {
+  const id = $('#reportBizId').value;
+  const text = $('#reportText').value.trim();
+  const btn = $('#reportSaveBtn');
+  btn.disabled = true;
+  try {
+    await updateDoc(doc(db, 'businesses', id), {
+      verificationReport: text || null,
+      verificationReportAt: text ? new Date() : null,
+      verificationReportBy: text ? me?.uid || null : null
+    });
+    flash('Report saved');
+    closeReportEditor();
+    await loadBusinesses();
+  } catch (err) {
+    console.error('Save report failed:', err);
+    flash(err.message || 'Could not save', true);
+  } finally {
+    btn.disabled = false;
+  }
+});
+$('#reportClearBtn').addEventListener('click', async () => {
+  if (!confirm('Clear the verification report for this business?')) return;
+  const id = $('#reportBizId').value;
+  const btn = $('#reportClearBtn');
+  btn.disabled = true;
+  try {
+    await updateDoc(doc(db, 'businesses', id), {
+      verificationReport: null,
+      verificationReportAt: null,
+      verificationReportBy: null
+    });
+    flash('Report cleared');
+    closeReportEditor();
+    await loadBusinesses();
+  } catch (err) {
+    console.error('Clear report failed:', err);
+    flash(err.message || 'Could not clear', true);
+  } finally {
+    btn.disabled = false;
+  }
+});
+
 /* ─── Action delegation ─── */
 document.addEventListener('click', async (e) => {
   const btn = e.target.closest('button[data-act]');
@@ -818,6 +920,15 @@ document.addEventListener('click', async (e) => {
       await updateDoc(doc(db, 'businesses', id), { verified: next, verifiedAt: next ? new Date() : null });
       flash(next ? 'Business verified' : 'Verification removed');
       await loadBusinesses();
+    } else if (act === 'togglePremium'){
+      const next = btn.dataset.cur !== '1';
+      await updateDoc(doc(db, 'businesses', id), { premium: next, premiumAt: next ? new Date() : null });
+      flash(next ? 'Business marked Premium' : 'Premium removed');
+      await loadBusinesses();
+    } else if (act === 'editReport'){
+      await openReportEditor(id);
+      btn.disabled = false;
+      return;
     } else if (act === 'toggleFeatured'){
       const next = btn.dataset.cur !== '1';
       await updateDoc(doc(db, 'businesses', id), { featured: next, featuredAt: next ? new Date() : null });

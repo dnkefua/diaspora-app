@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Trust &amp; Verification · The Diaspora App</title>
+<meta name="description" content="How The Diaspora App verifies businesses, what the blue tick and gold Premium badge mean, and how to apply.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.thediaspora.app/verification.html">
+<link rel="icon" type="image/png" href="Media%20resources/TheDiaspora%20app%20logo%203D.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="page.css">
+<style>
+.tier-grid{
+  display:grid; gap:18px;
+  grid-template-columns:repeat(2, 1fr);
+  margin:24px 0 36px;
+}
+.tier-box{
+  background:#fff; border:1px solid var(--line); border-radius:18px;
+  padding:30px;
+  display:flex; flex-direction:column; gap:14px;
+}
+.tier-box.premium{
+  background:linear-gradient(135deg, rgba(217,190,136,0.08) 0%, rgba(183,146,74,0.04) 100%);
+  border-color:rgba(183,146,74,0.30);
+}
+.tier-badge{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:5px 12px; border-radius:999px;
+  font-size:11px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
+  color:#fff; align-self:flex-start;
+}
+.tier-badge.blue{background:#1C3D6E}
+.tier-badge.gold{background:linear-gradient(135deg, #D9BE88 0%, #B7924A 60%, #8C6B2E 100%); box-shadow:0 2px 6px rgba(183,146,74,0.30)}
+.tier-badge svg{display:block; fill:#fff}
+.tier-box h3{
+  font-family:'Cormorant Garamond',serif; font-weight:400;
+  font-size:30px; line-height:1.05; letter-spacing:-0.01em;
+}
+.tier-box h3 em{font-style:italic; color:var(--brass)}
+.tier-box .price{
+  font-size:14px; color:var(--muted);
+}
+.tier-box ul{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px}
+.tier-box li{
+  display:flex; gap:10px; font-size:14px; line-height:1.55;
+  padding:8px 0; border-top:1px solid var(--line-soft);
+}
+.tier-box li:first-child{border-top:none}
+.tier-box li::before{content:"✓"; color:var(--brass); font-weight:600}
+.tier-box .cta{margin-top:auto; padding-top:14px}
+
+.flow{
+  display:grid; gap:14px;
+  grid-template-columns:repeat(4, 1fr);
+  margin:24px 0;
+  counter-reset:step;
+}
+.flow-step{
+  background:#fff; border:1px solid var(--line); border-radius:14px;
+  padding:22px;
+  position:relative; counter-increment:step;
+}
+.flow-step::before{
+  content:counter(step, decimal-leading-zero);
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:42px; font-weight:300; color:var(--brass);
+  line-height:1; letter-spacing:-0.02em;
+}
+.flow-step h4{
+  font-family:'Cormorant Garamond',serif; font-weight:400;
+  font-size:18px; line-height:1.2; margin-top:8px; margin-bottom:6px;
+}
+.flow-step p{font-size:13.5px; color:var(--muted); line-height:1.55; margin:0}
+
+@media (max-width:760px){
+  .tier-grid{grid-template-columns:1fr}
+  .flow{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<header class="page-header">
+  <a href="index.html" class="brand"><img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="The Diaspora App"></a>
+  <nav>
+    <a href="about.html">About</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="become-seller.html" class="nav-account">List your business</a>
+  </nav>
+</header>
+
+<section class="page-hero">
+  <div class="kicker">Trust &amp; Verification</div>
+  <h1>The two badges that <em>actually mean something</em>.</h1>
+  <p class="lede">Visitors trust businesses they can verify. We made the bar high — physical site visits, paper trails, and (for Premium) a paid commitment — so the tick and the gold mark you see really are signals, not decoration.</p>
+</section>
+
+<main class="page-content">
+
+  <h2>Two trust tiers</h2>
+  <p>Every listing on The Diaspora App falls into one of three states. The badges are awarded by Diaspora moderators, never self-applied.</p>
+
+  <div class="tier-grid">
+    <div class="tier-box">
+      <span class="tier-badge blue">
+        <svg viewBox="0 0 24 24" width="11" height="11"><path d="M9 16.17 5.53 12.7a1 1 0 0 0-1.41 1.41l4.18 4.18a1 1 0 0 0 1.41 0l11.06-11.06a1 1 0 1 0-1.41-1.41z"/></svg>
+        Verified
+      </span>
+      <h3>Verified <em>businesses</em></h3>
+      <p class="price">Free · awarded by inspection</p>
+      <ul>
+        <li>Physical site visit by a Diaspora moderator</li>
+        <li>Trade licence / business registration on file</li>
+        <li>Owner identity confirmed</li>
+        <li>Hygiene, safety, or craft credentials reviewed</li>
+        <li>A short public visit report attached to the listing</li>
+        <li>Listing surfaces above unverified results in search</li>
+      </ul>
+      <div class="cta"><a href="mailto:hello@thediaspora.app?subject=Verification%20request" class="btn btn-outline">Request verification →</a></div>
+    </div>
+
+    <div class="tier-box premium">
+      <span class="tier-badge gold">
+        <svg viewBox="0 0 24 24" width="11" height="11"><path d="M12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62z"/></svg>
+        Premium
+      </span>
+      <h3>Premium <em>businesses</em></h3>
+      <p class="price">Paid subscription · must already be Verified</p>
+      <ul>
+        <li>Everything from Verified, plus:</li>
+        <li>Quarterly re-inspection by Diaspora moderators</li>
+        <li>Priority placement in city + category search</li>
+        <li>One free paid placement slot per month (Featured Spotlight, On the Menu, In the Chair)</li>
+        <li>Direct contact channel to a Diaspora editor for support</li>
+        <li>Trust mark on your storefront, social, and website</li>
+        <li>Highest tier badge — visible across the app</li>
+      </ul>
+      <div class="cta"><a href="mailto:hello@thediaspora.app?subject=Premium%20application" class="btn btn-brass">Apply for Premium →</a></div>
+    </div>
+  </div>
+
+  <h2>How <em>verification</em> works</h2>
+
+  <div class="flow">
+    <div class="flow-step">
+      <h4>Apply</h4>
+      <p>Email <a href="mailto:hello@thediaspora.app?subject=Verification%20request">hello@thediaspora.app</a> from your business email with your listing URL, trade licence number, and best contact for a site visit.</p>
+    </div>
+    <div class="flow-step">
+      <h4>Schedule</h4>
+      <p>A city editor reaches out within 5 business days to schedule a 30-60 minute on-site visit. You'll get a checklist of records to have ready.</p>
+    </div>
+    <div class="flow-step">
+      <h4>Visit</h4>
+      <p>The editor inspects the premises, verifies records, takes a few photos for our archive, and writes a short visit report.</p>
+    </div>
+    <div class="flow-step">
+      <h4>Verdict</h4>
+      <p>If you pass, your listing receives the blue tick within 48 hours. If we can't verify yet, we'll send specific feedback so you can fix and re-apply.</p>
+    </div>
+  </div>
+
+  <h2>What we <em>check</em></h2>
+  <ul>
+    <li><strong>The premises exist and match the listing.</strong> Address, hours, signage.</li>
+    <li><strong>Trade licence / business registration.</strong> Active and in the owner's name (or a director's where applicable).</li>
+    <li><strong>Owner identity.</strong> Photo ID matched against the registration.</li>
+    <li><strong>Category-specific credentials.</strong> Restaurants: hygiene rating + halal / kosher cert if claimed. Salons / barbers: cosmetology licences if required by jurisdiction. Photographers: portfolio + commercial use rights. Tailors: physical workshop or atelier.</li>
+    <li><strong>Customer-facing safety.</strong> Visible fire exits, first-aid, sanitation.</li>
+    <li><strong>Owner is reachable.</strong> Working WhatsApp / phone / email.</li>
+    <li><strong>Diaspora connection.</strong> The business is owned, operated, or built around the global diaspora — that's our entire point.</li>
+  </ul>
+
+  <h2>How <em>Premium</em> works</h2>
+  <p>Premium is the highest trust tier. To qualify you must:</p>
+  <ol>
+    <li>Be Verified (blue tick) first.</li>
+    <li>Pay the Premium subscription (monthly or annual; your city editor will share rates for your market).</li>
+    <li>Pass a short re-inspection — we want to confirm the premises, records, and credentials remain in good standing before the gold mark goes live.</li>
+  </ol>
+  <p>Premium businesses are re-inspected quarterly. If conditions slip materially, we revert to Verified or remove the badge entirely. We refund any unused balance pro-rated to the day.</p>
+
+  <h2>What badges <em>do not</em> mean</h2>
+  <ul>
+    <li>Verified is not a guarantee. It's a snapshot of due diligence on the day we visited.</li>
+    <li>Premium is not pay-to-win. You cannot buy Premium without first being Verified, and you cannot stay Premium without passing re-inspections.</li>
+    <li>Sponsored placements (Featured Spotlight, On the Menu, In the Chair) are advertising slots — they do not affect verification status. A Sponsored ad from an unverified business will never show a blue tick.</li>
+  </ul>
+
+  <hr>
+
+  <h2>Apply now</h2>
+  <p>Start with verification — it's free, and it's the gateway to everything else.</p>
+  <p>
+    <a href="mailto:hello@thediaspora.app?subject=Verification%20request" class="btn btn-dark">Request verification →</a>
+    &nbsp;
+    <a href="mailto:hello@thediaspora.app?subject=Premium%20application" class="btn btn-brass">Apply for Premium →</a>
+  </p>
+  <p style="font-size:13px; color:var(--muted); margin-top:18px">
+    Already a seller? You can also start the conversation from your <a href="seller-dashboard.html">seller dashboard</a>.
+  </p>
+
+</main>
+
+<footer class="page-footer">
+  <span>© 2026 The Diaspora App</span>
+  <div class="foot-links">
+    <a href="about.html">About</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="contact.html">Contact</a>
+    <a href="terms.html">Terms</a>
+  </div>
+</footer>
+</body>
+</html>

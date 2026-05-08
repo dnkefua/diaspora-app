@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" type="image/png" href="Media%20resources/TheDiaspora%20app%20logo%203D.png">
-<title>My Profile — Diaspora</title>
+<title>My Profile — The Diaspora App</title>
 <meta name="robots" content="noindex,nofollow">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="auth.css">
@@ -13,7 +13,6 @@
   .topnav{position:sticky;top:0;z-index:40;background:rgba(250,247,242,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);padding:16px 32px;display:flex;align-items:center;justify-content:space-between}
   .topnav .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;letter-spacing:-0.02em}
   .topnav .logo img{width:116px;height:44px;object-fit:contain;border-radius:12px;background:#fff;padding:4px}
-  .topnav .logo .dot{display:none}
   .topnav .nav-menu{display:flex;align-items:center;gap:28px;font-size:14px}
   .topnav .nav-menu a{color:var(--ink);opacity:0.75;transition:opacity .15s}
   .topnav .nav-menu a:hover{opacity:1}
@@ -26,7 +25,6 @@
     background:linear-gradient(135deg,#0A1E3A 0%, #2A5F4A 55%, #D4A444 100%);
   }
   .cover::after{content:"";position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=1600&auto=format');background-size:cover;background-position:center;opacity:0.25;mix-blend-mode:overlay}
-  .cover-edit{position:absolute;right:16px;top:16px;background:rgba(14,14,14,0.55);color:white;border:none;padding:8px 14px;font-size:12px;border-radius:999px;cursor:pointer;backdrop-filter:blur(8px)}
 
   .profile-head{display:grid;grid-template-columns:auto 1fr auto;align-items:end;gap:24px;margin-top:-60px;padding:0 16px;position:relative;z-index:5}
   .avatar{
@@ -36,22 +34,38 @@
   }
   .avatar img{width:100%;height:100%;object-fit:cover}
   .avatar-edit{position:absolute;right:4px;bottom:4px;width:36px;height:36px;border-radius:50%;background:var(--ink);color:white;border:3px solid var(--cream);display:flex;align-items:center;justify-content:center;cursor:pointer}
-  .p-name{font-family:'Playfair Display',serif;font-size:36px;font-weight:500;letter-spacing:-0.02em;line-height:1}
+  .p-name{font-family:'Playfair Display',serif;font-size:36px;font-weight:500;letter-spacing:-0.02em;line-height:1; display:flex; align-items:center; gap:10px; flex-wrap:wrap}
   .p-meta{display:flex;gap:16px;color:var(--muted);font-size:14px;margin-top:8px;flex-wrap:wrap}
   .p-meta span{display:inline-flex;align-items:center;gap:6px}
   .p-actions{display:flex;gap:10px}
-  .btn-ghost{padding:10px 18px;border-radius:999px;border:1px solid var(--line);background:white;cursor:pointer;font-weight:600;font-size:13px}
+  .btn-ghost{padding:10px 18px;border-radius:999px;border:1px solid var(--line);background:white;cursor:pointer;font-weight:600;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;color:inherit}
   .btn-ghost:hover{background:var(--sand)}
-  .btn-solid{padding:10px 18px;border-radius:999px;border:none;background:var(--ink);color:white;cursor:pointer;font-weight:600;font-size:13px}
+  .btn-solid{padding:10px 18px;border-radius:999px;border:none;background:var(--ink);color:white;cursor:pointer;font-weight:600;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px}
   .btn-solid:hover{background:var(--terra)}
+  .btn-danger{padding:10px 18px;border-radius:999px;border:1px solid var(--terra);background:white;cursor:pointer;font-weight:600;font-size:13px;color:var(--terra)}
+  .btn-danger:hover{background:var(--terra);color:white}
 
-  .tabs{display:flex;gap:24px;border-bottom:1px solid var(--line);margin-top:32px;padding:0 16px}
-  .tab{padding:16px 0;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:color .15s, border-color .15s}
+  .role-pill{
+    display:inline-flex; align-items:center; gap:5px;
+    padding:4px 12px; border-radius:999px;
+    background:var(--ink); color:white; font-size:11px;
+    letter-spacing:0.06em; text-transform:uppercase; font-weight:700;
+  }
+  .role-pill.admin{background:#1C3D6E}
+  .role-pill.seller{background:#2A5F4A}
+
+  .tabs{display:flex;gap:8px;border-bottom:1px solid var(--line);margin-top:32px;padding:0 16px;flex-wrap:wrap}
+  .tab{padding:14px 16px;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:color .15s, border-color .15s; user-select:none}
   .tab.active{color:var(--ink);border-color:var(--ink)}
+  .tab:hover{color:var(--ink)}
 
-  .grid{display:grid;grid-template-columns:2fr 1fr;gap:28px;margin-top:28px;padding:0 16px}
-  .panel{background:white;border:1px solid var(--line);border-radius:18px;padding:24px}
-  .panel h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:500;letter-spacing:-0.01em;margin-bottom:14px}
+  .pane{display:none; padding: 28px 16px 0}
+  .pane.active{display:block}
+
+  .panel{background:white;border:1px solid var(--line);border-radius:18px;padding:24px;margin-bottom:20px}
+  .panel h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:500;letter-spacing:-0.01em;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+
+  .grid-2{display:grid;grid-template-columns:2fr 1fr;gap:28px}
 
   .stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
   .stat{background:white;border:1px solid var(--line);border-radius:14px;padding:18px;text-align:left}
@@ -62,26 +76,67 @@
   .kv .k{color:var(--muted);font-weight:600}
   .kv .v{color:var(--ink)}
 
-  .saved-card{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
-  .saved-card:last-child{border-bottom:none}
-  .saved-thumb{width:64px;height:64px;border-radius:12px;background-size:cover;background-position:center;flex-shrink:0}
-  .saved-info{flex:1;min-width:0}
-  .saved-name{font-weight:700;font-size:14px}
-  .saved-cat{color:var(--muted);font-size:12px;margin-top:2px}
-  .saved-meta{font-size:12px;color:var(--muted);margin-top:4px}
+  .item-card{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line);align-items:center}
+  .item-card:last-child{border-bottom:none}
+  .item-thumb{width:64px;height:64px;border-radius:12px;background:var(--sand) center/cover no-repeat;flex-shrink:0}
+  .item-info{flex:1;min-width:0}
+  .item-name{font-weight:700;font-size:15px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .item-cat{color:var(--muted);font-size:13px;margin-top:2px}
+  .item-meta{font-size:12px;color:var(--muted);margin-top:4px}
+  .item-actions{display:flex;gap:6px;flex-shrink:0}
+  .empty{padding:24px 0;text-align:center;color:var(--muted)}
+  .empty p{margin-top:6px}
 
+  /* Trust badges */
+  .tb{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:999px;font-size:10px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;vertical-align:middle}
+  .tb svg{display:block}
+  .tb-verified{background:#1C3D6E;color:#fff}
+  .tb-verified svg{fill:#fff}
+  .tb-premium{background:linear-gradient(135deg,#D9BE88 0%,#B7924A 60%,#8C6B2E 100%);color:#fff}
+  .tb-premium svg{fill:#fff}
+
+  /* Reviews on profile */
+  .rev-card{padding:14px 0;border-bottom:1px solid var(--line)}
+  .rev-card:last-child{border-bottom:none}
+  .rev-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:6px}
+  .rev-biz{font-weight:700;font-size:15px}
+  .rev-stars{color:var(--gold);letter-spacing:1px;font-size:14px}
+  .rev-date{font-size:12px;color:var(--muted);margin-top:4px}
+  .rev-text{font-size:14px;line-height:1.55;color:#3a3a3a;margin-top:6px;white-space:pre-wrap}
+  .rev-actions{margin-top:8px;display:flex;gap:10px}
+  .rev-actions button{background:none;border:none;color:var(--muted);font-size:12px;cursor:pointer;padding:0}
+  .rev-actions button:hover{color:var(--ink)}
+  .rev-actions button.danger:hover{color:var(--terra)}
+
+  /* Settings */
+  .toggle-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--line)}
+  .toggle-row:last-child{border-bottom:none}
+  .toggle-row .label{font-weight:600;font-size:14px}
+  .toggle-row .desc{font-size:13px;color:var(--muted);margin-top:2px}
+  .switch{position:relative;width:44px;height:24px;background:var(--line);border-radius:999px;cursor:pointer;flex-shrink:0;transition:background .2s}
+  .switch::after{content:"";position:absolute;left:3px;top:3px;width:18px;height:18px;background:white;border-radius:50%;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,0.2)}
+  .switch.on{background:var(--ink)}
+  .switch.on::after{transform:translateX(20px)}
+
+  /* Modal */
   #editModal{position:fixed;inset:0;background:rgba(14,14,14,0.55);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:100;padding:24px}
   #editModal.open{display:flex}
   .modal-card{background:var(--cream);border-radius:20px;max-width:520px;width:100%;padding:32px;max-height:90vh;overflow-y:auto}
   .modal-card h3{font-family:'Playfair Display',serif;font-size:28px;font-weight:500;letter-spacing:-0.02em;margin-bottom:8px}
   .modal-close{float:right;background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted)}
 
+  /* Toast */
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:white;padding:12px 22px;border-radius:999px;font-size:14px;opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;z-index:200}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .toast.error{background:#C53030}
+
   @media (max-width: 860px){
     .profile-head{grid-template-columns:auto 1fr;gap:16px}
     .p-actions{grid-column:1/-1;margin-top:8px}
-    .grid{grid-template-columns:1fr}
+    .grid-2{grid-template-columns:1fr}
     .stat-row{grid-template-columns:1fr 1fr}
     .p-name{font-size:28px}
+    .topnav .nav-menu a{display:none}
   }
 </style>
 </head>
@@ -92,18 +147,16 @@
     <img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="The Diaspora App logo">
   </a>
   <div class="nav-menu">
-    <a href="index.html#trending">Discover</a>
-    <a href="index.html#browse">Browse</a>
-    <a href="index.html#locations">Cities</a>
+    <a href="feed.html">Discover</a>
+    <a href="index.html#cities">Cities</a>
+    <a href="blog.html">Stories</a>
     <button class="logout" onclick="logout()">Log out</button>
   </div>
 </nav>
 
 <div class="profile-wrap">
 
-  <div class="cover">
-    <button class="cover-edit" onclick="alert('Cover upload — coming soon (demo)')">✎ Edit cover</button>
-  </div>
+  <div class="cover"></div>
 
   <div class="profile-head">
     <div class="avatar" id="avatar">
@@ -111,7 +164,10 @@
       <div class="avatar-edit" onclick="chooseAvatar()" title="Change avatar">✎</div>
     </div>
     <div>
-      <div class="p-name" id="p-name">—</div>
+      <div class="p-name" id="p-name">
+        <span id="p-name-text">—</span>
+        <span id="p-role-pill"></span>
+      </div>
       <div class="p-meta">
         <span id="p-email">📧 —</span>
         <span id="p-city">📍 —</span>
@@ -120,93 +176,156 @@
     </div>
     <div class="p-actions">
       <button class="btn-ghost" onclick="openEdit()">Edit profile</button>
-      <button class="btn-solid" onclick="window.location.href='index.html#browse'">Browse feed →</button>
+      <a href="feed.html" class="btn-solid">Browse feed →</a>
     </div>
   </div>
 
-  <div class="tabs">
-    <div class="tab active">Overview</div>
-    <div class="tab">Saved</div>
-    <div class="tab">Reviews</div>
-    <div class="tab">My listings</div>
-    <div class="tab">Settings</div>
+  <div class="tabs" role="tablist">
+    <div class="tab active" data-pane="overview" role="tab">Overview</div>
+    <div class="tab" data-pane="saved" role="tab">Saved</div>
+    <div class="tab" data-pane="reviews" role="tab">My reviews</div>
+    <div class="tab" data-pane="listings" role="tab">My listings</div>
+    <div class="tab" data-pane="settings" role="tab">Settings</div>
   </div>
 
-  <div class="stat-row" style="margin-top:28px">
-    <div class="stat"><div class="stat-num">12</div><div class="stat-lbl">Saved places</div></div>
-    <div class="stat"><div class="stat-num">8</div><div class="stat-lbl">Reviews written</div></div>
-    <div class="stat"><div class="stat-num">3</div><div class="stat-lbl">Active chats</div></div>
-    <div class="stat"><div class="stat-num">47</div><div class="stat-lbl">Connections</div></div>
-  </div>
+  <!-- OVERVIEW -->
+  <div class="pane active" data-pane="overview">
+    <div class="stat-row">
+      <div class="stat"><div class="stat-num" id="stat-saved">—</div><div class="stat-lbl">Saved places</div></div>
+      <div class="stat"><div class="stat-num" id="stat-reviews">—</div><div class="stat-lbl">Reviews written</div></div>
+      <div class="stat"><div class="stat-num" id="stat-listings">—</div><div class="stat-lbl">Listings</div></div>
+      <div class="stat"><div class="stat-num" id="stat-joined">—</div><div class="stat-lbl">Member since</div></div>
+    </div>
 
-  <div class="grid">
-
-    <div>
-      <div class="panel" style="margin-bottom:20px">
-        <h3>About</h3>
-        <p id="bio-view" style="font-size:15px;line-height:1.6;color:var(--muted)">Tell the community a bit about yourself — where you're from, where you are now, what you love.</p>
-      </div>
-
-      <div class="panel">
-        <h3>Recently saved</h3>
-        <div>
-          <div class="saved-card">
-            <div class="saved-thumb" style="background-image:url('https://images.unsplash.com/photo-1585937421612-70a008356fbe?q=80&w=400&auto=format')"></div>
-            <div class="saved-info">
-              <div class="saved-name">Amara's Kitchen</div>
-              <div class="saved-cat">Nigerian restaurant · Deira, Dubai</div>
-              <div class="saved-meta">⭐ 4.9 · Saved 2 days ago</div>
-            </div>
-          </div>
-          <div class="saved-card">
-            <div class="saved-thumb" style="background-image:url('https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=400&auto=format')"></div>
-            <div class="saved-info">
-              <div class="saved-name">Royal Cuts Barbershop</div>
-              <div class="saved-cat">Barber · Al Karama, Dubai</div>
-              <div class="saved-meta">⭐ 4.8 · Saved 5 days ago</div>
-            </div>
-          </div>
-          <div class="saved-card">
-            <div class="saved-thumb" style="background-image:url('https://images.unsplash.com/photo-1562322140-8baeececf3df?q=80&w=400&auto=format')"></div>
-            <div class="saved-info">
-              <div class="saved-name">Kemi Braids Studio</div>
-              <div class="saved-cat">Hair stylist · Jumeirah, Dubai</div>
-              <div class="saved-meta">⭐ 5.0 · Saved 1 week ago</div>
-            </div>
-          </div>
-          <div class="saved-card">
-            <div class="saved-thumb" style="background-image:url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=400&auto=format')"></div>
-            <div class="saved-info">
-              <div class="saved-name">Obi Photography</div>
-              <div class="saved-cat">Event photographer · Business Bay</div>
-              <div class="saved-meta">⭐ 4.9 · Saved 2 weeks ago</div>
-            </div>
-          </div>
+    <div class="grid-2">
+      <div>
+        <div class="panel">
+          <h3>About</h3>
+          <p id="bio-view" style="font-size:15px;line-height:1.6;color:var(--muted)">Tell the community a bit about yourself — where you're from, where you are now, what you love.</p>
         </div>
-      </div>
-    </div>
 
-    <div>
-      <div class="panel" style="margin-bottom:20px">
-        <h3>Profile details</h3>
-        <div class="kv">
-          <div class="k">Full name</div><div class="v" id="v-name">—</div>
-          <div class="k">Email</div><div class="v" id="v-email">—</div>
-          <div class="k">Phone</div><div class="v" id="v-phone">—</div>
-          <div class="k">City</div><div class="v" id="v-city">—</div>
-          <div class="k">Member since</div><div class="v" id="v-joined">—</div>
-          <div class="k">Verified</div><div class="v">✅ Email · 📱 WhatsApp</div>
+        <div class="panel">
+          <h3>Recently saved <a href="#" data-go="saved" style="font-size:13px;color:var(--muted);font-weight:500;font-family:Inter,sans-serif">View all →</a></h3>
+          <div id="overview-saved"><div class="empty">Loading…</div></div>
+        </div>
+
+        <div class="panel">
+          <h3>Recent reviews <a href="#" data-go="reviews" style="font-size:13px;color:var(--muted);font-weight:500;font-family:Inter,sans-serif">View all →</a></h3>
+          <div id="overview-reviews"><div class="empty">Loading…</div></div>
         </div>
       </div>
 
-      <div class="panel">
-        <h3>Become a seller</h3>
-        <p style="font-size:14px;color:var(--muted);line-height:1.55;margin-bottom:14px">List your restaurant, salon, or service and reach the global diaspora community.</p>
-        <a href="become-seller.html" class="btn-solid" style="width:100%; display:inline-flex; align-items:center; justify-content:center; text-decoration:none">Start selling →</a>
+      <div>
+        <div class="panel">
+          <h3>Profile details</h3>
+          <div class="kv">
+            <div class="k">Full name</div><div class="v" id="v-name">—</div>
+            <div class="k">Email</div><div class="v" id="v-email">—</div>
+            <div class="k">Phone</div><div class="v" id="v-phone">—</div>
+            <div class="k">City</div><div class="v" id="v-city">—</div>
+            <div class="k">Member since</div><div class="v" id="v-joined">—</div>
+          </div>
+        </div>
+
+        <div class="panel" id="seller-panel">
+          <h3>Become a seller</h3>
+          <p style="font-size:14px;color:var(--muted);line-height:1.55;margin-bottom:14px">List your restaurant, salon, or service and reach the global diaspora community.</p>
+          <a href="become-seller.html" class="btn-solid" style="width:100%">Start selling →</a>
+        </div>
       </div>
     </div>
-
   </div>
+
+  <!-- SAVED -->
+  <div class="pane" data-pane="saved">
+    <div class="panel">
+      <h3>Saved businesses</h3>
+      <div id="saved-list"><div class="empty">Loading…</div></div>
+    </div>
+  </div>
+
+  <!-- REVIEWS -->
+  <div class="pane" data-pane="reviews">
+    <div class="panel">
+      <h3>My reviews</h3>
+      <div id="reviews-list"><div class="empty">Loading…</div></div>
+    </div>
+  </div>
+
+  <!-- LISTINGS -->
+  <div class="pane" data-pane="listings">
+    <div class="panel">
+      <h3>My listings <a href="become-seller.html" class="btn-ghost" style="font-size:13px">+ Add listing</a></h3>
+      <div id="listings-list"><div class="empty">Loading…</div></div>
+    </div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div class="pane" data-pane="settings">
+    <div class="grid-2">
+      <div>
+        <div class="panel">
+          <h3>Notifications</h3>
+          <div class="toggle-row">
+            <div>
+              <div class="label">Email — newsletter</div>
+              <div class="desc">Monthly highlights from your cities and categories.</div>
+            </div>
+            <div class="switch" data-pref="notif_newsletter"></div>
+          </div>
+          <div class="toggle-row">
+            <div>
+              <div class="label">Email — review replies</div>
+              <div class="desc">When a business replies to your review.</div>
+            </div>
+            <div class="switch on" data-pref="notif_reviews"></div>
+          </div>
+          <div class="toggle-row">
+            <div>
+              <div class="label">Marketing communications</div>
+              <div class="desc">Sponsorship deals, partner discounts, launch announcements.</div>
+            </div>
+            <div class="switch" data-pref="notif_marketing"></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>Privacy</h3>
+          <div class="toggle-row">
+            <div>
+              <div class="label">Show my reviews publicly</div>
+              <div class="desc">When off, your reviews still post but with "Diaspora member" instead of your name.</div>
+            </div>
+            <div class="switch on" data-pref="public_reviews"></div>
+          </div>
+          <div class="toggle-row">
+            <div>
+              <div class="label">Allow contact from sellers</div>
+              <div class="desc">Sellers can reach out via your saved WhatsApp from their dashboard.</div>
+            </div>
+            <div class="switch" data-pref="allow_seller_contact"></div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="panel">
+          <h3>Account</h3>
+          <p style="font-size:14px;color:var(--muted);margin-bottom:14px">Manage your sign-in method, password, and account data.</p>
+          <a href="forgot-password.html" class="btn-ghost" style="width:100%;justify-content:center">Change password</a>
+          <a href="mailto:privacy@thediaspora.app?subject=Account%20data%20export" class="btn-ghost" style="width:100%;justify-content:center;margin-top:8px">Request data export</a>
+          <button class="btn-danger" style="width:100%;margin-top:14px" onclick="confirmDelete()">Delete account</button>
+        </div>
+
+        <div class="panel">
+          <h3>Sign out</h3>
+          <p style="font-size:14px;color:var(--muted);margin-bottom:14px">Sign out on this device.</p>
+          <button class="btn-solid" style="width:100%" onclick="logout()">Log out</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <!-- Edit Modal -->
@@ -214,7 +333,7 @@
   <div class="modal-card">
     <button class="modal-close" onclick="closeEdit()">×</button>
     <h3>Edit profile</h3>
-    <p style="color:var(--muted);font-size:14px;margin-bottom:20px">Update your personal info. Changes save to your device.</p>
+    <p style="color:var(--muted);font-size:14px;margin-bottom:20px">Update your personal info. Saved to your account.</p>
     <form onsubmit="saveProfile(event)">
       <div class="field-row">
         <div class="field"><label>First name</label><input type="text" id="e-first" required></div>
@@ -232,40 +351,320 @@
   </div>
 </div>
 
-<script type="module">
-import { auth, db, onAuthStateChanged, signOut, doc, getDoc, updateDoc } from './firebase-config.js';
+<div id="toast" class="toast"></div>
 
+<script type="module">
+import { auth, db, onAuthStateChanged, signOut, doc, getDoc, updateDoc, deleteDoc, collection, query, where, getDocs } from './firebase-config.js';
+
+/* ── State ── */
 let firebaseUser = null;
 let profileData = null;
+let isAdmin = false;
+let myReviews = [];
+let mySaved = [];
+let myListings = [];
 
-function requireLocalAuth(){
-  var u = JSON.parse(localStorage.getItem('diaspora_user') || 'null');
-  if (!u || !u.email){ window.location.href = 'login-firebase.html'; return null; }
-  return u;
+const VERIFIED_SVG = '<svg viewBox="0 0 24 24" width="10" height="10"><path d="M9 16.17 5.53 12.7a1 1 0 0 0-1.41 1.41l4.18 4.18a1 1 0 0 0 1.41 0l11.06-11.06a1 1 0 1 0-1.41-1.41z"/></svg>';
+const PREMIUM_SVG = '<svg viewBox="0 0 24 24" width="10" height="10"><path d="M12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62z"/></svg>';
+
+function escHtml(s){
+  return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
+function fmtDate(ts){
+  try {
+    const d = ts?.toDate ? ts.toDate() : (typeof ts === 'string' ? new Date(ts) : ts);
+    if (!d || isNaN(d)) return '—';
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  } catch (_) { return '—'; }
+}
+function starsRow(n, max = 5){
+  const full = Math.round(Number(n) || 0);
+  return '★'.repeat(full) + '☆'.repeat(max - full);
+}
+function showToast(msg, type = ''){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (type === 'error' ? ' error' : '');
+  setTimeout(() => t.classList.remove('show'), 2400);
+}
+function badgeTags(b){
+  let html = '';
+  if (b.premium) html += `<span class="tb tb-premium">${PREMIUM_SVG}Premium</span>`;
+  if (b.verified) html += `<span class="tb tb-verified">${VERIFIED_SVG}Verified</span>`;
+  return html;
+}
+
+/* ── Render profile header + overview ── */
 function renderProfile(u){
   profileData = u;
-  var name = (u.firstName||'') + ' ' + (u.lastName||'');
-  document.getElementById('p-name').textContent = name.trim() || 'Welcome';
+  const name = ((u.firstName||'') + ' ' + (u.lastName||'')).trim();
+  document.getElementById('p-name-text').textContent = name || 'Welcome';
   document.getElementById('p-email').textContent = '📧 ' + (u.email || '');
   document.getElementById('p-city').textContent = '📍 ' + (u.city || 'Add your city');
-  var d = u.joined ? new Date(u.joined) : new Date();
-  document.getElementById('p-joined').textContent = '🗓 Joined ' + d.toLocaleDateString('en-US',{month:'long',year:'numeric'});
-  document.getElementById('v-name').textContent = name.trim() || '—';
+  const d = u.joined ? new Date(u.joined) : new Date();
+  document.getElementById('p-joined').textContent = '🗓 Joined ' + d.toLocaleDateString('en-US', { month:'long', year:'numeric' });
+  document.getElementById('v-name').textContent = name || '—';
   document.getElementById('v-email').textContent = u.email || '—';
   document.getElementById('v-phone').textContent = u.phone || '—';
   document.getElementById('v-city').textContent = u.city || '—';
-  document.getElementById('v-joined').textContent = d.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
-  var init = (u.firstName||'U').slice(0,1).toUpperCase();
+  document.getElementById('v-joined').textContent = d.toLocaleDateString('en-US', { month:'long', day:'numeric', year:'numeric' });
+  document.getElementById('stat-joined').textContent = d.toLocaleDateString('en-US', { month:'short', year:'numeric' });
+
+  const init = (u.firstName || u.email || 'U').slice(0,1).toUpperCase();
   if (u.avatar){
-    document.getElementById('avatar').innerHTML = '<img src="'+u.avatar+'" alt="avatar"><div class="avatar-edit" onclick="chooseAvatar()">✎</div>';
+    document.getElementById('avatar').innerHTML = `<img src="${escHtml(u.avatar)}" alt="avatar"><div class="avatar-edit" onclick="chooseAvatar()">✎</div>`;
   } else {
     document.getElementById('avatar-initials').textContent = init;
   }
-  if (u.bio && u.bio.trim()){ document.getElementById('bio-view').textContent = u.bio; document.getElementById('bio-view').style.color = 'var(--ink)'; }
+  if (u.bio && u.bio.trim()){
+    const bio = document.getElementById('bio-view');
+    bio.textContent = u.bio;
+    bio.style.color = 'var(--ink)';
+  }
+
+  // Role pill
+  const pill = document.getElementById('p-role-pill');
+  if (isAdmin){
+    pill.outerHTML = '<a href="admin.html" class="role-pill admin" style="text-decoration:none">★ Admin</a>';
+  } else if (myListings.length){
+    pill.outerHTML = '<a href="seller-dashboard.html" class="role-pill seller" style="text-decoration:none">Seller</a>';
+  }
+
+  // Hide "Become a seller" panel if user already has listings
+  if (myListings.length){
+    const panel = document.getElementById('seller-panel');
+    if (panel){
+      panel.querySelector('h3').textContent = 'Seller dashboard';
+      panel.querySelector('p').textContent = `You have ${myListings.length} listing${myListings.length === 1 ? '' : 's'} on Diaspora. Manage photos, hours, and respond to reviews.`;
+      const btn = panel.querySelector('a');
+      btn.href = 'seller-dashboard.html';
+      btn.textContent = 'Open seller dashboard →';
+    }
+  }
 }
+
+/* ── Tab switching ── */
+function setTab(name){
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.pane === name));
+  document.querySelectorAll('.pane').forEach(p => p.classList.toggle('active', p.dataset.pane === name));
+  // Lazy-load contents per tab
+  if (name === 'saved') renderSavedFull();
+  if (name === 'reviews') renderReviewsFull();
+  if (name === 'listings') renderListingsFull();
+}
+document.querySelectorAll('.tab').forEach(t => {
+  t.addEventListener('click', () => setTab(t.dataset.pane));
+});
+document.querySelectorAll('[data-go]').forEach(a => {
+  a.addEventListener('click', (e) => { e.preventDefault(); setTab(a.dataset.go); });
+});
+
+/* ── Loaders ── */
+async function loadMyReviews(){
+  if (!firebaseUser) return;
+  try {
+    const snap = await getDocs(query(collection(db, 'reviews'), where('authorUid', '==', firebaseUser.uid)));
+    myReviews = [];
+    snap.forEach(d => myReviews.push({ id: d.id, ...d.data() }));
+    myReviews.sort((a, b) => {
+      const ax = a.createdAt?.toMillis ? a.createdAt.toMillis() : 0;
+      const bx = b.createdAt?.toMillis ? b.createdAt.toMillis() : 0;
+      return bx - ax;
+    });
+    document.getElementById('stat-reviews').textContent = myReviews.length;
+  } catch (err){
+    console.warn('Could not load reviews:', err);
+  }
+}
+
+async function loadMyListings(){
+  if (!firebaseUser) return;
+  try {
+    const snap = await getDocs(query(collection(db, 'businesses'), where('ownerId', '==', firebaseUser.uid)));
+    myListings = [];
+    snap.forEach(d => myListings.push({ id: d.id, ...d.data() }));
+    myListings.sort((a,b) => (b.createdAt?.toMillis?.() || 0) - (a.createdAt?.toMillis?.() || 0));
+    document.getElementById('stat-listings').textContent = myListings.length;
+  } catch (err){
+    console.warn('Could not load listings:', err);
+  }
+}
+
+async function loadMySaved(){
+  if (!firebaseUser) return;
+  try {
+    const snap = await getDocs(collection(db, 'users', firebaseUser.uid, 'saved'));
+    const ids = [];
+    snap.forEach(d => ids.push(d.id));
+    mySaved = [];
+    for (const id of ids){
+      try {
+        const bSnap = await getDoc(doc(db, 'businesses', id));
+        if (bSnap.exists()) mySaved.push({ id: bSnap.id, ...bSnap.data() });
+      } catch (_){ /* ignore */ }
+    }
+    document.getElementById('stat-saved').textContent = mySaved.length;
+  } catch (err){
+    console.warn('Could not load saved:', err);
+    document.getElementById('stat-saved').textContent = '0';
+  }
+}
+
+/* ── Render lists ── */
+function bizCardHtml(b, opts = {}){
+  const heroImg = b.image || (Array.isArray(b.images) && b.images[0]) || 'Media%20resources/TheDiaspora%20app%20logo%203D.png';
+  return `
+    <div class="item-card">
+      <a href="business.html?id=${encodeURIComponent(b.id)}" class="item-thumb" style="background-image:url('${escHtml(heroImg)}')"></a>
+      <div class="item-info">
+        <div class="item-name">
+          <a href="business.html?id=${encodeURIComponent(b.id)}" style="color:inherit">${escHtml(b.name || '(unnamed)')}</a>
+          ${badgeTags(b)}
+        </div>
+        <div class="item-cat">${escHtml(b.category || '')}${b.area ? ' · ' + escHtml(b.area) : ''}${b.city ? ', ' + escHtml(b.city) : ''}</div>
+        ${typeof b.rating === 'number' && b.rating > 0 ? `<div class="item-meta">${starsRow(b.rating)} ${Number(b.rating).toFixed(1)}</div>` : ''}
+      </div>
+      ${opts.actions || `<div class="item-actions"><a href="business.html?id=${encodeURIComponent(b.id)}" class="btn-ghost" style="font-size:12px;padding:7px 14px">Open</a></div>`}
+    </div>
+  `;
+}
+
+function renderSavedOverview(){
+  const root = document.getElementById('overview-saved');
+  if (!mySaved.length){
+    root.innerHTML = '<div class="empty"><p>No saved businesses yet. Save businesses from their pages to find them here.</p></div>';
+    return;
+  }
+  root.innerHTML = mySaved.slice(0, 4).map(b => bizCardHtml(b)).join('');
+}
+
+function renderSavedFull(){
+  const root = document.getElementById('saved-list');
+  if (!mySaved.length){
+    root.innerHTML = '<div class="empty"><p>No saved businesses yet.</p><p><a href="feed.html" class="btn-solid" style="margin-top:12px">Browse the feed →</a></p></div>';
+    return;
+  }
+  root.innerHTML = mySaved.map(b => bizCardHtml(b, {
+    actions: `<div class="item-actions">
+      <a href="business.html?id=${encodeURIComponent(b.id)}" class="btn-ghost" style="font-size:12px;padding:7px 14px">Open</a>
+      <button class="btn-ghost" style="font-size:12px;padding:7px 14px" data-unsave="${escHtml(b.id)}">Unsave</button>
+    </div>`
+  })).join('');
+  root.querySelectorAll('button[data-unsave]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const bizId = btn.dataset.unsave;
+      btn.disabled = true;
+      try {
+        await deleteDoc(doc(db, 'users', firebaseUser.uid, 'saved', bizId));
+        mySaved = mySaved.filter(b => b.id !== bizId);
+        document.getElementById('stat-saved').textContent = mySaved.length;
+        renderSavedOverview();
+        renderSavedFull();
+        showToast('Removed from saved');
+      } catch (err){
+        console.error(err);
+        btn.disabled = false;
+        showToast('Could not remove', 'error');
+      }
+    });
+  });
+}
+
+function reviewCardHtml(r){
+  return `
+    <div class="rev-card" data-id="${escHtml(r.id)}">
+      <div class="rev-head">
+        <div>
+          <div class="rev-biz"><a href="business.html?id=${encodeURIComponent(r.businessId)}" style="color:inherit">${escHtml(r.businessName || r.businessId || 'Business')}</a></div>
+          <div class="rev-date">${fmtDate(r.createdAt)}</div>
+        </div>
+        <div class="rev-stars">${starsRow(r.rating)}</div>
+      </div>
+      <div class="rev-text">${escHtml(r.text || '')}</div>
+      <div class="rev-actions">
+        <button class="danger" data-delete-review="${escHtml(r.id)}">Delete review</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderReviewsOverview(){
+  const root = document.getElementById('overview-reviews');
+  if (!myReviews.length){
+    root.innerHTML = '<div class="empty"><p>You haven\'t written any reviews yet. Visit a business and share your experience.</p></div>';
+    return;
+  }
+  root.innerHTML = myReviews.slice(0, 3).map(reviewCardHtml).join('');
+  bindReviewDeletes(root);
+}
+
+function renderReviewsFull(){
+  const root = document.getElementById('reviews-list');
+  if (!myReviews.length){
+    root.innerHTML = '<div class="empty"><p>You haven\'t written any reviews yet.</p><p><a href="feed.html" class="btn-solid" style="margin-top:12px">Find a business to review →</a></p></div>';
+    return;
+  }
+  root.innerHTML = myReviews.map(reviewCardHtml).join('');
+  bindReviewDeletes(root);
+}
+
+function bindReviewDeletes(root){
+  root.querySelectorAll('button[data-delete-review]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const id = btn.dataset.deleteReview;
+      if (!confirm('Delete this review? This cannot be undone.')) return;
+      btn.disabled = true;
+      try {
+        await deleteDoc(doc(db, 'reviews', id));
+        myReviews = myReviews.filter(r => r.id !== id);
+        document.getElementById('stat-reviews').textContent = myReviews.length;
+        renderReviewsOverview();
+        renderReviewsFull();
+        showToast('Review deleted');
+      } catch (err){
+        console.error(err);
+        btn.disabled = false;
+        showToast('Could not delete', 'error');
+      }
+    });
+  });
+}
+
+function renderListingsFull(){
+  const root = document.getElementById('listings-list');
+  if (!myListings.length){
+    root.innerHTML = '<div class="empty"><p>You haven\'t listed any businesses yet.</p><p><a href="become-seller.html" class="btn-solid" style="margin-top:12px">List your first business →</a></p></div>';
+    return;
+  }
+  root.innerHTML = myListings.map(b => bizCardHtml(b, {
+    actions: `<div class="item-actions">
+      <a href="business.html?id=${encodeURIComponent(b.id)}" class="btn-ghost" style="font-size:12px;padding:7px 14px">View public</a>
+      <a href="seller-dashboard.html" class="btn-solid" style="font-size:12px;padding:7px 14px">Manage</a>
+    </div>`
+  })).join('');
+}
+
+/* ── Settings (localStorage-backed for v1) ── */
+function loadPrefs(){
+  const prefs = JSON.parse(localStorage.getItem('diaspora_prefs') || '{}');
+  document.querySelectorAll('.switch[data-pref]').forEach(s => {
+    const k = s.dataset.pref;
+    if (prefs[k] !== undefined){
+      s.classList.toggle('on', !!prefs[k]);
+    }
+    s.addEventListener('click', () => {
+      s.classList.toggle('on');
+      const cur = JSON.parse(localStorage.getItem('diaspora_prefs') || '{}');
+      cur[k] = s.classList.contains('on');
+      localStorage.setItem('diaspora_prefs', JSON.stringify(cur));
+      showToast('Setting saved');
+    });
+  });
+}
+
+/* ── Edit modal ── */
 function openEdit(){
-  var u = profileData || JSON.parse(localStorage.getItem('diaspora_user'));
+  const u = profileData || JSON.parse(localStorage.getItem('diaspora_user'));
   document.getElementById('e-first').value = u.firstName || '';
   document.getElementById('e-last').value = u.lastName || '';
   document.getElementById('e-email').value = u.email || '';
@@ -277,7 +676,7 @@ function openEdit(){
 function closeEdit(){ document.getElementById('editModal').classList.remove('open'); }
 async function saveProfile(e){
   e.preventDefault();
-  var u = profileData || JSON.parse(localStorage.getItem('diaspora_user'));
+  const u = profileData || JSON.parse(localStorage.getItem('diaspora_user'));
   u.firstName = document.getElementById('e-first').value.trim();
   u.lastName  = document.getElementById('e-last').value.trim();
   u.email     = document.getElementById('e-email').value.trim();
@@ -297,21 +696,28 @@ async function saveProfile(e){
         bio: u.bio,
         updatedAt: new Date().toISOString()
       });
+      showToast('Profile updated');
     } catch (error) {
       console.warn('Firebase profile update failed:', error);
+      showToast('Saved locally only', 'error');
     }
   }
   closeEdit();
   renderProfile(u);
 }
+
 function chooseAvatar(){
-  var input = document.createElement('input');
+  const input = document.createElement('input');
   input.type = 'file'; input.accept = 'image/*';
   input.onchange = function(ev){
-    var f = ev.target.files[0]; if (!f) return;
-    var r = new FileReader();
+    const f = ev.target.files[0]; if (!f) return;
+    if (f.size > 1.5 * 1024 * 1024){
+      showToast('Avatar must be under 1.5 MB', 'error');
+      return;
+    }
+    const r = new FileReader();
     r.onload = function(e){
-      var u = profileData || JSON.parse(localStorage.getItem('diaspora_user'));
+      const u = profileData || JSON.parse(localStorage.getItem('diaspora_user'));
       u.avatar = e.target.result;
       localStorage.setItem('diaspora_user', JSON.stringify(u));
       profileData = u;
@@ -321,6 +727,13 @@ function chooseAvatar(){
   };
   input.click();
 }
+
+function confirmDelete(){
+  const ok = confirm('Delete your account?\n\nThis will sign you out and email privacy@thediaspora.app to remove your data within 30 days. Saved businesses, reviews, and listings will be removed.');
+  if (!ok) return;
+  window.location.href = 'mailto:privacy@thediaspora.app?subject=Account%20deletion%20request&body=' + encodeURIComponent('Please delete my account. UID: ' + (firebaseUser?.uid || '(unknown)') + ' · Email: ' + (firebaseUser?.email || '(unknown)'));
+}
+
 async function logout(){
   try {
     if (firebaseUser) await signOut(auth);
@@ -331,38 +744,47 @@ async function logout(){
   window.location.href = 'index.html';
 }
 
+/* ── Boot ── */
 onAuthStateChanged(auth, async (user) => {
   firebaseUser = user;
-  if (user) {
-    let profile = { uid: user.uid, email: user.email, firstName: user.displayName || 'Diaspora', lastName: 'Member', joined: new Date().toISOString() };
-    try {
-      const userSnap = await getDoc(doc(db, 'users', user.uid));
-      if (userSnap.exists()) profile = { ...profile, ...userSnap.data() };
-    } catch (error) {
-      console.warn('Firebase profile lookup failed:', error);
-    }
-    localStorage.setItem('diaspora_user', JSON.stringify(profile));
-    renderProfile(profile);
+  if (!user) {
+    // Send to login with return path
+    window.location.href = 'login-firebase.html?next=profile.html';
     return;
   }
 
-  var me = requireLocalAuth();
-  if (me) renderProfile(me);
+  // Admin status
+  try {
+    const adminSnap = await getDoc(doc(db, 'admins', user.uid));
+    isAdmin = adminSnap.exists();
+  } catch (_) { isAdmin = false; }
+
+  // Profile doc
+  let profile = { uid: user.uid, email: user.email, firstName: user.displayName || 'Diaspora', lastName: 'Member', joined: new Date().toISOString() };
+  try {
+    const userSnap = await getDoc(doc(db, 'users', user.uid));
+    if (userSnap.exists()) profile = { ...profile, ...userSnap.data() };
+  } catch (error) {
+    console.warn('Firebase profile lookup failed:', error);
+  }
+  localStorage.setItem('diaspora_user', JSON.stringify(profile));
+
+  // Parallel fetches
+  await Promise.all([loadMyReviews(), loadMyListings(), loadMySaved()]);
+
+  renderProfile(profile);
+  renderSavedOverview();
+  renderReviewsOverview();
+  loadPrefs();
 });
 
-// Tabs (presentational only in v1)
-document.querySelectorAll('.tab').forEach(function(t){
-  t.onclick = function(){
-    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-    t.classList.add('active');
-  };
-});
-
+/* Expose for inline handlers */
 window.openEdit = openEdit;
 window.closeEdit = closeEdit;
 window.saveProfile = saveProfile;
 window.chooseAvatar = chooseAvatar;
 window.logout = logout;
+window.confirmDelete = confirmDelete;
 </script>
 </body>
 </html>
