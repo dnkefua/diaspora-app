@@ -2,7 +2,7 @@ rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
 
-    // Helpers
+    // ── Helpers ──────────────────────────────────────────
     function authed() { return request.auth != null; }
     function isImage() { return request.resource.contentType.matches('image/.*'); }
     function isVideo() { return request.resource.contentType.matches('video/.*'); }
@@ -13,26 +13,51 @@ service firebase.storage {
         || request.resource.contentType == 'text/plain'
         || request.resource.contentType == 'text/csv';
     }
+    function isAdmin() {
+      return authed()
+        && firestore.exists(/databases/(default)/documents/admins/$(request.auth.uid));
+    }
+    function isOwnerOf(bizId) {
+      return authed()
+        && firestore.exists(/databases/(default)/documents/businesses/$(bizId))
+        && firestore.get(/databases/(default)/documents/businesses/$(bizId)).data.ownerId == request.auth.uid;
+    }
+    // Allow upload BEFORE the businesses/{bizId} doc exists, but only if the
+    // bizId follows the convention used by become-seller.html:
+    //   biz_<first8charsOfUid>_<base36-timestamp>
+    // This binds the new business path to the uploader's UID without
+    // requiring a Firestore lookup of a doc that doesn't exist yet.
+    function isCreatingBusiness(bizId) {
+      return authed()
+        && !firestore.exists(/databases/(default)/documents/businesses/$(bizId))
+        && bizId.matches('biz_' + request.auth.uid[0:8] + '_.*');
+    }
 
-    // Public read for everything under a business — visitors should be able
-    // to load images, watch videos, and download menus/brochures.
-    // Writes are gated by content-type + size to prevent abuse.
+    // ── /businesses/{bizId}/** ───────────────────────────
+    // Public read for visitors. Writes/deletes are gated by ownership
+    // (or admin), with a narrow exception for fresh-business uploads
+    // where the Firestore doc hasn't been created yet.
     match /businesses/{bizId}/{path=**} {
       allow read: if true;
 
-      allow write: if authed() && (
-        // Photos — up to 8 MB
-        (isImage() && request.resource.size < 8 * 1024 * 1024) ||
-        // Videos — up to 100 MB (App Hosting / browser-friendly clips)
-        (isVideo() && request.resource.size < 100 * 1024 * 1024) ||
-        // Documents (PDF, DOCX, XLSX, PPTX, TXT, CSV) — up to 10 MB
-        (isDoc() && request.resource.size < 10 * 1024 * 1024)
-      );
+      allow write: if (isOwnerOf(bizId) || isAdmin() || isCreatingBusiness(bizId))
+        && (
+          (isImage() && request.resource.size < 8 * 1024 * 1024) ||
+          (isVideo() && request.resource.size < 100 * 1024 * 1024) ||
+          (isDoc() && request.resource.size < 10 * 1024 * 1024)
+        );
 
-      allow delete: if authed();
+      allow delete: if isOwnerOf(bizId) || isAdmin();
     }
 
-    // Default: deny.
+    // ── /users/{uid}/** ──────────────────────────────────
+    // For per-user assets (avatars, etc.). Owner-only.
+    match /users/{uid}/{path=**} {
+      allow read: if true;
+      allow write, delete: if authed() && request.auth.uid == uid;
+    }
+
+    // ── Default deny ─────────────────────────────────────
     match /{allPaths=**} {
       allow read, write: if false;
     }

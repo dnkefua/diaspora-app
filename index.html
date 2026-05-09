@@ -875,6 +875,35 @@ img, video { max-width: 100%; height: auto; }
 </head>
 <body>
 
+<!-- ───────── LAUNCH BANNER ───────── -->
+<div id="launchBanner" style="background:linear-gradient(90deg, #1C3D6E 0%, #B7924A 100%); color:#fff; padding:10px 20px; display:flex; align-items:center; justify-content:center; gap:14px; font-size:13.5px; font-weight:500; letter-spacing:0.02em; position:relative; z-index:99; flex-wrap:wrap; text-align:center; line-height:1.4;">
+  <span>🎉 <strong>Now launching in Dubai</strong> — list your African or diaspora-owned business <strong>free this week</strong>.</span>
+  <a href="become-seller.html" style="color:#fff; text-decoration:underline; font-weight:700; white-space:nowrap">Get listed →</a>
+  <button type="button" id="launchBannerClose" aria-label="Dismiss banner" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); background:transparent; border:none; color:#fff; font-size:22px; line-height:1; cursor:pointer; opacity:0.8; padding:4px 8px;">×</button>
+</div>
+<style>
+  @media (max-width: 720px){
+    #launchBanner { font-size: 12.5px; padding: 9px 36px 9px 14px; gap: 8px; }
+    #launchBanner br { display: none; }
+  }
+  /* Push the fixed top nav down to clear the banner */
+  body.has-launch-banner .topnav { top: 0; }
+</style>
+<script>
+(function(){
+  var banner = document.getElementById('launchBanner');
+  if (!banner) return;
+  if (sessionStorage.getItem('launchBannerDismissed') === '1'){
+    banner.style.display = 'none';
+    return;
+  }
+  document.getElementById('launchBannerClose').addEventListener('click', function(){
+    banner.style.display = 'none';
+    try { sessionStorage.setItem('launchBannerDismissed', '1'); } catch(_){}
+  });
+})();
+</script>
+
 <!-- ───────── NAV ───────── -->
 <nav class="topnav light" id="topnav">
   <div class="nav-left">
@@ -922,12 +951,12 @@ img, video { max-width: 100%; height: auto; }
   <div class="hero-bg"></div>
   <div class="hero-grain"></div>
   <div class="hero-inner">
-    <div class="kicker hero-kicker">A Tribute to the Global Diaspora</div>
+    <div class="kicker hero-kicker">Now Launching · Dubai</div>
     <h1 class="hero-title">Find your <em>people.</em><br>Wherever you are.</h1>
-    <p class="hero-lede">A curated home for the diaspora's finest — authentic kitchens, trusted stylists, gifted photographers, and the jobs that keep our communities growing. From Dubai to London to Toronto.</p>
+    <p class="hero-lede">A curated home for African and global diaspora-owned restaurants, salons, barbers, photographers, and creative talent — launching first in Dubai, expanding city by city.</p>
     <div class="hero-ctas">
-      <a href="feed.html" class="btn btn-light">Explore the App</a>
-      <a href="#advertise" class="btn btn-outline">Advertise Your Business</a>
+      <a href="feed.html" class="btn btn-light">Explore Businesses</a>
+      <a href="become-seller.html" class="btn btn-outline">List Your Business</a>
     </div>
   </div>
   <div class="hero-search-wrap">
@@ -1068,7 +1097,7 @@ img, video { max-width: 100%; height: auto; }
           <div class="spotlight-meta">
             <span class="meta-pill">Restaurant</span>
             <span class="meta-pill">Deira</span>
-            <span class="meta-pill">★ 4.9 · 847 reviews</span>
+            <span class="meta-pill">Launch partner</span>
           </div>
           <p class="spotlight-desc">Premium jollof bowls, suya platters, and weekend catering for the diaspora community across Deira and Downtown Dubai.</p>
           <div class="spotlight-ctas">
@@ -1087,7 +1116,7 @@ img, video { max-width: 100%; height: auto; }
           <div class="spotlight-meta">
             <span class="meta-pill">Hair Stylist</span>
             <span class="meta-pill">Jumeirah</span>
-            <span class="meta-pill">★ 5.0 · 312 reviews</span>
+            <span class="meta-pill">Launch partner</span>
           </div>
           <p class="spotlight-desc">Protective styles, knotless braids, loc care, and bridal looks from diaspora beauty specialists trusted across Jumeirah.</p>
           <div class="spotlight-ctas">
@@ -1125,6 +1154,39 @@ img, video { max-width: 100%; height: auto; }
     <button class="spot-dot active" data-i="0" aria-label="Show slide 1"></button>
     <button class="spot-dot" data-i="1" aria-label="Show slide 2"></button>
     <button class="spot-dot" data-i="2" aria-label="Show slide 3"></button>
+  </div>
+</section>
+
+<!-- ───────── TRUST PILLARS ───────── -->
+<section class="reveal" id="trust" aria-label="Why The Diaspora App" style="padding:64px 0; background:var(--ivory);">
+  <div style="max-width:var(--container); margin:0 auto; padding:0 var(--gutter);">
+    <div style="text-align:center; margin-bottom:36px">
+      <div class="kicker" style="margin-bottom:14px">Why us</div>
+      <h2 style="font-family:'Cormorant Garamond',serif; font-weight:300; font-size:clamp(30px, 4.4vw, 48px); line-height:1; letter-spacing:-0.02em">
+        Trust, <em style="font-style:italic; color:var(--brass); font-weight:300">earned</em> the slow way.
+      </h2>
+    </div>
+    <div style="display:grid; gap:18px; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));">
+      <div style="background:#fff; border:1px solid var(--line); border-radius:14px; padding:26px; text-align:center">
+        <div style="display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:50%; background:#1C3D6E; color:#fff; margin-bottom:14px;">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="#fff"><path d="M9 16.17 5.53 12.7a1 1 0 0 0-1.41 1.41l4.18 4.18a1 1 0 0 0 1.41 0l11.06-11.06a1 1 0 1 0-1.41-1.41z"/></svg>
+        </div>
+        <h3 style="font-family:'Cormorant Garamond',serif; font-weight:500; font-size:22px; margin-bottom:8px">Verified businesses only after review</h3>
+        <p style="font-size:14px; line-height:1.6; color:var(--muted)">Every blue tick comes from a physical site visit, owner ID check, and trade-licence review. No self-applied badges. <a href="verification.html" style="color:var(--brass); border-bottom:1px solid currentColor">How verification works</a></p>
+      </div>
+      <div style="background:#fff; border:1px solid var(--line); border-radius:14px; padding:26px; text-align:center">
+        <div style="display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:50%; background:#2A5F4A; color:#fff; margin-bottom:14px;">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="#fff"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93V18h-2v1.93C7.06 19.45 4.55 16.94 4.07 13H6v-2H4.07C4.55 7.06 7.06 4.55 11 4.07V6h2V4.07c3.94.48 6.45 2.99 6.93 6.93H18v2h1.93c-.48 3.94-2.99 6.45-6.93 6.93z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <h3 style="font-family:'Cormorant Garamond',serif; font-weight:500; font-size:22px; margin-bottom:8px">No commission on seller sales</h3>
+        <p style="font-size:14px; line-height:1.6; color:var(--muted)">Diaspora makes money from premium placements only — never from the transactions sellers run. Customers come direct. Sellers keep 100%. <a href="pricing.html" style="color:var(--brass); border-bottom:1px solid currentColor">See placement pricing</a></p>
+      </div>
+      <div style="background:#fff; border:1px solid var(--line); border-radius:14px; padding:26px; text-align:center">
+        <div style="display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:50%; background:#25D366; color:#fff; margin-bottom:14px; font-size:22px;">💬</div>
+        <h3 style="font-family:'Cormorant Garamond',serif; font-weight:500; font-size:22px; margin-bottom:8px">Customers contact sellers directly on WhatsApp</h3>
+        <p style="font-size:14px; line-height:1.6; color:var(--muted)">Pick from a seller's menu, then continue on WhatsApp with the order pre-filled. No middleman, no marketplace lock-in. MOMO Pay and Botim coming soon.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1426,7 +1488,7 @@ img, video { max-width: 100%; height: auto; }
       <div>
         <div class="kicker">Now Trending</div>
         <h2 class="section-title">What the community<br>is <em>loving</em> this week.</h2>
-        <p class="section-lede">Live picks from members across 47 cities — verified ratings, honest reviews, no pay-to-play.</p>
+        <p class="section-lede">Hand-picked launch partners across Dubai — verified businesses, honest reviews, no pay-to-play.</p>
       </div>
       <a href="feed.html" class="section-link">View Full Directory →</a>
     </div>
@@ -1444,35 +1506,35 @@ img, video { max-width: 100%; height: auto; }
         <span class="trend-rank">01</span><span class="trend-heat">Trending</span>
         <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?q=80&w=600&auto=format&fit=crop" alt="Amara's Kitchen" loading="lazy" decoding="async">
       </div>
-      <div><div class="trend-name">Amara's Kitchen</div><div class="trend-meta">Nigerian · Deira, Dubai</div><div class="trend-rating"><b>4.9</b>847 reviews</div></div>
+      <div><div class="trend-name">Amara's Kitchen</div><div class="trend-meta">Nigerian · Deira, Dubai</div><div class="trend-rating">Launch partner · be the first to review</div></div>
     </article>
     <article class="trend" data-cat="beauty">
       <div class="trend-media">
         <span class="trend-rank">02</span><span class="trend-heat">Rising</span>
         <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?q=80&w=600&auto=format&fit=crop" alt="Kemi Braids" loading="lazy" decoding="async">
       </div>
-      <div><div class="trend-name">Kemi Braids Studio</div><div class="trend-meta">Hair stylist · Jumeirah</div><div class="trend-rating"><b>5.0</b>312 reviews</div></div>
+      <div><div class="trend-name">Kemi Braids Studio</div><div class="trend-meta">Hair stylist · Jumeirah</div><div class="trend-rating">Launch partner · be the first to review</div></div>
     </article>
     <article class="trend" data-cat="beauty">
       <div class="trend-media">
         <span class="trend-rank">03</span><span class="trend-heat">Trending</span>
         <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=600&auto=format&fit=crop" alt="Royal Cuts" loading="lazy" decoding="async">
       </div>
-      <div><div class="trend-name">Royal Cuts</div><div class="trend-meta">Barber · Al Karama</div><div class="trend-rating"><b>4.8</b>1,204 reviews</div></div>
+      <div><div class="trend-name">Royal Cuts</div><div class="trend-meta">Barber · Al Karama</div><div class="trend-rating">Launch partner · be the first to review</div></div>
     </article>
     <article class="trend" data-cat="photo">
       <div class="trend-media">
         <span class="trend-rank">04</span><span class="trend-heat">Featured</span>
         <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=600&auto=format&fit=crop" alt="Obi Photography" loading="lazy" decoding="async">
       </div>
-      <div><div class="trend-name">Obi Photography</div><div class="trend-meta">Events · Business Bay</div><div class="trend-rating"><b>4.9</b>198 reviews</div></div>
+      <div><div class="trend-name">Obi Photography</div><div class="trend-meta">Events · Business Bay</div><div class="trend-rating">Launch partner · be the first to review</div></div>
     </article>
     <article class="trend" data-cat="food">
       <div class="trend-media">
         <span class="trend-rank">05</span><span class="trend-heat">Rising</span>
         <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=600&auto=format&fit=crop" alt="Mama's Suya" loading="lazy" decoding="async">
       </div>
-      <div><div class="trend-name">Mama's Suya House</div><div class="trend-meta">Food seller · Bur Dubai</div><div class="trend-rating"><b>4.9</b>521 reviews</div></div>
+      <div><div class="trend-name">Mama's Suya House</div><div class="trend-meta">Food seller · Bur Dubai</div><div class="trend-rating">Launch partner · be the first to review</div></div>
     </article>
     <article class="trend" data-cat="jobs">
       <div class="trend-media">
@@ -1487,19 +1549,19 @@ img, video { max-width: 100%; height: auto; }
 <!-- ───────── CITIES ───────── -->
 <section class="reveal" id="cities" aria-label="Cities">
   <div class="section-head">
-    <div class="kicker">Our Locations</div>
-    <h2 class="section-title">Where the <em>diaspora</em> gathers.</h2>
-    <p class="section-lede">Live in 47 cities across 23 countries — with new homes opening every month.</p>
+    <div class="kicker">Launch &amp; Roadmap</div>
+    <h2 class="section-title">Starting in <em>Dubai</em>,<br>expanding city by city.</h2>
+    <p class="section-lede">We're going deep before we go wide. Dubai is the first home for African and global diaspora businesses on the app. Other cities open as we onboard verified sellers and city editors.</p>
   </div>
   <div class="cities-grid">
-    <a href="feed.html?city=Dubai" class="city-row"><span class="city-region">Middle East</span><span class="city-name">Dubai</span><span class="city-count">2,847</span><span class="city-arrow">→</span></a>
-    <a href="feed.html?city=Abu+Dhabi" class="city-row"><span class="city-region">Middle East</span><span class="city-name">Abu <em>Dhabi</em></span><span class="city-count">1,124</span><span class="city-arrow">→</span></a>
-    <a href="feed.html?city=London" class="city-row"><span class="city-region">Europe</span><span class="city-name">London</span><span class="city-count">3,402</span><span class="city-arrow">→</span></a>
-    <a href="feed.html?city=Toronto" class="city-row"><span class="city-region">North America</span><span class="city-name">Toronto</span><span class="city-count">1,958</span><span class="city-arrow">→</span></a>
-    <a href="feed.html?city=New+York" class="city-row"><span class="city-region">North America</span><span class="city-name">New <em>York</em></span><span class="city-count">2,213</span><span class="city-arrow">→</span></a>
-    <a href="feed.html?city=Lagos" class="city-row"><span class="city-region">Africa</span><span class="city-name">Lagos</span><span class="city-count">4,801</span><span class="city-arrow">→</span></a>
-    <a href="feed.html?city=Nairobi" class="city-row"><span class="city-region">Africa</span><span class="city-name">Nairobi</span><span class="city-count">1,662</span><span class="city-arrow">→</span></a>
-    <a href="feed.html?city=Paris" class="city-row"><span class="city-region">Europe</span><span class="city-name">Paris</span><span class="city-count">894</span><span class="city-arrow">→</span></a>
+    <a href="feed.html?city=Dubai" class="city-row"><span class="city-region">Middle East</span><span class="city-name">Dubai</span><span class="city-count">Live now</span><span class="city-arrow">→</span></a>
+    <a href="feed.html?city=Abu+Dhabi" class="city-row"><span class="city-region">Middle East</span><span class="city-name">Abu <em>Dhabi</em></span><span class="city-count">Coming soon</span><span class="city-arrow">→</span></a>
+    <a href="feed.html?city=Sharjah" class="city-row"><span class="city-region">Middle East</span><span class="city-name">Sharjah</span><span class="city-count">Coming soon</span><span class="city-arrow">→</span></a>
+    <a href="feed.html?city=London" class="city-row"><span class="city-region">Europe</span><span class="city-name">London</span><span class="city-count">Coming soon</span><span class="city-arrow">→</span></a>
+    <a href="feed.html?city=Toronto" class="city-row"><span class="city-region">North America</span><span class="city-name">Toronto</span><span class="city-count">Coming soon</span><span class="city-arrow">→</span></a>
+    <a href="feed.html?city=Lagos" class="city-row"><span class="city-region">Africa</span><span class="city-name">Lagos</span><span class="city-count">Coming soon</span><span class="city-arrow">→</span></a>
+    <a href="feed.html?city=Nairobi" class="city-row"><span class="city-region">Africa</span><span class="city-name">Nairobi</span><span class="city-count">Coming soon</span><span class="city-arrow">→</span></a>
+    <a href="feed.html?city=Accra" class="city-row"><span class="city-region">Africa</span><span class="city-name">Accra</span><span class="city-count">Coming soon</span><span class="city-arrow">→</span></a>
   </div>
 </section>
 
