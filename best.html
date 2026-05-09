@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Best of Diaspora · Top diaspora businesses ranked weekly, monthly &amp; yearly</title>
+<meta name="description" content="The most-loved diaspora-owned businesses on The Diaspora App, ranked by real customer reviews — updated live every visit. Filter by city, category, and time window.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://www.thediaspora.app/best.html">
+<link rel="icon" type="image/png" href="Media%20resources/TheDiaspora%20app%20logo%203D.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Best of Diaspora — top businesses ranked by real reviews">
+<meta property="og:description" content="Live leaderboard of diaspora-owned businesses across our cities. Updated every page load. Verified and Premium businesses get a small bonus — earn it by being the best in your category.">
+<meta property="og:url" content="https://www.thediaspora.app/best.html">
+<meta property="og:image" content="https://www.thediaspora.app/Media%20resources/TheDiaspora%20app%20logo%203D.png">
+<meta name="twitter:card" content="summary_large_image">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="page.css">
+<style>
+:root { --podium-gold:#D4AF37; --podium-silver:#C7C7C9; --podium-bronze:#B07842; }
+
+/* ───── Hero ───── */
+.lb-hero { padding: 56px 32px 36px; text-align: center; max-width: 1180px; margin: 0 auto; }
+.lb-hero .kicker { color: var(--brass); margin-bottom: 14px; }
+.lb-hero h1 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(40px, 6vw, 76px); line-height: 1; letter-spacing: -0.02em; margin-bottom: 20px; }
+.lb-hero h1 em { font-style: italic; color: var(--brass); font-weight: 300; }
+.lb-hero .lede { font-size: 17px; line-height: 1.65; color: var(--muted); max-width: 60ch; margin: 0 auto; }
+.lb-hero .lede strong { color: var(--ink); }
+
+/* ───── Tabs (period) ───── */
+.lb-tabs { display: flex; justify-content: center; gap: 6px; margin: 32px auto 18px; max-width: 1180px; padding: 0 16px; flex-wrap: wrap; }
+.lb-tab { padding: 10px 20px; border-radius: 999px; font-size: 12px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; border: 1px solid var(--line); background: var(--paper); color: var(--ink); transition: all 0.18s; }
+.lb-tab:hover { border-color: var(--ink); }
+.lb-tab.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+/* ───── Filters ───── */
+.lb-filters { display: flex; justify-content: center; gap: 10px; align-items: center; flex-wrap: wrap; max-width: 1180px; margin: 0 auto 32px; padding: 0 16px; font-size: 13px; color: var(--muted); }
+.lb-filters select { padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px; background: #fff; font-family: inherit; font-size: 13px; cursor: pointer; }
+.lb-filters select:focus { outline: none; border-color: var(--brass); }
+
+/* ───── Podium (top 3) ───── */
+.lb-podium { display: grid; grid-template-columns: 1fr 1.18fr 1fr; gap: 18px; max-width: 1080px; margin: 0 auto 36px; padding: 0 16px; align-items: end; }
+.podium-card { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 26px 22px 22px; text-align: center; position: relative; transition: transform 0.25s; }
+.podium-card:hover { transform: translateY(-4px); }
+.podium-card.first { background: linear-gradient(180deg, #fff 0%, #FFFAEC 100%); border-color: var(--podium-gold); padding-top: 32px; padding-bottom: 28px; transform: translateY(-12px); }
+.podium-card.first:hover { transform: translateY(-16px); }
+.podium-card.second { border-color: var(--podium-silver); }
+.podium-card.third { border-color: var(--podium-bronze); }
+.podium-medal { position: absolute; top: -18px; left: 50%; transform: translateX(-50%); width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 600; font-size: 22px; color: #fff; box-shadow: 0 6px 18px rgba(0,0,0,0.15); }
+.podium-card.first .podium-medal { background: linear-gradient(135deg, #F4D98B 0%, #D4AF37 60%, #BB860B 100%); width: 58px; height: 58px; font-size: 26px; }
+.podium-card.second .podium-medal { background: linear-gradient(135deg, #E5E5E7 0%, #C7C7C9 60%, #9B9B9C 100%); }
+.podium-card.third .podium-medal { background: linear-gradient(135deg, #D8AA80 0%, #B07842 60%, #8C5520 100%); }
+.podium-img { width: 110px; height: 110px; border-radius: 50%; object-fit: cover; margin: 14px auto 16px; background: #1a1a1a; box-shadow: 0 10px 30px rgba(0,0,0,0.10); }
+.podium-card.first .podium-img { width: 130px; height: 130px; }
+.podium-name { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 22px; line-height: 1.15; margin-bottom: 4px; display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: wrap; }
+.podium-card.first .podium-name { font-size: 26px; }
+.podium-meta { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+.podium-score { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400; font-size: 30px; color: var(--brass); line-height: 1; }
+.podium-score-label { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
+.podium-stats { display: flex; justify-content: center; gap: 12px; margin-top: 12px; font-size: 12px; color: var(--muted); }
+.podium-stats b { color: var(--ink); font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 16px; font-weight: 500; }
+.podium-cta { display: inline-block; margin-top: 14px; padding: 9px 18px; border-radius: 999px; background: var(--ink); color: var(--paper); font-size: 11px; letter-spacing: 0.20em; text-transform: uppercase; font-weight: 600; text-decoration: none; }
+.podium-cta:hover { background: var(--brass); }
+
+/* ───── Trust badges (mini) ───── */
+.tb { display: inline-flex; align-items: center; gap: 4px; padding: 2px 7px; border-radius: 999px; font-size: 9.5px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; vertical-align: middle; }
+.tb svg { display: block; }
+.tb-verified { background: #1C3D6E; color: #fff; }
+.tb-verified svg { fill: #fff; }
+.tb-premium { background: linear-gradient(135deg, #F4D98B 0%, #D4AF37 60%, #BB860B 100%); color: #fff; }
+.tb-premium svg { fill: #fff; }
+
+/* ───── Ranked list (4-50) ───── */
+.lb-list { max-width: 1080px; margin: 0 auto 40px; padding: 0 16px; }
+.lb-row { display: grid; grid-template-columns: 60px 72px 1fr auto auto; gap: 16px; align-items: center; padding: 16px; background: #fff; border: 1px solid var(--line); border-radius: 14px; margin-bottom: 10px; transition: transform 0.18s, border-color 0.18s; text-decoration: none; color: inherit; }
+.lb-row:hover { transform: translateX(4px); border-color: var(--brass); }
+.lb-rank { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; font-size: 38px; line-height: 1; color: var(--muted); letter-spacing: -0.02em; text-align: center; }
+.lb-img { width: 72px; height: 72px; border-radius: 12px; object-fit: cover; background: #1a1a1a; }
+.lb-name { font-weight: 700; font-size: 16px; line-height: 1.2; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.lb-meta { font-size: 12.5px; color: var(--muted); }
+.lb-score { text-align: center; min-width: 84px; }
+.lb-score .num { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400; font-size: 28px; color: var(--brass); line-height: 1; }
+.lb-score .lbl { font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+.lb-stats { text-align: right; min-width: 110px; font-size: 12px; color: var(--muted); }
+.lb-stats .stars { color: var(--brass); letter-spacing: 1px; }
+.lb-stats .reviews { display: block; margin-top: 3px; }
+
+/* ───── Score legend ───── */
+.lb-legend { background: var(--ivory); border: 1px solid var(--line); border-radius: 14px; padding: 22px; max-width: 1080px; margin: 32px auto; font-size: 13.5px; line-height: 1.6; color: var(--graphite); }
+.lb-legend h3 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 22px; margin-bottom: 10px; color: var(--ink); }
+.lb-legend ul { list-style: none; padding: 0; margin: 12px 0 0; display: grid; gap: 8px; grid-template-columns: 1fr; }
+.lb-legend li { display: flex; gap: 8px; align-items: flex-start; }
+.lb-legend li::before { content: ""; flex-shrink: 0; width: 8px; height: 8px; border-radius: 50%; background: var(--brass); margin-top: 8px; }
+
+/* ───── States ───── */
+.lb-empty { background: #fff; border: 1px dashed var(--line); border-radius: 14px; padding: 48px 24px; text-align: center; color: var(--muted); max-width: 720px; margin: 0 auto; }
+.lb-empty h3 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 24px; color: var(--ink); margin-bottom: 8px; }
+.lb-loading { text-align: center; padding: 48px 24px; color: var(--muted); }
+.lb-loading::before { content: ""; display: inline-block; width: 36px; height: 36px; border: 3px solid var(--line); border-top-color: var(--brass); border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 12px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ───── Footer ribbon ───── */
+.lb-cta-ribbon { background: linear-gradient(135deg, var(--ink) 0%, #1B1D22 50%, #1C3D6E 100%); color: var(--paper); border-radius: 18px; max-width: 1080px; margin: 24px auto 32px; padding: clamp(28px, 4vw, 44px); display: grid; grid-template-columns: 1fr auto; gap: clamp(16px, 3vw, 28px); align-items: center; }
+.lb-cta-ribbon h3 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(22px, 3vw, 30px); line-height: 1.15; }
+.lb-cta-ribbon h3 em { font-style: italic; color: var(--brass-soft); }
+.lb-cta-ribbon p { font-size: 14px; line-height: 1.55; opacity: 0.85; margin-top: 8px; }
+.lb-cta-ribbon a { background: var(--brass); color: #fff; padding: 14px 24px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; text-decoration: none; white-space: nowrap; transition: background 0.18s; }
+.lb-cta-ribbon a:hover { background: var(--brass-soft); color: var(--ink); }
+
+/* ───── Mobile ───── */
+@media (max-width: 760px){
+  .lb-hero { padding: 36px 18px 24px; }
+  .lb-podium { grid-template-columns: 1fr; gap: 24px; padding: 0 18px; }
+  .podium-card.first { transform: none; order: -1; }
+  .lb-row { grid-template-columns: 40px 60px 1fr auto; gap: 10px; padding: 12px; }
+  .lb-row .lb-stats { display: none; }
+  .lb-rank { font-size: 26px; }
+  .lb-img { width: 60px; height: 60px; }
+  .lb-name { font-size: 14px; }
+  .lb-meta { font-size: 11.5px; }
+  .lb-score .num { font-size: 22px; }
+  .lb-cta-ribbon { grid-template-columns: 1fr; text-align: center; }
+  .lb-cta-ribbon a { justify-self: center; }
+  .lb-tab { padding: 8px 14px; font-size: 11px; }
+}
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <a href="index.html" class="brand"><img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="The Diaspora App"></a>
+  <nav>
+    <a href="feed.html">Browse</a>
+    <a href="verification.html">Verification</a>
+    <a href="become-seller.html" class="nav-account">List your business</a>
+  </nav>
+</header>
+
+<section class="lb-hero">
+  <div class="kicker">The Best of Diaspora</div>
+  <h1>Top diaspora businesses,<br>ranked <em>by real customers</em>.</h1>
+  <p class="lede">A live leaderboard of the most-loved diaspora-owned businesses across our cities. Updated every page load. <strong>Verified</strong> and <strong>Premium</strong> businesses earn a small bonus to encourage building real trust — but a great rating from real reviews is what wins the top spots.</p>
+</section>
+
+<!-- Period tabs -->
+<div class="lb-tabs" role="tablist" id="lbTabs">
+  <button class="lb-tab" data-period="week" role="tab">This Week</button>
+  <button class="lb-tab active" data-period="month" role="tab">This Month</button>
+  <button class="lb-tab" data-period="year" role="tab">This Year</button>
+  <button class="lb-tab" data-period="all" role="tab">All-time</button>
+</div>
+
+<!-- Category + city filters -->
+<div class="lb-filters">
+  <span>Show top businesses for</span>
+  <select id="lbCategory">
+    <option value="">All categories</option>
+    <option>Restaurants</option>
+    <option>Home Cooks &amp; Food Sellers</option>
+    <option>Caterers</option>
+    <option>Bakers &amp; Pastries</option>
+    <option>Hair Stylists</option>
+    <option>Barbers</option>
+    <option>Loc &amp; Natural Hair</option>
+    <option>Beauty &amp; Makeup</option>
+    <option>Nails</option>
+    <option>Spa &amp; Wellness</option>
+    <option>Photographers</option>
+    <option>Videographers</option>
+    <option>Tailors &amp; Fashion</option>
+    <option>Music &amp; Events</option>
+    <option>DJs &amp; Music</option>
+    <option>Real Estate</option>
+    <option>Bed Space &amp; Partition</option>
+    <option>Car Lift &amp; Carpooling</option>
+    <option>Churches &amp; Faith Communities</option>
+    <option>Cleaning Services</option>
+    <option>Movers</option>
+    <option>Auto &amp; Mechanics</option>
+    <option>Jobs</option>
+  </select>
+  <span>in</span>
+  <select id="lbCity">
+    <option value="">All cities</option>
+    <option>Dubai</option>
+    <option>Abu Dhabi</option>
+    <option>Sharjah</option>
+    <option>London</option>
+    <option>Toronto</option>
+    <option>Lagos</option>
+    <option>Nairobi</option>
+    <option>Accra</option>
+  </select>
+</div>
+
+<!-- Top 3 podium -->
+<div id="lbPodium" class="lb-podium" style="display:none"></div>
+
+<!-- Ranked list -->
+<div id="lbList" class="lb-list">
+  <div class="lb-loading">Loading the leaderboard…</div>
+</div>
+
+<!-- Score legend -->
+<div class="lb-legend">
+  <h3>How the <em style="font-style:italic; color:var(--brass)">Diaspora Score</em> works</h3>
+  <p>The score balances quality with depth, plus a small trust bonus to reward businesses that go through verification. It's intentionally transparent so any business can see what to improve.</p>
+  <ul>
+    <li><strong>Average rating · up to 60 points</strong> — your customers' actual experience, on a 5-star scale.</li>
+    <li><strong>Review depth · up to 30 points</strong> — one review per point, capped at 30. A 4.9 with 30 reviews ranks above a 5.0 with 1.</li>
+    <li><strong>Verified bonus · +5 points</strong> — earned through a physical site visit + records check.</li>
+    <li><strong>Premium bonus · +10 points</strong> — for businesses that subscribe and pass quarterly re-inspection.</li>
+  </ul>
+  <p style="margin-top:14px; font-size:12.5px; color:var(--muted)">Maximum: 105 / 100. Time-window leaderboards (Week, Month, Year) only count reviews posted in that window. The All-time tab uses every review on the platform.</p>
+</div>
+
+<!-- Conversion ribbon -->
+<div class="lb-cta-ribbon">
+  <div>
+    <h3>Want to be on the <em>Best of Diaspora</em> list?</h3>
+    <p>Get verified, deliver excellent service, and ask happy customers to leave a review. Verified and Premium businesses get a small head-start — the rest is up to you.</p>
+  </div>
+  <a href="become-seller.html">List your business →</a>
+</div>
+
+<footer class="page-footer">
+  <span>© 2026 The Diaspora App · Updated live, every page load</span>
+  <div class="foot-links">
+    <a href="verification.html">Verification</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</footer>
+
+<script type="module">
+import { db, collection, getDocs, query, where, orderBy, limit } from './firebase-config.js';
+
+/* ─── State ─── */
+let allBusinesses = [];
+let allReviews = [];
+let activePeriod = 'month';
+let activeCategory = '';
+let activeCity = '';
+
+const VERIFIED_SVG = '<svg viewBox="0 0 24 24" width="9" height="9"><path d="M9 16.17 5.53 12.7a1 1 0 0 0-1.41 1.41l4.18 4.18a1 1 0 0 0 1.41 0l11.06-11.06a1 1 0 1 0-1.41-1.41z"/></svg>';
+const PREMIUM_SVG = '<svg viewBox="0 0 24 24" width="9" height="9"><path d="M12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62z"/></svg>';
+
+const PERIOD_MS = {
+  week: 7 * 24 * 60 * 60 * 1000,
+  month: 30 * 24 * 60 * 60 * 1000,
+  year: 365 * 24 * 60 * 60 * 1000,
+  all: Infinity
+};
+
+/* ─── Helpers ─── */
+function escHtml(s){ return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function starsRow(n){ const f = Math.round(n||0); return '★'.repeat(f) + '☆'.repeat(5-f); }
+function badgeTags(b){
+  let h = '';
+  if (b.premium) h += `<span class="tb tb-premium">${PREMIUM_SVG}Premium</span>`;
+  if (b.verified) h += `<span class="tb tb-verified">${VERIFIED_SVG}Verified</span>`;
+  return h;
+}
+
+/* ─── Load data ─── */
+async function loadData(){
+  try {
+    const [bizSnap, revSnap] = await Promise.all([
+      getDocs(query(collection(db, 'businesses'), limit(500))),
+      // reviews ordered by createdAt desc; will work without a special index
+      getDocs(query(collection(db, 'reviews'), limit(2000)))
+    ]);
+    allBusinesses = [];
+    bizSnap.forEach(d => allBusinesses.push({ id: d.id, ...d.data() }));
+    allReviews = [];
+    revSnap.forEach(d => allReviews.push({ id: d.id, ...d.data() }));
+  } catch (err){
+    console.error('Leaderboard load failed:', err);
+    document.getElementById('lbList').innerHTML = `<div class="lb-empty"><h3>Could not load the leaderboard</h3><p>${escHtml(err.message)}. Try refreshing the page.</p></div>`;
+    return;
+  }
+  render();
+}
+
+/* ─── Score formula (0–105) ─── */
+function scoreFor(biz, reviews){
+  if (!reviews.length){
+    // No reviews in this period — treat as ineligible for time-windowed tabs.
+    // For all-time, fall back to base biz.rating if present, with no depth.
+    return null;
+  }
+  const avg = reviews.reduce((s, r) => s + (Number(r.rating) || 0), 0) / reviews.length;
+  const depth = Math.min(reviews.length, 30); // cap at 30 reviews
+  const ratingPts = (avg / 5) * 60;            // 0–60
+  const depthPts = depth * 1.0;                // 0–30
+  const verifiedPts = biz.verified ? 5 : 0;
+  const premiumPts = biz.premium ? 10 : 0;
+  const total = ratingPts + depthPts + verifiedPts + premiumPts;
+  return {
+    total,
+    avg,
+    count: reviews.length,
+    ratingPts,
+    depthPts,
+    verifiedPts,
+    premiumPts
+  };
+}
+
+/* ─── Compute current ranking ─── */
+function computeRanking(){
+  const now = Date.now();
+  const cutoff = activePeriod === 'all' ? 0 : now - PERIOD_MS[activePeriod];
+
+  return allBusinesses
+    .filter(b => !activeCategory || b.category === activeCategory)
+    .filter(b => !activeCity || b.city === activeCity)
+    .map(b => {
+      const reviews = allReviews
+        .filter(r => r.businessId === b.id)
+        .filter(r => {
+          if (activePeriod === 'all') return true;
+          const t = r.createdAt?.toMillis ? r.createdAt.toMillis() : null;
+          return t != null && t >= cutoff;
+        });
+      const s = scoreFor(b, reviews);
+      return { biz: b, score: s };
+    })
+    .filter(x => x.score !== null) // drop ineligible
+    .sort((a, b) => b.score.total - a.score.total);
+}
+
+/* ─── Render ─── */
+function render(){
+  const ranked = computeRanking();
+  const podiumEl = document.getElementById('lbPodium');
+  const listEl = document.getElementById('lbList');
+
+  if (!ranked.length){
+    podiumEl.style.display = 'none';
+    const periodLabel = activePeriod === 'all' ? 'overall' : `for ${({week:'this week',month:'this month',year:'this year'})[activePeriod]}`;
+    listEl.innerHTML = `<div class="lb-empty">
+      <h3>No reviews yet ${escHtml(periodLabel)}.</h3>
+      <p>The leaderboard fills as customers post real reviews. Be the first to review a business — it takes 10 seconds.</p>
+      <p style="margin-top:14px"><a href="feed.html" class="btn btn-dark">Browse businesses →</a></p>
+    </div>`;
+    return;
+  }
+
+  // Podium for top 3 (only if ranked.length >= 3 AND we have at least 3 distinct businesses)
+  if (ranked.length >= 3){
+    podiumEl.style.display = 'grid';
+    const podiumOrder = [ranked[1], ranked[0], ranked[2]]; // visual: silver | gold | bronze
+    const classes = ['second', 'first', 'third'];
+    const medalChars = ['2', '1', '3'];
+    podiumEl.innerHTML = podiumOrder.map((entry, i) => podiumCard(entry, classes[i], medalChars[i])).join('');
+  } else {
+    podiumEl.style.display = 'none';
+  }
+
+  // Remaining list (4..50) — or all if podium hidden
+  const startIdx = ranked.length >= 3 ? 3 : 0;
+  const listSlice = ranked.slice(startIdx, 50);
+  if (!listSlice.length && podiumEl.style.display !== 'none'){
+    listEl.innerHTML = `<div class="lb-empty"><p>That's the full leaderboard for this filter.</p></div>`;
+    return;
+  }
+  listEl.innerHTML = listSlice.map((entry, i) => listRow(entry, i + startIdx + 1)).join('');
+}
+
+function podiumCard(entry, klass, medal){
+  const b = entry.biz, s = entry.score;
+  const img = b.image || (Array.isArray(b.images) && b.images[0]) || 'Media%20resources/TheDiaspora%20app%20logo%203D.png';
+  return `
+    <a href="business.html?id=${encodeURIComponent(b.id)}" class="podium-card ${klass}" style="text-decoration:none; color:inherit; display:block">
+      <div class="podium-medal">${medal}</div>
+      <img class="podium-img" src="${escHtml(img)}" alt="${escHtml(b.name)}" loading="lazy" decoding="async">
+      <div class="podium-name">${escHtml(b.name)}${badgeTags(b)}</div>
+      <div class="podium-meta">${escHtml(b.category || '')}${b.city ? ' · ' + escHtml(b.city) : ''}</div>
+      <div style="margin-top:10px">
+        <div class="podium-score">${s.total.toFixed(1)}</div>
+        <div class="podium-score-label">Diaspora Score</div>
+      </div>
+      <div class="podium-stats">
+        <div><span class="stars" style="color:var(--brass); letter-spacing:1px">${starsRow(s.avg)}</span><br><b>${s.avg.toFixed(1)}</b> avg</div>
+        <div><b>${s.count}</b> ${s.count === 1 ? 'review' : 'reviews'}</div>
+      </div>
+      <span class="podium-cta">View business →</span>
+    </a>
+  `;
+}
+
+function listRow(entry, rank){
+  const b = entry.biz, s = entry.score;
+  const img = b.image || (Array.isArray(b.images) && b.images[0]) || 'Media%20resources/TheDiaspora%20app%20logo%203D.png';
+  return `
+    <a class="lb-row" href="business.html?id=${encodeURIComponent(b.id)}">
+      <div class="lb-rank">${rank}</div>
+      <img class="lb-img" src="${escHtml(img)}" alt="" loading="lazy" decoding="async">
+      <div>
+        <div class="lb-name">${escHtml(b.name)}${badgeTags(b)}</div>
+        <div class="lb-meta">${escHtml(b.category || '')}${b.area ? ' · ' + escHtml(b.area) : ''}${b.city ? ', ' + escHtml(b.city) : ''}</div>
+      </div>
+      <div class="lb-score">
+        <div class="num">${s.total.toFixed(1)}</div>
+        <div class="lbl">Score</div>
+      </div>
+      <div class="lb-stats">
+        <span class="stars">${starsRow(s.avg)}</span> <b>${s.avg.toFixed(1)}</b>
+        <span class="reviews">${s.count} ${s.count === 1 ? 'review' : 'reviews'}</span>
+      </div>
+    </a>
+  `;
+}
+
+/* ─── Event wiring ─── */
+document.querySelectorAll('.lb-tab').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.lb-tab').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    activePeriod = t.dataset.period;
+    render();
+  });
+});
+document.getElementById('lbCategory').addEventListener('change', (e) => { activeCategory = e.target.value; render(); });
+document.getElementById('lbCity').addEventListener('change', (e) => { activeCity = e.target.value; render(); });
+
+/* ─── Boot ─── */
+loadData();
+</script>
+</body>
+</html>
