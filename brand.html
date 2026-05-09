@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Brand &amp; Identity · The Diaspora App</title>
+<meta name="description" content="The Diaspora App brand system — logo lockups, color palette, typography, and brand application. For press, partners, and contributors.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.thediaspora.app/brand.html">
+<link rel="icon" type="image/png" href="Media%20resources/TheDiaspora%20app%20logo%203D.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Diaspora App — Brand Identity">
+<meta property="og:description" content="Logo system, palette, typography, and brand application.">
+<meta property="og:url" content="https://www.thediaspora.app/brand.html">
+<meta property="og:image" content="https://www.thediaspora.app/Media%20resources/TheDiaspora%20app%20logo%203D.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #D4AF37;
+  --gold-light: #F4D98B;
+  --gold-deep: #BB860B;
+  --black: #0D0D0D;
+  --charcoal: #1E1E1E;
+  --white: #FFFFFF;
+  --line-light: rgba(212,175,55,0.18);
+  --paper: #FBF8F2;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--black); color: var(--white);
+  font-family: 'Montserrat', 'Inter', system-ui, sans-serif;
+  font-weight: 400; -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+.serif { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; }
+
+/* Top bar */
+.brand-topbar {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(13,13,13,0.92); backdrop-filter: blur(18px);
+  padding: 14px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--line-light);
+}
+.brand-topbar a { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.7); transition: color .15s; }
+.brand-topbar a:hover { color: var(--gold); }
+.brand-topbar .home {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: 16px; letter-spacing: 0.04em; color: var(--gold);
+  text-transform: none;
+}
+.brand-topbar nav { display: flex; gap: 28px; }
+
+/* Section blocks */
+.section { padding: 60px 32px; max-width: 1280px; margin: 0 auto; }
+.section.tight { padding: 36px 32px; }
+.section-label {
+  font-family: 'Montserrat', sans-serif; font-weight: 700;
+  font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 14px;
+}
+
+/* HERO */
+.brand-hero {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+  align-items: center; padding: 80px 32px 80px;
+  max-width: 1280px; margin: 0 auto;
+  border-bottom: 1px solid var(--line-light);
+}
+.brand-mark-block {
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  background: radial-gradient(ellipse at center, rgba(212,175,55,0.10) 0%, transparent 70%);
+  padding: 60px 20px;
+  min-height: 360px;
+}
+.brand-mark-block img {
+  width: clamp(220px, 30vw, 320px); height: auto;
+  filter: drop-shadow(0 12px 40px rgba(212,175,55,0.30));
+}
+.brand-tagline { padding: 20px 0; }
+.brand-tagline .super {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: 14px; letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--gold-light); margin-bottom: 22px;
+}
+.brand-tagline h1 {
+  font-family: 'Cormorant Garamond', serif; font-weight: 300;
+  font-size: clamp(48px, 7vw, 88px); line-height: 0.96;
+  letter-spacing: -0.02em; margin-bottom: 28px;
+}
+.brand-tagline h1 em {
+  font-style: italic;
+  color: var(--gold);
+  font-weight: 400;
+}
+.brand-tagline .promise {
+  font-family: 'Montserrat', sans-serif; font-weight: 700;
+  font-size: 14px; letter-spacing: 0.36em; text-transform: uppercase;
+  color: var(--white); margin-bottom: 8px;
+}
+.brand-tagline .promise span { color: var(--gold); }
+.brand-tagline .home-line {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: 16px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--gold-light); margin-top: 6px;
+}
+
+/* App icons + favicons */
+.icon-row {
+  display: grid; gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+}
+.icon-cell {
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 22px; aspect-ratio: 1;
+  position: relative; overflow: hidden;
+  border: 1px solid var(--line-light);
+}
+.icon-cell img { width: 60%; height: auto; }
+.icon-cell.dark { background: var(--black); }
+.icon-cell.white { background: var(--white); }
+.icon-cell.gold { background: linear-gradient(135deg, #D4AF37 0%, #BB860B 100%); }
+.icon-cell.charcoal { background: linear-gradient(135deg, #1E1E1E 0%, #0D0D0D 100%); }
+
+.favicon-row {
+  display: grid; gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(60px, 80px));
+  margin-top: 20px;
+}
+.favicon-cell {
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 12px; aspect-ratio: 1;
+  border: 1px solid var(--line-light);
+}
+.favicon-cell img { width: 70%; height: auto; }
+
+/* Lockups */
+.lockup-grid {
+  display: grid; gap: 32px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  margin-top: 32px;
+}
+.lockup-cell {
+  background: var(--charcoal); border: 1px solid var(--line-light);
+  border-radius: 14px; padding: 32px 24px; min-height: 200px;
+  display: flex; flex-direction: column; justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.lockup-label {
+  font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase;
+  color: rgba(255,255,255,0.50); margin-bottom: 24px;
+  align-self: flex-start;
+}
+.lockup-content { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.lockup-content.horizontal { flex-direction: row; gap: 16px; }
+.lockup-content img { height: 60px; width: auto; }
+.lockup-content.horizontal img { height: 50px; }
+.lockup-wordmark {
+  font-family: 'Cormorant Garamond', serif; font-weight: 300;
+  letter-spacing: 0.12em; text-transform: uppercase;
+}
+.lockup-wordmark.lg { font-size: 28px; }
+.lockup-wordmark.md { font-size: 22px; }
+.lockup-wordmark.sm { font-size: 14px; }
+.lockup-wordmark .accent {
+  font-family: 'Montserrat', sans-serif; font-weight: 600;
+  font-size: 9px; letter-spacing: 0.36em;
+  color: var(--gold); display: block; margin-top: 4px;
+}
+.lockup-tagline {
+  font-family: 'Montserrat', sans-serif; font-weight: 600;
+  font-size: 9px; letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--gold-light); margin-top: 6px;
+}
+
+/* Color variants strip */
+.color-strip {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 0;
+  border-radius: 14px; overflow: hidden; margin-top: 24px;
+  border: 1px solid var(--line-light);
+}
+.color-strip > div {
+  padding: 50px 24px; min-height: 240px;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.color-strip .var-label {
+  font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase;
+  font-weight: 700;
+}
+.color-strip img { width: 70%; max-width: 110px; align-self: center; height: auto; }
+.color-strip .black-bg { background: var(--black); color: rgba(255,255,255,0.55); }
+.color-strip .black-bg .var-label { color: rgba(255,255,255,0.4); }
+.color-strip .white-bg { background: var(--white); color: rgba(0,0,0,0.55); }
+.color-strip .white-bg .var-label { color: rgba(0,0,0,0.4); }
+.color-strip .gold-bg { background: linear-gradient(135deg, #F4D98B 0%, #D4AF37 60%, #BB860B 100%); color: rgba(13,13,13,0.65); }
+.color-strip .gold-bg .var-label { color: rgba(13,13,13,0.6); }
+.color-strip .dark-bg { background: linear-gradient(135deg, #0D0D0D 0%, #1A1A2E 50%, #1C3D6E 110%); color: rgba(255,255,255,0.55); }
+.color-strip .dark-bg .var-label { color: rgba(255,255,255,0.4); }
+.color-strip .mono-bg { background: var(--charcoal); color: rgba(255,255,255,0.55); }
+.color-strip .mono-bg .var-label { color: rgba(255,255,255,0.4); }
+.color-strip .mono-bg img { filter: grayscale(1); }
+
+/* Color palette swatches */
+.palette-grid {
+  display: grid; gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  margin-top: 20px;
+}
+.swatch {
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  padding: 18px 14px; border-radius: 14px;
+  border: 1px solid var(--line-light); background: var(--charcoal);
+}
+.swatch .chip {
+  width: 72px; height: 72px; border-radius: 50%;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.40);
+}
+.swatch .hex {
+  font-family: 'Montserrat', monospace; font-weight: 600;
+  font-size: 11px; letter-spacing: 0.06em; color: rgba(255,255,255,0.85);
+}
+.swatch .name {
+  font-size: 10px; letter-spacing: 0.20em; text-transform: uppercase;
+  color: rgba(255,255,255,0.55); font-weight: 600;
+}
+
+/* Typography */
+.type-grid {
+  display: grid; gap: 32px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  margin-top: 24px;
+}
+.type-cell {
+  background: var(--charcoal); border: 1px solid var(--line-light);
+  border-radius: 14px; padding: 36px 28px;
+}
+.type-cell .Aa { font-size: 84px; line-height: 1; margin-bottom: 22px; color: var(--gold); }
+.type-cell .Aa.cormorant { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-style: italic; }
+.type-cell .Aa.montserrat { font-family: 'Montserrat', sans-serif; font-weight: 700; }
+.type-cell .name {
+  font-family: 'Montserrat', sans-serif; font-weight: 700;
+  font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--white);
+}
+.type-cell .role { color: rgba(255,255,255,0.55); font-size: 12px; margin-top: 4px; }
+.type-cell .sample {
+  margin-top: 22px; padding-top: 22px; border-top: 1px solid var(--line-light);
+  color: rgba(255,255,255,0.75); font-size: 14px; line-height: 1.6;
+}
+.type-cell.cormorant .sample { font-family: 'Cormorant Garamond', serif; font-size: 18px; line-height: 1.5; }
+
+/* Brand essence + values */
+.essence-grid {
+  display: grid; gap: 32px;
+  grid-template-columns: 1.1fr 1fr; align-items: center;
+  margin-top: 24px;
+}
+.essence-text {
+  font-family: 'Cormorant Garamond', serif; font-weight: 400;
+  font-size: 22px; line-height: 1.55; color: rgba(255,255,255,0.85);
+  font-style: italic;
+}
+.essence-text strong { color: var(--gold); font-style: normal; font-weight: 500; }
+.values-grid {
+  display: grid; gap: 18px;
+  grid-template-columns: repeat(2, 1fr);
+}
+.value-cell {
+  background: var(--charcoal); border: 1px solid var(--line-light);
+  border-radius: 14px; padding: 22px 18px;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+}
+.value-icon {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-deep) 100%);
+  display: inline-flex; align-items: center; justify-content: center;
+  margin-bottom: 12px; color: var(--black);
+}
+.value-cell h4 {
+  font-family: 'Montserrat', sans-serif; font-weight: 700;
+  font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--white);
+}
+
+/* Application — instagram + storefront mockup */
+.application-grid {
+  display: grid; gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin-top: 24px;
+}
+.app-cell {
+  background: linear-gradient(160deg, #1E1E1E 0%, #0D0D0D 100%);
+  border: 1px solid var(--line-light);
+  border-radius: 18px; padding: 28px 22px;
+  display: flex; flex-direction: column; align-items: center;
+  min-height: 320px;
+}
+.app-cell .label {
+  font-size: 10px; letter-spacing: 0.32em; text-transform: uppercase;
+  color: rgba(255,255,255,0.45); margin-bottom: 18px;
+  align-self: flex-start;
+}
+.app-cell.storefront img { width: 70%; max-width: 130px; height: auto; margin: auto 0; filter: drop-shadow(0 16px 50px rgba(212,175,55,0.40)); }
+.app-cell.storefront .city {
+  margin-top: 22px;
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  color: var(--gold-light); font-size: 14px; letter-spacing: 0.12em;
+}
+.app-cell.bag {
+  align-items: center;
+  background: radial-gradient(ellipse at top, rgba(212,175,55,0.18), transparent 60%), linear-gradient(180deg, #1E1E1E 0%, #0D0D0D 100%);
+}
+.app-cell.bag .bag-shape {
+  width: 140px; height: 180px; background: var(--black);
+  border-radius: 8px; position: relative;
+  border: 1px solid rgba(212,175,55,0.30);
+  display: flex; align-items: center; justify-content: center;
+  margin: auto 0;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.50);
+}
+.app-cell.bag .bag-shape::before, .app-cell.bag .bag-shape::after {
+  content: ""; position: absolute; top: -22px; width: 30px; height: 30px;
+  border: 2px solid rgba(212,175,55,0.40); border-radius: 50% 50% 0 0;
+  border-bottom-color: transparent;
+}
+.app-cell.bag .bag-shape::before { left: 22px; }
+.app-cell.bag .bag-shape::after { right: 22px; }
+.app-cell.bag .bag-shape img { width: 60%; height: auto; }
+.app-cell.social {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F8F8F8 100%);
+  color: var(--black);
+}
+.app-cell.social .label { color: rgba(0,0,0,0.4); }
+.app-cell.social .handle {
+  font-family: 'Montserrat', sans-serif; font-weight: 700;
+  font-size: 13px; margin-top: 8px;
+}
+.app-cell.social .stats {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+  width: 100%; margin: 16px 0;
+  font-size: 11px; text-align: center;
+}
+.app-cell.social .stats > div { padding: 4px; }
+.app-cell.social .stats strong {
+  display: block;
+  font-family: 'Montserrat', sans-serif; font-weight: 700;
+  font-size: 14px;
+}
+.app-cell.social .bio {
+  font-size: 11px; color: rgba(0,0,0,0.6); line-height: 1.4;
+  text-align: center;
+}
+.app-cell.social .ig-mark {
+  width: 70px; height: 70px; border-radius: 50%; background: var(--black);
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 3px solid var(--gold);
+  margin-bottom: 6px;
+}
+.app-cell.social .ig-mark img { width: 75%; height: auto; }
+
+/* Footer */
+.brand-foot {
+  background: var(--charcoal); padding: 36px 32px;
+  border-top: 1px solid var(--line-light);
+  text-align: center;
+  font-size: 12px; color: rgba(255,255,255,0.55);
+}
+.brand-foot a { color: var(--gold-light); border-bottom: 1px solid currentColor; }
+
+@media (max-width: 760px){
+  .brand-topbar { padding: 12px 18px; }
+  .brand-topbar nav { gap: 16px; }
+  .brand-topbar nav a { font-size: 10px; }
+  .brand-hero { grid-template-columns: 1fr; gap: 32px; padding: 40px 18px; }
+  .brand-mark-block { padding: 32px 12px; min-height: 240px; }
+  .section { padding: 40px 18px; }
+  .color-strip { grid-template-columns: 1fr 1fr; }
+  .essence-grid { grid-template-columns: 1fr; gap: 24px; }
+  .values-grid { grid-template-columns: repeat(2, 1fr); }
+  .icon-row { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<header class="brand-topbar">
+  <a href="index.html" class="home">← The Diaspora App</a>
+  <nav>
+    <a href="press.html">Press</a>
+    <a href="about.html">About</a>
+    <a href="mailto:press@thediaspora.app?subject=Brand%20assets%20request">Request assets</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="brand-hero">
+  <div class="brand-mark-block">
+    <img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="The Diaspora App primary logo">
+  </div>
+  <div class="brand-tagline">
+    <div class="super">— Brand &amp; Identity</div>
+    <h1>The <em>Diaspora</em><br>App.</h1>
+    <div class="promise">Discover. <span>Connect.</span> Grow.</div>
+    <div class="home-line">Built in Dubai. For the world.</div>
+  </div>
+</section>
+
+<!-- APP ICONS + FAVICONS -->
+<section class="section">
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap:48px;">
+    <div>
+      <div class="section-label">App icons</div>
+      <div class="icon-row">
+        <div class="icon-cell dark"><img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="App icon dark"></div>
+        <div class="icon-cell white"><img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="App icon white" style="filter:brightness(0)"></div>
+        <div class="icon-cell gold"><img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="App icon gold" style="filter:brightness(0)"></div>
+        <div class="icon-cell charcoal"><img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="App icon charcoal"></div>
+      </div>
+    </div>
+    <div>
+      <div class="section-label">Favicon</div>
+      <div class="favicon-row">
+        <div class="favicon-cell" style="background:var(--black)"><img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="Favicon"></div>
+        <div class="favicon-cell" style="background:var(--white)"><img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="Favicon" style="filter:brightness(0)"></div>
+        <div class="favicon-cell" style="background:linear-gradient(135deg, #F4D98B 0%, #D4AF37 60%, #BB860B 100%)"><img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="Favicon" style="filter:brightness(0)"></div>
+        <div class="favicon-cell" style="background:var(--charcoal)"><img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="Favicon"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCKUPS -->
+<section class="section">
+  <div class="section-label">Logo lockups</div>
+  <div class="lockup-grid">
+    <div class="lockup-cell">
+      <span class="lockup-label">Primary lockup</span>
+      <div class="lockup-content">
+        <img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="">
+        <div class="lockup-wordmark md" style="color:var(--gold)">The <em style="font-style:italic">Diaspora</em><span class="accent">App</span></div>
+        <div class="lockup-tagline">Discover. Connect. Grow.</div>
+      </div>
+    </div>
+    <div class="lockup-cell">
+      <span class="lockup-label">Horizontal lockup</span>
+      <div class="lockup-content horizontal">
+        <img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="">
+        <div>
+          <div class="lockup-wordmark lg" style="color:var(--gold)">THE <em style="font-style:italic">DIASPORA</em> APP</div>
+          <div class="lockup-tagline">Discover. Connect. Grow.</div>
+        </div>
+      </div>
+    </div>
+    <div class="lockup-cell">
+      <span class="lockup-label">Stacked lockup</span>
+      <div class="lockup-content">
+        <img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="">
+        <div class="lockup-wordmark sm" style="color:var(--gold-light); letter-spacing:0.32em">THE</div>
+        <div class="lockup-wordmark lg" style="color:var(--gold); margin-top:-4px">DIASPORA</div>
+        <div class="lockup-wordmark sm" style="color:var(--gold-light); letter-spacing:0.32em; margin-top:-4px">APP</div>
+        <div class="lockup-tagline" style="margin-top:8px">Discover. Connect. Grow.</div>
+      </div>
+    </div>
+    <div class="lockup-cell">
+      <span class="lockup-label">Monogram mark</span>
+      <div class="lockup-content">
+        <img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="" style="height:140px">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLOR VARIATIONS -->
+<section class="section">
+  <div class="section-label">Color variations</div>
+  <div class="color-strip">
+    <div class="mono-bg">
+      <div class="var-label">Monochrome</div>
+      <img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="Monochrome">
+      <div></div>
+    </div>
+    <div class="white-bg">
+      <div class="var-label">White version</div>
+      <img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="White" style="filter:brightness(0)">
+      <div></div>
+    </div>
+    <div class="black-bg">
+      <div class="var-label">Black version</div>
+      <img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="Black">
+      <div></div>
+    </div>
+    <div class="gold-bg">
+      <div class="var-label">Gold version</div>
+      <img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="Gold" style="filter:brightness(0)">
+      <div></div>
+    </div>
+    <div class="dark-bg">
+      <div class="var-label">Dark mode version</div>
+      <img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="Dark">
+      <div></div>
+    </div>
+  </div>
+</section>
+
+<!-- COLOR PALETTE + TYPOGRAPHY + BRAND APPLICATION -->
+<section class="section" style="display:grid; grid-template-columns: 1fr 1.2fr; gap:48px;">
+  <div>
+    <div class="section-label">Color palette</div>
+    <div class="palette-grid">
+      <div class="swatch"><div class="chip" style="background:#D4AF37"></div><div class="hex">#D4AF37</div><div class="name">Gold</div></div>
+      <div class="swatch"><div class="chip" style="background:#F4D98B"></div><div class="hex">#F4D98B</div><div class="name">Light Gold</div></div>
+      <div class="swatch"><div class="chip" style="background:#BB860B"></div><div class="hex">#BB860B</div><div class="name">Deep Gold</div></div>
+      <div class="swatch"><div class="chip" style="background:#0D0D0D; border:1px solid rgba(255,255,255,0.10)"></div><div class="hex">#0D0D0D</div><div class="name">Black</div></div>
+      <div class="swatch"><div class="chip" style="background:#1E1E1E; border:1px solid rgba(255,255,255,0.10)"></div><div class="hex">#1E1E1E</div><div class="name">Charcoal</div></div>
+      <div class="swatch"><div class="chip" style="background:#FFFFFF"></div><div class="hex">#FFFFFF</div><div class="name">White</div></div>
+    </div>
+  </div>
+  <div>
+    <div class="section-label">Typography</div>
+    <div class="type-grid">
+      <div class="type-cell cormorant">
+        <div class="Aa cormorant">Aa</div>
+        <div class="name">Cormorant Garamond</div>
+        <div class="role">Display · Serif · Headlines, taglines, editorial</div>
+        <div class="sample">A premium discovery platform for the global diaspora community — with grace and serif elegance.</div>
+      </div>
+      <div class="type-cell">
+        <div class="Aa montserrat">Aa</div>
+        <div class="name">Montserrat</div>
+        <div class="role">Sans · Body · UI, captions, emphasis</div>
+        <div class="sample">A clear geometric sans for buttons, captions, and the everyday text that powers the app.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRAND ESSENCE + VALUES -->
+<section class="section">
+  <div class="essence-grid">
+    <div>
+      <div class="section-label">Brand essence</div>
+      <p class="essence-text">The Diaspora App is the <strong>premium discovery platform</strong> for the global diaspora community. We connect people to <strong>trusted businesses, opportunities, and experiences</strong> that feel like home — anywhere in the world.</p>
+    </div>
+    <div>
+      <div class="section-label">Brand values</div>
+      <div class="values-grid">
+        <div class="value-cell">
+          <div class="value-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg></div>
+          <h4>Community</h4>
+        </div>
+        <div class="value-cell">
+          <div class="value-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M21.71 8.71c1.25-1.25.68-2.71 0-3.42l-3-3c-1.26-1.25-2.71-.68-3.42 0L13.59 4H5c-.79 0-1.42.32-1.84.83-.42.51-.6 1.17-.49 1.83l1.06 5.86c.16.86.96 1.48 1.85 1.48H7v6c0 1.1.9 2 2 2h6c1.1 0 2-.9 2-2v-3.59l4.71-4.7zM12.59 6L15 8.41V10H5L4.21 6.21A.984.984 0 0 1 5 6h7.59z"/></svg></div>
+          <h4>Trust</h4>
+        </div>
+        <div class="value-cell">
+          <div class="value-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2 6 8.5h12L12 2zm-7 7.5L1 13l11 9 11-9-4-3.5H5z"/></svg></div>
+          <h4>Quality</h4>
+        </div>
+        <div class="value-cell">
+          <div class="value-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/></svg></div>
+          <h4>Excellence</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRAND APPLICATION -->
+<section class="section">
+  <div class="section-label">Brand application</div>
+  <div class="application-grid">
+    <div class="app-cell storefront">
+      <div class="label">Storefront</div>
+      <img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="Storefront mark">
+      <div class="city">Built in Dubai</div>
+    </div>
+    <div class="app-cell">
+      <div class="label">App splash</div>
+      <div style="margin:auto 0; text-align:center">
+        <img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="" style="width:120px; margin-bottom:18px">
+        <div class="lockup-wordmark md" style="color:var(--gold)">THE <em style="font-style:italic">DIASPORA</em></div>
+        <div class="lockup-wordmark sm" style="color:var(--gold-light); letter-spacing:0.36em; margin-top:4px">APP</div>
+        <div class="lockup-tagline" style="margin-top:14px">Discover. Connect. Grow.</div>
+      </div>
+    </div>
+    <div class="app-cell bag">
+      <div class="label">Packaging</div>
+      <div class="bag-shape">
+        <img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="">
+      </div>
+    </div>
+    <div class="app-cell social">
+      <div class="label">Instagram</div>
+      <div style="margin:auto 0">
+        <div class="ig-mark"><img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt=""></div>
+        <div class="handle">thediaspora.app</div>
+        <div class="stats">
+          <div><strong>—</strong>Posts</div>
+          <div><strong>—</strong>Followers</div>
+          <div><strong>—</strong>Following</div>
+        </div>
+        <div class="bio">The Diaspora App<br>Discover. Connect. Grow.<br>Built in Dubai. For the world.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="brand-foot">
+  <p>© 2026 The Diaspora App / NDN Analytics — Brand assets available on request.</p>
+  <p style="margin-top:6px">Press &amp; partners: <a href="mailto:press@thediaspora.app">press@thediaspora.app</a> · <a href="press.html">press kit</a> · <a href="about.html">about</a></p>
+</footer>
+
+</body>
+</html>

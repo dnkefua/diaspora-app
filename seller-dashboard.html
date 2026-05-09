@@ -11,7 +11,7 @@
 :root {
   --ink: #0A0A0A; --graphite: #1B1D22; --ivory: #F6F2EA;
   --bone: #EEE7DA; --paper: #FBF8F2; --blue: #1C3D6E;
-  --brass: #B7924A; --brass-soft: #D9BE88; --muted: #6B6357;
+  --brass: #D4AF37; --brass-soft: #F4D98B; --muted: #6B6357;
   --surface: #FFFFFF; --line: rgba(10,10,10,0.10);
   --success: #22C55E; --warning: #F59E0B; --error: #EF4444;
 }
@@ -923,7 +923,7 @@ function renderTrustBanner(data){
 
   let badgeHtml = '';
   if (data.premium){
-    badgeHtml += '<span style="display:inline-flex; align-items:center; gap:5px; padding:4px 11px; border-radius:999px; background:linear-gradient(135deg, #D9BE88 0%, #B7924A 60%, #8C6B2E 100%); color:#fff; font-size:11px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; box-shadow:0 2px 6px rgba(183,146,74,0.30); margin-right:6px">' + PREMIUM_SVG + ' Premium</span>';
+    badgeHtml += '<span style="display:inline-flex; align-items:center; gap:5px; padding:4px 11px; border-radius:999px; background:linear-gradient(135deg, #F4D98B 0%, #D4AF37 60%, #BB860B 100%); color:#fff; font-size:11px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; box-shadow:0 2px 6px rgba(183,146,74,0.30); margin-right:6px">' + PREMIUM_SVG + ' Premium</span>';
   }
   if (data.verified){
     badgeHtml += '<span style="display:inline-flex; align-items:center; gap:5px; padding:4px 11px; border-radius:999px; background:#1C3D6E; color:#fff; font-size:11px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase">' + VERIFIED_SVG + ' Verified</span>';
@@ -938,7 +938,7 @@ function renderTrustBanner(data){
   if (data.premium){
     cta.innerHTML = '<a href="verification.html" class="btn btn-outline" style="text-decoration:none; padding:8px 16px">How verification works</a>';
   } else if (data.verified){
-    cta.innerHTML = '<a href="mailto:hello@thediaspora.app?subject=Premium%20application%20-%20' + encodeURIComponent(data.name || businessId) + '" class="btn btn-primary" style="text-decoration:none; padding:8px 16px; background:linear-gradient(135deg, #D9BE88 0%, #B7924A 60%, #8C6B2E 100%)">★ Apply for Premium</a><a href="verification.html" class="btn btn-outline" style="text-decoration:none; padding:8px 16px">Learn more</a>';
+    cta.innerHTML = '<a href="mailto:hello@thediaspora.app?subject=Premium%20application%20-%20' + encodeURIComponent(data.name || businessId) + '" class="btn btn-primary" style="text-decoration:none; padding:8px 16px; background:linear-gradient(135deg, #F4D98B 0%, #D4AF37 60%, #BB860B 100%)">★ Apply for Premium</a><a href="verification.html" class="btn btn-outline" style="text-decoration:none; padding:8px 16px">Learn more</a>';
   } else {
     cta.innerHTML = '<a href="mailto:hello@thediaspora.app?subject=Verification%20request%20-%20' + encodeURIComponent(data.name || businessId) + '" class="btn btn-primary" style="text-decoration:none; padding:8px 16px">Request verification</a><a href="verification.html" class="btn btn-outline" style="text-decoration:none; padding:8px 16px">Learn more</a>';
   }

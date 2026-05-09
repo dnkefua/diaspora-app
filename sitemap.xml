@@ -74,6 +74,13 @@
     <priority>0.60</priority>
   </url>
 
+  <url>
+    <loc>https://www.thediaspora.app/brand.html</loc>
+    <lastmod>2026-05-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.55</priority>
+  </url>
+
   <!-- ═══════════ BLOG (hub + posts) ═══════════ -->
   <url>
     <loc>https://www.thediaspora.app/blog.html</loc>
