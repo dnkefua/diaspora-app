@@ -87,7 +87,43 @@ a { text-decoration: none; color: inherit; }
 
 /* Photos */
 .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-.photo-grid img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 12px; cursor: pointer; }
+.photo-grid img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 12px; cursor: pointer; transition: transform 0.18s; }
+.photo-grid img:hover { transform: scale(1.02); }
+
+/* Lightbox */
+.lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 250; display: none; align-items: center; justify-content: center; padding: 20px; }
+.lightbox.open { display: flex; }
+.lightbox img { max-width: 100%; max-height: 92vh; object-fit: contain; border-radius: 8px; }
+.lightbox button { position: absolute; background: rgba(255,255,255,0.15); color: #fff; border: none; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; font-size: 20px; backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; transition: background 0.18s; }
+.lightbox button:hover { background: rgba(255,255,255,0.30); }
+.lightbox .lb-close { top: 20px; right: 20px; }
+.lightbox .lb-prev { left: 20px; top: 50%; transform: translateY(-50%); }
+.lightbox .lb-next { right: 20px; top: 50%; transform: translateY(-50%); }
+.lightbox .lb-counter { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); color: #fff; font-size: 13px; opacity: 0.7; }
+
+/* Service mode badges */
+.mode-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 4px; }
+.mode-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 11px; border-radius: 999px;
+  font-size: 12px; font-weight: 600;
+  background: var(--ivory); color: var(--ink); border: 1px solid var(--line);
+}
+.mode-pill.pickup { background: rgba(28,61,110,0.08); color: var(--blue); border-color: rgba(28,61,110,0.20); }
+.mode-pill.delivery { background: rgba(37,211,102,0.10); color: #128C3F; border-color: rgba(37,211,102,0.30); }
+.mode-pill.mobile { background: rgba(183,146,74,0.12); color: var(--brass); border-color: rgba(183,146,74,0.30); }
+
+.mode-extras { background: var(--ivory); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; font-size: 13px; color: var(--graphite); margin-top: 10px; }
+.mode-extras strong { color: var(--ink); }
+
+/* Weekly schedule */
+.schedule-table { width: 100%; border-collapse: collapse; }
+.schedule-table tr { border-bottom: 1px solid var(--line); }
+.schedule-table tr:last-child { border-bottom: none; }
+.schedule-table td { padding: 12px 0; font-size: 14px; vertical-align: top; }
+.schedule-table td.day { font-weight: 700; color: var(--brass); width: 30%; min-width: 100px; }
+.schedule-table td.time { font-weight: 600; width: 25%; }
+.schedule-table td.name { color: var(--graphite); }
 
 /* ── Services / Menu ── */
 .menu-grid { display: grid; gap: 12px; grid-template-columns: 1fr; }
@@ -309,6 +345,15 @@ a { text-decoration: none; color: inherit; }
   </div>
 </div>
 
+<!-- Lightbox for gallery images -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Gallery viewer" onclick="if(event.target.id==='lightbox') closeLightbox()">
+  <button class="lb-close" type="button" onclick="closeLightbox()" aria-label="Close gallery">×</button>
+  <button class="lb-prev" type="button" onclick="lightboxStep(-1)" aria-label="Previous image">‹</button>
+  <button class="lb-next" type="button" onclick="lightboxStep(1)" aria-label="Next image">›</button>
+  <img id="lightbox-img" alt="">
+  <div class="lb-counter" id="lightbox-counter">1 / 1</div>
+</div>
+
 <!-- Sticky order summary — appears when user adds items to cart -->
 <div class="order-cart" id="orderCart" role="region" aria-label="Order summary">
   <div class="order-cart-inner">
@@ -485,6 +530,7 @@ async function renderPage() {
               ? `<span class="stars">${starsRow(ratingNum)}</span> <span class="num">${ratingNum.toFixed(1)}</span> <span class="count">· ${ratingCount} review${ratingCount === 1 ? '' : 's'}</span>`
               : `<span class="count">No reviews yet — be the first to review.</span>`}
           </div>
+          ${renderServiceModes(biz)}
           <p class="biz-desc">${escHtml(description)}</p>
 
           ${biz.verified && biz.verificationReport ? `
@@ -534,6 +580,7 @@ async function renderPage() {
           </div>
         </div>
 
+        ${renderWeeklySchedule(biz)}
         ${renderServicesSection(biz)}
         ${renderGallery(biz)}
         ${renderVideos(biz)}
@@ -584,18 +631,91 @@ function fileEmoji(type, name){
   return '📄';
 }
 
-function renderGallery(biz){
-  const imgs = (Array.isArray(biz.images) && biz.images.length) ? biz.images : (biz.image ? [biz.image] : []);
-  if (!imgs.length) return '';
+function renderServiceModes(biz){
+  const m = biz.serviceModes || {};
+  if (!m.pickup && !m.delivery && !m.mobile) return '';
+  const pills = [];
+  if (m.pickup) pills.push('<span class="mode-pill pickup">📍 Pickup / In-store</span>');
+  if (m.delivery) pills.push('<span class="mode-pill delivery">🚚 Delivery available</span>');
+  if (m.mobile) pills.push('<span class="mode-pill mobile">🏠 Mobile / On-site</span>');
+  let extras = '';
+  if ((m.delivery || m.mobile) && (m.area || m.fee)){
+    extras = `<div class="mode-extras">`;
+    if (m.area) extras += `<div><strong>Service area:</strong> ${escHtml(m.area)}</div>`;
+    if (m.fee) extras += `<div${m.area ? ' style="margin-top:4px"' : ''}><strong>${m.delivery ? 'Delivery fee' : 'Travel fee'}:</strong> ${escHtml(m.fee)}</div>`;
+    extras += `</div>`;
+  }
+  return `<div class="mode-row">${pills.join('')}</div>${extras}`;
+}
+
+function renderWeeklySchedule(biz){
+  const sched = Array.isArray(biz.weeklySchedule) ? biz.weeklySchedule : [];
+  if (!sched.length) return '';
+  const isFaith = /church|mosque|faith|prayer/i.test(biz.category || '');
+  const title = isFaith ? 'Service Times &amp; Programs' : 'Weekly Schedule';
   return `
     <div class="section">
-      <h2 class="section-title">Gallery</h2>
-      <div class="photo-grid">
-        ${imgs.map((src, i) => `<img src="${escHtml(src)}" alt="Gallery ${i + 1}" loading="lazy" decoding="async">`).join('')}
+      <h2 class="section-title">${title}</h2>
+      <div class="details-box">
+        <table class="schedule-table">
+          ${sched.map(s => `
+            <tr>
+              <td class="day">${escHtml(s.day || '—')}</td>
+              <td class="time">${escHtml(s.time || '')}</td>
+              <td class="name">${escHtml(s.name || '')}${s.description ? `<br><span style="font-size:12px; color:var(--muted)">${escHtml(s.description)}</span>` : ''}</td>
+            </tr>
+          `).join('')}
+        </table>
       </div>
     </div>
   `;
 }
+
+function renderGallery(biz){
+  const imgs = (Array.isArray(biz.images) && biz.images.length) ? biz.images : (biz.image ? [biz.image] : []);
+  if (!imgs.length) return '';
+  galleryImages = imgs.slice(); // store for lightbox
+  const isPhotographer = /photo|portrait|video/i.test(biz.category || '');
+  const title = isPhotographer ? 'Portfolio &amp; Gallery' : 'Gallery';
+  return `
+    <div class="section">
+      <h2 class="section-title">${title}</h2>
+      <div class="photo-grid">
+        ${imgs.map((src, i) => `<img src="${escHtml(src)}" alt="Gallery ${i + 1}" loading="lazy" decoding="async" onclick="openLightbox(${i})">`).join('')}
+      </div>
+    </div>
+  `;
+}
+
+/* Lightbox */
+let galleryImages = [];
+let lightboxIndex = 0;
+
+window.openLightbox = function(i){
+  if (!galleryImages.length) return;
+  lightboxIndex = i;
+  showLightboxImage();
+  document.getElementById('lightbox').classList.add('open');
+};
+window.closeLightbox = function(){
+  document.getElementById('lightbox').classList.remove('open');
+};
+window.lightboxStep = function(delta){
+  lightboxIndex = (lightboxIndex + delta + galleryImages.length) % galleryImages.length;
+  showLightboxImage();
+};
+function showLightboxImage(){
+  const img = document.getElementById('lightbox-img');
+  const ctr = document.getElementById('lightbox-counter');
+  if (img) img.src = galleryImages[lightboxIndex];
+  if (ctr) ctr.textContent = `${lightboxIndex + 1} / ${galleryImages.length}`;
+}
+document.addEventListener('keydown', (e) => {
+  if (!document.getElementById('lightbox')?.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') lightboxStep(-1);
+  if (e.key === 'ArrowRight') lightboxStep(1);
+});
 
 function renderVideos(biz){
   const vids = Array.isArray(biz.videos) ? biz.videos : [];
@@ -1007,6 +1127,40 @@ function renderOrderModal(){
   const defaultName = u ? `${u.firstName || ''} ${u.lastName || ''}`.trim() : '';
   const defaultPhone = u?.phone || '';
 
+  // Mode selector — only show modes the business supports.
+  const m = currentBiz.serviceModes || {};
+  const modeOptions = [];
+  if (m.pickup) modeOptions.push({ id: 'pickup', label: '📍 Pickup', sub: 'I\'ll come to you' });
+  if (m.delivery) modeOptions.push({ id: 'delivery', label: '🚚 Delivery', sub: m.fee ? `Fee: ${m.fee}` : 'I\'ll share my address' });
+  if (m.mobile) modeOptions.push({ id: 'mobile', label: '🏠 You come to me', sub: m.fee ? `Travel: ${m.fee}` : 'On-site service' });
+  // If the business set no modes, default to a generic "inquiry" mode
+  if (!modeOptions.length) modeOptions.push({ id: 'inquiry', label: '💬 Inquiry', sub: 'Discuss in chat' });
+  // Default-select the first mode
+  if (!cart._mode) cart._mode = modeOptions[0].id;
+
+  const modeChooser = `
+    <div class="order-field">
+      <label>How would you like to receive this?</label>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:8px; margin-top:4px">
+        ${modeOptions.map(opt => `
+          <label class="mode-choice" data-mode="${opt.id}" style="display:flex; align-items:center; gap:8px; padding:10px 12px; border:1.5px solid ${cart._mode === opt.id ? 'var(--brass)' : 'var(--line)'}; background:${cart._mode === opt.id ? 'var(--ivory)' : '#fff'}; border-radius:10px; cursor:pointer">
+            <input type="radio" name="ord-mode" value="${opt.id}" ${cart._mode === opt.id ? 'checked' : ''} style="accent-color:var(--brass); margin:0">
+            <div>
+              <div style="font-weight:600; font-size:13px">${opt.label}</div>
+              <div style="font-size:11px; color:var(--muted)">${escHtml(opt.sub)}</div>
+            </div>
+          </label>
+        `).join('')}
+      </div>
+    </div>
+  `;
+
+  const addressFieldHint = (cart._mode === 'delivery')
+    ? 'Delivery address — please include building, area, and city.'
+    : (cart._mode === 'mobile')
+      ? 'Address & access notes — where should we come, parking, etc.'
+      : 'Note for the seller (optional)';
+
   const lines = cart.map(i => `
     <div class="order-line">
       <div style="flex:1; min-width:0">
@@ -1036,11 +1190,25 @@ function renderOrderModal(){
       <label for="ord-phone">Phone (optional — for callback)</label>
       <input id="ord-phone" type="tel" maxlength="20" placeholder="+971 50 123 4567" value="${escHtml(defaultPhone)}">
     </div>
+    ${modeChooser}
     <div class="order-field">
-      <label for="ord-note">Note for the seller (optional)</label>
+      <label for="ord-note">${addressFieldHint}</label>
       <textarea id="ord-note" maxlength="500" placeholder="Less spicy, please. Pickup at 7pm if possible."></textarea>
     </div>
 
+  `;
+
+  // Bind mode radio change handler — updates cart._mode and re-renders
+  setTimeout(() => {
+    document.querySelectorAll('input[name="ord-mode"]').forEach(r => {
+      r.addEventListener('change', () => {
+        cart._mode = r.value;
+        renderOrderModal();
+      });
+    });
+  }, 0);
+
+  document.getElementById('orderBody').insertAdjacentHTML('beforeend', `
     <div class="order-channels">
       <button type="button" class="channel-btn whatsapp" onclick="sendOrderViaWhatsApp()">
         <span class="icon">💬</span>
@@ -1069,19 +1237,30 @@ function renderOrderModal(){
         <span class="soon-tag">Coming soon</span>
       </button>
     </div>
-  `;
+  `);
 }
 
-function composeWhatsappMessage({ businessName, items, total, currency, customerName, customerPhone, customerNote, orderRef }){
+function composeWhatsappMessage({ businessName, items, total, currency, customerName, customerPhone, customerNote, orderRef, mode }){
   const itemLines = items.map(i => {
     const priceTxt = i.price != null && i.price !== '' ? ` — ${fmtMoney(i.price, currency)}` : '';
     return `• ${i.qty}× ${i.name}${priceTxt}`;
   }).join('\n');
+  const modeLabel = {
+    pickup: '📍 Pickup',
+    delivery: '🚚 Delivery',
+    mobile: '🏠 Come to me (on-site)',
+    inquiry: '💬 Inquiry'
+  }[mode] || '';
   let msg = `Hi ${businessName},\n\nI'd like to order via The Diaspora App:\n\n${itemLines}\n\n`;
-  if (total !== null) msg += `Subtotal: ${fmtMoney(total, currency)}\n\n`;
+  if (total !== null) msg += `Subtotal: ${fmtMoney(total, currency)}\n`;
+  if (modeLabel) msg += `Mode: ${modeLabel}\n`;
+  msg += `\n`;
   if (customerName) msg += `Customer: ${customerName}\n`;
   if (customerPhone) msg += `Phone: ${customerPhone}\n`;
-  if (customerNote) msg += `Notes: ${customerNote}\n`;
+  if (customerNote) {
+    const noteLabel = mode === 'delivery' ? 'Delivery address' : (mode === 'mobile' ? 'Where to come' : 'Notes');
+    msg += `${noteLabel}: ${customerNote}\n`;
+  }
   msg += `\nOrder ref: ${orderRef}`;
   return msg;
 }
@@ -1099,6 +1278,7 @@ window.sendOrderViaWhatsApp = async function(){
   // Short order reference
   const orderRef = 'ORD-' + Math.random().toString(36).slice(2, 8).toUpperCase();
 
+  const mode = cart._mode || 'inquiry';
   const message = composeWhatsappMessage({
     businessName: currentBiz.name,
     items: cart,
@@ -1107,7 +1287,8 @@ window.sendOrderViaWhatsApp = async function(){
     customerName,
     customerPhone,
     customerNote,
-    orderRef
+    orderRef,
+    mode
   });
 
   // Best-effort log to Firestore (orders collection). If it fails (e.g. signed-out
@@ -1115,6 +1296,8 @@ window.sendOrderViaWhatsApp = async function(){
   // primary signal anyway.
   try {
     if (currentUser){
+      // Filter cart to plain items only (the _mode flag is local UI state)
+      const itemsOnly = cart.filter(i => i && i.id && i.name).map(i => ({ name: i.name, qty: i.qty, price: i.price ?? null, serviceId: i.id }));
       await addDoc(collection(db, 'orders'), {
         businessId: currentBiz.id,
         businessName: currentBiz.name,
@@ -1122,11 +1305,11 @@ window.sendOrderViaWhatsApp = async function(){
         customerUid: currentUser.uid,
         customerName: customerName || currentUser.displayName || (currentUser.email || '').split('@')[0] || 'Diaspora customer',
         customerPhone: customerPhone || null,
-        items: cart.map(i => ({ name: i.name, qty: i.qty, price: i.price ?? null, serviceId: i.id })),
+        items: itemsOnly,
         total,
         currency: ccy,
         customerNote: customerNote || null,
-        mode: 'inquiry',
+        mode,
         channel: 'whatsapp',
         whatsappMessage: message,
         orderRef,

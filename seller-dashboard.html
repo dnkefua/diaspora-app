@@ -315,6 +315,9 @@ a { text-decoration: none; color: inherit; }
               <option>DJs</option>
               <option>Real Estate</option>
               <option>Bed Space & Partition (UAE)</option>
+              <option>Car Lift & Carpooling</option>
+              <option>Churches & Faith Communities</option>
+              <option>Mosques & Prayer Halls</option>
               <option>Cleaning Services</option>
               <option>Movers & Logistics</option>
               <option>Tutors & Education</option>
@@ -361,6 +364,44 @@ a { text-decoration: none; color: inherit; }
             <textarea id="biz-desc" rows="4" placeholder="Tell customers about your business..."></textarea>
           </div>
           <div class="form-group" style="grid-column: 1 / -1;">
+            <label>How customers can buy from you</label>
+            <p style="font-size:13px; color:var(--muted); margin-bottom:10px">Tick every option you support. Customers see these as badges and pick the right one when ordering.</p>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:10px">
+              <label class="mode-toggle" style="display:flex; align-items:center; gap:10px; padding:12px 14px; background:var(--surface); border:1px solid var(--line); border-radius:10px; cursor:pointer">
+                <input type="checkbox" id="mode-pickup" style="width:18px; height:18px; accent-color:var(--brass); flex-shrink:0">
+                <div style="flex:1">
+                  <div style="font-weight:600; font-size:14px">📍 Pickup / In-store</div>
+                  <div style="font-size:12px; color:var(--muted)">Customer comes to you</div>
+                </div>
+              </label>
+              <label class="mode-toggle" style="display:flex; align-items:center; gap:10px; padding:12px 14px; background:var(--surface); border:1px solid var(--line); border-radius:10px; cursor:pointer">
+                <input type="checkbox" id="mode-delivery" style="width:18px; height:18px; accent-color:var(--brass); flex-shrink:0">
+                <div style="flex:1">
+                  <div style="font-weight:600; font-size:14px">🚚 Delivery</div>
+                  <div style="font-size:12px; color:var(--muted)">You deliver to the customer</div>
+                </div>
+              </label>
+              <label class="mode-toggle" style="display:flex; align-items:center; gap:10px; padding:12px 14px; background:var(--surface); border:1px solid var(--line); border-radius:10px; cursor:pointer">
+                <input type="checkbox" id="mode-mobile" style="width:18px; height:18px; accent-color:var(--brass); flex-shrink:0">
+                <div style="flex:1">
+                  <div style="font-weight:600; font-size:14px">🏠 Mobile / On-site</div>
+                  <div style="font-size:12px; color:var(--muted)">You travel to the customer (hair, photo, mechanic, etc.)</div>
+                </div>
+              </label>
+            </div>
+            <div id="mode-extras" style="display:none; margin-top:12px; display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:10px">
+              <div>
+                <label style="font-size:12px; letter-spacing:0.05em; color:var(--muted); display:block; margin-bottom:5px">Delivery / service area</label>
+                <input type="text" id="mode-area" placeholder="Deira, Bur Dubai, JLT — or 'all of Dubai'" style="width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:8px; font-size:14px">
+              </div>
+              <div>
+                <label style="font-size:12px; letter-spacing:0.05em; color:var(--muted); display:block; margin-bottom:5px">Delivery fee (optional)</label>
+                <input type="text" id="mode-fee" placeholder="AED 15 flat / Free over AED 100 / On chat" style="width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:8px; font-size:14px">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group" style="grid-column: 1 / -1;">
             <label>Hours</label>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
               <input type="text" class="hours-input" data-day="monday" placeholder="Monday: 10:00 AM - 9:00 PM">
@@ -372,6 +413,14 @@ a { text-decoration: none; color: inherit; }
               <input type="text" class="hours-input" data-day="sunday" placeholder="Sunday: Closed">
             </div>
           </div>
+
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <label>Weekly schedule (services, classes, prayers, programs)</label>
+            <p style="font-size:13px; color:var(--muted); margin-bottom:10px">For churches, mosques, studios, classes, and any business with regular sessions. Leave empty if not applicable.</p>
+            <div id="schedule-list" style="display:flex; flex-direction:column; gap:8px; margin-bottom:10px"></div>
+            <button type="button" id="addScheduleBtn" class="btn btn-outline" style="padding:8px 16px; font-size:13px">+ Add session</button>
+          </div>
+
           <button type="submit" class="btn btn-primary" style="grid-column: 1 / -1;">Save Changes</button>
         </form>
       </div>
@@ -691,7 +740,78 @@ function fillForm(data) {
       if (input) input.value = hours;
     });
   }
+
+  // Service modes
+  const modes = data.serviceModes || {};
+  document.getElementById('mode-pickup').checked = !!modes.pickup;
+  document.getElementById('mode-delivery').checked = !!modes.delivery;
+  document.getElementById('mode-mobile').checked = !!modes.mobile;
+  document.getElementById('mode-area').value = modes.area || modes.deliveryArea || '';
+  document.getElementById('mode-fee').value = modes.fee || modes.deliveryFee || '';
+  refreshModeExtras();
+
+  // Weekly schedule
+  currentSchedule = Array.isArray(data.weeklySchedule) ? data.weeklySchedule.slice() : [];
+  renderSchedule();
 }
+
+function refreshModeExtras(){
+  const showExtras = document.getElementById('mode-delivery').checked || document.getElementById('mode-mobile').checked;
+  const extras = document.getElementById('mode-extras');
+  if (extras) extras.style.display = showExtras ? 'grid' : 'none';
+}
+['mode-pickup','mode-delivery','mode-mobile'].forEach(id => {
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById(id)?.addEventListener('change', refreshModeExtras);
+  });
+});
+// Also bind immediately in case DOM is already ready
+setTimeout(() => {
+  ['mode-pickup','mode-delivery','mode-mobile'].forEach(id => {
+    document.getElementById(id)?.addEventListener('change', refreshModeExtras);
+  });
+}, 0);
+
+/* Weekly schedule editor */
+let currentSchedule = []; // [{day, time, name, description?}]
+const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
+function renderSchedule(){
+  const list = document.getElementById('schedule-list');
+  if (!list) return;
+  if (!currentSchedule.length){
+    list.innerHTML = '';
+    return;
+  }
+  list.innerHTML = currentSchedule.map((s, i) => `
+    <div style="display:grid; grid-template-columns:1.2fr 1fr 2fr auto; gap:8px; align-items:center; background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:8px">
+      <select onchange="updateSchedule(${i}, 'day', this.value)" style="padding:8px 10px; border:1px solid var(--line); border-radius:8px; font-size:13px; background:#fff">
+        ${DAYS.map(d => `<option ${s.day === d ? 'selected' : ''}>${d}</option>`).join('')}
+        <option ${s.day === 'Daily' ? 'selected' : ''}>Daily</option>
+        <option ${s.day === 'Weekdays' ? 'selected' : ''}>Weekdays</option>
+        <option ${s.day === 'Weekend' ? 'selected' : ''}>Weekend</option>
+      </select>
+      <input type="text" placeholder="9:00 AM" value="${escapeHtml(s.time || '')}" oninput="updateSchedule(${i}, 'time', this.value)" style="padding:8px 10px; border:1px solid var(--line); border-radius:8px; font-size:13px">
+      <input type="text" placeholder="Sunday Service / Bible Study / Prayer" value="${escapeHtml(s.name || '')}" oninput="updateSchedule(${i}, 'name', this.value)" style="padding:8px 10px; border:1px solid var(--line); border-radius:8px; font-size:13px">
+      <button type="button" onclick="removeSchedule(${i})" style="background:none; border:none; cursor:pointer; padding:4px 8px; color:var(--error); font-size:18px">×</button>
+    </div>
+  `).join('');
+}
+
+window.updateSchedule = function(i, field, value){
+  if (currentSchedule[i]) currentSchedule[i][field] = value;
+};
+window.removeSchedule = function(i){
+  currentSchedule.splice(i, 1);
+  renderSchedule();
+};
+
+setTimeout(() => {
+  document.getElementById('addScheduleBtn')?.addEventListener('click', () => {
+    currentSchedule.push({ day: 'Sunday', time: '', name: '' });
+    renderSchedule();
+  });
+}, 0);
 
 async function loadReviewsForBusiness(){
   if (!businessId) return;
@@ -955,6 +1075,17 @@ async function saveProfile(e) {
   });
 
   // Only mutable fields. The rules forbid owner from changing verified/featured/ownerId.
+  const serviceModes = {
+    pickup: document.getElementById('mode-pickup').checked,
+    delivery: document.getElementById('mode-delivery').checked,
+    mobile: document.getElementById('mode-mobile').checked,
+    area: document.getElementById('mode-area').value.trim() || null,
+    fee: document.getElementById('mode-fee').value.trim() || null
+  };
+
+  // Strip empty schedule rows
+  const weeklySchedule = currentSchedule.filter(s => (s.name && s.name.trim()) || (s.time && s.time.trim()));
+
   const businessData = {
     name: document.getElementById('biz-name').value.trim(),
     category: document.getElementById('biz-category').value,
@@ -963,6 +1094,8 @@ async function saveProfile(e) {
     area: document.getElementById('biz-area').value.trim(),
     description: document.getElementById('biz-desc').value.trim(),
     hours,
+    serviceModes,
+    weeklySchedule,
     images: currentImages,
     image: currentImages[0] || '',
     updatedAt: new Date()
