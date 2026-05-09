@@ -184,6 +184,27 @@ a { text-decoration: none; color: inherit; }
 }
 .load-more:hover { background: var(--ivory); }
 .load-more:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ════════════ MOBILE PASS ════════════ */
+html, body { overflow-x: hidden; max-width: 100%; }
+img { max-width: 100%; height: auto; }
+
+@media (max-width: 720px){
+  .header { padding: 14px 16px; }
+  .brand img { width: 96px; height: 36px; }
+  .header h1 { font-size: 22px; }
+  .search-bar { padding: 11px 14px; font-size: 13px; }
+  .categories { padding: 12px 16px; gap: 8px; -webkit-overflow-scrolling: touch; }
+  .chip { padding: 8px 14px; font-size: 12px; flex-shrink: 0; }
+  .feed-container { padding: 16px; gap: 14px; grid-template-columns: 1fr !important; }
+  .biz-card { border-radius: 14px; }
+  .biz-img { aspect-ratio: 16 / 10; }
+  .biz-info { padding: 14px; }
+  .biz-title { font-size: 16px; flex-wrap: wrap; }
+  .biz-desc { font-size: 13px; }
+  .biz-footer { font-size: 12px; }
+  .tb { font-size: 9.5px; padding: 2px 7px; }
+}
 </style>
 </head>
 <body>
@@ -231,9 +252,9 @@ a { text-decoration: none; color: inherit; }
     <span class="nav-icon">🔍</span>
     <span>Search</span>
   </a>
-  <a href="#" class="nav-item" onclick="alert('Messages coming soon!')">
-    <span class="nav-icon">💬</span>
-    <span>Messages</span>
+  <a href="profile.html#orders" class="nav-item">
+    <span class="nav-icon">📦</span>
+    <span>Orders</span>
   </a>
   <a href="profile.html" class="nav-item">
     <span class="nav-icon">👤</span>

@@ -792,6 +792,78 @@ footer{background:var(--graphite); color:var(--paper); padding:72px 0 24px}
   .footer-top{grid-template-columns:1fr}
 }
 
+/* ════════════ MOBILE OVERFLOW GUARDS ════════════ */
+html, body { overflow-x: hidden; max-width: 100%; }
+img, video { max-width: 100%; height: auto; }
+
+@media (max-width: 720px){
+  /* Spotlight slides — keep content within viewport */
+  .spotlight-stage { min-height: 480px; height: auto; }
+  .spotlight-card { padding-top: 48px; }
+  .spotlight-title { font-size: 36px !important; }
+  .spotlight-meta { gap: 6px; }
+  .meta-pill { font-size: 10px; padding: 4px 10px; }
+  .spotlight-controls { bottom: 14px; }
+
+  /* Hero: title shouldn't crowd the screen */
+  .hero-inner { padding-top: 100px; padding-bottom: 24px; }
+  .hero-title { font-size: 44px !important; line-height: 1.0; }
+  .hero-lede { font-size: 15px; margin-bottom: 28px; }
+  .hero-search-wrap { padding: 0 16px 32px; }
+
+  /* Search widget on mobile — already 1col but reduce padding */
+  .search-widget { padding: 4px; }
+  .sw-field { padding: 12px 16px; }
+
+  /* Section heads */
+  .section-head { padding: 0 16px; margin-bottom: 32px; }
+  .section-title { font-size: 32px !important; }
+  .section-lede { font-size: 14px; }
+
+  /* Section padding */
+  section { padding: 56px 0; }
+  .container { padding: 0 16px; }
+
+  /* Cities */
+  .cities-grid { padding: 0 16px; }
+  .city-row { padding: 18px 16px; }
+  .city-name { font-size: 24px; }
+
+  /* Trending */
+  .trend { grid-template-columns: 88px 1fr; gap: 12px; padding: 12px; }
+  .trend-media { width: 88px; height: 88px; }
+  .trend-name { font-size: 16px; }
+
+  /* Coming-soon strip */
+  #payments-soon > div > div {
+    padding: 28px 22px !important;
+    border-radius: 18px !important;
+  }
+  #payments-soon h2 { font-size: 28px !important; }
+  #payments-soon article { padding: 20px !important; }
+
+  /* Footer */
+  .footer-top { padding: 0 16px; gap: 28px; }
+  .foot-bottom { padding: 22px 16px 0; flex-direction: column; align-items: flex-start; }
+
+  /* Top nav — hide secondary links, show only menu + brand + account */
+  .topnav { padding: 14px 16px; }
+  .topnav.scrolled { padding: 12px 16px; }
+  .nav-left { gap: 10px; }
+  .nav-left .nav-link:not(.nav-menu-btn) { display: none; }
+  .nav-right { gap: 8px; }
+  .nav-right .nav-link:not(#nav-account) { display: none; }
+  .brand-logo { width: 100px; height: 36px; }
+  .topnav.scrolled .brand-logo { width: 88px; height: 32px; }
+  .nav-account { padding: 7px 12px; font-size: 10px; }
+}
+
+@media (max-width: 380px){
+  .hero-title { font-size: 38px !important; }
+  .spotlight-title { font-size: 30px !important; }
+  .section-title { font-size: 26px !important; }
+}
+
 @media (prefers-reduced-motion: reduce){
   *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important}
   .ad-tile:hover .ad-tile-media img,

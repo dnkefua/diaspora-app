@@ -167,6 +167,41 @@
   font-family:inherit; font-size:12px; background:#fff;
 }
 .toolbar .spacer{flex:1}
+
+/* ════════════ MOBILE PASS ════════════ */
+html, body { overflow-x: hidden; max-width: 100%; }
+img { max-width: 100%; height: auto; }
+
+@media (max-width: 720px){
+  .admin-shell { padding: 18px 14px; }
+  .admin-banner { flex-direction: column; align-items: flex-start; padding: 12px 14px; font-size: 12px; }
+  .admin-banner .who { margin-left: 0; margin-top: 4px; }
+  .admin-tabs { overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; }
+  .admin-tabs::-webkit-scrollbar { display: none; }
+  .admin-tab { padding: 10px 14px; font-size: 11px; white-space: nowrap; flex-shrink: 0; }
+
+  /* Tables become card-style on mobile */
+  .admin-table { display: block; border: none; background: transparent; }
+  .admin-table thead { display: none; }
+  .admin-table tbody, .admin-table tr { display: block; }
+  .admin-table tr {
+    background: #fff; border: 1px solid var(--line); border-radius: 12px;
+    margin-bottom: 12px; padding: 12px;
+  }
+  .admin-table td { display: block; padding: 6px 0; border: none; }
+  .admin-table td:first-child { float: right; padding: 0 0 0 12px; }
+  .admin-thumb { width: 72px; height: 72px; }
+  .row-actions { gap: 4px; flex-wrap: wrap; }
+  .row-actions .btn-mini { font-size: 10px; padding: 5px 10px; }
+
+  /* Modals */
+  .modal-overlay { padding: 12px; }
+  .modal { max-width: 100%; max-height: 95vh; }
+  .modal-head, .modal-body, .modal-foot { padding: 16px 18px; }
+  .modal-foot { flex-wrap: wrap; gap: 6px; }
+  .modal-foot .btn-mini { flex: 1 1 auto; }
+  .modal-row-2 { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>

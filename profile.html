@@ -138,6 +138,58 @@
     .p-name{font-size:28px}
     .topnav .nav-menu a{display:none}
   }
+
+  /* ════════════ MOBILE PASS ════════════ */
+  html, body { overflow-x: hidden; max-width: 100%; }
+  img { max-width: 100%; height: auto; }
+
+  @media (max-width: 720px){
+    .topnav { padding: 12px 16px; }
+    .topnav .logo img { width: 96px; height: 36px; }
+    .topnav .logout { padding: 7px 12px; font-size: 12px; }
+
+    .profile-wrap { padding: 20px 14px; }
+    .cover { height: 160px; border-radius: 14px; }
+    .profile-head { margin-top: -42px; padding: 0 6px; gap: 12px; }
+    .avatar { width: 96px; height: 96px; font-size: 36px; border-width: 4px; }
+    .avatar-edit { width: 30px; height: 30px; font-size: 14px; }
+    .p-name { font-size: 24px; }
+    .p-meta { gap: 10px; font-size: 13px; }
+
+    .tabs { padding: 0 6px; gap: 4px; overflow-x: auto; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab { padding: 12px 12px; font-size: 13px; white-space: nowrap; flex-shrink: 0; }
+
+    .pane { padding: 22px 6px 0; }
+    .panel { padding: 18px; border-radius: 14px; margin-bottom: 16px; }
+    .panel h3 { font-size: 18px; flex-wrap: wrap; gap: 8px; }
+    .panel h3 a, .panel h3 .btn-ghost { font-size: 12px !important; padding: 6px 12px; }
+
+    .stat-row { gap: 10px; }
+    .stat { padding: 14px; }
+    .stat-num { font-size: 24px; }
+    .stat-lbl { font-size: 11px; }
+
+    .item-card { gap: 10px; padding: 12px 0; }
+    .item-thumb { width: 56px; height: 56px; }
+    .item-name { font-size: 14px; }
+    .item-cat { font-size: 12px; }
+    .item-actions { flex-direction: column; gap: 6px; }
+    .item-actions a, .item-actions button { font-size: 11px !important; padding: 6px 10px !important; }
+
+    .toggle-row { padding: 12px 0; flex-direction: column; align-items: flex-start; gap: 10px; }
+    .toggle-row .switch { align-self: flex-end; margin-top: -32px; }
+
+    /* Modal */
+    #editModal { padding: 12px; }
+    .modal-card { padding: 22px 18px; max-height: 95vh; }
+    .modal-card h3 { font-size: 24px; }
+  }
+
+  @media (max-width: 380px){
+    .stat-row { grid-template-columns: 1fr; }
+    .p-name { font-size: 22px; }
+  }
 </style>
 </head>
 <body>

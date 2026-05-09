@@ -164,6 +164,24 @@ form.intake button[type="submit"][disabled]{opacity:0.5; cursor:not-allowed}
   .onboard-pitch h1{font-size:36px}
   .onboard-main{padding:42px 24px}
 }
+
+/* ════════════ MOBILE PASS ════════════ */
+html, body { overflow-x: hidden; max-width: 100%; }
+img { max-width: 100%; height: auto; }
+
+@media (max-width: 720px){
+  .onboard-aside { padding: 28px 18px; }
+  .onboard-pitch h1 { font-size: 30px; line-height: 1.05; }
+  .onboard-pitch p { font-size: 14px; }
+  .onboard-pitch li { font-size: 13px; padding: 6px 0; }
+  .onboard-main { padding: 28px 18px; }
+  .onboard-title { font-size: 28px; }
+  form.intake .row-2 { grid-template-columns: 1fr !important; }
+  form.intake .submit-row { flex-direction: column; align-items: stretch; gap: 10px; }
+  form.intake .submit-row > span:first-child { font-size: 11px; text-align: center; }
+  form.intake button[type="submit"] { width: 100%; }
+  .gate-card { padding: 22px 18px; }
+}
 </style>
 </head>
 <body>
