@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Pricing · The Diaspora App</title>
-<meta name="description" content="Premium ad placements for diaspora businesses — Featured Spotlight, On the Menu, In the Chair, City Spotlight, WhatsApp Lead Ads, and Hiring Campaigns.">
+<title>Membership &amp; Pricing · The Diaspora App</title>
+<meta name="description" content="Premium visibility for diaspora-owned businesses — verified placement, editorial promotion, and direct customer reach. We charge for visibility, never for commissions.">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://www.thediaspora.app/pricing.html">
 <link rel="icon" type="image/png" href="Media%20resources/TheDiaspora%20app%20logo%203D.png">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <meta property="og:type" content="website">
-<meta property="og:title" content="Pricing — Premium Placements for Diaspora Businesses">
-<meta property="og:description" content="Six premium ad placements built like editorial features. Zero commission on transactions.">
+<meta property="og:title" content="Membership — The Diaspora App">
+<meta property="og:description" content="Four membership tiers. We charge for visibility, never for commissions.">
 <meta property="og:url" content="https://www.thediaspora.app/pricing.html">
 <meta property="og:image" content="https://www.thediaspora.app/Media%20resources/TheDiaspora%20app%20logo%203D.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -19,7 +19,7 @@
 {
   "@context": "https://schema.org",
   "@type": "OfferCatalog",
-  "name": "The Diaspora App — Premium Placement Inventory",
+  "name": "The Diaspora App — Membership tiers",
   "url": "https://www.thediaspora.app/pricing.html",
   "provider": {
     "@type": "Organization",
@@ -29,187 +29,528 @@
   "itemListElement": [
     {
       "@type": "Offer",
-      "name": "Featured Spotlight",
-      "description": "Full-screen rotating top-of-page placement with magazine-cover photography treatment. 3 active partners per week, per city.",
-      "price": "890",
-      "priceCurrency": "USD",
-      "category": "Hero placement"
+      "name": "Community Membership",
+      "description": "Free public profile with WhatsApp contact, hours, 3 photos, and city listing inclusion.",
+      "price": "0",
+      "priceCurrency": "AED",
+      "category": "Free"
     },
     {
       "@type": "Offer",
-      "name": "On the Menu",
-      "description": "Premium 4:5 HD tile in the food rail. 4 paid slots per week, per city. Direct order CTA.",
-      "price": "340",
-      "priceCurrency": "USD",
-      "category": "Food"
+      "name": "Verified Membership",
+      "description": "Verified blue tick, priority search placement, 15 photos, social links, customer inquiry analytics, city-page features.",
+      "price": "99",
+      "priceCurrency": "AED",
+      "priceSpecification": { "@type": "UnitPriceSpecification", "price": "99", "priceCurrency": "AED", "unitText": "MON" },
+      "category": "Verified"
     },
     {
       "@type": "Offer",
-      "name": "In the Chair",
-      "description": "Premium 4:5 HD tile in the beauty rail for hair, barbers, makeup, loc specialists. 4 paid slots per week, per city.",
-      "price": "340",
-      "priceCurrency": "USD",
-      "category": "Hair & Beauty"
+      "name": "Featured Membership",
+      "description": "Homepage rotation, featured category placement, editorial spotlight, blog inclusion, Instagram + TikTok feature opportunities.",
+      "price": "299",
+      "priceCurrency": "AED",
+      "priceSpecification": { "@type": "UnitPriceSpecification", "price": "299", "priceCurrency": "AED", "unitText": "MON" },
+      "category": "Featured"
     },
     {
       "@type": "Offer",
-      "name": "City Spotlight",
-      "description": "Local placement targeted by city + area, visible only to that city's audience.",
-      "price": "220",
-      "priceCurrency": "USD",
-      "category": "Local"
-    },
-    {
-      "@type": "Offer",
-      "name": "WhatsApp Lead Ad",
-      "description": "One-tap inquiry into the seller's WhatsApp with a pre-filled contextual message.",
-      "price": "180",
-      "priceCurrency": "USD",
-      "category": "Direct lead"
-    },
-    {
-      "@type": "Offer",
-      "name": "Hiring Campaign",
-      "description": "Featured roles in front of trusted candidates with a branded role page and apply CTA.",
-      "price": "260",
-      "priceCurrency": "USD",
-      "category": "Jobs"
+      "name": "Partner / Elite Membership",
+      "description": "Dedicated promotional campaigns, hero placements, event partnerships, sponsored content, premium editorial coverage.",
+      "price": "999",
+      "priceCurrency": "AED",
+      "priceSpecification": { "@type": "UnitPriceSpecification", "price": "999", "priceCurrency": "AED", "unitText": "MON" },
+      "category": "Elite"
     }
   ]
 }
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="page.css">
+<style>
+  /* ── Killer message banner ── */
+  .killer {
+    background: linear-gradient(135deg, var(--ink) 0%, #1a1a2e 100%);
+    color: var(--paper);
+    padding: clamp(48px, 6vw, 80px) clamp(24px, 5vw, 56px);
+    border-radius: 22px;
+    margin: 36px auto 56px;
+    max-width: 1080px;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .killer::before {
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 80% 0%, rgba(212,175,55,0.20), transparent 55%),
+      radial-gradient(ellipse at 0% 100%, rgba(244,217,139,0.12), transparent 50%);
+    pointer-events: none;
+  }
+  .killer .label {
+    position: relative; z-index: 1;
+    font-size: 11px; letter-spacing: 0.36em; text-transform: uppercase;
+    font-weight: 600; color: var(--brass-soft); margin-bottom: 20px;
+  }
+  .killer h2 {
+    position: relative; z-index: 1;
+    font-family: 'Cormorant Garamond', serif; font-weight: 300;
+    font-size: clamp(34px, 5.4vw, 64px); line-height: 1.05;
+    letter-spacing: -0.02em; max-width: 22ch; margin: 0 auto;
+  }
+  .killer h2 em {
+    font-style: italic;
+    color: var(--brass);
+    font-weight: 400;
+  }
+  .killer .sub {
+    position: relative; z-index: 1;
+    margin-top: 22px; font-size: 15px; line-height: 1.7;
+    color: rgba(251,248,242,0.78); max-width: 56ch; margin-left: auto; margin-right: auto;
+  }
+
+  /* ── Tier grid ── */
+  .tier-grid {
+    display: grid; gap: 18px;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 32px 0 48px;
+    max-width: 1240px; margin-left: auto; margin-right: auto;
+  }
+  .tier {
+    background: #fff; border: 1px solid var(--line); border-radius: 18px;
+    padding: 32px 26px;
+    display: flex; flex-direction: column; gap: 14px;
+    position: relative; transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+  }
+  .tier:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 22px 48px -22px rgba(10,10,10,0.18);
+  }
+
+  .tier .tag {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase;
+    align-self: flex-start;
+    padding: 4px 10px; border-radius: 999px;
+  }
+  .tier.free .tag { background: var(--ivory); color: var(--graphite); }
+  .tier.verified .tag { background: rgba(28,61,110,0.10); color: var(--blue); }
+  .tier.featured .tag { background: var(--brass); color: #fff; box-shadow: 0 2px 8px rgba(212,175,55,0.30); }
+  .tier.elite .tag {
+    background: linear-gradient(135deg, #F4D98B 0%, #D4AF37 60%, #BB860B 100%);
+    color: #fff;
+  }
+
+  .tier h3 {
+    font-family: 'Cormorant Garamond', serif; font-weight: 400;
+    font-size: 28px; line-height: 1.05; letter-spacing: -0.01em;
+  }
+  .tier h3 em { font-style: italic; color: var(--brass); }
+
+  .tier .price {
+    font-family: 'Cormorant Garamond', serif; font-weight: 300;
+    font-size: 48px; line-height: 1; letter-spacing: -0.02em;
+  }
+  .tier .price small {
+    font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500;
+    opacity: 0.55; letter-spacing: 0.02em;
+  }
+
+  .tier .blurb {
+    font-size: 13.5px; line-height: 1.55; color: var(--muted);
+    padding-bottom: 14px; margin-bottom: 4px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .tier ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 9px; }
+  .tier li {
+    font-size: 13.5px; line-height: 1.5;
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .tier li::before {
+    content: "✓"; color: var(--brass); font-weight: 700; flex-shrink: 0;
+    width: 16px; text-align: center;
+  }
+
+  .tier .cta {
+    margin-top: auto; padding-top: 18px;
+  }
+  .tier .cta a {
+    display: block; text-align: center;
+    padding: 13px 22px; border-radius: 999px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
+    transition: background 0.18s, color 0.18s, border-color 0.18s;
+  }
+  .tier.free .cta a {
+    background: var(--ink); color: var(--paper); border: 1px solid var(--ink);
+  }
+  .tier.free .cta a:hover { background: transparent; color: var(--ink); }
+  .tier.verified .cta a {
+    background: var(--blue); color: #fff; border: 1px solid var(--blue);
+  }
+  .tier.verified .cta a:hover { background: transparent; color: var(--blue); }
+  .tier.featured .cta a {
+    background: var(--ink); color: var(--paper); border: 1px solid var(--ink);
+  }
+  .tier.featured .cta a:hover { background: var(--brass); color: #fff; border-color: var(--brass); }
+  .tier.elite .cta a {
+    background: linear-gradient(135deg, #F4D98B 0%, #D4AF37 60%, #BB860B 100%);
+    color: #fff; border: 1px solid var(--brass);
+  }
+  .tier.elite .cta a:hover { filter: brightness(1.08); }
+
+  /* Featured (recommended) — black card with gold accents */
+  .tier.featured {
+    background: linear-gradient(160deg, #0D0D0D 0%, #1B1D22 100%);
+    color: var(--paper); border-color: var(--brass);
+    box-shadow: 0 16px 50px -20px rgba(212,175,55,0.30);
+  }
+  .tier.featured h3 { color: var(--paper); }
+  .tier.featured h3 em { color: var(--brass-soft); }
+  .tier.featured .price { color: var(--paper); }
+  .tier.featured .blurb {
+    color: rgba(251,248,242,0.72);
+    border-bottom-color: rgba(251,248,242,0.16);
+  }
+  .tier.featured li { color: rgba(251,248,242,0.85); }
+  .tier.featured li::before { color: var(--brass); }
+  .tier.featured .recommended {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--brass); color: #fff;
+    font-size: 9.5px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 999px;
+    box-shadow: 0 6px 18px rgba(212,175,55,0.40);
+    white-space: nowrap;
+  }
+
+  /* Elite — soft gold-tinted card */
+  .tier.elite {
+    background: linear-gradient(160deg, #FFFCF2 0%, #FFF6DD 100%);
+    border-color: rgba(212,175,55,0.45);
+  }
+
+  /* Launch offer ribbon */
+  .launch-offer {
+    background: linear-gradient(135deg, #1C3D6E 0%, var(--brass) 100%);
+    color: #fff;
+    border-radius: 18px;
+    padding: clamp(28px, 4vw, 44px);
+    margin: 36px auto 56px;
+    max-width: 1080px;
+    display: grid; grid-template-columns: auto 1fr auto; gap: clamp(18px, 3vw, 32px);
+    align-items: center;
+  }
+  .launch-offer .badge {
+    background: rgba(0,0,0,0.30);
+    padding: 8px 14px; border-radius: 999px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.30em; text-transform: uppercase;
+    backdrop-filter: blur(6px);
+  }
+  .launch-offer h3 {
+    font-family: 'Cormorant Garamond', serif; font-weight: 400;
+    font-size: clamp(22px, 3.2vw, 32px); line-height: 1.15;
+  }
+  .launch-offer h3 em { font-style: italic; color: #FFEFB6; }
+  .launch-offer p { font-size: 14px; line-height: 1.55; opacity: 0.88; margin-top: 6px; }
+  .launch-offer a {
+    background: #fff; color: var(--ink);
+    padding: 13px 22px; border-radius: 999px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
+    text-decoration: none; transition: background 0.18s, color 0.18s;
+    white-space: nowrap;
+  }
+  .launch-offer a:hover { background: var(--ink); color: #fff; }
+
+  /* Why businesses join — psychological section */
+  .why-grid {
+    display: grid; gap: 18px;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 24px 0 48px;
+  }
+  .why-card {
+    background: #fff; border: 1px solid var(--line); border-radius: 16px;
+    padding: 26px 22px;
+  }
+  .why-card .num {
+    font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300;
+    font-size: 38px; line-height: 1; color: var(--brass);
+    letter-spacing: -0.02em; margin-bottom: 10px;
+  }
+  .why-card h4 {
+    font-family: 'Cormorant Garamond', serif; font-weight: 500;
+    font-size: 22px; line-height: 1.15; margin-bottom: 6px;
+  }
+  .why-card p { font-size: 14px; line-height: 1.6; color: var(--muted); margin: 0; }
+
+  /* ROI framing */
+  .roi-block {
+    background: var(--ivory);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: clamp(28px, 4vw, 48px);
+    margin: 36px 0 56px;
+    text-align: center;
+  }
+  .roi-block .label {
+    font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase;
+    font-weight: 600; color: var(--brass); margin-bottom: 14px;
+  }
+  .roi-block h3 {
+    font-family: 'Cormorant Garamond', serif; font-weight: 300;
+    font-size: clamp(28px, 4vw, 44px); line-height: 1.05;
+    letter-spacing: -0.02em; max-width: 22ch; margin: 0 auto 14px;
+  }
+  .roi-block h3 em { font-style: italic; color: var(--brass); }
+  .roi-block .roi-rows {
+    display: grid; gap: 12px; max-width: 720px; margin: 28px auto 0;
+    text-align: left;
+  }
+  .roi-row {
+    display: grid; grid-template-columns: 28px 1fr; gap: 14px;
+    align-items: baseline;
+    padding: 14px 0; border-bottom: 1px solid var(--line-soft);
+    font-size: 15px;
+  }
+  .roi-row:last-child { border-bottom: none; }
+  .roi-row .ic { font-size: 18px; }
+  .roi-row strong { color: var(--ink); font-weight: 600; }
+  .roi-row span { color: var(--graphite); }
+
+  /* Responsive */
+  @media (max-width: 1100px){
+    .tier-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 760px){
+    .tier-grid { grid-template-columns: 1fr; }
+    .tier { padding: 26px 22px; }
+    .killer h2 { font-size: 28px; }
+    .killer { padding: 36px 22px; margin: 18px auto 36px; border-radius: 18px; }
+    .launch-offer { grid-template-columns: 1fr; text-align: center; }
+    .launch-offer .badge { justify-self: center; }
+    .launch-offer a { justify-self: center; }
+    .why-grid { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
 <body>
 <header class="page-header">
   <a href="index.html" class="brand"><img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="The Diaspora App"></a>
   <nav>
     <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
+    <a href="verification.html">Verification</a>
     <a href="become-seller.html" class="nav-account">List your business</a>
   </nav>
 </header>
 
 <section class="page-hero">
-  <div class="kicker">For Sellers · Pricing</div>
-  <h1>Premium placement,<br><em>editorial</em> taste.</h1>
-  <p class="lede">Six placement types built for restaurants, salons, barbers, stylists, photographers, tailors, and employers. Every paid placement is shot like an editorial. No commission on transactions — ever.</p>
+  <div class="kicker">For Sellers · Membership</div>
+  <h1>Premium visibility,<br>built for the <em>diaspora</em>.</h1>
+  <p class="lede">Four membership tiers — from free community presence to dedicated editorial campaigns. Your customers find you here, then come direct to your WhatsApp.</p>
 </section>
 
-<main class="page-content">
-  <h2>Placement <em>inventory</em></h2>
-  <p>Pricing is per week and varies by city. The figures below are USD list rates for Dubai — contact us for a custom quote in your market.</p>
+<!-- ── Killer differentiator ── -->
+<div class="killer">
+  <div class="label">Our promise</div>
+  <h2>We charge for <em>visibility</em>.<br>Never for <em>commissions</em>.</h2>
+  <p class="sub">Every order, every booking, every transaction stays between you and your customer. We don't sit in the middle. We don't take a cut. You keep 100% of what you earn — full stop.</p>
+</div>
 
-  <div class="tiers">
-    <div class="tier-card featured">
-      <span class="tag">Most Visible</span>
-      <h3>Featured <em>Spotlight</em></h3>
-      <div class="price">$890<span>/week</span></div>
+<main class="page-content" style="max-width: 1240px;">
+
+  <h2 style="text-align:center; max-width:none;">Choose your <em>membership</em>.</h2>
+  <p style="text-align:center; max-width: 60ch; margin: 0 auto 36px; color: var(--muted)">Start free, upgrade when you're ready. Cancel anytime. All paid tiers include the Verified review process.</p>
+
+  <div class="tier-grid">
+
+    <!-- ── FREE ── -->
+    <article class="tier free">
+      <span class="tag">Community</span>
+      <h3>Community <em>Membership</em></h3>
+      <div class="price">Free<small> · forever</small></div>
+      <p class="blurb">For new and small businesses testing the platform. Get found in your city, with WhatsApp contact built in.</p>
       <ul>
-        <li>Full-screen rotating top-of-page placement</li>
-        <li>Magazine-cover photography treatment</li>
-        <li>3 active partners per week, per city</li>
-        <li>Direct WhatsApp & profile CTAs</li>
-        <li>Performance dashboard included</li>
+        <li>Public business profile</li>
+        <li>1 category &amp; city listing inclusion</li>
+        <li>WhatsApp contact button</li>
+        <li>Business hours &amp; location</li>
+        <li>Up to 3 photos</li>
+        <li>Community visibility &amp; search results</li>
       </ul>
+      <div class="cta">
+        <a href="become-seller.html">Join the Diaspora Network</a>
+      </div>
+    </article>
+
+    <!-- ── VERIFIED ── -->
+    <article class="tier verified">
+      <span class="tag">Verified</span>
+      <h3>Verified <em>Membership</em></h3>
+      <div class="price">AED 99<small>/month</small></div>
+      <p class="blurb">Build trust and get discovered. Earn the blue tick, priority placement, and analytics that show what's working.</p>
+      <ul>
+        <li><strong>Everything in Community,</strong> plus:</li>
+        <li>🔵 Verified blue tick (after physical site visit)</li>
+        <li>Priority search &amp; city-page placement</li>
+        <li>Up to 15 photos</li>
+        <li>Social media links on profile</li>
+        <li>Featured business styling</li>
+        <li>Customer inquiry analytics</li>
+        <li>Access to Diaspora promotions &amp; events</li>
+      </ul>
+      <div class="cta">
+        <a href="mailto:hello@thediaspora.app?subject=Verified%20Membership%20—%20signup&body=Hi%20Diaspora%20team%2C%0D%0A%0D%0AI'd%20like%20to%20start%20a%20Verified%20Membership.%0D%0A%0D%0ABusiness%20name%3A%0D%0ACity%2Farea%3A%0D%0ACategory%3A%0D%0AContact%20phone%2FWhatsApp%3A%0D%0AListing%20URL%20(if%20any)%3A%0D%0A%0D%0AThanks!">Build Trust &amp; Get Discovered</a>
+      </div>
+    </article>
+
+    <!-- ── FEATURED ── -->
+    <article class="tier featured">
+      <span class="recommended">Most Popular</span>
+      <span class="tag">Featured</span>
+      <h3>Featured <em>Membership</em></h3>
+      <div class="price">AED 299<small>/month</small></div>
+      <p class="blurb">Become a top diaspora brand. Editorial-grade placement on the homepage, in category rails, and across our content.</p>
+      <ul>
+        <li><strong>Everything in Verified,</strong> plus:</li>
+        <li>🥇 Homepage spotlight rotation</li>
+        <li>Featured category rail placement</li>
+        <li>Editorial-style spotlight feature</li>
+        <li>Blog &amp; article inclusion</li>
+        <li>Instagram feature opportunities</li>
+        <li>TikTok exposure opportunities</li>
+        <li>Premium visual placement everywhere</li>
+        <li>Priority customer discovery</li>
+      </ul>
+      <div class="cta">
+        <a href="mailto:hello@thediaspora.app?subject=Featured%20Membership%20—%20signup&body=Hi%20Diaspora%20team%2C%0D%0A%0D%0AI'd%20like%20to%20start%20a%20Featured%20Membership.%0D%0A%0D%0ABusiness%20name%3A%0D%0ACity%2Farea%3A%0D%0ACategory%3A%0D%0AContact%20phone%2FWhatsApp%3A%0D%0AListing%20URL%20(if%20any)%3A%0D%0A%0D%0AThanks!">Become a Top Diaspora Brand</a>
+      </div>
+    </article>
+
+    <!-- ── ELITE ── -->
+    <article class="tier elite">
+      <span class="tag">Partner · Elite</span>
+      <h3>Elite <em>Partnership</em></h3>
+      <div class="price">AED 999<small>+/month</small></div>
+      <p class="blurb">For restaurants, events, nightlife, and major brands ready to own visibility in their market.</p>
+      <ul>
+        <li><strong>Everything in Featured,</strong> plus:</li>
+        <li>Dedicated promotional campaigns</li>
+        <li>Homepage hero placements</li>
+        <li>Event partnership opportunities</li>
+        <li>Sponsored editorial content</li>
+        <li>Featured reels &amp; social campaigns</li>
+        <li>Premium editorial coverage</li>
+        <li>Launch campaigns &amp; seasonal packages</li>
+      </ul>
+      <div class="cta">
+        <a href="mailto:hello@thediaspora.app?subject=Elite%20Partnership%20—%20enquiry&body=Hi%20Diaspora%20team%2C%0D%0A%0D%0AI'd%20like%20to%20discuss%20an%20Elite%20Partnership.%0D%0A%0D%0ABusiness%20name%3A%0D%0ACity%2Farea%3A%0D%0ACategory%3A%0D%0AContact%20phone%2FWhatsApp%3A%0D%0AGoal%20%2F%20campaign%20idea%3A%0D%0A%0D%0AThanks!">Own Visibility In Your Market</a>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- ── Launch offer ── -->
+  <div class="launch-offer">
+    <span class="badge">Founding offer</span>
+    <div>
+      <h3><em>Founding Business</em> Membership — first 3 months at half price.</h3>
+      <p>Verified <strong style="text-decoration:line-through; opacity:0.65">AED 99</strong> → <strong>AED 49</strong>/mo · Featured <strong style="text-decoration:line-through; opacity:0.65">AED 299</strong> → <strong>AED 149</strong>/mo. For the first 100 businesses to join during launch week — no contract, cancel anytime.</p>
     </div>
+    <a href="mailto:hello@thediaspora.app?subject=Founding%20Member%20—%20launch%20week%20pricing&body=Hi%20Diaspora%20team%2C%0D%0A%0D%0APlease%20add%20me%20to%20Founding%20Member%20launch%20pricing.%0D%0A%0D%0ABusiness%20name%3A%0D%0ATier%20preference%20(Verified%2FFeatured)%3A%0D%0ACity%2Farea%3A%0D%0ACategory%3A%0D%0AContact%20phone%2FWhatsApp%3A%0D%0A%0D%0AThanks!">Claim founding price</a>
+  </div>
 
-    <div class="tier-card">
-      <span class="tag">Food</span>
-      <h3>On the <em>Menu</em></h3>
-      <div class="price">$340<span>/week</span></div>
-      <ul>
-        <li>Premium 4:5 HD tile in food rail</li>
-        <li>4 paid slots per week, per city</li>
-        <li>Direct order CTA (WhatsApp / phone)</li>
-        <li>Sponsored badge, location, rating</li>
-      </ul>
+  <!-- ── Why businesses join ── -->
+  <h2 style="text-align:center; max-width:none">Why businesses <em>join</em>.</h2>
+  <p style="text-align:center; max-width: 60ch; margin: 0 auto 24px; color: var(--muted)">No algorithms. No middlemen. Just a quieter, sharper way for the right customers to find you.</p>
+
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="num">01</div>
+      <h4>Reach diaspora customers directly</h4>
+      <p>No algorithms deciding who sees your business. Verified placement in city + category, served to the people actually searching.</p>
     </div>
-
-    <div class="tier-card">
-      <span class="tag">Hair &amp; Beauty</span>
-      <h3>In the <em>Chair</em></h3>
-      <div class="price">$340<span>/week</span></div>
-      <ul>
-        <li>Premium 4:5 HD tile in beauty rail</li>
-        <li>4 paid slots per week, per city</li>
-        <li>Direct booking CTA</li>
-        <li>Hair, barbers, makeup, loc specialists</li>
-      </ul>
+    <div class="why-card">
+      <div class="num">02</div>
+      <h4>Build trust with verification</h4>
+      <p>Customers discover and choose verified brands faster. A blue tick — earned through a physical visit — is the strongest trust signal in the diaspora directory.</p>
     </div>
-
-    <div class="tier-card">
-      <span class="tag">Local</span>
-      <h3>City <em>Spotlight</em></h3>
-      <div class="price">$220<span>/week</span></div>
-      <ul>
-        <li>Local placement targeted by city + area</li>
-        <li>Visible only to that city's audience</li>
-        <li>Great for neighborhood salons & food spots</li>
-      </ul>
+    <div class="why-card">
+      <div class="num">03</div>
+      <h4>Grow visibility in your city</h4>
+      <p>Featured placement on the homepage, category rails, and editorial coverage — where your community is already looking.</p>
     </div>
-
-    <div class="tier-card">
-      <span class="tag">Direct</span>
-      <h3>WhatsApp <em>Lead Ad</em></h3>
-      <div class="price">$180<span>/week</span></div>
-      <ul>
-        <li>One-tap inquiry into your WhatsApp</li>
-        <li>Pre-filled contextual message</li>
-        <li>Click and conversion analytics</li>
-      </ul>
-    </div>
-
-    <div class="tier-card">
-      <span class="tag">Jobs</span>
-      <h3>Hiring <em>Campaign</em></h3>
-      <div class="price">$260<span>/week</span></div>
-      <ul>
-        <li>Featured roles in front of trusted candidates</li>
-        <li>Branded role page with apply CTA</li>
-        <li>Cross-promoted in trending feed</li>
-      </ul>
+    <div class="why-card">
+      <div class="num">04</div>
+      <h4>Keep 100% of your earnings</h4>
+      <p>We never take commissions on your sales. Every customer comes direct to your WhatsApp, your phone, your storefront.</p>
     </div>
   </div>
 
-  <p style="background:linear-gradient(135deg, rgba(28,61,110,0.04) 0%, rgba(183,146,74,0.06) 100%); border:1px solid rgba(183,146,74,0.20); border-radius:10px; padding:14px 18px; font-size:14px"><strong>Looking for the blue tick or gold Premium badge?</strong> Verification is free and earned through a physical site visit; Premium is a paid trust tier on top. <a href="verification.html">See how verification works →</a></p>
+  <!-- ── ROI framing ── -->
+  <div class="roi-block">
+    <div class="label">Pricing in customers, not currency</div>
+    <h3>One new customer can <em>cover</em> your membership.</h3>
+    <p style="font-size: 15px; color: var(--muted); max-width: 56ch; margin: 0 auto;">Diaspora businesses don't buy listings — they buy <strong style="color:var(--ink)">customers</strong>. Here's what that looks like at each tier.</p>
+    <div class="roi-rows">
+      <div class="roi-row">
+        <span class="ic">🍲</span>
+        <span><strong>Restaurant or home cook</strong> — one family-tray order per week pays the Verified tier. Two pay Featured.</span>
+      </div>
+      <div class="roi-row">
+        <span class="ic">💇🏽‍♀️</span>
+        <span><strong>Hair stylist or makeup artist</strong> — a single bridal booking covers a month of Featured visibility.</span>
+      </div>
+      <div class="roi-row">
+        <span class="ic">📸</span>
+        <span><strong>Photographer or videographer</strong> — one event package covers a full quarter of any tier.</span>
+      </div>
+      <div class="roi-row">
+        <span class="ic">🏠</span>
+        <span><strong>Real estate or bed-space operator</strong> — one viewing-to-close pays for a year of Elite visibility.</span>
+      </div>
+      <div class="roi-row">
+        <span class="ic">🎉</span>
+        <span><strong>Event organiser or DJ</strong> — a single ticketed night pays for the season's Featured run.</span>
+      </div>
+    </div>
+  </div>
 
-  <h2>How it <em>works</em></h2>
-  <ol>
-    <li><strong>List your business</strong> — free, takes ~5 minutes. Upload photos, set your hours, add your WhatsApp.</li>
-    <li><strong>Choose a placement</strong> — pick a tier above, pick your week, send us your hero photo.</li>
-    <li><strong>We design + ship it</strong> — every paid tile is reviewed for editorial fit. We swap your shot in by Monday morning.</li>
-    <li><strong>Track results</strong> — your seller dashboard shows views, taps, WhatsApp opens, and city breakdowns.</li>
-  </ol>
+  <!-- ── FAQ ── -->
+  <h2 style="text-align:center; max-width:none">Frequently <em>asked</em>.</h2>
 
-  <h2>Frequently <em>asked</em></h2>
-  <h3>Do you take a commission on sales?</h3>
-  <p>No. We charge for placement only. When a customer taps through, they go straight to your WhatsApp, phone, or profile — we are never in the middle.</p>
+  <h3>Do you really take zero commission?</h3>
+  <p>Yes. Every order or booking goes directly between you and your customer. We charge for visibility tiers only. There are no transaction fees, no hidden cuts, no marketplace lock-in.</p>
 
-  <h3>Can I run on multiple cities?</h3>
-  <p>Yes. Multi-city campaigns get 15% off the second city, 25% off three or more.</p>
-
-  <h3>What does "editorial fit" mean?</h3>
-  <p>Every paid tile is reviewed for image quality before it ships. We will work with you on the shot if needed — premium photography is the whole point. We may also offer in-house photography in your city for an additional fee.</p>
+  <h3>What does "Verified" actually require?</h3>
+  <p>A Diaspora moderator visits your premises in person, confirms your trade licence, checks owner identity, and writes a short public visit report attached to your listing. Verification is awarded once — your blue tick stays as long as you stay in good standing. <a href="verification.html">See the full criteria</a>.</p>
 
   <h3>How do I pay?</h3>
-  <p>Card or bank transfer in your local currency. Invoiced weekly or monthly. Annual contracts get 10% off.</p>
+  <p>Card or bank transfer in AED. Invoiced monthly or annually — annual gets 10% off. We're rolling out MOMO Pay (mobile money) and Botim integration next. Card payments are processed by a regulated payment provider; we never see your card details.</p>
+
+  <h3>Can I cancel any time?</h3>
+  <p>Yes. No contracts. Cancel from your seller dashboard or email <a href="mailto:hello@thediaspora.app">hello@thediaspora.app</a> — we pro-rate any unused balance to the day.</p>
+
+  <h3>What's the difference between Featured and Elite?</h3>
+  <p>Featured is editorial visibility across the platform — homepage rotation, category rails, blog and social inclusion — at a self-serve price. Elite is a custom partnership with dedicated campaigns, hero placements, event tie-ins, and a direct line to a Diaspora editor. Elite is right when you want to own visibility in your market for a season or a launch.</p>
+
+  <h3>Multi-city campaigns?</h3>
+  <p>Featured + Elite tiers can run in multiple cities. Second city gets 15% off; three or more get 25% off. Talk to <a href="mailto:hello@thediaspora.app?subject=Multi-city%20campaign">hello@thediaspora.app</a> for a quote.</p>
 
   <hr>
 
-  <p style="text-align:center; margin-top:40px">
-    <a href="contact.html" class="btn btn-dark">Talk to a placement editor →</a>
-  </p>
+  <div style="text-align:center; padding: 36px 0">
+    <h2 style="text-align:center; max-width:none; margin-bottom:16px">Ready to be <em>found</em>?</h2>
+    <p style="color: var(--muted); max-width: 50ch; margin: 0 auto 28px">Start free, upgrade when the customers start coming. Or talk to a placement editor about a launch campaign.</p>
+    <a href="become-seller.html" class="btn btn-dark" style="margin-right: 8px">Start free →</a>
+    <a href="mailto:hello@thediaspora.app?subject=Talk%20to%20a%20placement%20editor" class="btn btn-brass">Talk to an editor</a>
+  </div>
+
 </main>
 
 <footer class="page-footer">
   <span>© 2026 The Diaspora App</span>
   <div class="foot-links">
-    <a href="privacy.html">Privacy</a>
-    <a href="terms.html">Terms</a>
-    <a href="cookies.html">Cookies</a>
+    <a href="verification.html">Verification</a>
+    <a href="about.html">About</a>
     <a href="contact.html">Contact</a>
+    <a href="terms.html">Terms</a>
   </div>
 </footer>
 </body>
