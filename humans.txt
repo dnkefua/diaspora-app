@@ -1,0 +1,25 @@
+# humanstxt.org
+
+/* TEAM */
+Studio: NDN Analytics
+Site: https://www.ndnanalytics.com/
+Location: Dubai, UAE
+
+/* THANKS */
+The diaspora business owners across Dubai, London, Toronto, Lagos,
+Nairobi, New York, Paris and beyond who let us inspect their kitchens,
+salons, studios, and storefronts on the way to a Verified tick.
+
+/* SITE */
+Last update: 2026-05-09
+Standards: HTML5, CSS3, ES2022, schema.org structured data
+Components: Vanilla web (no framework), Firebase (Auth, Firestore,
+            Storage, App Hosting, Data Connect), Cloud SQL (Postgres)
+Languages: English (more launching with each new market)
+Doctype: HTML5
+
+/* CRAWL POLICY */
+Search engines: welcomed
+AI / LLM crawlers: welcomed
+See: https://www.thediaspora.app/robots.txt
+     https://www.thediaspora.app/llms.txt

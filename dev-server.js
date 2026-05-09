@@ -6,17 +6,28 @@ const PORT = process.env.PORT || 3000;
 const ROOT = process.cwd();
 
 const mime = {
-  '.html': 'text/html',
-  '.js': 'application/javascript',
-  '.css': 'text/css',
-  '.json': 'application/json',
+  '.html': 'text/html; charset=utf-8',
+  '.js': 'application/javascript; charset=utf-8',
+  '.mjs': 'application/javascript; charset=utf-8',
+  '.css': 'text/css; charset=utf-8',
+  '.json': 'application/json; charset=utf-8',
+  '.txt': 'text/plain; charset=utf-8',
+  '.md': 'text/markdown; charset=utf-8',
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
   '.jpeg': 'image/jpeg',
+  '.gif': 'image/gif',
+  '.webp': 'image/webp',
+  '.avif': 'image/avif',
   '.svg': 'image/svg+xml',
   '.ico': 'image/x-icon',
-  '.xml': 'application/xml',
-  '.webmanifest': 'application/manifest+json'
+  '.xml': 'application/xml; charset=utf-8',
+  '.rss': 'application/rss+xml; charset=utf-8',
+  '.atom': 'application/atom+xml; charset=utf-8',
+  '.webmanifest': 'application/manifest+json; charset=utf-8',
+  '.mp4': 'video/mp4',
+  '.webm': 'video/webm',
+  '.pdf': 'application/pdf'
 };
 
 function send404(res) {

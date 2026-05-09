@@ -595,6 +595,9 @@ async function renderPage() {
 
     // Load reviews up front so we can show real average + count
     await loadReviews(id);
+
+    // Inject LocalBusiness JSON-LD after data loads
+    injectLocalBusinessSchema(biz, allReviews);
     const ratingNum = computeAverageRating();
     const ratingCount = allReviews.length;
     const description = biz.description || biz.desc || '';
@@ -846,6 +849,131 @@ function renderFiles(biz){
       </div>
     </div>
   `;
+}
+
+/* ────────────────────── JSON-LD (LocalBusiness + Breadcrumb) ────────────────────── */
+function injectLocalBusinessSchema(biz, reviews){
+  if (!biz) return;
+  // Pick a Schema.org type based on category — fallback LocalBusiness
+  const cat = (biz.category || '').toLowerCase();
+  let type = 'LocalBusiness';
+  if (cat.includes('restaurant') || cat.includes('caterer') || cat.includes('food')) type = 'FoodEstablishment';
+  else if (cat.includes('hair') || cat.includes('beauty') || cat.includes('barber') || cat.includes('nail')) type = 'BeautySalon';
+  else if (cat.includes('photo') || cat.includes('video')) type = 'ProfessionalService';
+  else if (cat.includes('church') || cat.includes('mosque') || cat.includes('faith')) type = 'PlaceOfWorship';
+  else if (cat.includes('lawyer') || cat.includes('accountant')) type = 'ProfessionalService';
+  else if (cat.includes('doctor') || cat.includes('clinic') || cat.includes('therapist')) type = 'MedicalBusiness';
+  else if (cat.includes('event')) type = 'EventVenue';
+  else if (cat.includes('real estate') || cat.includes('bed space')) type = 'RealEstateAgent';
+
+  const heroImg = biz.image || (Array.isArray(biz.images) && biz.images[0]) || '';
+  const avgRating = reviews && reviews.length
+    ? (reviews.reduce((s, r) => s + (Number(r.rating) || 0), 0) / reviews.length)
+    : (Number(biz.rating) || 0);
+
+  const ld = {
+    '@context': 'https://schema.org',
+    '@type': type,
+    'name': biz.name,
+    'description': biz.description || biz.desc || '',
+    'image': heroImg ? [heroImg] : undefined,
+    'address': {
+      '@type': 'PostalAddress',
+      'addressLocality': biz.area || biz.city,
+      'addressRegion': biz.city,
+      'addressCountry': biz.country || undefined
+    },
+    'telephone': biz.phone || undefined,
+    'url': `https://www.thediaspora.app/business.html?id=${encodeURIComponent(biz.id)}`,
+    'priceRange': biz.priceRange || (Array.isArray(biz.services) && biz.services.some(s => s.price) ? '$$' : undefined)
+  };
+  if (avgRating > 0 && reviews && reviews.length){
+    ld.aggregateRating = {
+      '@type': 'AggregateRating',
+      'ratingValue': avgRating.toFixed(1),
+      'reviewCount': reviews.length,
+      'bestRating': '5',
+      'worstRating': '1'
+    };
+    ld.review = reviews.slice(0, 5).map(r => ({
+      '@type': 'Review',
+      'author': { '@type': 'Person', 'name': r.authorName || 'Diaspora member' },
+      'datePublished': r.createdAt?.toDate?.().toISOString() || undefined,
+      'reviewBody': r.text || '',
+      'reviewRating': {
+        '@type': 'Rating',
+        'ratingValue': String(r.rating || 0),
+        'bestRating': '5',
+        'worstRating': '1'
+      }
+    }));
+  }
+  // Trust signals → schema.org awards
+  const awards = [];
+  if (biz.verified) awards.push('Verified by The Diaspora App — physical site visit and records check');
+  if (biz.premium) awards.push('Premium tier — verified plus quarterly re-inspection');
+  if (awards.length) ld.award = awards;
+
+  // Hours, opening
+  if (biz.hours && typeof biz.hours === 'object'){
+    const dayMap = { monday:'Mo', tuesday:'Tu', wednesday:'We', thursday:'Th', friday:'Fr', saturday:'Sa', sunday:'Su' };
+    ld.openingHours = Object.entries(biz.hours)
+      .filter(([_, v]) => v && !/closed/i.test(v))
+      .map(([d, v]) => `${dayMap[d.toLowerCase()] || d} ${v}`);
+  }
+
+  // Strip undefined values
+  function clean(o){
+    if (Array.isArray(o)) return o.map(clean).filter(x => x !== undefined && x !== null);
+    if (o && typeof o === 'object'){
+      const out = {};
+      for (const [k, v] of Object.entries(o)){
+        const cv = clean(v);
+        if (cv !== undefined && cv !== null && !(Array.isArray(cv) && !cv.length)) out[k] = cv;
+      }
+      return Object.keys(out).length ? out : undefined;
+    }
+    return o === '' ? undefined : o;
+  }
+  const cleanLd = clean(ld);
+
+  // Breadcrumb
+  const crumb = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    'itemListElement': [
+      { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': 'https://www.thediaspora.app/' },
+      { '@type': 'ListItem', 'position': 2, 'name': 'Directory', 'item': 'https://www.thediaspora.app/feed.html' },
+      { '@type': 'ListItem', 'position': 3, 'name': biz.name }
+    ]
+  };
+
+  // Remove any existing dynamic schema and re-insert
+  document.querySelectorAll('script[data-ld="business"]').forEach(s => s.remove());
+  const s1 = document.createElement('script');
+  s1.type = 'application/ld+json';
+  s1.dataset.ld = 'business';
+  s1.textContent = JSON.stringify(cleanLd, null, 2);
+  document.head.appendChild(s1);
+
+  const s2 = document.createElement('script');
+  s2.type = 'application/ld+json';
+  s2.dataset.ld = 'business';
+  s2.textContent = JSON.stringify(crumb, null, 2);
+  document.head.appendChild(s2);
+
+  // Update the page <title> + canonical for sharper SEO
+  document.title = `${biz.name} — ${biz.category || 'Diaspora business'} in ${biz.city || ''} | The Diaspora App`;
+  let canon = document.querySelector('link[rel="canonical"]');
+  if (!canon){ canon = document.createElement('link'); canon.rel = 'canonical'; document.head.appendChild(canon); }
+  canon.href = `https://www.thediaspora.app/business.html?id=${encodeURIComponent(biz.id)}`;
+  // Update OG tags too
+  const ogTitle = document.querySelector('meta[property="og:title"]');
+  if (ogTitle) ogTitle.content = `${biz.name} on The Diaspora App`;
+  const ogDesc = document.querySelector('meta[property="og:description"]');
+  if (ogDesc) ogDesc.content = (biz.description || biz.desc || '').slice(0, 200);
+  const ogImg = document.querySelector('meta[property="og:image"]');
+  if (ogImg && heroImg) ogImg.content = heroImg.startsWith('http') ? heroImg : `https://www.thediaspora.app/${heroImg}`;
 }
 
 /* ────────────────────── Reviews ────────────────────── */

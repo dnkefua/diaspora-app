@@ -1,32 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0"
+     xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
-    <title>The Diaspora App Blog</title>
+    <title>The Diaspora App — Blog</title>
     <link>https://www.thediaspora.app/blog.html</link>
     <atom:link href="https://www.thediaspora.app/feed.xml" rel="self" type="application/rss+xml" />
-    <description>Business guides, event playbooks, advertising strategy, and community stories for the global diaspora.</description>
+    <description>Business guides, event playbooks, advertising strategy, and community stories for the global diaspora — from the editorial team at The Diaspora App.</description>
     <language>en-us</language>
-    <lastBuildDate>Sun, 26 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <copyright>© 2026 The Diaspora App / NDN Analytics</copyright>
+    <managingEditor>press@thediaspora.app (The Diaspora App Editorial)</managingEditor>
+    <webMaster>hello@thediaspora.app (The Diaspora App)</webMaster>
+    <category>Diaspora</category>
+    <category>Small business</category>
+    <category>Marketing</category>
+    <category>Events</category>
+    <ttl>180</ttl>
+    <image>
+      <url>https://www.thediaspora.app/Media%20resources/TheDiaspora%20app%20logo%203D.png</url>
+      <title>The Diaspora App</title>
+      <link>https://www.thediaspora.app/</link>
+    </image>
+    <lastBuildDate>Sat, 09 May 2026 00:00:00 +0000</lastBuildDate>
+
     <item>
       <title>How Diaspora Businesses Can Turn Local Attention Into Real Orders</title>
       <link>https://www.thediaspora.app/blog-diaspora-business-advertising.html</link>
-      <guid>https://www.thediaspora.app/blog-diaspora-business-advertising.html</guid>
+      <guid isPermaLink="true">https://www.thediaspora.app/blog-diaspora-business-advertising.html</guid>
       <pubDate>Sun, 26 Apr 2026 00:00:00 +0000</pubDate>
-      <description>A practical approach to premium placements, city targeting, and direct WhatsApp leads for diaspora businesses.</description>
+      <dc:creator>The Diaspora App Editorial</dc:creator>
+      <category>Marketing</category>
+      <category>Advertising</category>
+      <description>A practical approach to premium placements, city targeting, and direct WhatsApp leads for diaspora-owned businesses.</description>
     </item>
+
     <item>
       <title>A Simple Launch Plan for Community Events That Sell Out</title>
       <link>https://www.thediaspora.app/blog-how-to-launch-diaspora-event.html</link>
-      <guid>https://www.thediaspora.app/blog-how-to-launch-diaspora-event.html</guid>
+      <guid isPermaLink="true">https://www.thediaspora.app/blog-how-to-launch-diaspora-event.html</guid>
       <pubDate>Sun, 26 Apr 2026 00:00:00 +0000</pubDate>
-      <description>How hosts can package an event page, registration flow, city targeting, and sponsor inventory.</description>
+      <dc:creator>The Diaspora App Editorial</dc:creator>
+      <category>Events</category>
+      <description>How hosts can package an event page, registration flow, city targeting, and sponsor inventory for sell-out community events.</description>
     </item>
+
     <item>
       <title>Making a Marketplace Search-Ready for Google and AI Crawlers</title>
       <link>https://www.thediaspora.app/blog-google-ready-marketplace-seo.html</link>
-      <guid>https://www.thediaspora.app/blog-google-ready-marketplace-seo.html</guid>
+      <guid isPermaLink="true">https://www.thediaspora.app/blog-google-ready-marketplace-seo.html</guid>
       <pubDate>Sun, 26 Apr 2026 00:00:00 +0000</pubDate>
-      <description>The technical layer behind sitemap discovery, structured data, RSS, and public HTML pages.</description>
+      <dc:creator>The Diaspora App Editorial</dc:creator>
+      <category>SEO</category>
+      <category>Engineering</category>
+      <description>The technical layer behind sitemap discovery, structured data, RSS, and public HTML pages — and why it matters for both Google and AI search.</description>
     </item>
+
   </channel>
 </rss>

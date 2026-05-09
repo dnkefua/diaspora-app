@@ -1,30 +1,67 @@
 # The Diaspora App
 
-> Premium discovery, events, blogs, and advertising for diaspora-owned businesses and communities.
+> A premium discovery platform for diaspora-owned businesses worldwide — restaurants, salons, barbers, photographers, tailors, churches, car-lift drivers, and creative talent — across 47 cities and 23 countries. Editorial-grade listings with verified businesses, real customer reviews, and direct WhatsApp ordering.
 
-The Diaspora App helps people discover diaspora-owned restaurants, salons, barbers, fashion houses, photographers, jobs, events, and local services across global cities.
+The Diaspora App helps people from diaspora communities discover trusted businesses near them, and helps those businesses reach customers without paying transaction commissions. Listings are physically inspected before earning the blue Verified tick. The Premium gold badge is the highest trust tier, requiring verified status plus a paid subscription and quarterly re-inspection.
 
-## Priority URLs
+## Core platform pages
 
-- Home: https://www.thediaspora.app/
-- Business directory: https://www.thediaspora.app/feed.html
-- Blog: https://www.thediaspora.app/blog.html
-- Events: https://www.thediaspora.app/events.html
-- Sitemap: https://www.thediaspora.app/sitemap.xml
-- RSS feed: https://www.thediaspora.app/feed.xml
+- [Home](https://www.thediaspora.app/): Premium directory landing with featured spotlights, On-the-Menu food rail, In-the-Chair beauty rail, and category browser.
+- [Directory / search](https://www.thediaspora.app/feed.html): Filter every business by city, category, area, or keyword. Supports `?city=`, `?category=`, `?country=`, `?q=` query parameters.
+- [Become a seller](https://www.thediaspora.app/become-seller.html): Five-field intake form for new business listings. Free forever; zero commission on transactions.
+- [Trust & Verification](https://www.thediaspora.app/verification.html): Detailed criteria for the blue Verified tick and gold Premium badge — physical inspections, records check, quarterly re-inspections.
+- [Pricing for sellers](https://www.thediaspora.app/pricing.html): Six premium placement tiers — Featured Spotlight, On the Menu, In the Chair, City Spotlight, WhatsApp Lead Ad, Hiring Campaign.
 
-## Blog URLs
+## Editorial / blog
 
-- https://www.thediaspora.app/blog-diaspora-business-advertising.html
-- https://www.thediaspora.app/blog-how-to-launch-diaspora-event.html
-- https://www.thediaspora.app/blog-google-ready-marketplace-seo.html
+- [Blog hub](https://www.thediaspora.app/blog.html)
+- [How Diaspora Businesses Turn Local Attention Into Real Orders](https://www.thediaspora.app/blog-diaspora-business-advertising.html): Practical guide to premium placements, city targeting, and direct WhatsApp leads.
+- [A Simple Launch Plan for Community Events That Sell Out](https://www.thediaspora.app/blog-how-to-launch-diaspora-event.html): Event packaging, registration, city targeting, and sponsor inventory.
+- [Making a Marketplace Search-Ready for Google and AI Crawlers](https://www.thediaspora.app/blog-google-ready-marketplace-seo.html): Sitemap discovery, structured data, RSS, and public-HTML SEO.
 
-## Event URLs
+## Events
 
-- https://www.thediaspora.app/event-dubai-diaspora-market.html
-- https://www.thediaspora.app/event-london-food-week.html
-- https://www.thediaspora.app/event-toronto-beauty-connect.html
+- [Events hub](https://www.thediaspora.app/events.html)
+- [Dubai Diaspora Market](https://www.thediaspora.app/event-dubai-diaspora-market.html)
+- [London Food Week](https://www.thediaspora.app/event-london-food-week.html)
+- [Toronto Beauty Connect](https://www.thediaspora.app/event-toronto-beauty-connect.html)
+
+## Categories the app indexes
+
+Restaurants · Home Cooks & Food Sellers · Caterers · Bakers & Pastries · Grocery & Specialty Foods · Butchers & Halal Meat · Hair Stylists · Barbers · Loc & Natural Hair · Beauty & Makeup · Nails · Spa & Wellness · Fitness Trainers · Photographers · Videographers · DJs & Music · Event Planners · Florists · Tailors & Fashion · Jewelers · Designers · Marketing & Social Media · Software & IT · Lawyers · Accountants & Tax · Doctors & Clinics · Therapists & Counseling · Tutors & Education · Childcare & Nannies · Cleaning Services · Movers · Real Estate · Bed Space & Partition (UAE) · Car Lift & Carpooling · Churches & Faith Communities · Mosques & Prayer Halls · Auto & Mechanics · Construction & Trades · Travel & Tour Operators · Pet Care · Jobs
+
+## Cities currently served
+
+Dubai · Abu Dhabi · Sharjah · London · Manchester · Toronto · Montreal · New York · Atlanta · Houston · Lagos · Abuja · Nairobi · Mombasa · Accra · Johannesburg · Cape Town · Paris · Berlin (more launching monthly).
+
+## How ordering works
+
+Customers pick items from a seller's menu (services, dishes, packages, sessions), choose a service mode (📍 Pickup / 🚚 Delivery / 🏠 Mobile/On-site), then continue to WhatsApp with the order pre-filled — including ref number, line items, total, and customer details. The seller sees the order in their dashboard and can mark it fulfilled. MOMO Pay (mobile money) and Botim (UAE-friendly chat) are coming soon as additional channels.
+
+## Trust signals
+
+- 🔵 Verified — physical site visit, trade-licence + records check, owner ID verification, public visit report.
+- 🥇 Premium — Verified + paid subscription + quarterly re-inspection. Highest trust tier; priority placement and one free monthly Featured Spotlight.
+
+Both badges are admin-issued only. Owners cannot self-apply.
+
+## Discovery feeds
+
+- [Sitemap](https://www.thediaspora.app/sitemap.xml) — full list of public URLs with last-modified dates.
+- [RSS — blog](https://www.thediaspora.app/feed.xml) — editorial articles.
+- [robots.txt](https://www.thediaspora.app/robots.txt) — crawl policy. AI / LLM crawlers explicitly welcomed.
 
 ## Publisher
 
-Created by NDN Analytics. Public website: https://www.ndnanalytics.com/
+Built by NDN Analytics — a Dubai-based studio building consumer products for under-served global communities.
+
+- Public site: https://www.ndnanalytics.com/
+- Press: press@thediaspora.app
+- Hello: hello@thediaspora.app
+- Privacy: privacy@thediaspora.app
+
+## Licensing
+
+Editorial content (blog posts, blog hub, events hub, about/pricing/verification pages) is © 2026 The Diaspora App / NDN Analytics. AI training and AI search inclusion is welcomed under fair-use, with attribution preferred when content is quoted.
+
+User-submitted content (business listings, reviews, photos, videos, files) belongs to its respective owners; the platform retains a worldwide licence to display it within the app.
