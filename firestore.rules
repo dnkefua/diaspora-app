@@ -99,6 +99,53 @@ service cloud.firestore {
       allow delete: if isOwner(resource.data.authorUid) || isAdmin();
     }
 
+    // ── orders/{id} ──────────────────────────────────────
+    // Customer order intent. The actual transaction happens in WhatsApp;
+    // these docs let sellers see orders that came via the app and let
+    // customers see their own order history.
+    //
+    // Required schema (validated on create):
+    //   businessId         string
+    //   businessOwnerId    string  — denormalized so owner reads work without get()
+    //   customerUid        string  == request.auth.uid
+    //   items              list    — [{name, qty, price?, notes?}]
+    //   status             string  in ['pending','sent','cancelled','fulfilled']
+    //   createdAt          timestamp
+    //
+    // Optional fields: customerName, customerPhone, customerNote,
+    // mode ('inquiry'|'pickup'|'delivery'), total, currency,
+    // whatsappMessage, sentAt.
+    match /orders/{orderId} {
+      allow read: if isAdmin()
+        || (isSignedIn() && resource.data.customerUid == request.auth.uid)
+        || (isSignedIn() && resource.data.businessOwnerId == request.auth.uid);
+
+      allow create: if isSignedIn()
+        && request.resource.data.customerUid == request.auth.uid
+        && request.resource.data.businessId is string
+        && request.resource.data.businessOwnerId is string
+        && request.resource.data.items is list
+        && request.resource.data.items.size() > 0
+        && request.resource.data.items.size() <= 50
+        && request.resource.data.status in ['pending', 'sent']
+        && (!('customerNote' in request.resource.data) ||
+            (request.resource.data.customerNote is string
+             && request.resource.data.customerNote.size() <= 500));
+
+      // Customer can update only their own status (e.g. 'cancelled'); admin and
+      // business owner can update freely.
+      allow update: if isAdmin()
+        || (isSignedIn() && resource.data.businessOwnerId == request.auth.uid)
+        || (
+          isSignedIn()
+          && resource.data.customerUid == request.auth.uid
+          && request.resource.data.diff(resource.data).affectedKeys()
+              .hasOnly(['status', 'sentAt', 'updatedAt'])
+        );
+
+      allow delete: if isAdmin();
+    }
+
     // ── verification_requests/{id} ───────────────────────
     // Sellers create a request; admin reads + processes.
     match /verification_requests/{docId} {

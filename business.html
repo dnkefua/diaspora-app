@@ -89,6 +89,133 @@ a { text-decoration: none; color: inherit; }
 .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 .photo-grid img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 12px; cursor: pointer; }
 
+/* ── Services / Menu ── */
+.menu-grid { display: grid; gap: 12px; grid-template-columns: 1fr; }
+@media (min-width: 640px){ .menu-grid { grid-template-columns: 1fr 1fr; } }
+.menu-item {
+  display: flex; gap: 12px; padding: 14px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+  align-items: center; transition: border-color 0.18s, box-shadow 0.18s;
+}
+.menu-item:hover { border-color: var(--brass); box-shadow: 0 6px 18px -8px rgba(183,146,74,0.25); }
+.menu-item-img { width: 72px; height: 72px; border-radius: 12px; flex-shrink: 0; background: var(--ivory) center/cover no-repeat; display: flex; align-items: center; justify-content: center; font-size: 28px; }
+.menu-item-info { flex: 1; min-width: 0; }
+.menu-item-name { font-weight: 600; font-size: 15px; line-height: 1.25; }
+.menu-item-desc { font-size: 13px; color: var(--muted); margin-top: 3px; line-height: 1.45;
+  overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.menu-item-price { font-size: 13px; font-weight: 700; color: var(--brass); margin-top: 5px; }
+.menu-item-actions { flex-shrink: 0; display: flex; align-items: center; }
+.menu-add-btn {
+  background: var(--ink); color: #fff; border: none;
+  width: 36px; height: 36px; border-radius: 50%;
+  font-size: 18px; line-height: 1; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: background 0.18s, transform 0.18s;
+}
+.menu-add-btn:hover { background: var(--brass); transform: scale(1.05); }
+.menu-qty { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+.menu-qty button {
+  background: var(--ivory); color: var(--ink); border: 1px solid var(--line);
+  width: 30px; height: 30px; border-radius: 50%; font-size: 16px; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.menu-qty button:hover { background: var(--brass); color: #fff; border-color: var(--brass); }
+.menu-qty .num { min-width: 18px; text-align: center; }
+
+/* ── Order cart (sticky) ── */
+.order-cart {
+  position: fixed; left: 0; right: 0; bottom: 64px;  /* leave room for bottom nav */
+  z-index: 90;
+  transform: translateY(120%); transition: transform 0.3s cubic-bezier(.2,.7,.2,1);
+  padding: 0 16px;
+  pointer-events: none;
+}
+.order-cart.open { transform: translateY(0); pointer-events: auto; }
+.order-cart-inner {
+  max-width: 760px; margin: 0 auto;
+  background: var(--ink); color: var(--paper);
+  border-radius: 16px; padding: 14px 18px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+}
+.order-cart-summary { font-size: 14px; line-height: 1.3; min-width: 0; flex: 1; }
+.order-cart-summary strong { display: block; font-size: 15px; }
+.order-cart-summary span { opacity: 0.75; font-size: 12px; }
+.order-cart-cta {
+  background: #25D366; color: #fff; border: none;
+  padding: 11px 20px; border-radius: 999px;
+  font-size: 13px; font-weight: 700; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px;
+  white-space: nowrap; flex-shrink: 0;
+}
+.order-cart-cta:hover { opacity: 0.92; }
+
+/* ── Order modal (compose + send) ── */
+.order-overlay {
+  position: fixed; inset: 0; background: rgba(10,10,10,0.55);
+  backdrop-filter: blur(6px);
+  display: none; align-items: center; justify-content: center;
+  z-index: 200; padding: 18px;
+}
+.order-overlay.open { display: flex; }
+.order-card {
+  background: #fff; border-radius: 18px;
+  width: 100%; max-width: 540px; max-height: 92vh; overflow-y: auto;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.4);
+}
+.order-card-head { padding: 18px 22px; border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; }
+.order-card-head h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 22px; }
+.order-card-head h3 em { font-style: italic; color: var(--brass); }
+.order-card-close { background: none; border: none; font-size: 22px; cursor: pointer; color: var(--muted); }
+.order-card-body { padding: 18px 22px; }
+.order-card-foot { padding: 16px 22px; border-top: 1px solid var(--line); }
+
+.order-line { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.order-line:last-child { border-bottom: none; }
+.order-line-name { font-weight: 600; font-size: 14px; flex: 1; min-width: 0; }
+.order-line-price { font-size: 13px; color: var(--muted); }
+.order-line-controls { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.order-line-controls button { background: var(--ivory); border: 1px solid var(--line); width: 26px; height: 26px; border-radius: 50%; font-size: 14px; cursor: pointer; }
+.order-line-controls button:hover { background: var(--brass); color: #fff; border-color: var(--brass); }
+.order-line-qty { min-width: 16px; text-align: center; font-weight: 600; }
+
+.order-total { display: flex; justify-content: space-between; padding: 12px 0; border-top: 1px solid var(--line); margin-top: 6px; font-weight: 700; font-size: 16px; }
+.order-field { margin-top: 10px; }
+.order-field label { display: block; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; color: var(--muted); margin-bottom: 5px; }
+.order-field input, .order-field textarea {
+  width: 100%; padding: 11px 14px; border: 1px solid var(--line); border-radius: 10px;
+  font-family: inherit; font-size: 14px; background: #fff;
+}
+.order-field input:focus, .order-field textarea:focus { outline: none; border-color: var(--brass); }
+.order-field textarea { min-height: 70px; resize: vertical; }
+
+/* Channel buttons */
+.order-channels { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 14px; }
+.channel-btn {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 18px; border-radius: 12px;
+  border: 1px solid var(--line); background: #fff;
+  cursor: pointer; text-align: left; width: 100%;
+  font-family: inherit; transition: border-color 0.18s, transform 0.18s;
+  position: relative;
+}
+.channel-btn:hover:not([disabled]) { border-color: var(--brass); transform: translateY(-1px); }
+.channel-btn[disabled] { cursor: not-allowed; opacity: 0.55; }
+.channel-btn .icon { font-size: 22px; flex-shrink: 0; width: 38px; height: 38px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: #fff; }
+.channel-btn .label { flex: 1; min-width: 0; }
+.channel-btn .label .top { font-weight: 700; font-size: 14px; line-height: 1.2; }
+.channel-btn .label .sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.channel-btn .arrow { font-size: 18px; color: var(--brass); }
+.channel-btn.whatsapp .icon { background: #25D366; }
+.channel-btn.momo .icon { background: linear-gradient(135deg, #FFCC00 0%, #F9A800 100%); color: #1a1a1a; }
+.channel-btn.botim .icon { background: linear-gradient(135deg, #00B3FF 0%, #0066CC 100%); }
+.channel-btn .soon-tag {
+  position: absolute; top: 10px; right: 14px;
+  font-size: 9.5px; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase;
+  background: var(--brass); color: #fff;
+  padding: 3px 8px; border-radius: 999px;
+}
+
 /* Reviews */
 .review-card { border-bottom: 1px solid var(--line); padding: 16px 0; }
 .review-card:last-child { border-bottom: none; padding-bottom: 0; }
@@ -182,6 +309,30 @@ a { text-decoration: none; color: inherit; }
   </div>
 </div>
 
+<!-- Sticky order summary — appears when user adds items to cart -->
+<div class="order-cart" id="orderCart" role="region" aria-label="Order summary">
+  <div class="order-cart-inner">
+    <div class="order-cart-summary">
+      <strong id="cartCount">0 items</strong>
+      <span id="cartTotal">Subtotal: AED 0</span>
+    </div>
+    <button type="button" class="order-cart-cta" onclick="openOrderModal()">
+      Review &amp; order →
+    </button>
+  </div>
+</div>
+
+<!-- Order modal — review items + send via WhatsApp (MOMO + Botim coming soon) -->
+<div class="order-overlay" id="orderOverlay" role="dialog" aria-modal="true" aria-labelledby="orderTitle">
+  <div class="order-card">
+    <div class="order-card-head">
+      <h3 id="orderTitle">Your <em>order</em></h3>
+      <button type="button" class="order-card-close" onclick="closeOrderModal()" aria-label="Close">×</button>
+    </div>
+    <div class="order-card-body" id="orderBody"></div>
+  </div>
+</div>
+
 <nav class="bottom-nav">
   <a href="feed.html" class="nav-item">
     <span class="nav-icon">🌍</span>
@@ -191,9 +342,9 @@ a { text-decoration: none; color: inherit; }
     <span class="nav-icon">🔍</span>
     <span>Search</span>
   </a>
-  <a href="#" class="nav-item" onclick="alert('Messages coming soon!')">
-    <span class="nav-icon">💬</span>
-    <span>Messages</span>
+  <a href="profile.html#orders" class="nav-item">
+    <span class="nav-icon">📦</span>
+    <span>Orders</span>
   </a>
   <a href="profile.html" class="nav-item">
     <span class="nav-icon">👤</span>
@@ -202,7 +353,7 @@ a { text-decoration: none; color: inherit; }
 </nav>
 
 <script type="module">
-import { auth, db, onAuthStateChanged, doc, getDoc, addDoc, deleteDoc, collection, query, where, orderBy, getDocs } from './firebase-config.js';
+import { auth, db, onAuthStateChanged, doc, getDoc, addDoc, setDoc, deleteDoc, collection, query, where, orderBy, getDocs } from './firebase-config.js';
 
 const FALLBACK_DATA = {
   'b1': { id:'b1', name:'Mama Titi Kitchen', category:'Restaurants', city:'Dubai', area:'Deira',
@@ -383,6 +534,7 @@ async function renderPage() {
           </div>
         </div>
 
+        ${renderServicesSection(biz)}
         ${renderGallery(biz)}
         ${renderVideos(biz)}
         ${renderFiles(biz)}
@@ -711,6 +863,297 @@ function renderReviewsList(){
     });
   });
 }
+
+/* ──────────────── Services & Order flow ──────────────── */
+
+let cart = []; // [{id, name, price, currency, qty}]
+
+function fmtMoney(n, ccy = 'AED'){
+  if (n === null || n === undefined || n === '') return '';
+  const num = Number(n); if (Number.isNaN(num)) return '';
+  return `${ccy} ${num.toFixed(num % 1 === 0 ? 0 : 2)}`;
+}
+
+function renderServicesSection(biz){
+  const services = Array.isArray(biz.services) ? biz.services : [];
+  if (!services.length) return '';
+  const ccy = biz.currency || (services.find(s => s.currency)?.currency) || 'AED';
+  return `
+    <div class="section">
+      <h2 class="section-title">Menu &amp; Services</h2>
+      <div class="menu-grid">
+        ${services.map(s => `
+          <div class="menu-item" data-svc-id="${escHtml(s.id || s.name)}">
+            ${s.image
+              ? `<div class="menu-item-img" style="background-image:url('${escHtml(s.image).replace(/'/g,"\\'")}')"></div>`
+              : `<div class="menu-item-img">${menuEmojiFor(s.name)}</div>`}
+            <div class="menu-item-info">
+              <div class="menu-item-name">${escHtml(s.name || '(unnamed)')}</div>
+              ${s.description ? `<div class="menu-item-desc">${escHtml(s.description)}</div>` : ''}
+              ${s.price != null && s.price !== '' ? `<div class="menu-item-price">${escHtml(fmtMoney(s.price, s.currency || ccy))}</div>` : '<div class="menu-item-price" style="color:var(--muted); font-style:italic; font-weight:500">Price on request</div>'}
+            </div>
+            <div class="menu-item-actions" id="svc-actions-${escHtml(s.id || s.name)}">
+              <button class="menu-add-btn" type="button" onclick="addToCart('${escHtml(s.id || s.name)}')" aria-label="Add to order">+</button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function menuEmojiFor(name){
+  const n = (name || '').toLowerCase();
+  if (/(jollof|rice|bowl)/.test(n)) return '🍛';
+  if (/(suya|grill|kebab)/.test(n)) return '🍢';
+  if (/(braid|hair|loc)/.test(n)) return '💇🏽‍♀️';
+  if (/(cut|fade|trim)/.test(n)) return '✂️';
+  if (/(makeup|glam)/.test(n)) return '💄';
+  if (/(photo|shoot)/.test(n)) return '📸';
+  if (/(cake|bake|pastry|bread)/.test(n)) return '🥐';
+  if (/(meat|chicken|beef|fish|seafood)/.test(n)) return '🍗';
+  return '🍽';
+}
+
+window.addToCart = function(svcId){
+  if (!currentBiz?.services) return;
+  const svc = currentBiz.services.find(s => (s.id || s.name) === svcId);
+  if (!svc) return;
+  const existing = cart.find(c => c.id === svcId);
+  if (existing){
+    existing.qty++;
+  } else {
+    cart.push({
+      id: svcId,
+      name: svc.name,
+      price: svc.price ?? null,
+      currency: svc.currency || currentBiz.currency || 'AED',
+      qty: 1
+    });
+  }
+  refreshCartUI(svcId);
+};
+
+window.changeQty = function(svcId, delta){
+  const item = cart.find(c => c.id === svcId);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0){
+    cart = cart.filter(c => c.id !== svcId);
+  }
+  refreshCartUI(svcId);
+  // Also refresh modal if open
+  if (document.getElementById('orderOverlay')?.classList.contains('open')){
+    renderOrderModal();
+  }
+};
+
+function refreshCartUI(svcId){
+  // Update inline action for that one item
+  if (svcId){
+    const slot = document.getElementById('svc-actions-' + cssEscape(svcId));
+    if (slot){
+      const item = cart.find(c => c.id === svcId);
+      if (item){
+        slot.innerHTML = `
+          <div class="menu-qty">
+            <button type="button" onclick="changeQty('${escHtml(svcId)}', -1)" aria-label="Decrease">−</button>
+            <span class="num">${item.qty}</span>
+            <button type="button" onclick="changeQty('${escHtml(svcId)}', 1)" aria-label="Increase">+</button>
+          </div>
+        `;
+      } else {
+        slot.innerHTML = `<button class="menu-add-btn" type="button" onclick="addToCart('${escHtml(svcId)}')" aria-label="Add to order">+</button>`;
+      }
+    }
+  }
+  // Update sticky cart
+  const cartEl = document.getElementById('orderCart');
+  if (!cartEl) return;
+  if (!cart.length){
+    cartEl.classList.remove('open');
+    return;
+  }
+  const totalQty = cart.reduce((s, i) => s + i.qty, 0);
+  const ccy = cart[0].currency || 'AED';
+  const allPriced = cart.every(i => i.price != null && i.price !== '');
+  const total = allPriced ? cart.reduce((s, i) => s + (Number(i.price) * i.qty), 0) : null;
+  document.getElementById('cartCount').textContent = `${totalQty} item${totalQty === 1 ? '' : 's'} in your order`;
+  document.getElementById('cartTotal').textContent = total !== null ? `Subtotal: ${fmtMoney(total, ccy)}` : 'Total quoted on chat';
+  cartEl.classList.add('open');
+}
+
+function cssEscape(s){
+  // Light wrapper — IDs in our scheme are alnum+-+_ so just return as-is
+  return String(s).replace(/[^a-zA-Z0-9_-]/g, '_');
+}
+
+window.openOrderModal = function(){
+  if (!cart.length){ return; }
+  renderOrderModal();
+  document.getElementById('orderOverlay').classList.add('open');
+};
+window.closeOrderModal = function(){
+  document.getElementById('orderOverlay').classList.remove('open');
+};
+
+function renderOrderModal(){
+  if (!cart.length || !currentBiz) return;
+  const ccy = cart[0].currency || 'AED';
+  const allPriced = cart.every(i => i.price != null && i.price !== '');
+  const total = allPriced ? cart.reduce((s, i) => s + (Number(i.price) * i.qty), 0) : null;
+
+  const u = (() => { try { return JSON.parse(localStorage.getItem('diaspora_user') || 'null'); } catch (_) { return null; } })();
+  const defaultName = u ? `${u.firstName || ''} ${u.lastName || ''}`.trim() : '';
+  const defaultPhone = u?.phone || '';
+
+  const lines = cart.map(i => `
+    <div class="order-line">
+      <div style="flex:1; min-width:0">
+        <div class="order-line-name">${escHtml(i.name)}</div>
+        ${i.price != null && i.price !== '' ? `<div class="order-line-price">${escHtml(fmtMoney(i.price, ccy))} each</div>` : '<div class="order-line-price" style="font-style:italic">Price on request</div>'}
+      </div>
+      <div class="order-line-controls">
+        <button type="button" onclick="changeQty('${escHtml(i.id)}', -1)" aria-label="Decrease">−</button>
+        <span class="order-line-qty">${i.qty}</span>
+        <button type="button" onclick="changeQty('${escHtml(i.id)}', 1)" aria-label="Increase">+</button>
+      </div>
+    </div>
+  `).join('');
+
+  const body = document.getElementById('orderBody');
+  body.innerHTML = `
+    <div>${lines}</div>
+    <div class="order-total">
+      <span>Total</span>
+      <span>${total !== null ? fmtMoney(total, ccy) : 'On chat'}</span>
+    </div>
+    <div class="order-field">
+      <label for="ord-name">Your name</label>
+      <input id="ord-name" type="text" maxlength="60" placeholder="Amara Okafor" value="${escHtml(defaultName)}">
+    </div>
+    <div class="order-field">
+      <label for="ord-phone">Phone (optional — for callback)</label>
+      <input id="ord-phone" type="tel" maxlength="20" placeholder="+971 50 123 4567" value="${escHtml(defaultPhone)}">
+    </div>
+    <div class="order-field">
+      <label for="ord-note">Note for the seller (optional)</label>
+      <textarea id="ord-note" maxlength="500" placeholder="Less spicy, please. Pickup at 7pm if possible."></textarea>
+    </div>
+
+    <div class="order-channels">
+      <button type="button" class="channel-btn whatsapp" onclick="sendOrderViaWhatsApp()">
+        <span class="icon">💬</span>
+        <span class="label">
+          <span class="top">Continue on WhatsApp</span>
+          <span class="sub">We'll open WhatsApp pre-filled with your order details</span>
+        </span>
+        <span class="arrow">→</span>
+      </button>
+
+      <button type="button" class="channel-btn momo" disabled>
+        <span class="icon">📱</span>
+        <span class="label">
+          <span class="top">Pay with MOMO Pay</span>
+          <span class="sub">Send money directly to the seller via Mobile Money</span>
+        </span>
+        <span class="soon-tag">Coming soon</span>
+      </button>
+
+      <button type="button" class="channel-btn botim" disabled>
+        <span class="icon">📞</span>
+        <span class="label">
+          <span class="top">Chat on Botim</span>
+          <span class="sub">UAE-friendly voice + chat — pre-filled order details</span>
+        </span>
+        <span class="soon-tag">Coming soon</span>
+      </button>
+    </div>
+  `;
+}
+
+function composeWhatsappMessage({ businessName, items, total, currency, customerName, customerPhone, customerNote, orderRef }){
+  const itemLines = items.map(i => {
+    const priceTxt = i.price != null && i.price !== '' ? ` — ${fmtMoney(i.price, currency)}` : '';
+    return `• ${i.qty}× ${i.name}${priceTxt}`;
+  }).join('\n');
+  let msg = `Hi ${businessName},\n\nI'd like to order via The Diaspora App:\n\n${itemLines}\n\n`;
+  if (total !== null) msg += `Subtotal: ${fmtMoney(total, currency)}\n\n`;
+  if (customerName) msg += `Customer: ${customerName}\n`;
+  if (customerPhone) msg += `Phone: ${customerPhone}\n`;
+  if (customerNote) msg += `Notes: ${customerNote}\n`;
+  msg += `\nOrder ref: ${orderRef}`;
+  return msg;
+}
+
+window.sendOrderViaWhatsApp = async function(){
+  if (!cart.length || !currentBiz) return;
+  if (!currentBiz.phone){ alert('This business has not provided a contact number yet.'); return; }
+  const ccy = cart[0].currency || 'AED';
+  const allPriced = cart.every(i => i.price != null && i.price !== '');
+  const total = allPriced ? cart.reduce((s, i) => s + (Number(i.price) * i.qty), 0) : null;
+  const customerName = document.getElementById('ord-name').value.trim();
+  const customerPhone = document.getElementById('ord-phone').value.trim();
+  const customerNote = document.getElementById('ord-note').value.trim();
+
+  // Short order reference
+  const orderRef = 'ORD-' + Math.random().toString(36).slice(2, 8).toUpperCase();
+
+  const message = composeWhatsappMessage({
+    businessName: currentBiz.name,
+    items: cart,
+    total,
+    currency: ccy,
+    customerName,
+    customerPhone,
+    customerNote,
+    orderRef
+  });
+
+  // Best-effort log to Firestore (orders collection). If it fails (e.g. signed-out
+  // visitor), we still let them message — the receipt of the message is the seller's
+  // primary signal anyway.
+  try {
+    if (currentUser){
+      await addDoc(collection(db, 'orders'), {
+        businessId: currentBiz.id,
+        businessName: currentBiz.name,
+        businessOwnerId: currentBiz.ownerId || '',
+        customerUid: currentUser.uid,
+        customerName: customerName || currentUser.displayName || (currentUser.email || '').split('@')[0] || 'Diaspora customer',
+        customerPhone: customerPhone || null,
+        items: cart.map(i => ({ name: i.name, qty: i.qty, price: i.price ?? null, serviceId: i.id })),
+        total,
+        currency: ccy,
+        customerNote: customerNote || null,
+        mode: 'inquiry',
+        channel: 'whatsapp',
+        whatsappMessage: message,
+        orderRef,
+        status: 'sent',
+        createdAt: new Date(),
+        sentAt: new Date()
+      });
+    }
+  } catch (err){
+    console.warn('Could not log order:', err);
+  }
+
+  // Open WhatsApp
+  const phone = (currentBiz.whatsapp || currentBiz.phone || '').replace(/[^0-9]/g, '');
+  const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+  window.open(url, '_blank', 'noopener');
+
+  // Clear cart + close modal
+  cart = [];
+  refreshCartUI();
+  closeOrderModal();
+  // Also reset any inline qty controls
+  document.querySelectorAll('[id^="svc-actions-"]').forEach(slot => {
+    const id = slot.id.replace('svc-actions-', '');
+    slot.innerHTML = `<button class="menu-add-btn" type="button" onclick="addToCart('${escHtml(id)}')" aria-label="Add to order">+</button>`;
+  });
+};
 
 /* ── Auth state — ensures the form/CTA matches the user before reviews render ── */
 onAuthStateChanged(auth, async (user) => {

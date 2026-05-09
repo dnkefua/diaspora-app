@@ -182,6 +182,7 @@
 
   <div class="tabs" role="tablist">
     <div class="tab active" data-pane="overview" role="tab">Overview</div>
+    <div class="tab" data-pane="orders" role="tab">My orders</div>
     <div class="tab" data-pane="saved" role="tab">Saved</div>
     <div class="tab" data-pane="reviews" role="tab">My reviews</div>
     <div class="tab" data-pane="listings" role="tab">My listings</div>
@@ -233,6 +234,15 @@
           <a href="become-seller.html" class="btn-solid" style="width:100%">Start selling →</a>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- ORDERS -->
+  <div class="pane" data-pane="orders">
+    <div class="panel">
+      <h3>My orders</h3>
+      <p style="color:var(--muted); font-size:14px; margin-bottom:14px">Orders you've placed via the app. Conversations continue in WhatsApp; this is your record.</p>
+      <div id="orders-list"><div class="empty">Loading…</div></div>
     </div>
   </div>
 
@@ -363,6 +373,7 @@ let isAdmin = false;
 let myReviews = [];
 let mySaved = [];
 let myListings = [];
+let myOrders = [];
 
 const VERIFIED_SVG = '<svg viewBox="0 0 24 24" width="10" height="10"><path d="M9 16.17 5.53 12.7a1 1 0 0 0-1.41 1.41l4.18 4.18a1 1 0 0 0 1.41 0l11.06-11.06a1 1 0 1 0-1.41-1.41z"/></svg>';
 const PREMIUM_SVG = '<svg viewBox="0 0 24 24" width="10" height="10"><path d="M12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.62z"/></svg>';
@@ -451,6 +462,7 @@ function setTab(name){
   if (name === 'saved') renderSavedFull();
   if (name === 'reviews') renderReviewsFull();
   if (name === 'listings') renderListingsFull();
+  if (name === 'orders') renderOrdersFull();
 }
 document.querySelectorAll('.tab').forEach(t => {
   t.addEventListener('click', () => setTab(t.dataset.pane));
@@ -488,6 +500,58 @@ async function loadMyListings(){
   } catch (err){
     console.warn('Could not load listings:', err);
   }
+}
+
+async function loadMyOrders(){
+  if (!firebaseUser) return;
+  try {
+    const snap = await getDocs(query(collection(db, 'orders'), where('customerUid', '==', firebaseUser.uid)));
+    myOrders = [];
+    snap.forEach(d => myOrders.push({ id: d.id, ...d.data() }));
+    myOrders.sort((a, b) => (b.createdAt?.toMillis?.() || 0) - (a.createdAt?.toMillis?.() || 0));
+  } catch (err){
+    console.warn('Could not load orders:', err);
+  }
+}
+
+function fmtMoney(n, ccy = 'AED'){
+  if (n === null || n === undefined || n === '') return '';
+  const num = Number(n);
+  if (Number.isNaN(num)) return '';
+  return `${ccy} ${num.toFixed(num % 1 === 0 ? 0 : 2)}`;
+}
+
+function renderOrdersFull(){
+  const root = document.getElementById('orders-list');
+  if (!root) return;
+  if (!myOrders.length){
+    root.innerHTML = `<div class="empty"><p>You haven't ordered anything yet.</p><p><a href="feed.html" class="btn-solid" style="margin-top:12px">Find a business →</a></p></div>`;
+    return;
+  }
+  root.innerHTML = myOrders.map(o => {
+    const ccy = o.currency || 'AED';
+    const items = (o.items || []).map(i => `${i.qty || 1}× ${escHtml(i.name)}${i.price != null ? ' — ' + fmtMoney(i.price, ccy) : ''}`).join('<br>');
+    const total = o.total != null ? fmtMoney(o.total, ccy) : '';
+    const when = fmtDate(o.createdAt);
+    const statusColor = o.status === 'fulfilled' ? '#22C55E' : o.status === 'cancelled' ? '#C53030' : 'var(--gold)';
+    return `
+      <div class="rev-card">
+        <div class="rev-head">
+          <div>
+            <div class="rev-biz"><a href="business.html?id=${encodeURIComponent(o.businessId)}" style="color:inherit">${escHtml(o.businessName || o.businessId || 'Business')}</a></div>
+            <div class="rev-date">${when}${o.orderRef ? ' · ' + escHtml(o.orderRef) : ''}</div>
+          </div>
+          <span style="display:inline-flex; align-items:center; padding:3px 11px; border-radius:999px; background:${statusColor}; color:#fff; font-size:10px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase">${escHtml(o.status || 'sent')}</span>
+        </div>
+        <div class="rev-text" style="font-size:13.5px">${items}</div>
+        ${o.customerNote ? `<div style="margin-top:8px; padding:8px 12px; background:var(--sand); border-radius:8px; font-size:13px; color:var(--muted)"><strong>Note:</strong> ${escHtml(o.customerNote)}</div>` : ''}
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:10px">
+          <div style="font-size:13px; font-weight:700">${total ? 'Total: ' + total : 'On chat'}</div>
+          <a href="business.html?id=${encodeURIComponent(o.businessId)}" class="btn-ghost" style="font-size:12px; padding:6px 14px">View business</a>
+        </div>
+      </div>
+    `;
+  }).join('');
 }
 
 async function loadMySaved(){
@@ -770,7 +834,10 @@ onAuthStateChanged(auth, async (user) => {
   localStorage.setItem('diaspora_user', JSON.stringify(profile));
 
   // Parallel fetches
-  await Promise.all([loadMyReviews(), loadMyListings(), loadMySaved()]);
+  await Promise.all([loadMyReviews(), loadMyListings(), loadMySaved(), loadMyOrders()]);
+
+  // Honour #orders deep link
+  if (location.hash === '#orders') setTab('orders');
 
   renderProfile(profile);
   renderSavedOverview();

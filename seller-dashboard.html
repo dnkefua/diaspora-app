@@ -264,6 +264,8 @@ a { text-decoration: none; color: inherit; }
   <nav class="tabs">
     <div class="tab active" data-tab="profile">Shop Profile</div>
     <div class="tab" data-tab="media">Media</div>
+    <div class="tab" data-tab="services">Menu &amp; Services</div>
+    <div class="tab" data-tab="orders">Orders</div>
     <div class="tab" data-tab="analytics">Analytics</div>
     <div class="tab" data-tab="reviews">Reviews</div>
   </nav>
@@ -445,6 +447,31 @@ a { text-decoration: none; color: inherit; }
 
     </div>
 
+    <!-- Services & Menu Tab -->
+    <div class="tab-content" id="services-tab">
+      <div class="card">
+        <h2 class="card-title">
+          Menu &amp; Services
+          <button class="btn btn-primary" type="button" id="addServiceBtn">+ Add item</button>
+        </h2>
+        <p style="color:var(--muted); font-size:14px; margin-bottom:18px">List the dishes, services, or packages customers can order. Each item gets its own &quot;Add&quot; button on your public business page; orders open WhatsApp pre-filled with the items the customer chose.</p>
+        <div id="services-list" style="display:flex; flex-direction:column; gap:10px">
+          <p style="color:var(--muted); padding:18px 4px">No items yet. Click <strong>+ Add item</strong> to add your first dish or service.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Orders Tab -->
+    <div class="tab-content" id="orders-tab">
+      <div class="card">
+        <h2 class="card-title">Orders from the app</h2>
+        <p style="color:var(--muted); font-size:14px; margin-bottom:18px">Customers who order through your business page leave a record here. The actual conversation continues in WhatsApp.</p>
+        <div id="orders-list">
+          <p style="color:var(--muted); padding:18px 4px">Loading orders…</p>
+        </div>
+      </div>
+    </div>
+
     <!-- Analytics Tab -->
     <div class="tab-content" id="analytics-tab">
       <div class="stats-grid">
@@ -521,15 +548,61 @@ a { text-decoration: none; color: inherit; }
   <div class="toast" id="toast"></div>
 </div>
 
+<!-- Service item modal -->
+<div id="serviceModal" style="position:fixed; inset:0; background:rgba(10,10,10,0.55); backdrop-filter:blur(6px); display:none; align-items:center; justify-content:center; z-index:200; padding:20px;">
+  <div style="background:#fff; border-radius:16px; max-width:520px; width:100%; max-height:90vh; overflow-y:auto; box-shadow:0 30px 80px rgba(0,0,0,0.3)">
+    <div style="padding:20px 24px; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between">
+      <h3 style="font-family:'Cormorant Garamond',serif; font-weight:600; font-size:22px" id="serviceModalTitle">Add menu item</h3>
+      <button type="button" onclick="closeServiceModal()" style="background:none; border:none; font-size:22px; cursor:pointer; color:var(--muted)">×</button>
+    </div>
+    <div style="padding:20px 24px">
+      <input type="hidden" id="svc-id">
+      <div style="display:flex; flex-direction:column; gap:12px">
+        <div>
+          <label style="display:block; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; font-weight:600; color:var(--muted); margin-bottom:5px">Name</label>
+          <input id="svc-name" type="text" maxlength="80" placeholder="Jollof Rice (Family Tray)" style="width:100%; padding:11px 14px; border:1px solid var(--line); border-radius:8px; font-size:14px">
+        </div>
+        <div>
+          <label style="display:block; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; font-weight:600; color:var(--muted); margin-bottom:5px">Description (optional)</label>
+          <textarea id="svc-desc" maxlength="280" rows="3" placeholder="Serves 4-6. Smoky party-style jollof with grilled chicken." style="width:100%; padding:11px 14px; border:1px solid var(--line); border-radius:8px; font-size:14px; resize:vertical"></textarea>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px">
+          <div>
+            <label style="display:block; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; font-weight:600; color:var(--muted); margin-bottom:5px">Price (optional)</label>
+            <input id="svc-price" type="number" min="0" step="0.01" placeholder="120" style="width:100%; padding:11px 14px; border:1px solid var(--line); border-radius:8px; font-size:14px">
+          </div>
+          <div>
+            <label style="display:block; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; font-weight:600; color:var(--muted); margin-bottom:5px">Currency</label>
+            <select id="svc-currency" style="width:100%; padding:11px 14px; border:1px solid var(--line); border-radius:8px; font-size:14px; background:#fff">
+              <option>AED</option><option>USD</option><option>GBP</option><option>EUR</option><option>CAD</option><option>NGN</option><option>KES</option><option>GHS</option><option>ZAR</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label style="display:block; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; font-weight:600; color:var(--muted); margin-bottom:5px">Image URL (optional)</label>
+          <input id="svc-image" type="url" placeholder="https://..." style="width:100%; padding:11px 14px; border:1px solid var(--line); border-radius:8px; font-size:14px">
+        </div>
+      </div>
+    </div>
+    <div style="padding:16px 24px; border-top:1px solid var(--line); display:flex; justify-content:flex-end; gap:8px">
+      <button type="button" id="svcDeleteBtn" class="btn btn-outline" style="display:none; color:var(--error); border-color:var(--error)">Delete</button>
+      <button type="button" onclick="closeServiceModal()" class="btn btn-outline">Cancel</button>
+      <button type="button" id="svcSaveBtn" class="btn btn-primary">Save item</button>
+    </div>
+  </div>
+</div>
+
 <script type="module">
 import { auth, db, storage, onAuthStateChanged, signOut, doc, setDoc, collection, query, where, getDocs, updateDoc } from './firebase-config.js';
 import { ref, uploadBytesResumable, uploadBytes, getDownloadURL, deleteObject } from 'https://www.gstatic.com/firebasejs/12.12.1/firebase-storage.js';
 
 let currentUser = null;
 let businessId = null;
+let businessData = null;
 let currentImages = [];
 let currentVideos = []; // [{url, name, type, size, path}]
 let currentFiles = [];  // [{url, name, type, size, path}]
+let currentServices = []; // [{id, name, description, price, currency, image}]
 
 // Check auth state — redirect to login if not signed in
 onAuthStateChanged(auth, async (user) => {
@@ -574,16 +647,20 @@ async function loadBusiness() {
     snapshot.forEach(d => {
       businessId = d.id;
       const data = d.data();
+      businessData = data;
       currentImages = Array.isArray(data.images) ? data.images.slice() : (data.image ? [data.image] : []);
       currentVideos = Array.isArray(data.videos) ? data.videos.slice() : [];
       currentFiles = Array.isArray(data.files) ? data.files.slice() : [];
+      currentServices = Array.isArray(data.services) ? data.services.slice() : [];
       fillForm(data);
       renderPhotos(currentImages);
       renderVideos(currentVideos);
       renderFiles(currentFiles);
+      renderServices();
       renderTrustBanner(data);
-      // Reviews + analytics from Firestore (best-effort)
+      // Reviews + analytics + orders from Firestore (best-effort)
       loadReviewsForBusiness();
+      loadOrdersForBusiness();
       loadAnalyticsStub(data);
     });
   } catch (error) {
@@ -692,6 +769,163 @@ function renderTrustBanner(data){
     reportBlock.style.display = 'none';
   }
 }
+
+/* ─── Menu & Services CRUD ─── */
+function fmtMoney(n, ccy = 'AED'){
+  if (n === null || n === undefined || n === '') return '';
+  const num = Number(n);
+  if (Number.isNaN(num)) return '';
+  return `${ccy} ${num.toFixed(num % 1 === 0 ? 0 : 2)}`;
+}
+
+function renderServices(){
+  const list = document.getElementById('services-list');
+  if (!list) return;
+  if (!currentServices.length){
+    list.innerHTML = '<p style="color:var(--muted); padding:18px 4px">No items yet. Click <strong>+ Add item</strong> to add your first dish or service.</p>';
+    return;
+  }
+  list.innerHTML = currentServices.map((s, i) => `
+    <div style="display:flex; gap:14px; padding:14px; background:var(--surface); border:1px solid var(--line); border-radius:12px; align-items:center">
+      ${s.image ? `<img src="${escapeHtml(s.image)}" alt="" loading="lazy" style="width:64px; height:64px; object-fit:cover; border-radius:10px; flex-shrink:0; background:#1a1a1a">` : '<div style="width:64px; height:64px; border-radius:10px; background:var(--ivory); display:flex; align-items:center; justify-content:center; font-size:24px; flex-shrink:0">🍽</div>'}
+      <div style="flex:1; min-width:0">
+        <div style="font-weight:600; font-size:15px">${escapeHtml(s.name || '(unnamed)')}</div>
+        ${s.description ? `<div style="font-size:13px; color:var(--muted); margin-top:3px; overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical">${escapeHtml(s.description)}</div>` : ''}
+        ${s.price !== undefined && s.price !== null && s.price !== '' ? `<div style="font-size:13px; font-weight:600; color:var(--brass); margin-top:4px">${escapeHtml(fmtMoney(s.price, s.currency || 'AED'))}</div>` : '<div style="font-size:12px; color:var(--muted); margin-top:4px; font-style:italic">Price on request</div>'}
+      </div>
+      <div style="display:flex; gap:6px; flex-shrink:0">
+        <button type="button" class="btn-mini" onclick="editService(${i})" style="padding:7px 14px; font-size:11px; border-radius:999px; background:transparent; border:1px solid var(--line); cursor:pointer">Edit</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+window.editService = function(i){
+  openServiceModal(currentServices[i] || null, i);
+};
+
+let editingServiceIndex = -1;
+
+function openServiceModal(svc, index){
+  editingServiceIndex = (typeof index === 'number') ? index : -1;
+  document.getElementById('serviceModalTitle').textContent = svc ? 'Edit menu item' : 'Add menu item';
+  document.getElementById('svc-id').value = svc?.id || '';
+  document.getElementById('svc-name').value = svc?.name || '';
+  document.getElementById('svc-desc').value = svc?.description || '';
+  document.getElementById('svc-price').value = svc?.price ?? '';
+  document.getElementById('svc-currency').value = svc?.currency || 'AED';
+  document.getElementById('svc-image').value = svc?.image || '';
+  document.getElementById('svcDeleteBtn').style.display = svc ? 'inline-flex' : 'none';
+  document.getElementById('serviceModal').style.display = 'flex';
+}
+window.closeServiceModal = function(){
+  document.getElementById('serviceModal').style.display = 'none';
+};
+
+document.getElementById('addServiceBtn').addEventListener('click', () => openServiceModal(null));
+
+document.getElementById('svcSaveBtn').addEventListener('click', async () => {
+  if (!businessId || !currentUser) return;
+  const name = document.getElementById('svc-name').value.trim();
+  if (!name){ showToast('Item name is required', 'error'); return; }
+  const priceRaw = document.getElementById('svc-price').value;
+  const item = {
+    id: document.getElementById('svc-id').value || ('s_' + Date.now().toString(36) + Math.random().toString(36).slice(2,6)),
+    name,
+    description: document.getElementById('svc-desc').value.trim() || null,
+    price: priceRaw === '' ? null : Number(priceRaw),
+    currency: document.getElementById('svc-currency').value || 'AED',
+    image: document.getElementById('svc-image').value.trim() || null
+  };
+  if (editingServiceIndex >= 0){
+    currentServices[editingServiceIndex] = item;
+  } else {
+    currentServices.push(item);
+  }
+  try {
+    await updateDoc(doc(db, 'businesses', businessId), { services: currentServices, updatedAt: new Date() });
+    closeServiceModal();
+    renderServices();
+    showToast(editingServiceIndex >= 0 ? 'Item updated' : 'Item added', 'success');
+  } catch (err){
+    console.error('Save service failed:', err);
+    showToast(err.message || 'Could not save', 'error');
+  }
+});
+
+document.getElementById('svcDeleteBtn').addEventListener('click', async () => {
+  if (editingServiceIndex < 0) return;
+  if (!confirm('Delete this item from your menu?')) return;
+  currentServices.splice(editingServiceIndex, 1);
+  try {
+    await updateDoc(doc(db, 'businesses', businessId), { services: currentServices, updatedAt: new Date() });
+    closeServiceModal();
+    renderServices();
+    showToast('Item deleted', 'success');
+  } catch (err){
+    console.error('Delete service failed:', err);
+    showToast(err.message || 'Could not delete', 'error');
+  }
+});
+
+/* ─── Orders inbox ─── */
+async function loadOrdersForBusiness(){
+  if (!businessId) return;
+  const list = document.getElementById('orders-list');
+  if (!list) return;
+  try {
+    const snap = await getDocs(query(collection(db, 'orders'), where('businessId', '==', businessId)));
+    if (snap.empty){
+      list.innerHTML = '<p style="color:var(--muted); padding:18px 4px">No orders yet. When a customer orders through your business page, it will appear here.</p>';
+      return;
+    }
+    const rows = [];
+    snap.forEach(d => rows.push({ id: d.id, ...d.data() }));
+    rows.sort((a,b) => (b.createdAt?.toMillis?.() || 0) - (a.createdAt?.toMillis?.() || 0));
+
+    list.innerHTML = rows.map(o => {
+      const when = o.createdAt?.toDate ? o.createdAt.toDate().toLocaleString() : '';
+      const items = (o.items || []).map(i => `${i.qty || 1}× ${escapeHtml(i.name)}${i.price != null ? ' — ' + fmtMoney(i.price, o.currency || 'AED') : ''}`).join('<br>');
+      const total = o.total != null ? fmtMoney(o.total, o.currency || 'AED') : '';
+      const statusColor = o.status === 'fulfilled' ? 'var(--success)' : o.status === 'cancelled' ? 'var(--error)' : 'var(--brass)';
+      const waLink = o.customerPhone ? `https://wa.me/${o.customerPhone.replace(/[^0-9]/g,'')}` : '';
+      return `
+        <div style="background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:16px; margin-bottom:10px">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:8px">
+            <div>
+              <div style="font-weight:600; font-size:15px">${escapeHtml(o.customerName || 'Diaspora customer')}</div>
+              <div style="font-size:12px; color:var(--muted)">${when}${o.mode ? ' · ' + escapeHtml(o.mode) : ''}</div>
+            </div>
+            <span style="display:inline-flex; align-items:center; padding:3px 10px; border-radius:999px; background:${statusColor}; color:#fff; font-size:10px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase">${escapeHtml(o.status || 'pending')}</span>
+          </div>
+          <div style="font-size:14px; line-height:1.6; color:var(--graphite)">${items || '<em>no items</em>'}</div>
+          ${o.customerNote ? `<div style="font-size:13px; color:var(--muted); margin-top:6px; padding:8px 12px; background:var(--ivory); border-radius:8px"><strong>Note:</strong> ${escapeHtml(o.customerNote)}</div>` : ''}
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:10px; padding-top:10px; border-top:1px solid var(--line)">
+            <div style="font-size:14px; font-weight:600">${total ? 'Total: ' + total : 'No total quoted'}</div>
+            <div style="display:flex; gap:6px">
+              ${waLink ? `<a href="${waLink}" target="_blank" rel="noopener" class="btn btn-primary" style="padding:6px 14px; font-size:12px">💬 WhatsApp</a>` : ''}
+              ${o.status !== 'fulfilled' ? `<button type="button" class="btn btn-outline" style="padding:6px 14px; font-size:12px" onclick="markOrderFulfilled('${escapeHtml(o.id)}')">Mark fulfilled</button>` : ''}
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  } catch (err){
+    console.error('Load orders failed:', err);
+    list.innerHTML = `<p style="color:var(--error); padding:18px 4px">Could not load orders: ${escapeHtml(err.message)}</p>`;
+  }
+}
+
+window.markOrderFulfilled = async function(orderId){
+  try {
+    await updateDoc(doc(db, 'orders', orderId), { status: 'fulfilled', updatedAt: new Date() });
+    showToast('Order marked fulfilled', 'success');
+    await loadOrdersForBusiness();
+  } catch (err){
+    console.error('Update order failed:', err);
+    showToast(err.message || 'Could not update', 'error');
+  }
+};
 
 function loadAnalyticsStub(data){
   // Until Firebase Analytics export → BigQuery is wired, show static placeholders
