@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Image, Text, View, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import { colors, typography, spacing, radius } from '../constants/designTokens';
 
 export const BusinessCard = ({ 
