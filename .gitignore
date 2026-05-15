@@ -8,6 +8,8 @@ Thumbs.db
 workflow_logs.zip
 dist/
 build/
+builds/
+*.aab
 .vscode/
 .idea/
 .firebase/

@@ -44,6 +44,9 @@
           Apple
         </button>
       </div>
+      <p class="hint" id="app-signup-hint" style="display:none;margin:12px 0 0">
+        App testing uses email sign-up. Google/Apple popups are disabled inside the Android app.
+      </p>
       <div class="divider">or with email</div>
 
       <div class="err" id="err"></div>
@@ -99,6 +102,15 @@
 import { auth, db, createUserWithEmailAndPassword, updateProfile, doc, getDoc, setDoc, collection } from './firebase-config.js';
 import { GoogleAuthProvider, signInWithPopup } from 'https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js';
 
+function isAndroidAppWebView(){
+  return /; wv\)|\bwv\b|Capacitor/i.test(navigator.userAgent || '') || Boolean(window.Capacitor);
+}
+
+if (isAndroidAppWebView()) {
+  document.querySelector('.social-row')?.setAttribute('style', 'display:none');
+  document.getElementById('app-signup-hint').style.display = 'block';
+}
+
 // Honour ?next= for post-auth redirect (same-origin only).
 function nextDest(){
   const next = new URLSearchParams(location.search).get('next');
@@ -111,6 +123,12 @@ function nextDest(){
 window.socialSignup = async function(provider) {
   const err = document.getElementById('err');
   err.classList.remove('show');
+
+  if (isAndroidAppWebView()) {
+    err.textContent = 'Please use email sign-up in the Android testing app.';
+    err.classList.add('show');
+    return;
+  }
 
   if (provider === 'Apple') {
     err.textContent = 'Apple sign-up is coming soon. For now please use Google or email.';
@@ -231,6 +249,13 @@ window.handleSignup = async function(e) {
 
     // Send email verification
     // await sendEmailVerification(firebaseUser);
+
+    if (isAndroidAppWebView()) {
+      const { password: _password, otpCode, otpExpires, ...sessionUser } = userDoc;
+      localStorage.setItem('diaspora_user', JSON.stringify(sessionUser));
+      window.location.href = nextDest() || 'feed.html';
+      return;
+    }
 
     // Save pending user for OTP verification (phone verification).
     // Carry the post-auth `next` destination so OTP can return the user there.

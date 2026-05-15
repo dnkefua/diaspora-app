@@ -39,6 +39,9 @@
           Apple
         </button>
       </div>
+      <p class="hint" id="app-login-hint" style="display:none;margin:12px 0 0">
+        App testing uses email sign-in. Google/Apple popups are disabled inside the Android app.
+      </p>
       <div class="divider">or with email</div>
 
       <div class="err" id="err"></div>
@@ -69,6 +72,15 @@
 import { auth, db, signInWithEmailAndPassword, doc, getDoc, setDoc, onAuthStateChanged } from './firebase-config.js';
 import { GoogleAuthProvider, signInWithPopup } from 'https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js';
 
+function isAndroidAppWebView(){
+  return /; wv\)|\bwv\b|Capacitor/i.test(navigator.userAgent || '') || Boolean(window.Capacitor);
+}
+
+if (isAndroidAppWebView()) {
+  document.querySelector('.social-row')?.setAttribute('style', 'display:none');
+  document.getElementById('app-login-hint').style.display = 'block';
+}
+
 // Honour ?next= for post-auth redirect (defaults to feed). Only same-origin paths.
 function nextDest(){
   const next = new URLSearchParams(location.search).get('next');
@@ -89,6 +101,12 @@ onAuthStateChanged(auth, (user) => {
 window.socialLogin = async function(provider) {
   const err = document.getElementById('err');
   err.classList.remove('show');
+
+  if (isAndroidAppWebView()) {
+    err.textContent = 'Please use email sign-in in the Android testing app.';
+    err.classList.add('show');
+    return;
+  }
 
   if (provider === 'Apple') {
     err.textContent = 'Apple sign-in is coming soon. For now please use Google or email.';
