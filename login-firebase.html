@@ -115,7 +115,10 @@ async function signInWithNativeGoogle(){
     throw new Error('Native Google sign-in is unavailable in this app build.');
   }
 
-  const result = await nativeAuth.signInWithGoogle();
+  const result = await nativeAuth.signInWithGoogle({
+    skipNativeAuth: true,
+    useCredentialManager: false
+  });
   const nativeCredential = result?.credential || {};
   const idToken = nativeCredential.idToken || nativeCredential.id_token || result?.idToken;
   const accessToken = nativeCredential.accessToken || nativeCredential.access_token || result?.accessToken;
@@ -173,7 +176,8 @@ window.socialLogin = async function(provider) {
 
   } catch (error) {
     console.error('Google sign-in error:', error);
-    let message = 'Could not sign in with Google. Try again.';
+    const details = [error.code, error.message].filter(Boolean).join(': ');
+    let message = details ? `Could not sign in with Google: ${details}` : 'Could not sign in with Google. Try again.';
     if (error.code === 'auth/popup-closed-by-user') message = 'Sign-in window closed before completing.';
     else if (error.code === 'auth/popup-blocked') message = 'Pop-up was blocked. Allow pop-ups for this site and try again.';
     else if (error.code === 'auth/account-exists-with-different-credential') message = 'An account already exists with this email using a different sign-in method.';
