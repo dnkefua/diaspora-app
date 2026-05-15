@@ -2,7 +2,7 @@
 
 ## Upload Artifact
 
-- AAB file: `builds/the-diaspora-app-native-v8-resigned.aab`
+- AAB file: `builds/the-diaspora-app-native-v9-gmail.aab`
 - Build type: Native Android / Capacitor WebView
 - Expo/EAS: Not used for this artifact
 - Signed: Yes
@@ -11,8 +11,8 @@
 
 - App name: The Diaspora App
 - Package name / application ID: `com.ndnanalytics.thediaspora`
-- Version name: `1.0.1`
-- Version code: `8`
+- Version name: `1.0.2`
+- Version code: `9`
 - Start URL: `https://www.thediaspora.app`
 - Website: `https://www.thediaspora.app`
 - Privacy policy: `https://www.thediaspora.app/privacy.html`
@@ -26,7 +26,7 @@
 
 ## Internal Testing Release Notes
 
-Initial internal testing release for The Diaspora App. This build opens the live production app at `https://www.thediaspora.app` with native Android packaging and The Diaspora App branding.
+Internal testing update for The Diaspora App. This build opens the live production app at `https://www.thediaspora.app`, includes native Android Google/Gmail sign-in support, and keeps the The Diaspora App branding.
 
 ## Signing
 

@@ -45,7 +45,7 @@
         </button>
       </div>
       <p class="hint" id="app-signup-hint" style="display:none;margin:12px 0 0">
-        App testing uses email sign-up. Google/Apple popups are disabled inside the Android app.
+        Gmail sign-up opens through the native Android app for safer authentication.
       </p>
       <div class="divider">or with email</div>
 
@@ -100,15 +100,33 @@
 
 <script type="module">
 import { auth, db, createUserWithEmailAndPassword, updateProfile, doc, getDoc, setDoc, collection } from './firebase-config.js';
-import { GoogleAuthProvider, signInWithPopup } from 'https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js';
+import { GoogleAuthProvider, signInWithCredential, signInWithPopup } from 'https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js';
 
 function isAndroidAppWebView(){
   return /; wv\)|\bwv\b|Capacitor/i.test(navigator.userAgent || '') || Boolean(window.Capacitor);
 }
 
 if (isAndroidAppWebView()) {
-  document.querySelector('.social-row')?.setAttribute('style', 'display:none');
   document.getElementById('app-signup-hint').style.display = 'block';
+}
+
+async function signInWithNativeGoogle(){
+  const nativeAuth = window.Capacitor?.Plugins?.FirebaseAuthentication;
+  if (!nativeAuth?.signInWithGoogle) {
+    throw new Error('Native Google sign-in is unavailable in this app build.');
+  }
+
+  const result = await nativeAuth.signInWithGoogle();
+  const nativeCredential = result?.credential || {};
+  const idToken = nativeCredential.idToken || nativeCredential.id_token || result?.idToken;
+  const accessToken = nativeCredential.accessToken || nativeCredential.access_token || result?.accessToken;
+  if (!idToken && !accessToken) {
+    throw new Error('Google did not return a sign-in token.');
+  }
+
+  const credential = GoogleAuthProvider.credential(idToken || null, accessToken || null);
+  const webResult = await signInWithCredential(auth, credential);
+  return webResult.user;
 }
 
 // Honour ?next= for post-auth redirect (same-origin only).
@@ -124,12 +142,6 @@ window.socialSignup = async function(provider) {
   const err = document.getElementById('err');
   err.classList.remove('show');
 
-  if (isAndroidAppWebView()) {
-    err.textContent = 'Please use email sign-up in the Android testing app.';
-    err.classList.add('show');
-    return;
-  }
-
   if (provider === 'Apple') {
     err.textContent = 'Apple sign-up is coming soon. For now please use Google or email.';
     err.classList.add('show');
@@ -139,10 +151,15 @@ window.socialSignup = async function(provider) {
   if (provider !== 'Google') return;
 
   try {
-    const googleProvider = new GoogleAuthProvider();
-    googleProvider.setCustomParameters({ prompt: 'select_account' });
-    const result = await signInWithPopup(auth, googleProvider);
-    const user = result.user;
+    let user;
+    if (isAndroidAppWebView()) {
+      user = await signInWithNativeGoogle();
+    } else {
+      const googleProvider = new GoogleAuthProvider();
+      googleProvider.setCustomParameters({ prompt: 'select_account' });
+      const result = await signInWithPopup(auth, googleProvider);
+      user = result.user;
+    }
 
     // First-time Google sign-up: create the users/{uid} doc.
     // If they already had an account (rare on /signup) we just refresh local cache.
@@ -183,6 +200,7 @@ window.socialSignup = async function(provider) {
     else if (error.code === 'auth/account-exists-with-different-credential') message = 'An account already exists with this email using a different sign-in method.';
     else if (error.code === 'auth/unauthorized-domain') message = "This domain isn't authorised in Firebase Auth settings yet.";
     else if (error.code === 'auth/network-request-failed') message = 'Network error. Check your connection.';
+    else if (/Native Google sign-in|unavailable/i.test(error.message || '')) message = 'Please update the Android testing app, then try Gmail sign-up again.';
     err.textContent = message;
     err.classList.add('show');
   }

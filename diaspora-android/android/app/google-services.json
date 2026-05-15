@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "530318956241",
+    "project_id": "the-diaspora-app",
+    "storage_bucket": "the-diaspora-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:530318956241:android:25ad2e43002e43376717f0",
+        "android_client_info": {
+          "package_name": "com.ndnanalytics.thediaspora"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "530318956241-soilcf2espe0nv7h82sd8t0mop0v7mum.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ndnanalytics.thediaspora",
+            "certificate_hash": "7e1dc1dfd60e7c10fcc82b0b0dc3abfeb687ec6e"
+          }
+        },
+        {
+          "client_id": "530318956241-g8m1j9g1c7cr4j7b4ehcsmki68450l72.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIV69QF8E6NM4T_ZmwVvXsV8RVZWErrhI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "530318956241-g8m1j9g1c7cr4j7b4ehcsmki68450l72.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
