@@ -115,20 +115,30 @@ async function signInWithNativeGoogle(){
     throw new Error('Native Google sign-in is unavailable in this app build.');
   }
 
-  const result = await nativeAuth.signInWithGoogle({
-    skipNativeAuth: true,
-    useCredentialManager: false
-  });
-  const nativeCredential = result?.credential || {};
-  const idToken = nativeCredential.idToken || nativeCredential.id_token || result?.idToken;
-  const accessToken = nativeCredential.accessToken || nativeCredential.access_token || result?.accessToken;
-  if (!idToken && !accessToken) {
-    throw new Error('Google did not return a sign-in token.');
-  }
+  const attempts = [
+    { skipNativeAuth: true, useCredentialManager: true },
+    { skipNativeAuth: true, useCredentialManager: false }
+  ];
+  let lastError;
+  for (const options of attempts) {
+    try {
+      const result = await nativeAuth.signInWithGoogle(options);
+      const nativeCredential = result?.credential || {};
+      const idToken = nativeCredential.idToken || nativeCredential.id_token || result?.idToken;
+      const accessToken = nativeCredential.accessToken || nativeCredential.access_token || result?.accessToken;
+      if (!idToken && !accessToken) {
+        throw new Error('Google did not return a sign-in token.');
+      }
 
-  const credential = GoogleAuthProvider.credential(idToken || null, accessToken || null);
-  const webResult = await signInWithCredential(auth, credential);
-  return webResult.user;
+      const credential = GoogleAuthProvider.credential(idToken || null, accessToken || null);
+      const webResult = await signInWithCredential(auth, credential);
+      return webResult.user;
+    } catch (error) {
+      lastError = error;
+      if (/cancel|abort/i.test(`${error?.code || ''} ${error?.message || ''}`)) break;
+    }
+  }
+  throw lastError || new Error('Google sign-in failed.');
 }
 
 // Honour ?next= for post-auth redirect (defaults to feed). Only same-origin paths.
@@ -183,6 +193,7 @@ window.socialLogin = async function(provider) {
     else if (error.code === 'auth/account-exists-with-different-credential') message = 'An account already exists with this email using a different sign-in method.';
     else if (error.code === 'auth/unauthorized-domain') message = "This domain isn't authorised in Firebase Auth settings yet.";
     else if (error.code === 'auth/network-request-failed') message = 'Network error. Check your connection.';
+    else if (/^10$|DEVELOPER_ERROR|ApiException: 10/i.test(`${error.code || ''} ${error.message || ''}`)) message = 'Google rejected the Android signing certificate. Please use email sign-in while we add the Play signing fingerprint in Firebase.';
     else if (String(error.message || '').includes('unavailable')) message = 'Please update the app from the testing link, then try Gmail sign-in again.';
     err.textContent = message;
     err.classList.add('show');
