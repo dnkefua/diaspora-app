@@ -101,6 +101,25 @@ a { text-decoration: none; color: inherit; }
 .lightbox .lb-next { right: 20px; top: 50%; transform: translateY(-50%); }
 .lightbox .lb-counter { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); color: #fff; font-size: 13px; opacity: 0.7; }
 
+/* Location + map */
+.map-section { margin-bottom: 32px; }
+.map-card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+.map-frame { width: 100%; aspect-ratio: 16/9; border: 0; display: block; background: var(--ivory); }
+.map-actions { padding: 14px 18px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; border-top: 1px solid var(--line); }
+.map-actions .addr { flex: 1; min-width: 0; font-size: 13.5px; color: var(--graphite); line-height: 1.45; }
+.map-actions .addr strong { color: var(--ink); display: block; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 3px; color: var(--brass); font-weight: 700; }
+.map-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 11px 18px; border-radius: 999px;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  text-decoration: none; transition: background 0.18s, color 0.18s, transform 0.18s;
+  white-space: nowrap;
+}
+.map-btn.primary { background: var(--ink); color: var(--paper); }
+.map-btn.primary:hover { background: var(--brass); transform: translateY(-1px); }
+.map-btn.outline { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+.map-btn.outline:hover { background: var(--ivory); border-color: var(--ink); }
+
 /* Service mode badges */
 .mode-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 4px; }
 .mode-pill {
@@ -658,9 +677,9 @@ async function renderPage() {
             </div>
             <div class="detail-row">
               <div class="detail-icon">📍</div>
-              <div>
+              <div style="flex:1">
                 <strong>Location</strong><br>
-                <span style="color:var(--muted)">${biz.area}, ${biz.city}</span>
+                <span style="color:var(--muted)">${biz.location?.address ? escHtml(biz.location.address) : [biz.area, biz.city].filter(Boolean).map(escHtml).join(', ')}</span>
               </div>
             </div>
             <div class="detail-row">
@@ -674,6 +693,8 @@ async function renderPage() {
             </div>
           </div>
         </div>
+
+        ${renderLocationSection(biz)}
 
         ${renderWeeklySchedule(biz)}
         ${renderServicesSection(biz)}
@@ -724,6 +745,57 @@ function fileEmoji(type, name){
   if (t.includes('sheet') || t.includes('excel') || n.endsWith('.xls') || n.endsWith('.xlsx') || t === 'text/csv' || n.endsWith('.csv')) return '📗';
   if (t.includes('presentation') || n.endsWith('.ppt') || n.endsWith('.pptx')) return '📙';
   return '📄';
+}
+
+/* ── Google Maps integration ──
+   No API key needed for the legacy embed query, directions URL, or search URL.
+   All three accept a free-text destination (address) OR "lat,lng" string. */
+function buildMapQuery(biz){
+  const loc = biz.location || {};
+  if (loc.lat != null && loc.lng != null && !Number.isNaN(Number(loc.lat)) && !Number.isNaN(Number(loc.lng))){
+    return `${loc.lat},${loc.lng}`;
+  }
+  if (loc.address) return loc.address;
+  // Fall back to area + city + business name for a best-effort pin
+  const parts = [biz.name, biz.area, biz.city].filter(Boolean);
+  return parts.length ? parts.join(', ') : '';
+}
+function getMapEmbedUrl(biz){
+  const q = buildMapQuery(biz);
+  if (!q) return '';
+  return `https://maps.google.com/maps?q=${encodeURIComponent(q)}&z=16&output=embed`;
+}
+function getDirectionsUrl(biz){
+  const q = buildMapQuery(biz);
+  if (!q) return '';
+  return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(q)}`;
+}
+function getMapsViewUrl(biz){
+  if (biz.location?.mapsUrl) return biz.location.mapsUrl;
+  const q = buildMapQuery(biz);
+  if (!q) return '';
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
+}
+function renderLocationSection(biz){
+  const embed = getMapEmbedUrl(biz);
+  if (!embed) return ''; // no usable location data — skip the whole section
+  const addressLine = biz.location?.address || [biz.area, biz.city].filter(Boolean).join(', ');
+  return `
+    <div class="section map-section">
+      <h2 class="section-title">Find &amp; visit</h2>
+      <div class="map-card">
+        <iframe class="map-frame" src="${embed}" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="${escHtml(biz.name)} — location on Google Maps" allowfullscreen></iframe>
+        <div class="map-actions">
+          <div class="addr">
+            <strong>Address</strong>
+            ${escHtml(addressLine) || '<em style="color:var(--muted)">Approximate area shown — exact address not yet provided.</em>'}
+          </div>
+          <a href="${getDirectionsUrl(biz)}" target="_blank" rel="noopener" class="map-btn primary">📍 Get directions</a>
+          <a href="${getMapsViewUrl(biz)}" target="_blank" rel="noopener" class="map-btn outline">View on Google Maps</a>
+        </div>
+      </div>
+    </div>
+  `;
 }
 
 function renderServiceModes(biz){
@@ -879,10 +951,17 @@ function injectLocalBusinessSchema(biz, reviews){
     'image': heroImg ? [heroImg] : undefined,
     'address': {
       '@type': 'PostalAddress',
+      'streetAddress': biz.location?.address || undefined,
       'addressLocality': biz.area || biz.city,
       'addressRegion': biz.city,
       'addressCountry': biz.country || undefined
     },
+    'geo': (biz.location?.lat != null && biz.location?.lng != null && !Number.isNaN(Number(biz.location.lat)) && !Number.isNaN(Number(biz.location.lng))) ? {
+      '@type': 'GeoCoordinates',
+      'latitude': Number(biz.location.lat),
+      'longitude': Number(biz.location.lng)
+    } : undefined,
+    'hasMap': biz.location?.mapsUrl || getMapsViewUrl(biz) || undefined,
     'telephone': biz.phone || undefined,
     'url': `https://www.thediaspora.app/business.html?id=${encodeURIComponent(biz.id)}`,
     'priceRange': biz.priceRange || (Array.isArray(biz.services) && biz.services.some(s => s.price) ? '$$' : undefined)

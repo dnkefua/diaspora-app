@@ -331,6 +331,12 @@ img { max-width: 100%; height: auto; }
             <input id="biz-area" type="text" maxlength="60" placeholder="Deira, Peckham, Brixton, JLT…" autocomplete="address-level2">
           </div>
 
+          <div class="field">
+            <label for="biz-address">Full address (optional — enables map + directions)</label>
+            <input id="biz-address" type="text" maxlength="160" placeholder="Shop 12, Building 5, Al Maktoum Rd, Deira, Dubai" autocomplete="street-address">
+            <span class="field-hint">Customers see this as an embedded Google Map with a "Get Directions" button. You can refine it in the dashboard later.</span>
+          </div>
+
           <div class="row-2">
             <div class="field">
               <label for="biz-phone">Phone (with country code)</label>
@@ -533,6 +539,7 @@ $('#intake-form').addEventListener('submit', async (e) => {
   if (!me){ show(gate); return; }
   errEl.classList.remove('show');
 
+  const addressVal = $('#biz-address')?.value.trim() || '';
   const data = {
     name: $('#biz-name').value.trim(),
     category: $('#biz-category').value,
@@ -542,6 +549,7 @@ $('#intake-form').addEventListener('submit', async (e) => {
     whatsapp: $('#biz-whatsapp').value.trim() || $('#biz-phone').value.trim(),
     image: uploadedImageUrl || imageHidden.value.trim(),
     description: $('#biz-desc').value.trim(),
+    location: addressVal ? { address: addressVal, lat: null, lng: null, mapsUrl: null } : null,
   };
 
   if (!data.name || !data.category || !data.city || !data.phone || !data.description){

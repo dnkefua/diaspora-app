@@ -465,6 +465,36 @@ img, video { max-width: 100%; height: auto; }
           </div>
 
           <div class="form-group" style="grid-column: 1 / -1;">
+            <label>Location &amp; map</label>
+            <p style="font-size:13px; color:var(--muted); margin-bottom:10px">Customers see an embedded Google Map on your business page plus a one-tap "Get Directions" button. <strong>Address is enough</strong> — add coordinates only if you want a more precise pin.</p>
+            <div style="display:grid; gap:10px">
+              <div>
+                <label style="font-size:10.5px; letter-spacing:0.20em; text-transform:uppercase; font-weight:600; color:var(--muted); display:block; margin-bottom:5px">Full street address</label>
+                <input type="text" id="loc-address" placeholder="Shop 12, Building 5, Al Maktoum Rd, Deira, Dubai, UAE" style="width:100%; padding:11px 14px; border:1px solid var(--line); border-radius:10px; font-family:inherit; font-size:14px; background:#fff">
+              </div>
+              <div style="display:grid; grid-template-columns:1fr 1fr 1.4fr; gap:8px;">
+                <div>
+                  <label style="font-size:10.5px; letter-spacing:0.20em; text-transform:uppercase; font-weight:600; color:var(--muted); display:block; margin-bottom:5px">Latitude</label>
+                  <input type="text" id="loc-lat" placeholder="25.2867" style="width:100%; padding:11px 14px; border:1px solid var(--line); border-radius:10px; font-family:inherit; font-size:14px; background:#fff">
+                </div>
+                <div>
+                  <label style="font-size:10.5px; letter-spacing:0.20em; text-transform:uppercase; font-weight:600; color:var(--muted); display:block; margin-bottom:5px">Longitude</label>
+                  <input type="text" id="loc-lng" placeholder="55.3210" style="width:100%; padding:11px 14px; border:1px solid var(--line); border-radius:10px; font-family:inherit; font-size:14px; background:#fff">
+                </div>
+                <div>
+                  <label style="font-size:10.5px; letter-spacing:0.20em; text-transform:uppercase; font-weight:600; color:var(--muted); display:block; margin-bottom:5px">Google Maps share link</label>
+                  <input type="url" id="loc-maps-url" placeholder="https://maps.app.goo.gl/…" style="width:100%; padding:11px 14px; border:1px solid var(--line); border-radius:10px; font-family:inherit; font-size:14px; background:#fff">
+                </div>
+              </div>
+              <p style="font-size:12px; color:var(--muted); margin:6px 0 0">
+                💡 <strong>How to get coordinates:</strong> open Google Maps, find your business, right-click the pin → click the lat,lng numbers to copy → paste here.
+              </p>
+              <div id="loc-preview" style="display:none; margin-top:6px; border:1px solid var(--line); border-radius:10px; overflow:hidden; background:var(--ivory); aspect-ratio:16/7"></div>
+              <button type="button" id="loc-preview-btn" class="btn btn-outline" style="padding:8px 16px; font-size:12px; align-self:flex-start">Preview on map</button>
+            </div>
+          </div>
+
+          <div class="form-group" style="grid-column: 1 / -1;">
             <label>Hours</label>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
               <input type="text" class="hours-input" data-day="monday" placeholder="Monday: 10:00 AM - 9:00 PM">
@@ -804,6 +834,13 @@ function fillForm(data) {
     });
   }
 
+  // Location & map
+  const loc = data.location || {};
+  document.getElementById('loc-address').value = loc.address || '';
+  document.getElementById('loc-lat').value = loc.lat != null ? loc.lat : '';
+  document.getElementById('loc-lng').value = loc.lng != null ? loc.lng : '';
+  document.getElementById('loc-maps-url').value = loc.mapsUrl || '';
+
   // Service modes
   const modes = data.serviceModes || {};
   document.getElementById('mode-pickup').checked = !!modes.pickup;
@@ -873,6 +910,28 @@ setTimeout(() => {
   document.getElementById('addScheduleBtn')?.addEventListener('click', () => {
     currentSchedule.push({ day: 'Sunday', time: '', name: '' });
     renderSchedule();
+  });
+
+  // Location preview button — embeds the Google Maps iframe using current values
+  document.getElementById('loc-preview-btn')?.addEventListener('click', () => {
+    const address = document.getElementById('loc-address').value.trim();
+    const lat = document.getElementById('loc-lat').value.trim();
+    const lng = document.getElementById('loc-lng').value.trim();
+    const preview = document.getElementById('loc-preview');
+    const btn = document.getElementById('loc-preview-btn');
+    let q = '';
+    if (lat && lng && !Number.isNaN(Number(lat)) && !Number.isNaN(Number(lng))){
+      q = `${lat},${lng}`;
+    } else if (address){
+      q = address;
+    } else {
+      showToast('Add an address or lat/lng first', 'error');
+      return;
+    }
+    const url = `https://maps.google.com/maps?q=${encodeURIComponent(q)}&z=16&output=embed`;
+    preview.innerHTML = `<iframe src="${url}" loading="lazy" style="width:100%;height:100%;border:0" referrerpolicy="no-referrer-when-downgrade" title="Business location preview"></iframe>`;
+    preview.style.display = 'block';
+    btn.textContent = 'Refresh preview';
   });
 }, 0);
 
@@ -1137,6 +1196,18 @@ async function saveProfile(e) {
     if (input.value) hours[input.dataset.day] = input.value;
   });
 
+  // Location & map fields
+  const latStr = document.getElementById('loc-lat').value.trim();
+  const lngStr = document.getElementById('loc-lng').value.trim();
+  const lat = latStr === '' ? null : Number(latStr);
+  const lng = lngStr === '' ? null : Number(lngStr);
+  const location = {
+    address: document.getElementById('loc-address').value.trim() || null,
+    lat: (lat !== null && !Number.isNaN(lat) && lat >= -90 && lat <= 90) ? lat : null,
+    lng: (lng !== null && !Number.isNaN(lng) && lng >= -180 && lng <= 180) ? lng : null,
+    mapsUrl: document.getElementById('loc-maps-url').value.trim() || null
+  };
+
   // Only mutable fields. The rules forbid owner from changing verified/featured/ownerId.
   const serviceModes = {
     pickup: document.getElementById('mode-pickup').checked,
@@ -1157,6 +1228,7 @@ async function saveProfile(e) {
     area: document.getElementById('biz-area').value.trim(),
     description: document.getElementById('biz-desc').value.trim(),
     hours,
+    location,
     serviceModes,
     weeklySchedule,
     images: currentImages,
