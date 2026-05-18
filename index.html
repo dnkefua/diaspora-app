@@ -875,35 +875,6 @@ img, video { max-width: 100%; height: auto; }
 </head>
 <body>
 
-<!-- ───────── LAUNCH BANNER ───────── -->
-<div id="launchBanner" style="background:linear-gradient(90deg, #1C3D6E 0%, #D4AF37 100%); color:#fff; padding:10px 20px; display:flex; align-items:center; justify-content:center; gap:14px; font-size:13.5px; font-weight:500; letter-spacing:0.02em; position:relative; z-index:99; flex-wrap:wrap; text-align:center; line-height:1.4;">
-  <span>🎉 <strong>Now launching in Dubai</strong> — list your African or diaspora-owned business <strong>free this week</strong>.</span>
-  <a href="become-seller.html" style="color:#fff; text-decoration:underline; font-weight:700; white-space:nowrap">Get listed →</a>
-  <button type="button" id="launchBannerClose" aria-label="Dismiss banner" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); background:transparent; border:none; color:#fff; font-size:22px; line-height:1; cursor:pointer; opacity:0.8; padding:4px 8px;">×</button>
-</div>
-<style>
-  @media (max-width: 720px){
-    #launchBanner { font-size: 12.5px; padding: 9px 36px 9px 14px; gap: 8px; }
-    #launchBanner br { display: none; }
-  }
-  /* Push the fixed top nav down to clear the banner */
-  body.has-launch-banner .topnav { top: 0; }
-</style>
-<script>
-(function(){
-  var banner = document.getElementById('launchBanner');
-  if (!banner) return;
-  if (sessionStorage.getItem('launchBannerDismissed') === '1'){
-    banner.style.display = 'none';
-    return;
-  }
-  document.getElementById('launchBannerClose').addEventListener('click', function(){
-    banner.style.display = 'none';
-    try { sessionStorage.setItem('launchBannerDismissed', '1'); } catch(_){}
-  });
-})();
-</script>
-
 <!-- ───────── NAV ───────── -->
 <nav class="topnav light" id="topnav">
   <div class="nav-left">
