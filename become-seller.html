@@ -369,6 +369,25 @@ img { max-width: 100%; height: auto; }
             <textarea id="biz-desc" required maxlength="280" placeholder="Two sentences. What you offer, who you serve, what makes it diaspora-owned."></textarea>
           </div>
 
+          <div class="field">
+            <label>Social media &amp; website (all optional)</label>
+            <span class="field-hint">Drop your handles or full URLs. Customers see linked icons on your business page.</span>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:6px">
+              <input id="biz-instagram" type="text" maxlength="100" placeholder="📷 Instagram (@handle or URL)">
+              <input id="biz-tiktok" type="text" maxlength="100" placeholder="🎵 TikTok (@handle or URL)">
+              <input id="biz-facebook" type="text" maxlength="200" placeholder="👥 Facebook (URL)">
+              <input id="biz-youtube" type="text" maxlength="200" placeholder="▶️ YouTube (URL)">
+              <input id="biz-twitter" type="text" maxlength="100" placeholder="🐦 Twitter/X (@handle or URL)">
+              <input id="biz-linkedin" type="text" maxlength="200" placeholder="💼 LinkedIn (URL)">
+              <input id="biz-snapchat" type="text" maxlength="100" placeholder="👻 Snapchat (@handle)">
+              <input id="biz-website" type="url" maxlength="200" placeholder="🌐 Website (https://…)">
+            </div>
+          </div>
+
+          <div style="background:var(--bone); border:1px solid var(--line); border-radius:10px; padding:14px 16px; font-size:13.5px; color:var(--graphite); line-height:1.55">
+            ✨ <strong>After submitting,</strong> you'll be taken to your seller dashboard where you can add <strong>more photos, videos, audio clips, menus &amp; files</strong>, business hours, weekly schedule, exact map location, and your full menu of orderable items.
+          </div>
+
           <div class="submit-row">
             <span style="font-size:12px; color:var(--muted)">By submitting, you agree to our <a href="terms.html" style="color:var(--brass)">Terms</a>.</span>
             <span class="spacer"></span>
@@ -540,6 +559,14 @@ $('#intake-form').addEventListener('submit', async (e) => {
   errEl.classList.remove('show');
 
   const addressVal = $('#biz-address')?.value.trim() || '';
+  const socialFields = ['instagram','tiktok','facebook','youtube','twitter','linkedin','snapchat','website'];
+  const social = {};
+  let socialAny = false;
+  socialFields.forEach(k => {
+    const v = $('#biz-' + k)?.value.trim() || '';
+    if (v){ social[k] = v; socialAny = true; }
+  });
+
   const data = {
     name: $('#biz-name').value.trim(),
     category: $('#biz-category').value,
@@ -550,6 +577,7 @@ $('#intake-form').addEventListener('submit', async (e) => {
     image: uploadedImageUrl || imageHidden.value.trim(),
     description: $('#biz-desc').value.trim(),
     location: addressVal ? { address: addressVal, lat: null, lng: null, mapsUrl: null } : null,
+    social: socialAny ? social : null,
   };
 
   if (!data.name || !data.category || !data.city || !data.phone || !data.description){

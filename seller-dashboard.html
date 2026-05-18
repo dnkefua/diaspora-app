@@ -495,6 +495,21 @@ img, video { max-width: 100%; height: auto; }
           </div>
 
           <div class="form-group" style="grid-column: 1 / -1;">
+            <label>Social media &amp; website</label>
+            <p style="font-size:13px; color:var(--muted); margin-bottom:10px">Customers see linked icons on your business page. Paste either the full URL or just your @handle — we'll figure out the rest.</p>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:10px">
+              <input id="soc-instagram" type="text" maxlength="100" placeholder="📷 Instagram (@handle or URL)" style="padding:11px 14px; border:1px solid var(--line); border-radius:10px; font-family:inherit; font-size:14px; background:#fff">
+              <input id="soc-tiktok" type="text" maxlength="100" placeholder="🎵 TikTok (@handle or URL)" style="padding:11px 14px; border:1px solid var(--line); border-radius:10px; font-family:inherit; font-size:14px; background:#fff">
+              <input id="soc-facebook" type="text" maxlength="200" placeholder="👥 Facebook (URL)" style="padding:11px 14px; border:1px solid var(--line); border-radius:10px; font-family:inherit; font-size:14px; background:#fff">
+              <input id="soc-youtube" type="text" maxlength="200" placeholder="▶️ YouTube (URL)" style="padding:11px 14px; border:1px solid var(--line); border-radius:10px; font-family:inherit; font-size:14px; background:#fff">
+              <input id="soc-twitter" type="text" maxlength="100" placeholder="🐦 Twitter/X (@handle or URL)" style="padding:11px 14px; border:1px solid var(--line); border-radius:10px; font-family:inherit; font-size:14px; background:#fff">
+              <input id="soc-linkedin" type="text" maxlength="200" placeholder="💼 LinkedIn (URL)" style="padding:11px 14px; border:1px solid var(--line); border-radius:10px; font-family:inherit; font-size:14px; background:#fff">
+              <input id="soc-snapchat" type="text" maxlength="100" placeholder="👻 Snapchat (@handle)" style="padding:11px 14px; border:1px solid var(--line); border-radius:10px; font-family:inherit; font-size:14px; background:#fff">
+              <input id="soc-website" type="url" maxlength="200" placeholder="🌐 Website (https://…)" style="padding:11px 14px; border:1px solid var(--line); border-radius:10px; font-family:inherit; font-size:14px; background:#fff">
+            </div>
+          </div>
+
+          <div class="form-group" style="grid-column: 1 / -1;">
             <label>Hours</label>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
               <input type="text" class="hours-input" data-day="monday" placeholder="Monday: 10:00 AM - 9:00 PM">
@@ -563,6 +578,30 @@ img, video { max-width: 100%; height: auto; }
 
         <div class="video-grid" id="video-grid" style="margin-top:24px; display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:14px">
           <!-- Videos rendered here -->
+        </div>
+      </div>
+
+      <!-- Audio Clips -->
+      <div class="card">
+        <h2 class="card-title">
+          Audio Clips
+          <button class="btn btn-outline" type="button" onclick="document.getElementById('audio-upload').click()">+ Add Audio</button>
+        </h2>
+        <p style="font-size:14px; color:var(--muted); margin-bottom:18px">For DJs, musicians, language tutors, podcasters, voice-over artists, choir directors. Customers see an in-page audio player.</p>
+        <input type="file" id="audio-upload" accept="audio/*" multiple style="display: none;" onchange="handleAudioUpload(event)">
+
+        <div class="upload-area" onclick="document.getElementById('audio-upload').click()">
+          <div class="upload-icon">🎧</div>
+          <p class="upload-text">
+            <b>Click to upload</b> or drag and drop<br>
+            MP3, WAV, M4A, AAC, OGG — up to 30 MB each
+          </p>
+        </div>
+
+        <div id="audio-progress" style="margin-top:16px"></div>
+
+        <div class="audio-list" id="audio-list" style="margin-top:24px; display:flex; flex-direction:column; gap:10px">
+          <!-- Audio entries rendered here -->
         </div>
       </div>
 
@@ -743,6 +782,7 @@ let businessId = null;
 let businessData = null;
 let currentImages = [];
 let currentVideos = []; // [{url, name, type, size, path}]
+let currentAudios = []; // [{url, name, type, size, path}]
 let currentFiles = [];  // [{url, name, type, size, path}]
 let currentServices = []; // [{id, name, description, price, currency, image}]
 
@@ -792,11 +832,13 @@ async function loadBusiness() {
       businessData = data;
       currentImages = Array.isArray(data.images) ? data.images.slice() : (data.image ? [data.image] : []);
       currentVideos = Array.isArray(data.videos) ? data.videos.slice() : [];
+      currentAudios = Array.isArray(data.audios) ? data.audios.slice() : [];
       currentFiles = Array.isArray(data.files) ? data.files.slice() : [];
       currentServices = Array.isArray(data.services) ? data.services.slice() : [];
       fillForm(data);
       renderPhotos(currentImages);
       renderVideos(currentVideos);
+      renderAudios(currentAudios);
       renderFiles(currentFiles);
       renderServices();
       renderTrustBanner(data);
@@ -833,6 +875,13 @@ function fillForm(data) {
       if (input) input.value = hours;
     });
   }
+
+  // Social media & website
+  const soc = data.social || {};
+  ['instagram','tiktok','facebook','youtube','twitter','linkedin','snapchat','website'].forEach(k => {
+    const el = document.getElementById('soc-' + k);
+    if (el) el.value = soc[k] || '';
+  });
 
   // Location & map
   const loc = data.location || {};
@@ -1196,6 +1245,15 @@ async function saveProfile(e) {
     if (input.value) hours[input.dataset.day] = input.value;
   });
 
+  // Social media — collect non-empty fields into one object (null if all empty)
+  const socialKeys = ['instagram','tiktok','facebook','youtube','twitter','linkedin','snapchat','website'];
+  const social = {};
+  let socialAny = false;
+  socialKeys.forEach(k => {
+    const v = document.getElementById('soc-' + k)?.value.trim() || '';
+    if (v){ social[k] = v; socialAny = true; }
+  });
+
   // Location & map fields
   const latStr = document.getElementById('loc-lat').value.trim();
   const lngStr = document.getElementById('loc-lng').value.trim();
@@ -1229,6 +1287,7 @@ async function saveProfile(e) {
     description: document.getElementById('biz-desc').value.trim(),
     hours,
     location,
+    social: socialAny ? social : null,
     serviceModes,
     weeklySchedule,
     images: currentImages,
@@ -1452,6 +1511,127 @@ function renderVideos(videos){
   `).join('');
 }
 
+/* ──────────────────────────────────────────────────────────
+ * Audio — same flow as videos, smaller cap, audio player UI
+ * ────────────────────────────────────────────────────────── */
+async function handleAudioUpload(e){
+  const files = Array.from(e.target.files || []);
+  if (!files.length) return;
+  if (!businessId || !currentUser){ showToast('Sign in first', 'error'); return; }
+
+  const progressEl = document.getElementById('audio-progress');
+  progressEl.innerHTML = '';
+
+  const accepted = [];
+  for (const file of files){
+    if (!file.type.startsWith('audio/')){
+      showToast(`${file.name} is not an audio file — skipped`, 'error');
+      continue;
+    }
+    if (file.size > 30 * 1024 * 1024){
+      showToast(`${file.name} is over 30 MB — skipped`, 'error');
+      continue;
+    }
+    accepted.push(file);
+  }
+
+  for (const file of accepted){
+    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+    const path = `businesses/${businessId}/audio/${Date.now()}_${safeName}`;
+    const sref = ref(storage, path);
+    const row = document.createElement('div');
+    row.style.cssText = 'background:var(--ivory); border:1px solid var(--line); border-radius:10px; padding:10px 14px; margin-bottom:8px; display:flex; align-items:center; gap:12px';
+    row.innerHTML = `
+      <span style="font-size:18px; flex:0 0 auto">🎧</span>
+      <div style="flex:1; min-width:0">
+        <div style="font-size:13px; font-weight:500; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">${escapeHtml(file.name)}</div>
+        <div style="height:4px; background:rgba(10,10,10,0.08); border-radius:2px; margin-top:6px; overflow:hidden">
+          <div class="bar" style="height:100%; width:0%; background:var(--brass); transition:width 0.18s"></div>
+        </div>
+      </div>
+      <span class="pct" style="font-size:11px; color:var(--muted); flex:0 0 auto; min-width:40px; text-align:right">0%</span>
+    `;
+    progressEl.appendChild(row);
+
+    try {
+      const task = uploadBytesResumable(sref, file, { contentType: file.type });
+      await new Promise((resolve, reject) => {
+        task.on('state_changed',
+          (snap) => {
+            const pct = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
+            row.querySelector('.bar').style.width = pct + '%';
+            row.querySelector('.pct').textContent = pct + '%';
+          },
+          (err) => reject(err),
+          () => resolve()
+        );
+      });
+      const url = await getDownloadURL(sref);
+      currentAudios.push({ url, name: file.name, type: file.type, size: file.size, path });
+      row.querySelector('.pct').textContent = 'Done';
+      setTimeout(() => row.remove(), 1500);
+    } catch (err) {
+      console.error('Audio upload failed:', err);
+      row.querySelector('.pct').textContent = 'Failed';
+      row.querySelector('.bar').style.background = 'var(--error, #C53030)';
+      showToast(`Upload failed: ${file.name}`, 'error');
+    }
+  }
+
+  if (currentAudios.length){
+    renderAudios(currentAudios);
+    try {
+      await updateDoc(doc(db, 'businesses', businessId), {
+        audios: currentAudios,
+        updatedAt: new Date()
+      });
+      showToast(`Saved ${accepted.length} audio clip${accepted.length === 1 ? '' : 's'}`, 'success');
+    } catch (err) {
+      console.error('Save audio refs failed:', err);
+      showToast('Audio uploaded but not saved to profile', 'error');
+    }
+  }
+  e.target.value = '';
+}
+
+function renderAudios(audios){
+  const list = document.getElementById('audio-list');
+  if (!list) return;
+  if (!audios || !audios.length){
+    list.innerHTML = '<p style="color:var(--muted); padding:14px 4px">No audio yet. Upload tracks, samples, or voice clips above.</p>';
+    return;
+  }
+  list.innerHTML = audios.map((a, i) => `
+    <div style="display:flex; align-items:center; gap:12px; padding:12px 14px; background:var(--surface); border:1px solid var(--line); border-radius:10px">
+      <span style="font-size:22px; flex:0 0 auto">🎧</span>
+      <div style="flex:1; min-width:0">
+        <div style="font-size:14px; font-weight:500; overflow:hidden; text-overflow:ellipsis; white-space:nowrap">${escapeHtml(a.name)}</div>
+        <audio src="${escapeHtml(a.url)}" controls preload="metadata" style="width:100%; max-width:420px; margin-top:6px; height:36px"></audio>
+      </div>
+      <button type="button" class="photo-action" onclick="deleteAudio(${i})" title="Delete">🗑</button>
+    </div>
+  `).join('');
+}
+
+async function deleteAudio(index){
+  if (!confirm('Delete this audio?')) return;
+  if (!businessId || !currentUser) return;
+  const a = currentAudios[index];
+  currentAudios.splice(index, 1);
+  renderAudios(currentAudios);
+  await tryDeleteFromStorage(a?.url, a?.path);
+  try {
+    await updateDoc(doc(db, 'businesses', businessId), {
+      audios: currentAudios,
+      updatedAt: new Date()
+    });
+    showToast('Audio deleted', 'success');
+  } catch (err) {
+    console.error('Error updating after audio delete:', err);
+    showToast('Could not save change', 'error');
+  }
+}
+
 async function deleteVideo(index){
   if (!confirm('Delete this video?')) return;
   if (!businessId || !currentUser) return;
@@ -1635,6 +1815,8 @@ window.handlePhotoUpload = handlePhotoUpload;
 window.deletePhoto = deletePhoto;
 window.handleVideoUpload = handleVideoUpload;
 window.deleteVideo = deleteVideo;
+window.handleAudioUpload = handleAudioUpload;
+window.deleteAudio = deleteAudio;
 window.handleFileUpload = handleFileUpload;
 window.deleteFile = deleteFile;
 window.showToast = showToast;

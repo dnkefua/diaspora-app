@@ -6,6 +6,7 @@ service firebase.storage {
     function authed() { return request.auth != null; }
     function isImage() { return request.resource.contentType.matches('image/.*'); }
     function isVideo() { return request.resource.contentType.matches('video/.*'); }
+    function isAudio() { return request.resource.contentType.matches('audio/.*'); }
     function isDoc() {
       return request.resource.contentType == 'application/pdf'
         || request.resource.contentType == 'application/msword'
@@ -44,6 +45,7 @@ service firebase.storage {
         && (
           (isImage() && request.resource.size < 8 * 1024 * 1024) ||
           (isVideo() && request.resource.size < 100 * 1024 * 1024) ||
+          (isAudio() && request.resource.size < 30 * 1024 * 1024) ||
           (isDoc() && request.resource.size < 10 * 1024 * 1024)
         );
 

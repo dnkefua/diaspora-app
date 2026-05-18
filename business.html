@@ -101,6 +101,31 @@ a { text-decoration: none; color: inherit; }
 .lightbox .lb-next { right: 20px; top: 50%; transform: translateY(-50%); }
 .lightbox .lb-counter { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); color: #fff; font-size: 13px; opacity: 0.7; }
 
+/* Social icon row */
+.social-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 4px; }
+.social-link {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 38px; height: 38px; border-radius: 50%;
+  border: 1px solid var(--line); background: var(--surface);
+  font-size: 16px; text-decoration: none; color: var(--ink);
+  transition: transform 0.18s, background 0.18s, border-color 0.18s;
+}
+.social-link:hover { transform: translateY(-2px); border-color: var(--brass); background: var(--ivory); }
+.social-link[data-net="instagram"]:hover { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: #fff; border-color: transparent; }
+.social-link[data-net="tiktok"]:hover { background: #000; color: #fff; border-color: #000; }
+.social-link[data-net="facebook"]:hover { background: #1877F2; color: #fff; border-color: #1877F2; }
+.social-link[data-net="youtube"]:hover { background: #FF0000; color: #fff; border-color: #FF0000; }
+.social-link[data-net="twitter"]:hover { background: #000; color: #fff; border-color: #000; }
+.social-link[data-net="linkedin"]:hover { background: #0A66C2; color: #fff; border-color: #0A66C2; }
+.social-link[data-net="snapchat"]:hover { background: #FFFC00; color: #000; border-color: #FFFC00; }
+.social-link[data-net="website"]:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+/* Audio list */
+.audio-list { display: flex; flex-direction: column; gap: 10px; }
+.audio-entry { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+.audio-entry .name { flex: 0 0 auto; font-size: 13px; font-weight: 600; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.audio-entry audio { flex: 1; min-width: 0; height: 36px; }
+
 /* Location + map */
 .map-section { margin-bottom: 32px; }
 .map-card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
@@ -646,6 +671,7 @@ async function renderPage() {
           </div>
           ${renderServiceModes(biz)}
           <p class="biz-desc">${escHtml(description)}</p>
+          ${renderSocialRow(biz)}
 
           ${biz.verified && biz.verificationReport ? `
             <div class="verification-panel">
@@ -700,6 +726,7 @@ async function renderPage() {
         ${renderServicesSection(biz)}
         ${renderGallery(biz)}
         ${renderVideos(biz)}
+        ${renderAudios(biz)}
         ${renderFiles(biz)}
 
         <div class="section">
@@ -884,6 +911,71 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight') lightboxStep(1);
 });
 
+/* ── Social media row ──
+   Accepts either @handle or full URL. We normalise:
+     - bare handles → site URL
+     - full URLs → keep as-is
+   Renders an icon-only chip row. */
+function normalizeSocial(net, raw){
+  if (!raw) return null;
+  const v = String(raw).trim();
+  if (!v) return null;
+  if (/^https?:\/\//i.test(v)) return v;
+  const handle = v.replace(/^@+/, '').trim();
+  if (!handle) return null;
+  switch (net){
+    case 'instagram': return `https://instagram.com/${encodeURIComponent(handle)}`;
+    case 'tiktok':    return `https://www.tiktok.com/@${encodeURIComponent(handle)}`;
+    case 'twitter':   return `https://x.com/${encodeURIComponent(handle)}`;
+    case 'snapchat':  return `https://www.snapchat.com/add/${encodeURIComponent(handle)}`;
+    case 'facebook':  return `https://facebook.com/${encodeURIComponent(handle)}`;
+    case 'youtube':   return `https://youtube.com/@${encodeURIComponent(handle)}`;
+    case 'linkedin':  return `https://www.linkedin.com/in/${encodeURIComponent(handle)}`;
+    case 'website':   return /^[a-z]/i.test(v) ? `https://${v}` : v;
+    default: return v;
+  }
+}
+const SOCIAL_ICONS = {
+  instagram: '📷', tiktok: '🎵', facebook: '👥', youtube: '▶️',
+  twitter: '🐦', linkedin: '💼', snapchat: '👻', website: '🌐'
+};
+const SOCIAL_LABELS = {
+  instagram: 'Instagram', tiktok: 'TikTok', facebook: 'Facebook',
+  youtube: 'YouTube', twitter: 'Twitter / X', linkedin: 'LinkedIn',
+  snapchat: 'Snapchat', website: 'Website'
+};
+function renderSocialRow(biz){
+  const s = biz.social || {};
+  const networks = ['instagram','tiktok','facebook','youtube','twitter','linkedin','snapchat','website'];
+  const links = networks
+    .map(net => ({ net, url: normalizeSocial(net, s[net]) }))
+    .filter(x => x.url);
+  if (!links.length) return '';
+  return `
+    <div class="social-row" aria-label="Social media">
+      ${links.map(l => `<a class="social-link" data-net="${l.net}" href="${escHtml(l.url)}" target="_blank" rel="noopener nofollow" title="${SOCIAL_LABELS[l.net]}" aria-label="${SOCIAL_LABELS[l.net]}">${SOCIAL_ICONS[l.net]}</a>`).join('')}
+    </div>
+  `;
+}
+
+function renderAudios(biz){
+  const items = Array.isArray(biz.audios) ? biz.audios : [];
+  if (!items.length) return '';
+  return `
+    <div class="section">
+      <h2 class="section-title">Audio</h2>
+      <div class="audio-list">
+        ${items.map(a => `
+          <div class="audio-entry">
+            <span class="name" title="${escHtml(a.name)}">${escHtml(a.name)}</span>
+            <audio src="${escHtml(a.url)}" controls preload="metadata"></audio>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
 function renderVideos(biz){
   const vids = Array.isArray(biz.videos) ? biz.videos : [];
   if (!vids.length) return '';
@@ -962,6 +1054,11 @@ function injectLocalBusinessSchema(biz, reviews){
       'longitude': Number(biz.location.lng)
     } : undefined,
     'hasMap': biz.location?.mapsUrl || getMapsViewUrl(biz) || undefined,
+    'sameAs': (function(){
+      const s = biz.social || {};
+      const nets = ['instagram','tiktok','facebook','youtube','twitter','linkedin','snapchat','website'];
+      return nets.map(n => normalizeSocial(n, s[n])).filter(Boolean);
+    })(),
     'telephone': biz.phone || undefined,
     'url': `https://www.thediaspora.app/business.html?id=${encodeURIComponent(biz.id)}`,
     'priceRange': biz.priceRange || (Array.isArray(biz.services) && biz.services.some(s => s.price) ? '$$' : undefined)
