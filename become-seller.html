@@ -260,6 +260,11 @@ img { max-width: 100%; height: auto; }
             <input id="biz-name" type="text" required maxlength="80" placeholder="Mama Titi Kitchen" autocomplete="organization">
           </div>
 
+          <div class="field">
+            <label for="biz-website">Website / Booking link (optional)</label>
+            <input id="biz-website" type="text" maxlength="180" placeholder="https://yourbusiness.com or booking page" autocomplete="url">
+          </div>
+
           <div class="row-2">
             <div class="field">
               <label for="biz-category">Category</label>
@@ -416,6 +421,7 @@ function show(el){
 }
 
 let me = null;
+let existingBusinessCount = 0;
 
 onAuthStateChanged(auth, async (user) => {
   if (!user){
@@ -423,15 +429,19 @@ onAuthStateChanged(auth, async (user) => {
     return;
   }
   me = user;
-  // Already has a business?
+  // Existing listings no longer block onboarding; users can run multiple pages.
   try {
     const snap = await getDocs(query(collection(db, 'businesses'), where('ownerId', '==', user.uid)));
-    if (!snap.empty){
-      show(exists);
-      return;
-    }
+    existingBusinessCount = snap.size;
   } catch (err) {
     console.warn('Could not check existing business:', err);
+  }
+  if (existingBusinessCount > 0) {
+    const title = intake.querySelector('.onboard-title');
+    const desc = intake.querySelector('.onboard-desc');
+    if (title) title.innerHTML = 'Add another <em>business</em>.';
+    if (desc) desc.textContent = 'Create a separate page for each brand, location, service, or side business you run.';
+    $('#submit-btn').textContent = 'Create another listing â†’';
   }
   show(intake);
 });
@@ -572,6 +582,7 @@ $('#intake-form').addEventListener('submit', async (e) => {
     category: $('#biz-category').value,
     city: $('#biz-city').value,
     area: $('#biz-area').value.trim(),
+    website: $('#biz-website').value.trim(),
     phone: $('#biz-phone').value.trim(),
     whatsapp: $('#biz-whatsapp').value.trim() || $('#biz-phone').value.trim(),
     image: uploadedImageUrl || imageHidden.value.trim(),
@@ -613,7 +624,7 @@ $('#intake-form').addEventListener('submit', async (e) => {
       createdAt: new Date(),
       updatedAt: new Date()
     });
-    window.location.href = 'seller-dashboard.html?welcome=1';
+    window.location.href = 'seller-dashboard.html?id=' + encodeURIComponent(id) + '&welcome=1';
   } catch (err) {
     console.error('Create business failed:', err);
     let msg = err.message || 'Could not create listing. Try again.';

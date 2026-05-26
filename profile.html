@@ -25,6 +25,9 @@
     background:linear-gradient(135deg,#0A1E3A 0%, #2A5F4A 55%, #D4A444 100%);
   }
   .cover::after{content:"";position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=1600&auto=format');background-size:cover;background-position:center;opacity:0.25;mix-blend-mode:overlay}
+  .cover.has-cover::after{background-image:var(--cover-image);opacity:0.55;mix-blend-mode:normal}
+  .cover-action{position:absolute;right:16px;bottom:16px;z-index:2;background:rgba(255,255,255,0.94);border:1px solid rgba(10,10,10,0.12);border-radius:999px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer}
+  .cover-action:hover{background:#fff}
 
   .profile-head{display:grid;grid-template-columns:auto 1fr auto;align-items:end;gap:24px;margin-top:-60px;padding:0 16px;position:relative;z-index:5}
   .avatar{
@@ -208,7 +211,9 @@
 
 <div class="profile-wrap">
 
-  <div class="cover"></div>
+  <div class="cover" id="cover">
+    <button type="button" class="cover-action" onclick="chooseCover()">Edit cover</button>
+  </div>
 
   <div class="profile-head">
     <div class="avatar" id="avatar">
@@ -416,7 +421,7 @@
 <div id="toast" class="toast"></div>
 
 <script type="module">
-import { auth, db, onAuthStateChanged, signOut, doc, getDoc, updateDoc, deleteDoc, collection, query, where, getDocs } from './firebase-config.js';
+import { auth, db, storage, onAuthStateChanged, signOut, doc, getDoc, setDoc, updateDoc, deleteDoc, collection, query, where, getDocs, ref, uploadBytes, getDownloadURL } from './firebase-config.js';
 
 /* ── State ── */
 let firebaseUser = null;
@@ -479,6 +484,16 @@ function renderProfile(u){
   } else {
     document.getElementById('avatar-initials').textContent = init;
   }
+  const cover = document.getElementById('cover');
+  if (cover){
+    if (u.coverImage){
+      cover.classList.add('has-cover');
+      cover.style.setProperty('--cover-image', `url('${String(u.coverImage).replace(/'/g, "\\'")}')`);
+    } else {
+      cover.classList.remove('has-cover');
+      cover.style.removeProperty('--cover-image');
+    }
+  }
   if (u.bio && u.bio.trim()){
     const bio = document.getElementById('bio-view');
     bio.textContent = u.bio;
@@ -487,10 +502,10 @@ function renderProfile(u){
 
   // Role pill
   const pill = document.getElementById('p-role-pill');
-  if (isAdmin){
-    pill.outerHTML = '<a href="admin.html" class="role-pill admin" style="text-decoration:none">★ Admin</a>';
-  } else if (myListings.length){
-    pill.outerHTML = '<a href="seller-dashboard.html" class="role-pill seller" style="text-decoration:none">Seller</a>';
+  if (pill && isAdmin){
+    pill.innerHTML = '<a href="admin.html" class="role-pill admin" style="text-decoration:none">★ Admin</a>';
+  } else if (pill && myListings.length){
+    pill.innerHTML = '<a href="seller-dashboard.html" class="role-pill seller" style="text-decoration:none">Seller</a>';
   }
 
   // Hide "Become a seller" panel if user already has listings
@@ -755,7 +770,7 @@ function renderListingsFull(){
   root.innerHTML = myListings.map(b => bizCardHtml(b, {
     actions: `<div class="item-actions">
       <a href="business.html?id=${encodeURIComponent(b.id)}" class="btn-ghost" style="font-size:12px;padding:7px 14px">View public</a>
-      <a href="seller-dashboard.html" class="btn-solid" style="font-size:12px;padding:7px 14px">Manage</a>
+      <a href="seller-dashboard.html?id=${encodeURIComponent(b.id)}" class="btn-solid" style="font-size:12px;padding:7px 14px">Manage</a>
     </div>`
   })).join('');
 }
@@ -822,26 +837,66 @@ async function saveProfile(e){
   renderProfile(u);
 }
 
-function chooseAvatar(){
+async function uploadProfileImage(file, kind){
+  if (!firebaseUser){
+    showToast('Sign in first', 'error');
+    return null;
+  }
+  if (!file.type.startsWith('image/')){
+    showToast('Please choose an image file', 'error');
+    return null;
+  }
+  const max = kind === 'avatar' ? 2 * 1024 * 1024 : 8 * 1024 * 1024;
+  if (file.size > max){
+    showToast(`${kind === 'avatar' ? 'Avatar' : 'Cover'} must be under ${Math.round(max / 1024 / 1024)} MB`, 'error');
+    return null;
+  }
+  const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+  const path = `users/${firebaseUser.uid}/${kind}/${Date.now()}_${safeName}`;
+  const sref = ref(storage, path);
+  await uploadBytes(sref, file, { contentType: file.type });
+  return getDownloadURL(sref);
+}
+
+function pickImage(kind, onSelected){
   const input = document.createElement('input');
   input.type = 'file'; input.accept = 'image/*';
-  input.onchange = function(ev){
+  input.onchange = async function(ev){
     const f = ev.target.files[0]; if (!f) return;
-    if (f.size > 1.5 * 1024 * 1024){
-      showToast('Avatar must be under 1.5 MB', 'error');
-      return;
+    try {
+      showToast(`Uploading ${kind}...`);
+      const url = await uploadProfileImage(f, kind);
+      if (url) await onSelected(url);
+    } catch (err){
+      console.error(`${kind} upload failed:`, err);
+      showToast(`Could not upload ${kind}`, 'error');
     }
-    const r = new FileReader();
-    r.onload = function(e){
-      const u = profileData || JSON.parse(localStorage.getItem('diaspora_user'));
-      u.avatar = e.target.result;
-      localStorage.setItem('diaspora_user', JSON.stringify(u));
-      profileData = u;
-      renderProfile(u);
-    };
-    r.readAsDataURL(f);
   };
   input.click();
+}
+
+function chooseAvatar(){
+  pickImage('avatar', async (url) => {
+    const u = profileData || JSON.parse(localStorage.getItem('diaspora_user'));
+    u.avatar = url;
+    await setDoc(doc(db, 'users', firebaseUser.uid), { avatar: url, updatedAt: new Date().toISOString() }, { merge: true });
+    localStorage.setItem('diaspora_user', JSON.stringify(u));
+    profileData = u;
+    renderProfile(u);
+    showToast('Avatar updated');
+  });
+}
+
+function chooseCover(){
+  pickImage('cover', async (url) => {
+    const u = profileData || JSON.parse(localStorage.getItem('diaspora_user'));
+    u.coverImage = url;
+    await setDoc(doc(db, 'users', firebaseUser.uid), { coverImage: url, updatedAt: new Date().toISOString() }, { merge: true });
+    localStorage.setItem('diaspora_user', JSON.stringify(u));
+    profileData = u;
+    renderProfile(u);
+    showToast('Cover updated');
+  });
 }
 
 function confirmDelete(){
@@ -902,6 +957,7 @@ window.openEdit = openEdit;
 window.closeEdit = closeEdit;
 window.saveProfile = saveProfile;
 window.chooseAvatar = chooseAvatar;
+window.chooseCover = chooseCover;
 window.logout = logout;
 window.confirmDelete = confirmDelete;
 </script>

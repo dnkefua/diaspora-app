@@ -73,6 +73,20 @@ a { text-decoration: none; color: inherit; }
   padding: 24px; border: 1px solid var(--line);
   margin-bottom: 24px;
 }
+.business-switcher {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 14px; padding: 16px 18px; margin-bottom: 22px;
+  display: none; align-items: center; justify-content: space-between; gap: 14px;
+}
+.business-switcher label {
+  font-size: 11px; font-weight: 700; color: var(--muted);
+  letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 6px;
+}
+.business-switcher select {
+  min-width: min(420px, 100%); padding: 11px 14px; border-radius: 10px;
+  border: 1px solid var(--line); background: var(--paper); font: inherit;
+}
+.business-switcher-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
 .card-title {
   font-size: 20px; font-weight: 600; margin-bottom: 20px;
   display: flex; justify-content: space-between; align-items: center;
@@ -156,6 +170,15 @@ a { text-decoration: none; color: inherit; }
 .upload-icon { font-size: 48px; margin-bottom: 16px; }
 .upload-text { font-size: 15px; color: var(--muted); }
 .upload-text b { color: var(--ink); }
+
+/* AI Studio */
+.ai-shell { display:grid; grid-template-columns:1.05fr 1fr; gap:18px; }
+.ai-panel { background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:20px; }
+.ai-panel h3 { font-size:22px; margin-bottom:8px; }
+.ai-panel p { color:var(--muted); font-size:14px; line-height:1.6; }
+.ai-lock { background:linear-gradient(135deg, rgba(28,61,110,0.06), rgba(212,175,55,0.10)); border:1px solid rgba(212,175,55,0.28); border-radius:14px; padding:18px; margin-bottom:18px; display:none; }
+.ai-output { min-height:220px; white-space:pre-wrap; background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:16px; font-size:14px; line-height:1.65; color:var(--graphite); }
+.ai-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
 
 /* Reviews */
 .review-item {
@@ -248,6 +271,10 @@ img, video { max-width: 100%; height: auto; }
   .tabs { padding: 14px 16px; gap: 6px; }
   .tab { padding: 10px 16px; font-size: 13px; }
   .main { padding: 20px 16px; }
+  .business-switcher { flex-direction: column; align-items: stretch; }
+  .business-switcher select { min-width: 0; width: 100%; }
+  .business-switcher-actions { justify-content: stretch; }
+  .business-switcher-actions .btn { flex: 1 1 auto; }
 
   .card { padding: 18px; border-radius: 14px; margin-bottom: 18px; }
   .card-title { font-size: 18px; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
@@ -276,6 +303,7 @@ img, video { max-width: 100%; height: auto; }
   .stat-value { font-size: 24px; }
   .photo-grid { grid-template-columns: 1fr 1fr !important; }
   .video-grid { grid-template-columns: 1fr !important; }
+  .ai-shell { grid-template-columns: 1fr; }
 
   /* Orders inbox */
   #orders-list > div > div:first-child { flex-direction: column; align-items: flex-start; }
@@ -328,6 +356,7 @@ img, video { max-width: 100%; height: auto; }
     <div class="tab active" data-tab="profile">Shop Profile</div>
     <div class="tab" data-tab="media">Media</div>
     <div class="tab" data-tab="services">Menu &amp; Services</div>
+    <div class="tab" data-tab="ai">AI Studio</div>
     <div class="tab" data-tab="orders">Orders</div>
     <div class="tab" data-tab="analytics">Analytics</div>
     <div class="tab" data-tab="reviews">Reviews</div>
@@ -345,6 +374,17 @@ img, video { max-width: 100%; height: auto; }
         <div id="trust-cta" style="display:flex; gap:8px; flex-wrap:wrap"></div>
       </div>
       <div id="verification-report-block" style="display:none; margin-top:12px; padding:12px 14px; background:linear-gradient(135deg, rgba(28,61,110,0.04) 0%, rgba(183,146,74,0.06) 100%); border:1px solid rgba(183,146,74,0.20); border-radius:10px; font-size:13.5px; color:var(--graphite); white-space:pre-wrap"></div>
+    </div>
+
+    <div id="business-switcher" class="business-switcher">
+      <div>
+        <label for="business-select">Managing business</label>
+        <select id="business-select"></select>
+      </div>
+      <div class="business-switcher-actions">
+        <a id="public-business-link" class="btn btn-outline" href="feed.html">View public page</a>
+        <a class="btn btn-primary" href="become-seller.html">+ Add business</a>
+      </div>
     </div>
 
     <!-- Profile Tab -->
@@ -414,6 +454,10 @@ img, video { max-width: 100%; height: auto; }
           <div class="form-group">
             <label>Area / Neighborhood</label>
             <input type="text" id="biz-area" required placeholder="e.g., Deira, JLT, Peckham">
+          </div>
+          <div class="form-group">
+            <label>Website / Booking Link</label>
+            <input type="text" id="biz-website" placeholder="https://yourbusiness.com or booking page">
           </div>
           <div class="form-group">
             <label>Verified Badge</label>
@@ -642,6 +686,54 @@ img, video { max-width: 100%; height: auto; }
       </div>
     </div>
 
+    <!-- AI Studio Tab -->
+    <div class="tab-content" id="ai-tab">
+      <div class="card">
+        <h2 class="card-title">AI Listing Studio</h2>
+        <div id="ai-lock" class="ai-lock">
+          <strong>Subscriber feature</strong>
+          <p style="margin-top:6px">AI tools are available to subscribed sellers. Upgrade to unlock guided listing copy, page sections, menu ideas, and launch checklists.</p>
+          <a href="pricing.html" class="btn btn-primary" style="margin-top:12px;display:inline-flex;text-decoration:none">View plans</a>
+        </div>
+        <div class="ai-shell">
+          <div class="ai-panel">
+            <h3>Build this page faster</h3>
+            <p>Give the assistant a few details and generate copy you can apply to this business profile.</p>
+            <div class="form-group" style="margin-top:14px">
+              <label>Main offer</label>
+              <input type="text" id="ai-offer" placeholder="Eg. Nigerian meals, bridal braids, event photography">
+            </div>
+            <div class="form-group" style="margin-top:12px">
+              <label>Ideal customer</label>
+              <input type="text" id="ai-audience" placeholder="Eg. busy professionals, families, event hosts">
+            </div>
+            <div class="form-group" style="margin-top:12px">
+              <label>Tone</label>
+              <select id="ai-tone">
+                <option>Premium and warm</option>
+                <option>Direct and sales-focused</option>
+                <option>Community and cultural</option>
+                <option>Elegant and minimal</option>
+              </select>
+            </div>
+            <div class="ai-actions">
+              <button type="button" class="btn btn-primary" onclick="generateAiListing()">Generate listing copy</button>
+              <button type="button" class="btn btn-outline" onclick="generateAiServices()">Suggest menu/services</button>
+              <button type="button" class="btn btn-outline" onclick="generateAiShotList()">Photo/video ideas</button>
+            </div>
+          </div>
+          <div class="ai-panel">
+            <h3>Assistant output</h3>
+            <div id="ai-output" class="ai-output">Subscribers can generate polished business descriptions, service ideas, and content shot lists here.</div>
+            <div class="ai-actions">
+              <button type="button" class="btn btn-primary" onclick="applyAiDescription()">Apply to description</button>
+              <button type="button" class="btn btn-outline" onclick="copyAiOutput()">Copy</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Orders Tab -->
     <div class="tab-content" id="orders-tab">
       <div class="card">
@@ -774,12 +866,14 @@ img, video { max-width: 100%; height: auto; }
 </div>
 
 <script type="module">
-import { auth, db, storage, onAuthStateChanged, signOut, doc, setDoc, collection, query, where, getDocs, updateDoc } from './firebase-config.js';
+import { auth, db, storage, onAuthStateChanged, signOut, doc, getDoc, setDoc, collection, query, where, getDocs, updateDoc } from './firebase-config.js';
 import { ref, uploadBytesResumable, uploadBytes, getDownloadURL, deleteObject } from 'https://www.gstatic.com/firebasejs/12.12.1/firebase-storage.js';
 
 let currentUser = null;
+let sellerProfile = null;
 let businessId = null;
 let businessData = null;
+let ownedBusinesses = [];
 let currentImages = [];
 let currentVideos = []; // [{url, name, type, size, path}]
 let currentAudios = []; // [{url, name, type, size, path}]
@@ -796,6 +890,14 @@ onAuthStateChanged(auth, async (user) => {
   currentUser = user;
   document.getElementById('auth-gate').style.display = 'none';
   document.getElementById('app').style.display = 'block';
+  try {
+    const userSnap = await getDoc(doc(db, 'users', user.uid));
+    sellerProfile = userSnap.exists() ? userSnap.data() : {};
+  } catch (err) {
+    console.warn('Could not load seller profile:', err);
+    sellerProfile = {};
+  }
+  renderAiAccess();
   await loadBusiness();
 
   // Welcome banner if coming from onboarding
@@ -814,7 +916,7 @@ document.querySelectorAll('.tab').forEach(tab => {
   });
 });
 
-// Load business from Firestore. If owner has no business, send them to onboarding.
+// Load owned businesses from Firestore. If owner has no business, send them to onboarding.
 async function loadBusiness() {
   try {
     const q = query(collection(db, 'businesses'), where('ownerId', '==', currentUser.uid));
@@ -826,39 +928,76 @@ async function loadBusiness() {
       return;
     }
 
-    snapshot.forEach(d => {
-      businessId = d.id;
-      const data = d.data();
-      businessData = data;
-      currentImages = Array.isArray(data.images) ? data.images.slice() : (data.image ? [data.image] : []);
-      currentVideos = Array.isArray(data.videos) ? data.videos.slice() : [];
-      currentAudios = Array.isArray(data.audios) ? data.audios.slice() : [];
-      currentFiles = Array.isArray(data.files) ? data.files.slice() : [];
-      currentServices = Array.isArray(data.services) ? data.services.slice() : [];
-      fillForm(data);
-      renderPhotos(currentImages);
-      renderVideos(currentVideos);
-      renderAudios(currentAudios);
-      renderFiles(currentFiles);
-      renderServices();
-      renderTrustBanner(data);
-      // Reviews + analytics + orders from Firestore (best-effort)
-      loadReviewsForBusiness();
-      loadOrdersForBusiness();
-      loadAnalyticsStub(data);
-    });
+    ownedBusinesses = [];
+    snapshot.forEach(d => ownedBusinesses.push({ id: d.id, ...d.data() }));
+    ownedBusinesses.sort((a, b) => (b.createdAt?.toMillis?.() || 0) - (a.createdAt?.toMillis?.() || 0));
+
+    const requestedId = new URLSearchParams(location.search).get('id');
+    const selected = ownedBusinesses.find(b => b.id === requestedId) || ownedBusinesses[0];
+    await selectBusiness(selected.id, { replaceUrl: true });
   } catch (error) {
     console.error('Error loading business:', error);
     showToast('Could not load business data', 'error');
   }
 }
 
+async function selectBusiness(id, opts = {}) {
+  const selected = ownedBusinesses.find(b => b.id === id);
+  if (!selected) {
+    showToast('That business was not found on your account', 'error');
+    return;
+  }
+  businessId = selected.id;
+  businessData = selected;
+  currentImages = Array.isArray(selected.images) ? selected.images.slice() : (selected.image ? [selected.image] : []);
+  currentVideos = Array.isArray(selected.videos) ? selected.videos.slice() : [];
+  currentAudios = Array.isArray(selected.audios) ? selected.audios.slice() : [];
+  currentFiles = Array.isArray(selected.files) ? selected.files.slice() : [];
+  currentServices = Array.isArray(selected.services) ? selected.services.slice() : [];
+  fillForm(selected);
+  renderPhotos(currentImages);
+  renderVideos(currentVideos);
+  renderAudios(currentAudios);
+  renderFiles(currentFiles);
+  renderServices();
+  renderTrustBanner(selected);
+  renderBusinessSwitcher();
+  loadReviewsForBusiness();
+  loadOrdersForBusiness();
+  loadAnalyticsStub(selected);
+
+  if (opts.replaceUrl) {
+    const params = new URLSearchParams(location.search);
+    params.set('id', businessId);
+    const next = location.pathname + '?' + params.toString() + location.hash;
+    history.replaceState(null, '', next);
+  }
+}
+
+function renderBusinessSwitcher(){
+  const wrap = document.getElementById('business-switcher');
+  const select = document.getElementById('business-select');
+  const publicLink = document.getElementById('public-business-link');
+  if (!wrap || !select) return;
+  wrap.style.display = 'flex';
+  select.innerHTML = ownedBusinesses.map(b => `
+    <option value="${escapeHtml(b.id)}"${b.id === businessId ? ' selected' : ''}>${escapeHtml(b.name || '(unnamed business)')} ${b.city ? ' - ' + escapeHtml(b.city) : ''}</option>
+  `).join('');
+  publicLink.href = 'business.html?id=' + encodeURIComponent(businessId);
+}
+
+document.getElementById('business-select')?.addEventListener('change', async (e) => {
+  await selectBusiness(e.target.value, { replaceUrl: true });
+});
+
 function fillForm(data) {
+  document.querySelectorAll('.hours-input').forEach(input => { input.value = ''; });
   document.getElementById('biz-name').value = data.name || '';
   document.getElementById('biz-category').value = data.category || '';
   document.getElementById('biz-phone').value = data.phone || '';
   document.getElementById('biz-city').value = data.city || '';
   document.getElementById('biz-area').value = data.area || '';
+  document.getElementById('biz-website').value = data.website || data.url || '';
   // verified is read-only — admin-controlled. Disable + show actual value.
   const verifiedSel = document.getElementById('biz-verified');
   if (verifiedSel){
@@ -1284,6 +1423,7 @@ async function saveProfile(e) {
     phone: document.getElementById('biz-phone').value.trim(),
     city: document.getElementById('biz-city').value.trim(),
     area: document.getElementById('biz-area').value.trim(),
+    website: document.getElementById('biz-website').value.trim(),
     description: document.getElementById('biz-desc').value.trim(),
     hours,
     location,
@@ -1299,6 +1439,8 @@ async function saveProfile(e) {
   if (submitBtn){ submitBtn.disabled = true; submitBtn.dataset.label = submitBtn.textContent; submitBtn.textContent = 'Saving…'; }
   try {
     await updateDoc(doc(db, 'businesses', businessId), businessData);
+    Object.assign(ownedBusinesses.find(b => b.id === businessId) || {}, businessData);
+    renderBusinessSwitcher();
     showToast('Profile saved', 'success');
   } catch (error) {
     console.error('Error saving:', error);
@@ -1775,6 +1917,91 @@ function formatSize(bytes){
 }
 
 /* Shared Storage delete helper — accepts either a download URL or a path. */
+function hasAiAccess(){
+  const sub = sellerProfile?.subscription || {};
+  const status = String(sellerProfile?.subscriptionStatus || sub.status || '').toLowerCase();
+  const plan = String(sellerProfile?.plan || sub.plan || '').toLowerCase();
+  return ['active', 'trialing', 'paid'].includes(status) || ['premium', 'pro', 'business', 'founder'].includes(plan);
+}
+
+function renderAiAccess(){
+  const locked = !hasAiAccess();
+  const lock = document.getElementById('ai-lock');
+  const controls = document.querySelectorAll('#ai-tab input, #ai-tab select, #ai-tab button');
+  if (lock) lock.style.display = locked ? 'block' : 'none';
+  controls.forEach(el => {
+    if (el.closest('#ai-lock')) return;
+    el.disabled = locked;
+  });
+}
+
+function currentAiContext(){
+  return {
+    name: document.getElementById('biz-name')?.value.trim() || businessData?.name || 'this business',
+    category: document.getElementById('biz-category')?.value || businessData?.category || 'business',
+    city: document.getElementById('biz-city')?.value || businessData?.city || 'your city',
+    area: document.getElementById('biz-area')?.value.trim() || businessData?.area || '',
+    offer: document.getElementById('ai-offer')?.value.trim() || document.getElementById('biz-desc')?.value.trim() || 'high-quality diaspora services',
+    audience: document.getElementById('ai-audience')?.value.trim() || 'diaspora customers',
+    tone: document.getElementById('ai-tone')?.value || 'Premium and warm'
+  };
+}
+
+function setAiOutput(text){
+  const out = document.getElementById('ai-output');
+  if (out) out.textContent = text;
+}
+
+function requireAiAccess(){
+  if (hasAiAccess()) return true;
+  setAiOutput('This AI feature is reserved for subscribed sellers. Upgrade from Pricing, then come back here to generate listing copy and page ideas.');
+  showToast('AI Studio requires a subscription', 'error');
+  return false;
+}
+
+function generateAiListing(){
+  if (!requireAiAccess()) return;
+  const c = currentAiContext();
+  setAiOutput(`${c.name} brings ${c.offer} to ${c.area ? c.area + ', ' : ''}${c.city} with a ${c.tone.toLowerCase()} customer experience.\n\nBuilt for ${c.audience}, this ${c.category.toLowerCase()} page should highlight trust, convenience, clear pricing, and direct contact. Customers can browse your photos, review your services, and reach you through WhatsApp or your website.\n\nSuggested headline: ${c.name} - ${c.category} for the diaspora community in ${c.city}.\n\nSuggested description:\n${c.name} offers ${c.offer} for ${c.audience} in ${c.city}. Expect responsive communication, authentic service, and a simple booking path from discovery to direct contact.`);
+}
+
+function generateAiServices(){
+  if (!requireAiAccess()) return;
+  const c = currentAiContext();
+  const ideas = [
+    `Signature ${c.category} package - tailored for ${c.audience}`,
+    `Weekend booking / event bundle - ideal for groups and celebrations`,
+    `Starter offer - clear entry price for first-time customers`,
+    `Premium custom request - quote-based for special needs`
+  ];
+  setAiOutput(`Suggested menu/services for ${c.name}:\n\n${ideas.map((x, i) => `${i + 1}. ${x}\n   Description: ${c.offer} delivered with a ${c.tone.toLowerCase()} feel.\n   Price: Add a fixed price or "On request".`).join('\n\n')}`);
+}
+
+function generateAiShotList(){
+  if (!requireAiAccess()) return;
+  const c = currentAiContext();
+  setAiOutput(`Photo and video ideas for ${c.name}:\n\n1. Hero image: the finished product, service result, or storefront in natural light.\n2. Trust image: owner/team portrait or behind-the-scenes preparation.\n3. Detail image: close-up of texture, tools, menu, styling, packaging, or workspace.\n4. Social proof: happy customer moment, event setup, or before/after result.\n5. Short video: 10-20 seconds showing how customers order, book, or receive the service.\n\nKeep captions short and let the visuals do the selling.`);
+}
+
+function applyAiDescription(){
+  if (!requireAiAccess()) return;
+  const out = document.getElementById('ai-output')?.textContent.trim();
+  if (!out) return;
+  const description = out.split('Suggested description:').pop().trim().slice(0, 900);
+  document.getElementById('biz-desc').value = description || out.slice(0, 900);
+  showToast('AI copy applied. Click Save Changes to publish.', 'success');
+}
+
+async function copyAiOutput(){
+  const out = document.getElementById('ai-output')?.textContent || '';
+  try {
+    await navigator.clipboard.writeText(out);
+    showToast('Copied', 'success');
+  } catch (_) {
+    showToast('Copy failed', 'error');
+  }
+}
+
 async function tryDeleteFromStorage(url, path){
   try {
     let storagePath = path;
@@ -1820,6 +2047,11 @@ window.deleteAudio = deleteAudio;
 window.handleFileUpload = handleFileUpload;
 window.deleteFile = deleteFile;
 window.showToast = showToast;
+window.generateAiListing = generateAiListing;
+window.generateAiServices = generateAiServices;
+window.generateAiShotList = generateAiShotList;
+window.applyAiDescription = applyAiDescription;
+window.copyAiOutput = copyAiOutput;
 </script>
 </body>
 </html>

@@ -646,6 +646,7 @@ async function renderPage() {
     const ratingCount = allReviews.length;
     const description = biz.description || biz.desc || '';
     const heroImg = biz.image || (Array.isArray(biz.images) && biz.images[0]) || 'Media%20resources/TheDiaspora%20app%20logo%203D.png';
+    const websiteUrl = normalizeExternalUrl(biz.website || biz.url);
 
     container.innerHTML = `
       <div class="hero">
@@ -688,6 +689,7 @@ async function renderPage() {
             <button class="btn btn-secondary" onclick="document.getElementById('review-form-anchor').scrollIntoView({behavior:'smooth'})">
               ⭐ Write Review
             </button>
+            ${websiteUrl ? `<a href="${escHtml(websiteUrl)}" target="_blank" rel="noopener" class="btn btn-secondary">Visit Website</a>` : ''}
           </div>
         </div>
 
@@ -708,6 +710,14 @@ async function renderPage() {
                 <span style="color:var(--muted)">${biz.location?.address ? escHtml(biz.location.address) : [biz.area, biz.city].filter(Boolean).map(escHtml).join(', ')}</span>
               </div>
             </div>
+            ${websiteUrl ? `
+            <div class="detail-row">
+              <div class="detail-icon">â†—</div>
+              <div>
+                <strong>Website</strong><br>
+                <a href="${escHtml(websiteUrl)}" target="_blank" rel="noopener" style="color:var(--blue);font-weight:600;word-break:break-word">${escHtml(websiteUrl.replace(/^https?:\/\//i, ''))}</a>
+              </div>
+            </div>` : ''}
             <div class="detail-row">
               <div class="detail-icon">🕒</div>
               <div>
@@ -757,6 +767,13 @@ async function renderPage() {
 
 function escHtml(s){
   return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function normalizeExternalUrl(url){
+  const raw = String(url || '').trim();
+  if (!raw) return '';
+  if (/^https?:\/\//i.test(raw)) return raw;
+  if (/^[a-z0-9.-]+\.[a-z]{2,}(\/.*)?$/i.test(raw)) return 'https://' + raw;
+  return '';
 }
 function fmtSize(bytes){
   if (!bytes && bytes !== 0) return '';
@@ -1031,6 +1048,7 @@ function injectLocalBusinessSchema(biz, reviews){
   else if (cat.includes('real estate') || cat.includes('bed space')) type = 'RealEstateAgent';
 
   const heroImg = biz.image || (Array.isArray(biz.images) && biz.images[0]) || '';
+  const websiteUrl = normalizeExternalUrl(biz.website || biz.url);
   const avgRating = reviews && reviews.length
     ? (reviews.reduce((s, r) => s + (Number(r.rating) || 0), 0) / reviews.length)
     : (Number(biz.rating) || 0);
@@ -1060,7 +1078,8 @@ function injectLocalBusinessSchema(biz, reviews){
       return nets.map(n => normalizeSocial(n, s[n])).filter(Boolean);
     })(),
     'telephone': biz.phone || undefined,
-    'url': `https://www.thediaspora.app/business.html?id=${encodeURIComponent(biz.id)}`,
+    'url': websiteUrl || `https://www.thediaspora.app/business.html?id=${encodeURIComponent(biz.id)}`,
+    'sameAs': websiteUrl ? [websiteUrl] : undefined,
     'priceRange': biz.priceRange || (Array.isArray(biz.services) && biz.services.some(s => s.price) ? '$$' : undefined)
   };
   if (avgRating > 0 && reviews && reviews.length){

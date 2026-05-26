@@ -371,43 +371,52 @@ section{padding:100px 0}
 .spotlight-media img{width:100%;height:100%;object-fit:cover}
 .spotlight-media::after{
   content:""; position:absolute; inset:0;
-  background:linear-gradient(105deg, rgba(10,10,10,0.78) 0%, rgba(10,10,10,0.45) 45%, rgba(10,10,10,0.05) 75%);
+  background:linear-gradient(105deg, rgba(10,10,10,0.24) 0%, rgba(10,10,10,0.06) 48%, rgba(10,10,10,0.02) 100%);
 }
 .spotlight-content{
   position:relative; z-index:2;
   max-width:var(--container); margin:0 auto;
-  height:100%; display:flex; align-items:center;
+  height:100%; display:flex; align-items:flex-end;
   padding:0 var(--gutter);
 }
 .spotlight-card{
-  max-width:560px; color:var(--paper);
-  padding-top:64px;
+  max-width:520px; color:var(--ink);
+  margin-bottom:82px; padding:26px;
+  background:rgba(251,248,242,0.94);
+  border:1px solid rgba(255,255,255,0.48);
+  border-radius:8px;
+  box-shadow:0 30px 80px rgba(0,0,0,0.28);
+  backdrop-filter:blur(18px);
 }
 .spotlight-tag{
   display:inline-flex; align-items:center; gap:10px;
-  padding:6px 14px; border:1px solid rgba(255,255,255,0.35); border-radius:999px;
+  padding:6px 14px; border:1px solid var(--line); border-radius:999px;
   font-size:10px; letter-spacing:0.24em; text-transform:uppercase; font-weight:600;
-  margin-bottom:24px; color:var(--brass-soft);
+  margin-bottom:18px; color:var(--brass);
 }
 .spotlight-tag::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--brass)}
 .spotlight-title{
   font-family:'Cormorant Garamond',serif;
   font-weight:300;
-  font-size:clamp(44px, 6vw, 80px);
-  line-height:0.98; letter-spacing:-0.02em;
-  margin-bottom:18px;
+  font-size:clamp(34px, 4.2vw, 58px);
+  line-height:1; letter-spacing:-0.02em;
+  margin-bottom:14px;
 }
-.spotlight-title em{font-style:italic;color:var(--brass-soft)}
+.spotlight-title em{font-style:italic;color:var(--brass)}
 .spotlight-meta{
   display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;
 }
 .meta-pill{
   font-size:10.5px; letter-spacing:0.18em; text-transform:uppercase; font-weight:500;
   padding:6px 12px; border-radius:999px;
-  background:rgba(255,255,255,0.10); border:1px solid rgba(255,255,255,0.18);
+  background:#fff; border:1px solid var(--line); color:var(--muted);
 }
-.spotlight-desc{font-size:16px; line-height:1.7; opacity:0.92; margin-bottom:32px; max-width:48ch}
+.spotlight-desc{font-size:15px; line-height:1.65; color:var(--muted); margin-bottom:24px; max-width:48ch; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden}
 .spotlight-ctas{display:flex; gap:12px; flex-wrap:wrap}
+.spotlight-card .btn-light{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.spotlight-card .btn-light:hover{background:transparent; color:var(--ink); border-color:var(--ink)}
+.spotlight-card .btn-outline{color:var(--ink); border-color:var(--line)}
+.spotlight-card .btn-outline:hover{background:var(--ink); color:var(--paper); border-color:var(--ink)}
 .spotlight-controls{
   position:absolute; left:0; right:0; bottom:24px; z-index:3;
   display:flex; align-items:center; justify-content:center; gap:8px;
@@ -799,7 +808,7 @@ img, video { max-width: 100%; height: auto; }
 @media (max-width: 720px){
   /* Spotlight slides — keep content within viewport */
   .spotlight-stage { min-height: 480px; height: auto; }
-  .spotlight-card { padding-top: 48px; }
+  .spotlight-card { padding: 20px; margin-bottom: 58px; }
   .spotlight-title { font-size: 36px !important; }
   .spotlight-meta { gap: 6px; }
   .meta-pill { font-size: 10px; padding: 4px 10px; }
@@ -1848,6 +1857,41 @@ onAuthStateChanged(auth, async (user) => {
   account.href = 'profile.html';
 });
 
+/* Live business ad carousel */
+(async function loadBusinessSpotlight(){
+  try {
+    const snap = await getDocs(collection(db, 'businesses'));
+    if (snap.empty) return;
+    const businesses = [];
+    snap.forEach(d => {
+      const b = { id: d.id, ...d.data() };
+      const img = b.image || (Array.isArray(b.images) && b.images[0]) || '';
+      if (img && b.name) businesses.push(b);
+    });
+    if (!businesses.length) return;
+    businesses.sort((a, b) => {
+      const ax = (a.premium ? 4 : 0) + (a.featured ? 3 : 0) + (a.verified ? 2 : 0) + (Number(a.rating) || 0);
+      const bx = (b.premium ? 4 : 0) + (b.featured ? 3 : 0) + (b.verified ? 2 : 0) + (Number(b.rating) || 0);
+      return bx - ax;
+    });
+    renderSpotlightSlides(businesses.slice(0, 5).map(b => {
+      const website = normalizeExternalUrl(b.website || b.url);
+      return {
+        imageUrl: b.image || (Array.isArray(b.images) && b.images[0]),
+        title: b.name,
+        tagline: b.premium ? 'Premium business' : b.featured ? 'Featured business' : 'Business spotlight',
+        location: [b.area, b.city].filter(Boolean).join(', '),
+        rating: Number(b.rating) > 0 ? Number(b.rating).toFixed(1) : '',
+        description: b.description || b.desc || '',
+        ctaPrimary: { href: `business.html?id=${encodeURIComponent(b.id)}`, text: 'View Business' },
+        ctaSecondary: website ? { href: website, text: 'Visit Website' } : null
+      };
+    }));
+  } catch (err) {
+    console.warn('Business spotlight load failed:', err);
+  }
+})();
+
 /* Live sponsorships swap-in
    Hardcoded HTML serves as fast-paint fallback. After load we fetch
    active sponsorships from Firestore and swap them into the matching
@@ -1919,6 +1963,43 @@ onAuthStateChanged(auth, async (user) => {
 
 function esc(s){
   return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function normalizeExternalUrl(url){
+  const raw = String(url || '').trim();
+  if (!raw) return '';
+  if (/^https?:\/\//i.test(raw)) return raw;
+  if (/^[a-z0-9.-]+\.[a-z]{2,}(\/.*)?$/i.test(raw)) return 'https://' + raw;
+  return '';
+}
+function renderSpotlightSlides(items){
+  const stage = document.querySelector('.spotlight-stage');
+  const dotsBar = document.getElementById('spotDots');
+  if (!stage || !items?.length) return;
+  const list = items.slice(0, 5);
+  stage.innerHTML = list.map((s, i) => `
+    <article class="spotlight-slide ${i === 0 ? 'active' : ''}" aria-hidden="${i === 0 ? 'false' : 'true'}">
+      <div class="spotlight-media"><img src="${esc(s.imageUrl)}" alt="${esc(s.title)}"></div>
+      <div class="spotlight-content">
+        <div class="spotlight-card">
+          <div class="spotlight-tag">${esc(s.tagline || s.badge || 'Featured')}</div>
+          <h2 class="spotlight-title">${esc(s.title)}</h2>
+          ${s.location || s.rating ? `<div class="spotlight-meta">
+            ${s.location ? `<span class="meta-pill">${esc(s.location)}</span>` : ''}
+            ${s.rating ? `<span class="meta-pill">Rating ${esc(s.rating)}</span>` : ''}
+          </div>` : ''}
+          ${s.description ? `<p class="spotlight-desc">${esc(s.description)}</p>` : ''}
+          <div class="spotlight-ctas">
+            <a href="${esc(s.ctaPrimary?.href || '#')}" class="btn btn-light">${esc(s.ctaPrimary?.text || 'View')}</a>
+            ${s.ctaSecondary?.href ? `<a href="${esc(s.ctaSecondary.href)}" class="btn btn-outline" target="${String(s.ctaSecondary.href).startsWith('http') ? '_blank' : '_self'}" rel="noopener">${esc(s.ctaSecondary.text || 'Visit')}</a>` : ''}
+          </div>
+        </div>
+      </div>
+    </article>
+  `).join('');
+  if (dotsBar){
+    dotsBar.innerHTML = list.map((_, i) => `<button class="spot-dot ${i===0?'active':''}" data-i="${i}" aria-label="Show slide ${i+1}"></button>`).join('');
+  }
+  document.dispatchEvent(new CustomEvent('spotlight:reload'));
 }
 function replaceTiles(railSel, items, defaultCta){
   const rail = document.querySelector(railSel);
