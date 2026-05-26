@@ -21,8 +21,9 @@ Firebase Console for build logs.
 `apphosting.yaml` controls runtime resources and env vars:
 
 - 1 vCPU, 512 MiB, max 5 instances, 80 concurrency, 60s timeout
-- `NODE_ENV=production`, `PORT=8080`
+- `NODE_ENV=production`, `PORT=8080`, `OPENAI_MODEL=gpt-4.1-mini`
 - Static-first site served by `node dev-server.js` (auto-detected via `npm start`)
+- AI Studio uses `POST /api/ai-listing`. Set `OPENAI_API_KEY` as an App Hosting runtime secret/env var before expecting real AI output; without it the seller dashboard falls back to local draft generation.
 
 To change resources, edit `apphosting.yaml`, commit, push.
 

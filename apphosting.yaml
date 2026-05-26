@@ -30,3 +30,8 @@ env:
     value: "8080"
     availability:
       - RUNTIME
+
+  - variable: OPENAI_MODEL
+    value: gpt-4.1-mini
+    availability:
+      - RUNTIME

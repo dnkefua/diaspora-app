@@ -1959,14 +1959,36 @@ function requireAiAccess(){
   return false;
 }
 
-function generateAiListing(){
+async function requestAi(action, fallback){
   if (!requireAiAccess()) return;
+  setAiOutput('Generating with AI...');
+  try {
+    const token = await currentUser.getIdToken();
+    const resp = await fetch('/api/ai-listing', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({ action, context: currentAiContext() })
+    });
+    const data = await resp.json().catch(() => ({}));
+    if (!resp.ok || !data.text) throw new Error(data.error || 'AI endpoint unavailable');
+    setAiOutput(data.text);
+    showToast('AI draft ready', 'success');
+  } catch (err) {
+    console.warn('AI endpoint failed, using local draft:', err);
+    fallback();
+    showToast('Using local AI draft until server AI is configured', 'error');
+  }
+}
+
+function localListingDraft(){
   const c = currentAiContext();
   setAiOutput(`${c.name} brings ${c.offer} to ${c.area ? c.area + ', ' : ''}${c.city} with a ${c.tone.toLowerCase()} customer experience.\n\nBuilt for ${c.audience}, this ${c.category.toLowerCase()} page should highlight trust, convenience, clear pricing, and direct contact. Customers can browse your photos, review your services, and reach you through WhatsApp or your website.\n\nSuggested headline: ${c.name} - ${c.category} for the diaspora community in ${c.city}.\n\nSuggested description:\n${c.name} offers ${c.offer} for ${c.audience} in ${c.city}. Expect responsive communication, authentic service, and a simple booking path from discovery to direct contact.`);
 }
 
-function generateAiServices(){
-  if (!requireAiAccess()) return;
+function localServicesDraft(){
   const c = currentAiContext();
   const ideas = [
     `Signature ${c.category} package - tailored for ${c.audience}`,
@@ -1977,10 +1999,21 @@ function generateAiServices(){
   setAiOutput(`Suggested menu/services for ${c.name}:\n\n${ideas.map((x, i) => `${i + 1}. ${x}\n   Description: ${c.offer} delivered with a ${c.tone.toLowerCase()} feel.\n   Price: Add a fixed price or "On request".`).join('\n\n')}`);
 }
 
-function generateAiShotList(){
-  if (!requireAiAccess()) return;
+function localShotListDraft(){
   const c = currentAiContext();
   setAiOutput(`Photo and video ideas for ${c.name}:\n\n1. Hero image: the finished product, service result, or storefront in natural light.\n2. Trust image: owner/team portrait or behind-the-scenes preparation.\n3. Detail image: close-up of texture, tools, menu, styling, packaging, or workspace.\n4. Social proof: happy customer moment, event setup, or before/after result.\n5. Short video: 10-20 seconds showing how customers order, book, or receive the service.\n\nKeep captions short and let the visuals do the selling.`);
+}
+
+function generateAiListing(){
+  return requestAi('listing', localListingDraft);
+}
+
+function generateAiServices(){
+  return requestAi('services', localServicesDraft);
+}
+
+function generateAiShotList(){
+  return requestAi('shots', localShotListDraft);
 }
 
 function applyAiDescription(){
