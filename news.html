@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>News from Home · The Diaspora App</title>
+<meta name="description" content="Stay connected to home. Live national TV broadcasts, the independent press, and free video news from across Africa — starting with Cameroon. Newspapers, headlines and live streams in one place.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.thediaspora.app/news.html">
+<link rel="icon" type="image/png" href="Media%20resources/TheDiaspora%20app%20logo%203D.png">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.youtube.com">
+<link rel="dns-prefetch" href="https://api.allorigins.win">
+<meta property="og:type" content="website">
+<meta property="og:title" content="News from Home — The Diaspora App">
+<meta property="og:description" content="Live national broadcasts, newspapers and free video news from across Africa, starting with Cameroon.">
+<meta property="og:url" content="https://www.thediaspora.app/news.html">
+<meta property="og:image" content="https://www.thediaspora.app/Media%20resources/TheDiaspora%20app%20logo%203D.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "News from Home — The Diaspora App",
+  "description": "Live national TV broadcasts, the independent press and free video news from across Africa, starting with Cameroon.",
+  "url": "https://www.thediaspora.app/news.html",
+  "isPartOf": { "@type": "WebSite", "name": "The Diaspora App", "url": "https://www.thediaspora.app/" },
+  "about": { "@type": "Thing", "name": "African news for the global diaspora" }
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="page.css">
+<style>
+/* ── Country selector ── */
+.news-toolbar{
+  position:sticky; top:71px; z-index:40;
+  background:rgba(251,248,242,0.95); backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line);
+  padding:14px 0;
+}
+.country-bar{
+  display:flex; gap:8px; overflow-x:auto; scrollbar-width:none;
+  max-width:1080px; margin:0 auto; padding:0 32px;
+  -webkit-overflow-scrolling:touch;
+}
+.country-bar::-webkit-scrollbar{display:none}
+.country-pill{
+  flex:0 0 auto; display:inline-flex; align-items:center; gap:8px;
+  padding:9px 16px; border:1px solid var(--line); border-radius:999px;
+  background:#fff; font-size:13px; font-weight:500; color:var(--graphite);
+  white-space:nowrap; transition:all 0.18s;
+}
+.country-pill .flag{font-size:16px; line-height:1}
+.country-pill:hover{border-color:var(--brass); transform:translateY(-1px)}
+.country-pill.active{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.country-pill .live-dot{
+  width:7px; height:7px; border-radius:50%; background:#E0413A;
+  box-shadow:0 0 0 0 rgba(224,65,58,0.6); animation:livePulse 1.8s infinite;
+}
+@keyframes livePulse{0%{box-shadow:0 0 0 0 rgba(224,65,58,0.55)}70%{box-shadow:0 0 0 6px rgba(224,65,58,0)}100%{box-shadow:0 0 0 0 rgba(224,65,58,0)}}
+
+/* ── Layout ── */
+.news-main{max-width:1080px; margin:0 auto; padding:40px 32px 96px}
+.news-head{
+  display:flex; align-items:flex-end; justify-content:space-between;
+  gap:20px; flex-wrap:wrap; margin-bottom:8px;
+}
+.news-head h2{
+  font-family:'Cormorant Garamond',serif; font-weight:300;
+  font-size:clamp(34px,5vw,52px); line-height:1; letter-spacing:-0.02em;
+  display:flex; align-items:center; gap:14px;
+}
+.news-head h2 .flag{font-size:0.9em}
+.news-head .sub{color:var(--muted); font-size:15px; max-width:60ch; margin-top:10px}
+.lang-toggle{display:inline-flex; border:1px solid var(--line); border-radius:999px; overflow:hidden; background:#fff}
+.lang-toggle button{
+  padding:8px 16px; font-size:11px; font-weight:600; letter-spacing:0.12em;
+  text-transform:uppercase; color:var(--muted);
+}
+.lang-toggle button.active{background:var(--ink); color:var(--paper)}
+
+.sec-label{
+  font-size:11px; font-weight:600; letter-spacing:0.24em; text-transform:uppercase;
+  color:var(--muted); margin:48px 0 18px;
+  display:flex; align-items:center; gap:12px;
+}
+.sec-label::after{content:""; flex:1; height:1px; background:var(--line)}
+.sec-label .live-dot{width:8px;height:8px;border-radius:50%;background:#E0413A;animation:livePulse 1.8s infinite}
+
+/* ── Live broadcast grid ── */
+.tv-grid{display:grid; gap:18px; grid-template-columns:repeat(2,1fr)}
+.tv-card{
+  background:var(--ink); border-radius:16px; overflow:hidden;
+  border:1px solid var(--line); position:relative;
+}
+.tv-stage{position:relative; aspect-ratio:16/9; background:#0A0A0A}
+.tv-stage iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
+.tv-poster{
+  position:absolute; inset:0; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:14px; cursor:pointer;
+  background:radial-gradient(120% 120% at 50% 30%, #23262E 0%, #0A0A0A 75%);
+  text-align:center; padding:18px;
+}
+.tv-poster .play{
+  width:62px; height:62px; border-radius:50%;
+  background:rgba(255,255,255,0.12); border:1.5px solid rgba(255,255,255,0.5);
+  display:flex; align-items:center; justify-content:center; transition:all 0.2s;
+}
+.tv-poster:hover .play{background:var(--brass); border-color:var(--brass); transform:scale(1.06)}
+.tv-poster .play svg{fill:#fff; margin-left:3px}
+.tv-poster .pname{font-family:'Cormorant Garamond',serif; font-size:24px; color:#fff}
+.tv-poster .pmeta{font-size:12px; color:rgba(255,255,255,0.6); letter-spacing:0.04em}
+.tv-live-tag{
+  position:absolute; top:12px; left:12px; z-index:2;
+  display:inline-flex; align-items:center; gap:6px;
+  background:rgba(224,65,58,0.95); color:#fff; padding:4px 10px;
+  border-radius:6px; font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase;
+}
+.tv-live-tag .dot{width:6px;height:6px;border-radius:50%;background:#fff;animation:livePulse 1.8s infinite}
+.tv-foot{padding:14px 16px; display:flex; align-items:center; justify-content:space-between; gap:12px}
+.tv-foot .tn{color:#fff; font-size:14px; font-weight:600}
+.tv-foot .td{color:rgba(255,255,255,0.55); font-size:12px}
+.tv-foot a{
+  color:var(--brass-soft); font-size:11px; font-weight:600; letter-spacing:0.1em;
+  text-transform:uppercase; white-space:nowrap;
+}
+
+/* ── Headlines ── */
+.headlines{display:grid; gap:0; border:1px solid var(--line); border-radius:16px; overflow:hidden; background:#fff}
+.hl{
+  display:grid; grid-template-columns:1fr auto; gap:18px; align-items:start;
+  padding:18px 22px; border-top:1px solid var(--line-soft); transition:background 0.15s;
+}
+.hl:first-child{border-top:none}
+.hl:hover{background:var(--paper)}
+.hl .ht{font-size:16px; line-height:1.45; color:var(--ink); font-weight:500}
+.hl a.ht:hover{color:var(--brass)}
+.hl .hmeta{display:flex; gap:10px; align-items:center; margin-top:7px; flex-wrap:wrap}
+.hl .src{
+  font-size:11px; font-weight:600; letter-spacing:0.04em; color:var(--blue);
+  background:rgba(28,61,110,0.07); padding:2px 9px; border-radius:6px;
+}
+.hl .when{font-size:12px; color:var(--muted)}
+.hl .go{
+  align-self:center; width:32px; height:32px; flex:0 0 auto;
+  border:1px solid var(--line); border-radius:50%;
+  display:flex; align-items:center; justify-content:center; color:var(--muted); transition:all 0.18s;
+}
+.hl:hover .go{border-color:var(--brass); color:var(--brass)}
+.hl-state{padding:40px 24px; text-align:center; color:var(--muted); font-size:14px}
+.hl-state .spinner{
+  width:26px; height:26px; margin:0 auto 14px; border-radius:50%;
+  border:2.5px solid var(--line); border-top-color:var(--brass); animation:spin 0.8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hl-more{text-align:center; padding:18px}
+
+/* ── Chips / sources ── */
+.chip-grid{display:flex; flex-wrap:wrap; gap:10px}
+.src-chip{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:11px 16px; border:1px solid var(--line); border-radius:12px;
+  background:#fff; font-size:14px; color:var(--ink); transition:all 0.18s;
+}
+.src-chip:hover{border-color:var(--brass); transform:translateY(-1px); box-shadow:0 10px 24px -14px rgba(10,10,10,0.25)}
+.src-chip svg{color:var(--muted)}
+
+/* ── YouTube channel cards ── */
+.yt-grid{display:grid; gap:14px; grid-template-columns:repeat(3,1fr)}
+.yt-card{
+  display:flex; gap:14px; align-items:center; padding:16px;
+  border:1px solid var(--line); border-radius:14px; background:#fff; transition:all 0.18s;
+}
+.yt-card:hover{border-color:var(--brass); transform:translateY(-2px)}
+.yt-ic{
+  width:42px;height:42px;flex:0 0 auto;border-radius:50%;
+  background:#FF0000; display:flex; align-items:center; justify-content:center;
+}
+.yt-ic svg{fill:#fff}
+.yt-card .yn{font-size:14px; font-weight:600; color:var(--ink)}
+.yt-card .ym{font-size:12px; color:var(--muted)}
+
+.news-note{
+  margin-top:54px; padding:20px 24px; border:1px dashed var(--line);
+  border-radius:14px; background:var(--ivory);
+  font-size:13px; line-height:1.65; color:var(--muted);
+}
+.news-note strong{color:var(--ink)}
+
+@media (max-width:760px){
+  .news-toolbar{top:0}
+  .country-bar{padding:0 18px}
+  .news-main{padding:28px 18px 64px}
+  .tv-grid{grid-template-columns:1fr}
+  .yt-grid{grid-template-columns:1fr}
+  .hl{padding:16px 16px}
+}
+</style>
+</head>
+<body>
+<header class="page-header">
+  <a href="index.html" class="brand"><img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="The Diaspora App"></a>
+  <nav>
+    <a href="news.html" aria-current="page" style="color:var(--brass)">News</a>
+    <a href="best.html">Best of Diaspora</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="become-seller.html" class="nav-account">List your business</a>
+  </nav>
+</header>
+
+<section class="page-hero" style="padding-bottom:40px">
+  <div class="kicker">The Diaspora Newsroom</div>
+  <h1>Home news, <em>wherever you are</em>.</h1>
+  <p class="lede">Live national broadcasts, the independent press, and free video news from across Africa — aggregated in one calm place. We start with Cameroon and expand country by country, so the diaspora never loses touch with home.</p>
+</section>
+
+<div class="news-toolbar">
+  <div class="country-bar" id="countryBar"><!-- pills injected --></div>
+</div>
+
+<main class="news-main">
+  <div class="news-head">
+    <div>
+      <h2 id="cTitle"><span class="flag">🇨🇲</span> Cameroon</h2>
+      <p class="sub" id="cBlurb"></p>
+    </div>
+    <div class="lang-toggle" id="langToggle" hidden></div>
+  </div>
+
+  <!-- LIVE TV -->
+  <div class="sec-label" id="tvLabel"><span class="live-dot"></span> Live national broadcast</div>
+  <div class="tv-grid" id="tvGrid"></div>
+
+  <!-- HEADLINES -->
+  <div class="sec-label">Latest headlines · aggregated</div>
+  <div class="headlines" id="headlines">
+    <div class="hl-state"><div class="spinner"></div>Gathering the latest from home…</div>
+  </div>
+
+  <!-- VIDEO NEWS -->
+  <div class="sec-label" id="ytLabel">Free video news · YouTube</div>
+  <div class="yt-grid" id="ytGrid"></div>
+
+  <!-- NEWSPAPERS -->
+  <div class="sec-label">Newspapers &amp; the independent press</div>
+  <div class="chip-grid" id="paperGrid"></div>
+
+  <div class="news-note">
+    <strong>How this works.</strong> The Diaspora App does not host or alter any news content. Live broadcasts play directly from the broadcaster's official YouTube stream, and aggregated headlines are pulled from public Google News feeds — every link opens at the original publisher, who owns the story. Spotted a missing outlet or a country we should add next? Write to <a href="mailto:hello@thediaspora.app?subject=News%20source%20suggestion" style="color:var(--brass)">hello@thediaspora.app</a>.
+  </div>
+</main>
+
+<footer class="page-footer">
+  <span>© 2026 The Diaspora App</span>
+  <div class="foot-links">
+    <a href="index.html">Home</a>
+    <a href="best.html">Best of Diaspora</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</footer>
+
+<script>
+/* ───────────────────────── Data ───────────────────────── */
+// Curated broadcasters / papers / YouTube channels for richly-covered markets.
+// `channel` = confirmed YouTube channel ID → embeds the live stream inline.
+// Without it, "Watch live" opens a YouTube live search (always resolves).
+const CURATED = {
+  CM: {
+    tv: [
+      { name:'CRTV', desc:'National public broadcaster · CRTV News', channel:'UCknX1xTALNDYgMhk6ny4_Ag', search:'CRTV Cameroon live news' },
+      { name:'STV Cameroon', desc:'Spectrum Television · private', search:'STV Cameroon live news' },
+      { name:'Equinoxe TV', desc:'Independent news & current affairs', search:'Equinoxe TV Cameroun direct' },
+      { name:'Canal 2 International', desc:'News · sport · entertainment', search:'Canal 2 International Cameroun direct' }
+    ],
+    yt: [
+      { name:'CRTV Web', q:'CRTV Cameroon news' },
+      { name:'STV Cameroon', q:'STV Cameroon news' },
+      { name:'Mimi Mefo Info', q:'Mimi Mefo Info Cameroon' },
+      { name:'Journal du Cameroun', q:'Journal du Cameroun actualité' }
+    ],
+    papers: [
+      { name:'Cameroon Tribune', url:'https://www.cameroon-tribune.cm/' },
+      { name:'Journal du Cameroun', url:'https://www.journalducameroun.com/en/' },
+      { name:'Mimi Mefo Info', url:'https://mimimefoinfos.com/en/' },
+      { name:'The Guardian Post', url:'https://theguardianpostcameroon.com/' },
+      { name:'Business in Cameroon', url:'https://www.businessincameroon.com/' },
+      { name:'Cameroon News Agency', url:'https://cameroonnewsagency.com/' },
+      { name:'Cameroon Concord', url:'https://www.cameroonconcordnews.com/' }
+    ]
+  },
+  NG: {
+    tv: [
+      { name:'Channels Television', desc:'24/7 news · Lagos', search:'Channels Television Nigeria live' },
+      { name:'Arise News', desc:'Independent national news', search:'Arise News Nigeria live' },
+      { name:'TVC News', desc:'News & current affairs', search:'TVC News Nigeria live' },
+      { name:'NTA', desc:'Nigerian Television Authority', search:'NTA News Nigeria live' }
+    ],
+    yt: [ {name:'Channels Television',q:'Channels Television Nigeria'}, {name:'Arise News',q:'Arise News Nigeria'}, {name:'TVC News',q:'TVC News Nigeria'} ],
+    papers: [
+      { name:'Punch', url:'https://punchng.com/' },
+      { name:'Premium Times', url:'https://www.premiumtimesng.com/' },
+      { name:'The Guardian Nigeria', url:'https://guardian.ng/' },
+      { name:'Vanguard', url:'https://www.vanguardngr.com/' },
+      { name:'ThisDay', url:'https://www.thisdaylive.com/' },
+      { name:'Daily Trust', url:'https://dailytrust.com/' }
+    ]
+  },
+  GH: {
+    tv: [
+      { name:'GhanaWeb TV', desc:'News & talk', search:'GhanaWeb TV live' },
+      { name:'JoyNews', desc:'Multimedia Group · 24h news', search:'JoyNews Ghana live' },
+      { name:'GTV', desc:'Ghana Broadcasting Corporation', search:'GTV Ghana live news' }
+    ],
+    yt: [ {name:'JoyNews',q:'JoyNews Ghana'}, {name:'GhanaWeb',q:'GhanaWeb news'}, {name:'Citi Newsroom',q:'Citi Newsroom Ghana'} ],
+    papers: [
+      { name:'GhanaWeb', url:'https://www.ghanaweb.com/' },
+      { name:'MyJoyOnline', url:'https://www.myjoyonline.com/' },
+      { name:'Graphic Online', url:'https://www.graphic.com.gh/' },
+      { name:'Citi Newsroom', url:'https://citinewsroom.com/' }
+    ]
+  },
+  KE: {
+    tv: [
+      { name:'Citizen TV', desc:'Royal Media · most-watched', search:'Citizen TV Kenya live' },
+      { name:'KTN News', desc:'24h news channel', search:'KTN News Kenya live' },
+      { name:'NTV Kenya', desc:'Nation Media Group', search:'NTV Kenya live' },
+      { name:'KBC', desc:'Kenya Broadcasting Corp.', search:'KBC Channel 1 Kenya live' }
+    ],
+    yt: [ {name:'Citizen TV',q:'Citizen TV Kenya'}, {name:'KTN News',q:'KTN News Kenya'}, {name:'NTV Kenya',q:'NTV Kenya'} ],
+    papers: [
+      { name:'Daily Nation', url:'https://nation.africa/kenya' },
+      { name:'The Standard', url:'https://www.standardmedia.co.ke/' },
+      { name:'The Star', url:'https://www.the-star.co.ke/' },
+      { name:'Business Daily', url:'https://www.businessdailyafrica.com/' }
+    ]
+  },
+  ZA: {
+    tv: [
+      { name:'SABC News', desc:'Public broadcaster · 24h', search:'SABC News South Africa live' },
+      { name:'eNCA', desc:'Independent news channel', search:'eNCA South Africa live' },
+      { name:'Newzroom Afrika', desc:'24h news', search:'Newzroom Afrika live' }
+    ],
+    yt: [ {name:'SABC News',q:'SABC News South Africa'}, {name:'eNCA',q:'eNCA news'}, {name:'Newzroom Afrika',q:'Newzroom Afrika'} ],
+    papers: [
+      { name:'News24', url:'https://www.news24.com/' },
+      { name:'IOL', url:'https://www.iol.co.za/' },
+      { name:'TimesLIVE', url:'https://www.timeslive.co.za/' },
+      { name:'Daily Maverick', url:'https://www.dailymaverick.co.za/' }
+    ]
+  },
+  CI: {
+    tv: [ { name:'RTI', desc:'Radiodiffusion Télévision Ivoirienne', search:'RTI Côte d’Ivoire direct' }, { name:'NCI', desc:'Nouvelle Chaîne Ivoirienne', search:'NCI Côte d’Ivoire direct' } ],
+    yt: [ {name:'RTI Officiel',q:'RTI Côte d’Ivoire'}, {name:'NCI',q:'NCI Côte d’Ivoire'} ],
+    papers: [ { name:'Fraternité Matin', url:'https://www.fratmat.info/' }, { name:'Abidjan.net', url:'https://news.abidjan.net/' }, { name:'Koaci', url:'https://www.koaci.com/' } ]
+  },
+  SN: {
+    tv: [ { name:'RTS', desc:'Radiodiffusion Télévision Sénégalaise', search:'RTS Sénégal direct' }, { name:'TFM', desc:'Télé Futurs Médias', search:'TFM Sénégal direct' } ],
+    yt: [ {name:'RTS1',q:'RTS Sénégal'}, {name:'TFM',q:'TFM Sénégal'}, {name:'Seneweb',q:'Seneweb actualité'} ],
+    papers: [ { name:'Seneweb', url:'https://www.seneweb.com/' }, { name:'Le Soleil', url:'https://lesoleil.sn/' }, { name:'Dakaractu', url:'https://www.dakaractu.com/' } ]
+  },
+  EG: {
+    tv: [ { name:'Nile News', desc:'State news channel', search:'Nile News Egypt live' }, { name:'CBC Egypt', desc:'Private network', search:'CBC Egypt live' } ],
+    yt: [ {name:'Nile News',q:'Nile News Egypt'}, {name:'CBC Egypt',q:'CBC Egypt'} ],
+    papers: [ { name:'Ahram Online', url:'https://english.ahram.org.eg/' }, { name:'Egypt Independent', url:'https://www.egyptindependent.com/' }, { name:'Daily News Egypt', url:'https://www.dailynewsegypt.com/' } ]
+  },
+  ET: {
+    tv: [ { name:'EBC', desc:'Ethiopian Broadcasting Corp.', search:'EBC Ethiopia live' }, { name:'Fana TV', desc:'Fana Broadcasting', search:'Fana TV Ethiopia live' } ],
+    yt: [ {name:'EBC',q:'EBC Ethiopia news'}, {name:'Fana Television',q:'Fana Television Ethiopia'} ],
+    papers: [ { name:'Addis Standard', url:'https://addisstandard.com/' }, { name:'The Reporter', url:'https://www.thereporterethiopia.com/' }, { name:'Fana BC', url:'https://www.fanabc.com/english/' } ]
+  }
+};
+
+// Every African country — aggregated headlines work everywhere via Google News.
+// `lang`: bias the search edition (fr/ar/pt) so results read in the local language.
+const COUNTRIES = [
+  { code:'CM', name:'Cameroon', flag:'🇨🇲', live:true, langs:['en','fr'],
+    blurb:'Bilingual coverage from Yaoundé to Buea — CRTV, the private channels, and the independent press.', q:'Cameroon OR Cameroun' },
+  { code:'NG', name:'Nigeria', flag:'🇳🇬', q:'Nigeria' },
+  { code:'GH', name:'Ghana', flag:'🇬🇭', q:'Ghana' },
+  { code:'KE', name:'Kenya', flag:'🇰🇪', q:'Kenya' },
+  { code:'ZA', name:'South Africa', flag:'🇿🇦', q:'South Africa' },
+  { code:'CI', name:'Côte d’Ivoire', flag:'🇨🇮', lang:'fr', q:'Côte d’Ivoire' },
+  { code:'SN', name:'Senegal', flag:'🇸🇳', lang:'fr', q:'Sénégal' },
+  { code:'EG', name:'Egypt', flag:'🇪🇬', q:'Egypt' },
+  { code:'ET', name:'Ethiopia', flag:'🇪🇹', q:'Ethiopia' },
+  { code:'DZ', name:'Algeria', flag:'🇩🇿', lang:'fr', q:'Algérie' },
+  { code:'AO', name:'Angola', flag:'🇦🇴', lang:'pt', q:'Angola' },
+  { code:'BJ', name:'Benin', flag:'🇧🇯', lang:'fr', q:'Bénin' },
+  { code:'BW', name:'Botswana', flag:'🇧🇼', q:'Botswana' },
+  { code:'BF', name:'Burkina Faso', flag:'🇧🇫', lang:'fr', q:'Burkina Faso' },
+  { code:'BI', name:'Burundi', flag:'🇧🇮', lang:'fr', q:'Burundi' },
+  { code:'CV', name:'Cabo Verde', flag:'🇨🇻', lang:'pt', q:'Cabo Verde' },
+  { code:'CF', name:'Central African Republic', flag:'🇨🇫', lang:'fr', q:'Centrafrique' },
+  { code:'TD', name:'Chad', flag:'🇹🇩', lang:'fr', q:'Tchad' },
+  { code:'KM', name:'Comoros', flag:'🇰🇲', lang:'fr', q:'Comores' },
+  { code:'CG', name:'Congo (Republic)', flag:'🇨🇬', lang:'fr', q:'Congo Brazzaville' },
+  { code:'CD', name:'DR Congo', flag:'🇨🇩', lang:'fr', q:'RD Congo' },
+  { code:'DJ', name:'Djibouti', flag:'🇩🇯', lang:'fr', q:'Djibouti' },
+  { code:'GQ', name:'Equatorial Guinea', flag:'🇬🇶', q:'Equatorial Guinea' },
+  { code:'ER', name:'Eritrea', flag:'🇪🇷', q:'Eritrea' },
+  { code:'SZ', name:'Eswatini', flag:'🇸🇿', q:'Eswatini' },
+  { code:'GA', name:'Gabon', flag:'🇬🇦', lang:'fr', q:'Gabon' },
+  { code:'GM', name:'Gambia', flag:'🇬🇲', q:'Gambia' },
+  { code:'GN', name:'Guinea', flag:'🇬🇳', lang:'fr', q:'Guinée Conakry' },
+  { code:'GW', name:'Guinea-Bissau', flag:'🇬🇼', lang:'pt', q:'Guiné-Bissau' },
+  { code:'LS', name:'Lesotho', flag:'🇱🇸', q:'Lesotho' },
+  { code:'LR', name:'Liberia', flag:'🇱🇷', q:'Liberia' },
+  { code:'LY', name:'Libya', flag:'🇱🇾', q:'Libya' },
+  { code:'MG', name:'Madagascar', flag:'🇲🇬', lang:'fr', q:'Madagascar' },
+  { code:'MW', name:'Malawi', flag:'🇲🇼', q:'Malawi' },
+  { code:'ML', name:'Mali', flag:'🇲🇱', lang:'fr', q:'Mali' },
+  { code:'MR', name:'Mauritania', flag:'🇲🇷', lang:'fr', q:'Mauritanie' },
+  { code:'MU', name:'Mauritius', flag:'🇲🇺', q:'Mauritius' },
+  { code:'MA', name:'Morocco', flag:'🇲🇦', lang:'fr', q:'Maroc' },
+  { code:'MZ', name:'Mozambique', flag:'🇲🇿', lang:'pt', q:'Moçambique' },
+  { code:'NA', name:'Namibia', flag:'🇳🇦', q:'Namibia' },
+  { code:'NE', name:'Niger', flag:'🇳🇪', lang:'fr', q:'Niger' },
+  { code:'RW', name:'Rwanda', flag:'🇷🇼', q:'Rwanda' },
+  { code:'ST', name:'São Tomé & Príncipe', flag:'🇸🇹', lang:'pt', q:'São Tomé e Príncipe' },
+  { code:'SC', name:'Seychelles', flag:'🇸🇨', q:'Seychelles' },
+  { code:'SL', name:'Sierra Leone', flag:'🇸🇱', q:'Sierra Leone' },
+  { code:'SO', name:'Somalia', flag:'🇸🇴', q:'Somalia' },
+  { code:'SS', name:'South Sudan', flag:'🇸🇸', q:'South Sudan' },
+  { code:'SD', name:'Sudan', flag:'🇸🇩', q:'Sudan' },
+  { code:'TZ', name:'Tanzania', flag:'🇹🇿', q:'Tanzania' },
+  { code:'TG', name:'Togo', flag:'🇹🇬', lang:'fr', q:'Togo' },
+  { code:'TN', name:'Tunisia', flag:'🇹🇳', lang:'fr', q:'Tunisie' },
+  { code:'UG', name:'Uganda', flag:'🇺🇬', q:'Uganda' },
+  { code:'ZM', name:'Zambia', flag:'🇿🇲', q:'Zambia' },
+  { code:'ZW', name:'Zimbabwe', flag:'🇿🇼', q:'Zimbabwe' }
+];
+
+/* ───────────────────────── State ───────────────────────── */
+let current = COUNTRIES[0];
+let currentLang = current.langs ? current.langs[0] : (current.lang || 'en');
+
+/* ───────────────────────── Helpers ───────────────────────── */
+const $ = s => document.querySelector(s);
+const el = (tag, cls, html) => { const n=document.createElement(tag); if(cls)n.className=cls; if(html!=null)n.innerHTML=html; return n; };
+const esc = s => (s||'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ytSearch = q => 'https://www.youtube.com/results?search_query=' + encodeURIComponent(q);
+
+function timeAgo(ms){
+  const s=(Date.now()-ms)/1000;
+  if(isNaN(s)||s<0) return '';
+  if(s<60) return 'just now';
+  const m=s/60; if(m<60) return Math.floor(m)+'m ago';
+  const h=m/60; if(h<24) return Math.floor(h)+'h ago';
+  const d=h/24; if(d<7) return Math.floor(d)+'d ago';
+  return new Date(ms).toLocaleDateString();
+}
+
+function gnewsRss(c, lang){
+  const map = {
+    en:{hl:'en-US',gl:'US',ceid:'US:en'},
+    fr:{hl:'fr',gl:'FR',ceid:'FR:fr'},
+    ar:{hl:'ar',gl:'EG',ceid:'EG:ar'},
+    pt:{hl:'pt-PT',gl:'PT',ceid:'PT:pt-150'}
+  };
+  const e = map[lang] || map.en;
+  const q = encodeURIComponent(c.q + ' when:14d');
+  return `https://news.google.com/rss/search?q=${q}&hl=${e.hl}&gl=${e.gl}&ceid=${e.ceid}`;
+}
+
+// Fetch + parse RSS through free public proxies (no key). Tries several, returns items[].
+async function fetchHeadlines(rssUrl){
+  // 1) rss2json (returns clean JSON)
+  try{
+    const r = await fetch(`https://api.rss2json.com/v1/api.json?count=14&rss_url=${encodeURIComponent(rssUrl)}`);
+    if(r.ok){
+      const j = await r.json();
+      if(j.status==='ok' && j.items && j.items.length){
+        return j.items.map(it=>({ title:it.title, link:it.link, date:Date.parse(it.pubDate), source:it.author||'' }));
+      }
+    }
+  }catch(e){ /* fall through */ }
+  // 2) raw CORS proxies + DOMParser
+  const proxies = [
+    u => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
+    u => `https://corsproxy.io/?url=${encodeURIComponent(u)}`,
+    u => `https://thingproxy.freeboard.io/fetch/${u}`
+  ];
+  for(const make of proxies){
+    try{
+      const r = await fetch(make(rssUrl));
+      if(!r.ok) continue;
+      const txt = await r.text();
+      const doc = new DOMParser().parseFromString(txt, 'text/xml');
+      const items = [...doc.querySelectorAll('item')];
+      if(items.length){
+        return items.slice(0,14).map(it=>({
+          title: it.querySelector('title')?.textContent || '',
+          link: it.querySelector('link')?.textContent || '',
+          date: Date.parse(it.querySelector('pubDate')?.textContent || ''),
+          source: it.querySelector('source')?.textContent || ''
+        }));
+      }
+    }catch(e){ /* try next */ }
+  }
+  throw new Error('unavailable');
+}
+
+function splitSource(item){
+  let { title, source } = item;
+  title = title || '';
+  const m = title.match(/\s[-–—]\s([^-–—]{2,40})\s*$/);
+  if(!source && m){ source = m[1].trim(); title = title.slice(0, m.index).trim(); }
+  else if(source && title.endsWith(' - ' + source)){ title = title.slice(0, -(source.length+3)); }
+  return { title: title.trim(), source: (source||'').trim() };
+}
+
+/* ───────────────────────── Render ───────────────────────── */
+function renderCountryBar(){
+  const bar = $('#countryBar'); bar.innerHTML='';
+  COUNTRIES.forEach(c=>{
+    const b = el('button', 'country-pill'+(c.code===current.code?' active':''));
+    b.innerHTML = `<span class="flag">${c.flag}</span> ${esc(c.name)}` + (c.live?' <span class="live-dot" title="Fully covered"></span>':'');
+    b.onclick = ()=>{ if(c.code!==current.code){ select(c); } };
+    bar.appendChild(b);
+  });
+}
+
+function renderLangToggle(){
+  const t = $('#langToggle');
+  if(!current.langs){ t.hidden=true; t.innerHTML=''; return; }
+  t.hidden=false; t.innerHTML='';
+  current.langs.forEach(lg=>{
+    const b = el('button', lg===currentLang?'active':'', lg==='fr'?'Français':'English');
+    b.onclick = ()=>{ if(lg!==currentLang){ currentLang=lg; renderLangToggle(); loadHeadlines(); } };
+    t.appendChild(b);
+  });
+}
+
+function renderTV(){
+  const grid = $('#tvGrid'); const label = $('#tvLabel');
+  const cur = CURATED[current.code];
+  const tv = cur && cur.tv ? cur.tv : null;
+  grid.innerHTML='';
+  if(!tv){
+    label.style.display='none';
+    grid.style.display='none';
+    return;
+  }
+  label.style.display=''; grid.style.display='';
+  tv.forEach(ch=>{
+    const card = el('div','tv-card');
+    const stage = el('div','tv-stage');
+    const poster = el('div','tv-poster');
+    poster.innerHTML = `
+      <span class="tv-live-tag"><span class="dot"></span> Live TV</span>
+      <span class="play"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+      <span class="pname">${esc(ch.name)}</span>
+      <span class="pmeta">Tap to watch the live stream</span>`;
+    poster.onclick = ()=>{
+      if(ch.channel){
+        const f = document.createElement('iframe');
+        f.src = `https://www.youtube.com/embed/live_stream?channel=${ch.channel}&autoplay=1&rel=0`;
+        f.allow = 'autoplay; encrypted-media; picture-in-picture';
+        f.allowFullscreen = true;
+        f.title = ch.name + ' live';
+        stage.innerHTML=''; stage.appendChild(f);
+      } else {
+        window.open(ytSearch(ch.search||(ch.name+' live')), '_blank', 'noopener');
+      }
+    };
+    stage.appendChild(poster);
+    const foot = el('div','tv-foot');
+    foot.innerHTML = `<div><div class="tn">${esc(ch.name)}</div><div class="td">${esc(ch.desc||'')}</div></div>
+      <a href="${esc(ytSearch(ch.search||(ch.name+' live')))}" target="_blank" rel="noopener">Watch on YouTube ↗</a>`;
+    card.appendChild(stage); card.appendChild(foot);
+    grid.appendChild(card);
+  });
+}
+
+function renderYouTube(){
+  const grid = $('#ytGrid'); const label = $('#ytLabel');
+  const cur = CURATED[current.code];
+  const list = (cur && cur.yt) ? cur.yt : [
+    { name:current.name+' news', q:current.name+' news today' },
+    { name:'Live broadcasts', q:current.name+' live news channel' },
+    { name:'Business & markets', q:current.name+' business news' }
+  ];
+  grid.innerHTML='';
+  list.forEach(y=>{
+    const a = el('a','yt-card');
+    a.href = ytSearch(y.q); a.target='_blank'; a.rel='noopener';
+    a.innerHTML = `<span class="yt-ic"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M23 12s0-3.8-.48-5.6a3 3 0 0 0-2.1-2.1C18.6 3.8 12 3.8 12 3.8s-6.6 0-8.42.5a3 3 0 0 0-2.1 2.1C1 8.2 1 12 1 12s0 3.8.48 5.6a3 3 0 0 0 2.1 2.1c1.82.5 8.42.5 8.42.5s6.6 0 8.42-.5a3 3 0 0 0 2.1-2.1C23 15.8 23 12 23 12zM9.75 15.5v-7l6 3.5z"/></svg></span>
+      <span><span class="yn">${esc(y.name)}</span><br><span class="ym">Free on YouTube ↗</span></span>`;
+    grid.appendChild(a);
+  });
+}
+
+function renderPapers(){
+  const grid = $('#paperGrid');
+  const cur = CURATED[current.code];
+  const papers = (cur && cur.papers) ? cur.papers : null;
+  grid.innerHTML='';
+  if(papers){
+    papers.forEach(p=>{
+      const a = el('a','src-chip');
+      a.href = p.url; a.target='_blank'; a.rel='noopener';
+      a.innerHTML = `${esc(p.name)} <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg>`;
+      grid.appendChild(a);
+    });
+  }
+  // Always offer a Google News country edition link.
+  const more = el('a','src-chip');
+  more.href = `https://news.google.com/search?q=${encodeURIComponent(current.q)}`;
+  more.target='_blank'; more.rel='noopener';
+  more.style.borderColor='var(--brass)';
+  more.innerHTML = `All ${esc(current.name)} news on Google News <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg>`;
+  grid.appendChild(more);
+}
+
+let headlineSeq = 0;
+async function loadHeadlines(){
+  const box = $('#headlines');
+  const seq = ++headlineSeq;
+  box.innerHTML = `<div class="hl-state"><div class="spinner"></div>Gathering the latest from ${esc(current.name)}…</div>`;
+  try{
+    const items = await fetchHeadlines(gnewsRss(current, currentLang));
+    if(seq!==headlineSeq) return; // a newer request superseded this one
+    if(!items.length) throw new Error('empty');
+    box.innerHTML='';
+    let shown = 0;
+    const render = (n)=>{
+      items.slice(shown, shown+n).forEach(raw=>{
+        const { title, source } = splitSource(raw);
+        if(!title || !raw.link) return;
+        const row = el('div','hl');
+        row.innerHTML = `
+          <div>
+            <a class="ht" href="${esc(raw.link)}" target="_blank" rel="noopener">${esc(title)}</a>
+            <div class="hmeta">${source?`<span class="src">${esc(source)}</span>`:''}<span class="when">${esc(timeAgo(raw.date))}</span></div>
+          </div>
+          <a class="go" href="${esc(raw.link)}" target="_blank" rel="noopener" aria-label="Open article">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>`;
+        box.appendChild(row);
+      });
+      shown += n;
+    };
+    render(7);
+    if(shown < items.length){
+      const wrap = el('div','hl-more');
+      const btn = el('button','btn btn-outline','Show more headlines');
+      btn.style.fontSize='10px';
+      btn.onclick = ()=>{ wrap.remove(); render(items.length); };
+      wrap.appendChild(btn); box.appendChild(wrap);
+    }
+  }catch(e){
+    if(seq!==headlineSeq) return;
+    box.innerHTML = `<div class="hl-state">
+      <p style="margin-bottom:12px">Live headlines are taking a moment to load. You can read everything directly on the publishers below, or open the full feed.</p>
+      <a class="btn btn-dark" style="font-size:10px" href="https://news.google.com/search?q=${encodeURIComponent(current.q)}" target="_blank" rel="noopener">Open ${esc(current.name)} on Google News ↗</a>
+    </div>`;
+  }
+}
+
+/* ───────────────────────── Switch country ───────────────────────── */
+function select(c){
+  current = c;
+  currentLang = c.langs ? c.langs[0] : (c.lang || 'en');
+  $('#cTitle').innerHTML = `<span class="flag">${c.flag}</span> ${esc(c.name)}`;
+  $('#cBlurb').textContent = c.blurb || `Live broadcasts, the press, and free video news from ${c.name} — aggregated for the diaspora.`;
+  history.replaceState(null,'', '#'+c.code.toLowerCase());
+  renderCountryBar();
+  renderLangToggle();
+  renderTV();
+  renderYouTube();
+  renderPapers();
+  loadHeadlines();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ───────────────────────── Init ───────────────────────── */
+(function init(){
+  const hash = (location.hash||'').replace('#','').toUpperCase();
+  const fromHash = COUNTRIES.find(c=>c.code===hash);
+  const start = fromHash || COUNTRIES[0];
+  current = start;
+  currentLang = start.langs ? start.langs[0] : (start.lang || 'en');
+  $('#cTitle').innerHTML = `<span class="flag">${start.flag}</span> ${esc(start.name)}`;
+  $('#cBlurb').textContent = start.blurb || `Live broadcasts, the press, and free video news from ${start.name}.`;
+  renderCountryBar();
+  renderLangToggle();
+  renderTV();
+  renderYouTube();
+  renderPapers();
+  loadHeadlines();
+})();
+</script>
+</body>
+</html>

@@ -7,6 +7,7 @@ The Diaspora App helps people from diaspora communities discover trusted busines
 ## Core platform pages
 
 - [Home](https://www.thediaspora.app/): Premium directory landing with featured spotlights, On-the-Menu food rail, In-the-Chair beauty rail, and category browser.
+- [News from Home](https://www.thediaspora.app/news.html): The Diaspora Newsroom — live national TV broadcasts, the independent press, and free video news aggregated from across Africa, starting with Cameroon. Bilingual (English/French) headlines for Cameroon; per-country deep links via `#<iso2>` hash (e.g. `#cm`, `#ng`, `#gh`, `#ke`, `#za`). Headlines are aggregated from public Google News feeds; live streams play from broadcasters' official YouTube channels. The app hosts no news content.
 - [Directory / search](https://www.thediaspora.app/feed.html): Filter every business by city, category, area, or keyword. Supports `?city=`, `?category=`, `?country=`, `?q=` query parameters.
 - [Become a seller](https://www.thediaspora.app/become-seller.html): Five-field intake form for new business listings. Free forever; zero commission on transactions.
 - [Trust & Verification](https://www.thediaspora.app/verification.html): Detailed criteria for the blue Verified tick and gold Premium badge — physical inspections, records check, quarterly re-inspections.
