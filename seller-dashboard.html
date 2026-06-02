@@ -680,6 +680,23 @@ img, video { max-width: 100%; height: auto; }
           <button class="btn btn-primary" type="button" id="addServiceBtn">+ Add item</button>
         </h2>
         <p style="color:var(--muted); font-size:14px; margin-bottom:18px">List the dishes, services, or packages customers can order. Each item gets its own &quot;Add&quot; button on your public business page; orders open WhatsApp pre-filled with the items the customer chose.</p>
+
+        <!-- Auto-fill the menu from an uploaded document or photo -->
+        <div id="menu-import" style="border:1px dashed var(--brass); border-radius:14px; padding:16px 18px; margin-bottom:18px; background:rgba(183,146,74,0.06)">
+          <div style="display:flex; align-items:flex-start; gap:14px; flex-wrap:wrap">
+            <div style="flex:1; min-width:220px">
+              <strong style="font-size:15px">✨ Auto-fill from your menu</strong>
+              <p style="color:var(--muted); font-size:13px; margin-top:4px; line-height:1.5">Upload a PDF or a clear photo of your printed menu or price list — for food, barbing, beauty, or any service. We read it and turn each line into a tappable, orderable item. You review and edit before anything goes live.</p>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:6px; align-items:flex-end">
+              <button type="button" class="btn btn-primary" id="menuImportBtn">📄 Upload menu</button>
+              <span id="menu-import-hint" style="font-size:11px; color:var(--muted)"></span>
+            </div>
+          </div>
+          <input type="file" id="menu-import-input" accept="application/pdf,image/png,image/jpeg,image/webp,.pdf,.png,.jpg,.jpeg,.webp,.txt,.csv" hidden>
+          <div id="menu-import-status" style="display:none; margin-top:12px; font-size:13px; color:var(--muted)"></div>
+        </div>
+
         <div id="services-list" style="display:flex; flex-direction:column; gap:10px">
           <p style="color:var(--muted); padding:18px 4px">No items yet. Click <strong>+ Add item</strong> to add your first dish or service.</p>
         </div>
@@ -861,6 +878,26 @@ img, video { max-width: 100%; height: auto; }
       <button type="button" id="svcDeleteBtn" class="btn btn-outline" style="display:none; color:var(--error); border-color:var(--error)">Delete</button>
       <button type="button" onclick="closeServiceModal()" class="btn btn-outline">Cancel</button>
       <button type="button" id="svcSaveBtn" class="btn btn-primary">Save item</button>
+    </div>
+  </div>
+</div>
+
+<!-- Menu import review modal -->
+<div id="menuReviewModal" style="position:fixed; inset:0; background:rgba(10,10,10,0.55); backdrop-filter:blur(6px); display:none; align-items:center; justify-content:center; z-index:210; padding:20px;">
+  <div style="background:#fff; border-radius:16px; max-width:640px; width:100%; max-height:90vh; display:flex; flex-direction:column; box-shadow:0 30px 80px rgba(0,0,0,0.3)">
+    <div style="padding:20px 24px; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between">
+      <h3 style="font-family:'Cormorant Garamond',serif; font-weight:600; font-size:22px">Review your menu</h3>
+      <button type="button" onclick="closeMenuReview()" style="background:none; border:none; font-size:22px; cursor:pointer; color:var(--muted)">×</button>
+    </div>
+    <div style="padding:14px 24px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:12px; flex-wrap:wrap">
+      <span style="font-size:13px; color:var(--muted)" id="menu-review-summary"></span>
+      <label style="font-size:12px; display:flex; align-items:center; gap:6px; margin-left:auto; cursor:pointer"><input type="checkbox" id="menu-review-all" checked> Select all</label>
+    </div>
+    <div id="menu-review-list" style="padding:14px 24px; overflow-y:auto; flex:1; display:flex; flex-direction:column; gap:10px"></div>
+    <div style="padding:16px 24px; border-top:1px solid var(--line); display:flex; justify-content:flex-end; gap:8px; align-items:center; flex-wrap:wrap">
+      <label style="font-size:12px; color:var(--muted); display:flex; align-items:center; gap:6px; margin-right:auto; cursor:pointer"><input type="checkbox" id="menu-review-replace"> Replace current menu</label>
+      <button type="button" onclick="closeMenuReview()" class="btn btn-outline">Cancel</button>
+      <button type="button" id="menuReviewAddBtn" class="btn btn-primary">Add to menu</button>
     </div>
   </div>
 </div>
@@ -1295,6 +1332,153 @@ document.getElementById('svcDeleteBtn').addEventListener('click', async () => {
   } catch (err){
     console.error('Delete service failed:', err);
     showToast(err.message || 'Could not delete', 'error');
+  }
+});
+
+/* ─── Auto-fill menu from an uploaded document or photo ─── */
+let menuImportItems = [];
+let menuImportCurrency = 'AED';
+
+function showImportStatus(msg, type){
+  const el = document.getElementById('menu-import-status');
+  if (!el) return;
+  el.style.display = 'block';
+  el.textContent = msg;
+  el.style.color = type === 'error' ? 'var(--error)' : type === 'success' ? 'var(--success)' : 'var(--muted)';
+}
+function setImportBusy(busy){
+  const btn = document.getElementById('menuImportBtn');
+  if (btn){ btn.disabled = busy; btn.textContent = busy ? 'Working…' : '📄 Upload menu'; }
+}
+function defaultMenuCurrency(){
+  return businessData?.currency || (currentServices.find(s => s.currency)?.currency) || 'AED';
+}
+
+document.getElementById('menuImportBtn')?.addEventListener('click', () => {
+  if (!hasAiAccess()){
+    showImportStatus('Menu import is a subscriber feature. Upgrade from Pricing to unlock it, then come back here.', 'error');
+    showToast('Subscriber feature', 'error');
+    return;
+  }
+  document.getElementById('menu-import-input')?.click();
+});
+
+document.getElementById('menu-import-input')?.addEventListener('change', handleMenuImport);
+
+async function handleMenuImport(e){
+  const file = (e.target.files || [])[0];
+  e.target.value = '';
+  if (!file) return;
+  if (!businessId || !currentUser){ showToast('Sign in first', 'error'); return; }
+  if (!hasAiAccess()){ showImportStatus('Menu import is a subscriber feature.', 'error'); return; }
+  const isImg = file.type.startsWith('image/') || /\.(png|jpe?g|webp|gif|heic)$/i.test(file.name);
+  const okType = isImg || file.type === 'application/pdf'
+    || file.type === 'text/plain' || file.type === 'text/csv'
+    || /\.(pdf|txt|csv)$/i.test(file.name);
+  if (!okType){ showImportStatus('Upload a PDF or a clear photo (JPG/PNG) of your menu.', 'error'); return; }
+  // Match storage.rules: images < 8 MB, documents < 10 MB.
+  const cap = isImg ? 8 : 10;
+  if (file.size > cap * 1024 * 1024){ showImportStatus(`${file.name} is over ${cap} MB — try a smaller ${isImg ? 'photo' : 'file'}.`, 'error'); return; }
+
+  setImportBusy(true);
+  showImportStatus('Uploading your menu…', '');
+  try {
+    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+    const path = `businesses/${businessId}/menus/${Date.now()}_${safeName}`;
+    const sref = ref(storage, path);
+    await uploadBytes(sref, file, { contentType: file.type || 'application/octet-stream', customMetadata: { originalName: file.name } });
+    const url = await getDownloadURL(sref);
+
+    showImportStatus('Reading your menu with AI — this can take 10–30 seconds…', '');
+    const token = await currentUser.getIdToken();
+    const resp = await fetch('/api/extract-menu', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify({ fileUrl: url, fileType: file.type || '', fileName: file.name, currency: defaultMenuCurrency() })
+    });
+    const data = await resp.json().catch(() => ({}));
+    if (!resp.ok || !Array.isArray(data.items) || !data.items.length){
+      throw new Error(data.error || 'No items could be read from that file.');
+    }
+    menuImportCurrency = data.currency || defaultMenuCurrency();
+    openMenuReview(data.items, menuImportCurrency);
+    showImportStatus(`Found ${data.items.length} item${data.items.length === 1 ? '' : 's'} — review and add below.`, 'success');
+  } catch (err){
+    console.error('Menu import failed:', err);
+    showImportStatus((err.message || 'Could not read that file.') + ' You can still add items manually with “+ Add item”.', 'error');
+    showToast('Menu import failed', 'error');
+  } finally {
+    setImportBusy(false);
+  }
+}
+
+window.closeMenuReview = function(){
+  const m = document.getElementById('menuReviewModal');
+  if (m) m.style.display = 'none';
+};
+
+function openMenuReview(items, currency){
+  menuImportItems = items.map(it => ({ ...it }));
+  const list = document.getElementById('menu-review-list');
+  document.getElementById('menu-review-summary').textContent =
+    `${items.length} item${items.length === 1 ? '' : 's'} detected · prices in ${currency}. Untick anything you don’t want.`;
+  const all = document.getElementById('menu-review-all'); if (all) all.checked = true;
+  const repl = document.getElementById('menu-review-replace'); if (repl) repl.checked = false;
+  list.innerHTML = menuImportItems.map((it, i) => `
+    <div class="menu-review-row" style="display:flex; gap:10px; align-items:flex-start; padding:10px 12px; border:1px solid var(--line); border-radius:10px">
+      <input type="checkbox" class="mr-include" data-i="${i}" checked style="margin-top:11px; flex-shrink:0">
+      <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:6px">
+        <input type="text" class="mr-name" data-i="${i}" value="${escapeHtml(it.name)}" placeholder="Item name" style="width:100%; padding:8px 10px; border:1px solid var(--line); border-radius:7px; font-size:14px; font-weight:600">
+        ${it.description ? `<div style="font-size:12px; color:var(--muted); line-height:1.45">${escapeHtml(it.description)}</div>` : ''}
+        <div style="display:flex; align-items:center; gap:8px">
+          <span style="font-size:12px; color:var(--muted)">${escapeHtml(currency)}</span>
+          <input type="number" class="mr-price" data-i="${i}" value="${it.price == null ? '' : it.price}" min="0" step="0.01" placeholder="Price (optional)" style="width:150px; padding:7px 10px; border:1px solid var(--line); border-radius:7px; font-size:13px">
+        </div>
+      </div>
+    </div>`).join('');
+  document.getElementById('menuReviewModal').style.display = 'flex';
+}
+
+document.getElementById('menu-review-all')?.addEventListener('change', (e) => {
+  document.querySelectorAll('#menu-review-list .mr-include').forEach(cb => { cb.checked = e.target.checked; });
+});
+
+document.getElementById('menuReviewAddBtn')?.addEventListener('click', async () => {
+  if (!businessId || !currentUser) return;
+  const replace = document.getElementById('menu-review-replace')?.checked;
+  const rows = [...document.querySelectorAll('#menu-review-list .menu-review-row')];
+  const picked = [];
+  rows.forEach((row, idx) => {
+    const inc = row.querySelector('.mr-include');
+    if (!inc || !inc.checked) return;
+    const name = row.querySelector('.mr-name').value.trim();
+    if (!name) return;
+    const priceRaw = row.querySelector('.mr-price').value;
+    const base = menuImportItems[idx] || {};
+    picked.push({
+      id: 's_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6) + idx,
+      name,
+      description: base.description || null,
+      price: priceRaw === '' ? null : Number(priceRaw),
+      currency: base.currency || menuImportCurrency || 'AED',
+      image: null
+    });
+  });
+  if (!picked.length){ showToast('Select at least one item', 'error'); return; }
+  currentServices = replace ? picked : currentServices.concat(picked);
+  const btn = document.getElementById('menuReviewAddBtn');
+  if (btn) btn.disabled = true;
+  try {
+    await updateDoc(doc(db, 'businesses', businessId), { services: currentServices, updatedAt: new Date() });
+    closeMenuReview();
+    renderServices();
+    showImportStatus(`Added ${picked.length} item${picked.length === 1 ? '' : 's'} to your menu.`, 'success');
+    showToast('Menu updated', 'success');
+  } catch (err){
+    console.error('Save imported menu failed:', err);
+    showToast(err.message || 'Could not save', 'error');
+  } finally {
+    if (btn) btn.disabled = false;
   }
 });
 
@@ -1933,6 +2117,11 @@ function renderAiAccess(){
     if (el.closest('#ai-lock')) return;
     el.disabled = locked;
   });
+  // Menu auto-fill lives on the Services tab but shares the same subscriber gate.
+  const importBtn = document.getElementById('menuImportBtn');
+  if (importBtn) importBtn.disabled = locked;
+  const importHint = document.getElementById('menu-import-hint');
+  if (importHint) importHint.textContent = locked ? 'Subscriber feature' : 'PDF or photo · we read it for you';
 }
 
 function currentAiContext(){
