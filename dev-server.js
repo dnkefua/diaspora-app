@@ -3,10 +3,17 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 
+// Load .env for local development. In production (Firebase App Hosting) env vars
+// are injected from apphosting.yaml / Secret Manager, so .env is absent and this
+// is a harmless no-op.
+try { if (typeof process.loadEnvFile === 'function') process.loadEnvFile(); } catch (_) { /* no .env file present */ }
+
 const PORT = process.env.PORT || 3000;
 const ROOT = process.cwd();
 const FIREBASE_PROJECT_ID = process.env.FIREBASE_PROJECT_ID || 'the-diaspora-app';
 const OPENAI_MODEL = process.env.OPENAI_MODEL || 'gpt-4.1-mini';
+// Accept either the conventional name or the .env name used in this project.
+const OPENAI_API_KEY = process.env['OPENAI_API_KEY'] || process.env['API_KEY_OPENAI'] || '';
 
 const mime = {
   '.html': 'text/html; charset=utf-8',
@@ -191,7 +198,7 @@ function extractOpenAiText(data) {
 
 async function handleAiListing(req, res) {
   if (req.method !== 'POST') return sendJson(res, 405, { error: 'Method not allowed' });
-  if (!process.env.OPENAI_API_KEY) return sendJson(res, 503, { error: 'AI is not configured on this server' });
+  if (!OPENAI_API_KEY) return sendJson(res, 503, { error: 'AI is not configured on this server' });
 
   try {
     const auth = req.headers.authorization || '';
@@ -206,7 +213,7 @@ async function handleAiListing(req, res) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`
+        Authorization: `Bearer ${OPENAI_API_KEY}`
       },
       body: JSON.stringify({
         model: OPENAI_MODEL,
@@ -313,7 +320,7 @@ function sanitizeMenuItems(parsed, fallbackCurrency) {
 
 async function handleExtractMenu(req, res) {
   if (req.method !== 'POST') return sendJson(res, 405, { error: 'Method not allowed' });
-  if (!process.env.OPENAI_API_KEY) return sendJson(res, 503, { error: 'AI is not configured on this server' });
+  if (!OPENAI_API_KEY) return sendJson(res, 503, { error: 'AI is not configured on this server' });
   try {
     const auth = req.headers.authorization || '';
     const token = auth.startsWith('Bearer ') ? auth.slice(7) : '';
@@ -360,7 +367,7 @@ async function handleExtractMenu(req, res) {
 
     const aiResp = await fetch('https://api.openai.com/v1/responses', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${process.env.OPENAI_API_KEY}` },
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${OPENAI_API_KEY}` },
       body: JSON.stringify({
         model: OPENAI_VISION_MODEL,
         instructions: 'You read restaurant menus, salon price lists and service lists, and extract every orderable item accurately. Respond with strict JSON only.',

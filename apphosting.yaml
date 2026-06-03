@@ -35,3 +35,10 @@ env:
     value: gpt-4.1-mini
     availability:
       - RUNTIME
+
+  # OpenAI key — stored in Cloud Secret Manager (secret: OPENAI_API_KEY), never in git.
+  # Manage with: firebase apphosting:secrets:set OPENAI_API_KEY --project the-diaspora-app
+  - variable: OPENAI_API_KEY
+    secret: OPENAI_API_KEY
+    availability:
+      - RUNTIME
