@@ -39,10 +39,38 @@
 
   <!-- ═══════════ UAE CATEGORY LANDING PAGES (SEO) ═══════════ -->
   <url>
+    <loc>https://www.thediaspora.app/african-businesses-uae.html</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.92</priority>
+  </url>
+
+  <url>
     <loc>https://www.thediaspora.app/african-restaurants-dubai.html</loc>
-    <lastmod>2026-06-03</lastmod>
+    <lastmod>2026-06-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.93</priority>
+  </url>
+
+  <url>
+    <loc>https://www.thediaspora.app/african-clothing-dubai.html</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
+    <loc>https://www.thediaspora.app/african-grocery-stores-dubai.html</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
+    <loc>https://www.thediaspora.app/african-services-dubai.html</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
   </url>
 
   <!-- become-seller.html intentionally excluded from sitemap: it is noindex
