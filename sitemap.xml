@@ -45,12 +45,9 @@
     <priority>0.93</priority>
   </url>
 
-  <url>
-    <loc>https://www.thediaspora.app/become-seller.html</loc>
-    <lastmod>2026-05-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
+  <!-- become-seller.html intentionally excluded from sitemap: it is noindex
+       (an app onboarding flow, not an indexable marketing page). -->
+
 
   <!-- ═══════════ TRUST &amp; PRICING ═══════════ -->
   <url>
