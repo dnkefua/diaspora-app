@@ -204,7 +204,7 @@
 </footer>
 
 <script type="module">
-import { db, collection, getDocs, query, limit } from './firebase-config.js';
+import { db, collection, getDocs, query, limit } from './firestore-landing.js';
 const CATEGORIES = new Set(['Hair Stylists','Barbers','Loc & Natural Hair','Beauty & Makeup','Nails','Spa & Wellness','Photographers','Videographers','Music & Events','DJs & Music','Cleaning Services']);
 const CITY = 'Dubai';
 const esc = s => String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

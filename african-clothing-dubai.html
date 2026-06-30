@@ -206,7 +206,7 @@
 </footer>
 
 <script type="module">
-import { db, collection, getDocs, query, limit } from './firebase-config.js';
+import { db, collection, getDocs, query, limit } from './firestore-landing.js';
 const CATEGORIES = new Set(['Tailors & Fashion']);
 const CITY = 'Dubai';
 const esc = s => String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

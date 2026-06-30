@@ -197,7 +197,7 @@
 </footer>
 
 <script type="module">
-import { db, collection, getDocs, query, limit } from './firebase-config.js';
+import { db, collection, getDocs, query, limit } from './firestore-landing.js';
 const CITIES = new Set(['dubai','abu dhabi','sharjah','ajman','ras al khaimah','fujairah','umm al quwain']);
 const esc = s => String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const grid = document.getElementById('bizGrid');
