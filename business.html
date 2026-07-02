@@ -1370,11 +1370,11 @@ function renderReviewsList(){
           <div class="review-stars">${starsRow(r.rating || 0)}</div>
         </div>
         <div class="review-text">${escHtml(r.text || '')}</div>
-        ${canDelete ? `
-          <div class="review-actions">
-            <button type="button" class="danger" data-action="delete-review" data-id="${escHtml(r.id)}">Delete</button>
-          </div>
-        ` : ''}
+        <div class="review-actions">
+          ${canDelete
+            ? `<button type="button" class="danger" data-action="delete-review" data-id="${escHtml(r.id)}">Delete</button>`
+            : `<button type="button" data-action="report-review" data-id="${escHtml(r.id)}" style="background:none;border:none;color:var(--muted);font-size:12px;cursor:pointer;padding:4px 0">⚑ Report</button>`}
+        </div>
       </div>
     `;
   }).join('');
@@ -1393,6 +1393,36 @@ function renderReviewsList(){
       } catch (err) {
         console.error('Delete review failed:', err);
         alert(err.message || 'Could not delete review.');
+        btn.disabled = false;
+      }
+    });
+  });
+
+  list.querySelectorAll('button[data-action="report-review"]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      if (!currentUser){
+        alert('Please sign in to report a review.');
+        window.location.href = 'login-firebase.html?next=' + encodeURIComponent(location.pathname + location.search);
+        return;
+      }
+      const reason = prompt('Report this review — tell us why (e.g. spam, offensive, or false information):');
+      if (reason === null) return; // cancelled
+      btn.disabled = true;
+      try {
+        await addDoc(collection(db, 'content_reports'), {
+          type: 'review',
+          targetId: btn.dataset.id,
+          businessId: currentBiz ? currentBiz.id : null,
+          reporterUid: currentUser.uid,
+          reason: 'user-report',
+          note: (reason || '').trim().slice(0, 500),
+          status: 'open',
+          createdAt: new Date()
+        });
+        btn.textContent = '✓ Reported — thank you';
+      } catch (err) {
+        console.error('Report review failed:', err);
+        alert(err.message || 'Could not submit report. Please try again.');
         btn.disabled = false;
       }
     });

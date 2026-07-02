@@ -182,6 +182,22 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // ── content_reports/{id} ─────────────────────────────
+    // User reports/flags of user-generated content (reviews). Any signed-in
+    // user can file a report about someone else's content; admin reads/actions.
+    // Satisfies Google Play's UGC report/moderation requirement.
+    match /content_reports/{docId} {
+      allow create: if isSignedIn()
+        && request.resource.data.reporterUid == request.auth.uid
+        && request.resource.data.type is string
+        && request.resource.data.targetId is string
+        && (!('reason' in request.resource.data) ||
+            (request.resource.data.reason is string && request.resource.data.reason.size() <= 60))
+        && (!('note' in request.resource.data) ||
+            (request.resource.data.note is string && request.resource.data.note.size() <= 500));
+      allow read, update, delete: if isAdmin();
+    }
+
     // ── Default deny ─────────────────────────────────────
     match /{document=**} {
       allow read, write: if false;
