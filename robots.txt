@@ -1,191 +1,78 @@
 # robots.txt for The Diaspora App
 # https://www.thediaspora.app/
-# Last updated: 2026-05-09
-#
-# Policy:
-#   1. Major search bots (Google, Bing, Yandex, DuckDuckGo, Baidu) — explicitly welcomed.
-#   2. AI / LLM training crawlers — explicitly welcomed (we want our editorial content
-#      to be discoverable by AI search and assistants).
-#   3. All bots must avoid authenticated routes, configuration files, and the
-#      Google Search Console verification file.
+# Last updated: 2026-07-05
 
-# ── Search engines ─────────────────────────────────────────────
-User-agent: Googlebot
-Allow: /
-Disallow: /admin.html
-Disallow: /seller-dashboard.html
-Disallow: /profile.html
-Disallow: /login.html
-Disallow: /login-firebase.html
-Disallow: /signup.html
-Disallow: /signup-firebase.html
-Disallow: /otp.html
-Disallow: /forgot-password.html
-Disallow: /test-firebase.html
-Disallow: /diaspora_review.html
-Disallow: /googlee134fff84b2a8946.html
-Disallow: /firebase-config.js
-Disallow: /seed-data.js
-Disallow: /dev-server.js
-Disallow: /firestore.rules
-Disallow: /storage.rules
-Disallow: /apphosting.yaml
-Disallow: /scripts/
-Disallow: /dataconnect/
-Disallow: /diaspora-mobile/
+# Public discovery policy:
+# Search engines, social preview bots, and AI search crawlers may index public pages,
+# editorial content, business listings, events, categories, images, RSS, sitemap, llms.txt, and site verification files.
+# Private dashboards, authentication pages, source/config files, local app folders, and test pages stay out of crawl paths.
 
-User-agent: Googlebot-Image
-Allow: /
-
-User-agent: Googlebot-News
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: DuckDuckBot
-Allow: /
-
-User-agent: YandexBot
-Allow: /
-
-User-agent: Baiduspider
-Allow: /
-
-User-agent: Applebot
-Allow: /
-
-User-agent: Slurp
-Allow: /
-
-# ── Social previews (Open Graph fetchers) ──────────────────────
-User-agent: facebookexternalhit
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: LinkedInBot
-Allow: /
-
-User-agent: Pinterest
-Allow: /
-
-User-agent: Slackbot
-Allow: /
-
-User-agent: WhatsApp
-Allow: /
-
-User-agent: TelegramBot
-Allow: /
-
-# ── AI / LLM crawlers ──────────────────────────────────────────
-# We explicitly welcome AI training and AI-search crawlers. The
-# editorial content here was built to be discoverable.
-
-User-agent: GPTBot
-Allow: /
-
-User-agent: OAI-SearchBot
-Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: anthropic-ai
-Allow: /
-
-User-agent: Claude-Web
-Allow: /
-
-User-agent: Google-Extended
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: Perplexity-User
-Allow: /
-
-User-agent: CCBot
-Allow: /
-
-User-agent: cohere-ai
-Allow: /
-
-User-agent: Meta-ExternalAgent
-Allow: /
-
-User-agent: Meta-ExternalFetcher
-Allow: /
-
-User-agent: FacebookBot
-Allow: /
-
-User-agent: Bytespider
-Allow: /
-
-User-agent: Amazonbot
-Allow: /
-
-User-agent: Applebot-Extended
-Allow: /
-
-User-agent: DiffBot
-Allow: /
-
-User-agent: omgilibot
-Allow: /
-
-User-agent: Timpibot
-Allow: /
-
-User-agent: ImagesiftBot
-Allow: /
-
-User-agent: YouBot
-Allow: /
-
-User-agent: Mistralai-User
-Allow: /
-
-User-agent: AI2Bot
-Allow: /
-
-User-agent: Ai2Bot-Dolma
-Allow: /
-
-User-agent: Kagibot
-Allow: /
-
-# ── Default policy for any other bot ───────────────────────────
 User-agent: *
+User-agent: Googlebot
+User-agent: Googlebot-Image
+User-agent: Bingbot
+User-agent: DuckDuckBot
+User-agent: Applebot
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: PerplexityBot
+User-agent: CCBot
+
+# Allowed public assets and verification files:
 Allow: /
+Allow: /Media%20resources/
+Allow: /Media resources/
+Allow: /feed.xml
+Allow: /llms.txt
+Allow: /manifest.webmanifest
+Allow: /googlee134fff84b2a8946.html
+Allow: /8835ed10cd3b9f1c3f14d2e3f81cf99b.txt
+Allow: /sitemap.xml
+
+# Private dashboards, authentication, and review pages:
 Disallow: /admin.html
+Disallow: /admin
 Disallow: /seller-dashboard.html
+Disallow: /seller-dashboard
 Disallow: /profile.html
+Disallow: /profile
 Disallow: /login.html
+Disallow: /login
 Disallow: /login-firebase.html
+Disallow: /login-firebase
 Disallow: /signup.html
+Disallow: /signup
 Disallow: /signup-firebase.html
+Disallow: /signup-firebase
 Disallow: /otp.html
+Disallow: /otp
 Disallow: /forgot-password.html
+Disallow: /forgot-password
 Disallow: /test-firebase.html
+Disallow: /test-firebase
 Disallow: /diaspora_review.html
-Disallow: /googlee134fff84b2a8946.html
+Disallow: /diaspora_review
+
+# Internal configuration, scripts, dependencies, and build files:
 Disallow: /firebase-config.js
 Disallow: /seed-data.js
 Disallow: /dev-server.js
 Disallow: /firestore.rules
 Disallow: /storage.rules
 Disallow: /apphosting.yaml
+Disallow: /package.json
+Disallow: /package-lock.json
+Disallow: /node_modules/
 Disallow: /scripts/
 Disallow: /dataconnect/
 Disallow: /diaspora-mobile/
+Disallow: /diaspora-android/
+Disallow: /builds/
+Disallow: /.git/
+Disallow: /.firebase/
+Disallow: /.expo/
+Disallow: /.claude/
 
-# ── Sitemap + content discovery ────────────────────────────────
 Sitemap: https://www.thediaspora.app/sitemap.xml

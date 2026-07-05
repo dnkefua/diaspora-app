@@ -1,6 +1,8 @@
 {
   "hosting": {
     "public": ".",
+    "cleanUrls": true,
+    "trailingSlash": false,
     "ignore": [
       "firebase.json",
       ".firebaserc",
@@ -31,20 +33,35 @@
       "dev-server.js",
       "firestore.rules",
       "storage.rules",
-      "Media resources/TheDiaspora app logo.png",
-      "Media resources/**",
-      "seed-data.js",
       "FIREBASE_SETUP.md",
       "firebase-debug.log",
       "*.log"
     ],
     "headers": [
       {
-        "source": "**/*.@(js|css|svg|png|jpg|jpeg|webp)",
+        "source": "**/*.@(js|css|svg|png|jpg|jpeg|webp|avif|ico)",
         "headers": [
           {
             "key": "Cache-Control",
-            "value": "max-age=31536000"
+            "value": "public, max-age=31536000, immutable"
+          }
+        ]
+      },
+      {
+        "source": "robots.txt",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
+      },
+      {
+        "source": "sitemap.xml",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
           }
         ]
       }

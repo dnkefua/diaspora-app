@@ -2,6 +2,6 @@
 <resources>
     <string name="app_name">The Diaspora App</string>
     <string name="title_activity_main">The Diaspora App</string>
-    <string name="package_name">com.ndnanalytics.thediaspora</string>
-    <string name="custom_url_scheme">com.ndnanalytics.thediaspora</string>
+    <string name="package_name">com.ndnanalyticsinc.thediaspora</string>
+    <string name="custom_url_scheme">com.ndnanalyticsinc.thediaspora</string>
 </resources>

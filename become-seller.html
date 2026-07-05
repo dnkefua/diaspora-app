@@ -4,12 +4,49 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" type="image/png" href="Media%20resources/TheDiaspora%20app%20logo%203D.png">
-<title>List your business — The Diaspora App</title>
-<meta name="description" content="List your diaspora-owned business on The Diaspora App. Free forever, zero commission.">
-<meta name="robots" content="noindex,follow">
+<title>List Your Diaspora-Owned Business | Free Business Page & Seller Dashboard</title>
+<meta name="description" content="Create a free business page for your diaspora-owned business. Add photos, videos, website links, WhatsApp contact, menus, services, and AI-assisted listing copy with zero transaction commission.">
+<meta name="keywords" content="list diaspora business, create business page, African owned business listing, free business directory, diaspora seller dashboard, advertise African business, WhatsApp business leads">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+<link rel="canonical" href="https://www.thediaspora.app/become-seller.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Diaspora App">
+<meta property="og:title" content="List Your Diaspora-Owned Business">
+<meta property="og:description" content="Build a free business page with photos, videos, website links, WhatsApp contact, menus, services, and zero transaction commission.">
+<meta property="og:url" content="https://www.thediaspora.app/become-seller.html">
+<meta property="og:image" content="https://www.thediaspora.app/Media%20resources/TheDiaspora%20app%20logo%203D.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="List Your Diaspora-Owned Business">
+<meta name="twitter:description" content="Create a seller profile and business page for diaspora customers across global cities.">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="page.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://www.thediaspora.app/become-seller.html#webpage",
+  "url": "https://www.thediaspora.app/become-seller.html",
+  "name": "List Your Diaspora-Owned Business",
+  "description": "Create a free business page with photos, videos, website links, WhatsApp contact, menus, services, and zero transaction commission.",
+  "isPartOf": {"@type": "WebSite", "name": "The Diaspora App", "url": "https://www.thediaspora.app/"},
+  "inLanguage": "en",
+  "keywords": "list diaspora business, African-owned business listing, free business page, seller dashboard, WhatsApp leads",
+  "mainEntity": {
+    "@type": "Service",
+    "name": "Diaspora business listing and seller dashboard",
+    "provider": {"@type": "Organization", "name": "The Diaspora App", "email": "nkefua@ndnanalytics.com"},
+    "areaServed": ["Dubai", "Abu Dhabi", "London", "Toronto", "New York", "Lagos", "Nairobi", "Accra", "Paris"],
+    "audience": {"@type": "BusinessAudience", "audienceType": "Diaspora-owned businesses and local service providers"},
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+      "description": "Free listing with optional premium placements and subscriptions."
+    }
+  }
+}
+</script>
 <style>
 .onboard-shell{
   min-height:100vh; display:grid;
@@ -105,6 +142,57 @@ form.intake .field textarea:focus{
 }
 form.intake textarea{min-height:110px; resize:vertical}
 form.intake .field-hint{font-size:12px; color:var(--muted); margin-top:2px}
+.ai-helper{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:14px;
+  display:grid;
+  gap:10px;
+}
+.ai-helper-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.ai-helper-title{
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--ink);
+}
+.ai-helper-copy{
+  color:var(--muted);
+  font-size:12.5px;
+  line-height:1.55;
+}
+.ai-helper button{
+  border:1px solid var(--ink);
+  background:var(--ink);
+  color:var(--paper);
+  border-radius:999px;
+  padding:9px 14px;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.ai-helper button[disabled]{opacity:0.55; cursor:not-allowed}
+.ai-output{
+  display:none;
+  background:var(--bone);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:12px;
+  color:var(--graphite);
+  font-size:13px;
+  line-height:1.55;
+  white-space:pre-wrap;
+}
 form.intake .image-uploader{
   margin-top:8px; aspect-ratio:16/10; border-radius:10px;
   background:var(--bone) center/cover no-repeat;
@@ -177,6 +265,7 @@ img { max-width: 100%; height: auto; }
   .onboard-main { padding: 28px 18px; }
   .onboard-title { font-size: 28px; }
   form.intake .row-2 { grid-template-columns: 1fr !important; }
+  .ai-helper-head { align-items:flex-start; flex-direction:column; }
   form.intake .submit-row { flex-direction: column; align-items: stretch; gap: 10px; }
   form.intake .submit-row > span:first-child { font-size: 11px; text-align: center; }
   form.intake button[type="submit"] { width: 100%; }
@@ -218,27 +307,6 @@ img { max-width: 100%; height: auto; }
 
       <!-- AUTH GATE -->
       <div id="auth-gate" style="display:none">
-        <h2 class="onboard-title">First, sign <em>in.</em></h2>
-        <p class="onboard-desc">You need a Diaspora account to list your business. Sign in or create one — it's free.</p>
-        <div class="gate-card">
-          <div class="kicker">Account required</div>
-          <h3>Sign in to <em>continue</em>.</h3>
-          <p>We'll bring you right back to this form after you authenticate.</p>
-          <div class="btns">
-            <a href="login-firebase.html?next=become-seller.html" class="btn btn-dark">Sign in</a>
-            <a href="signup-firebase.html?next=become-seller.html" class="btn btn-outline">Create account</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- LOADING -->
-      <div id="loading" style="display:block; padding:48px 0; text-align:center; color:var(--muted)">
-        <p class="kicker">Checking access</p>
-        <h2 class="onboard-title" style="margin-top:8px">One moment.</h2>
-      </div>
-
-      <!-- ALREADY HAS BUSINESS -->
-      <div id="exists" style="display:none">
         <h2 class="onboard-title">You're already <em>listed.</em></h2>
         <p class="onboard-desc">You've already submitted a business — open the seller dashboard to edit it.</p>
         <div style="display:flex; gap:10px; flex-wrap:wrap">
@@ -271,6 +339,7 @@ img { max-width: 100%; height: auto; }
               <select id="biz-category" required>
                 <option value="">Select…</option>
                 <option>Restaurants</option>
+                <option>Cameroon Cuisine</option>
                 <option>Home Cooks &amp; Food Sellers</option>
                 <option>Bakers &amp; Pastry</option>
                 <option>Hair Stylists</option>
@@ -374,6 +443,17 @@ img { max-width: 100%; height: auto; }
             <textarea id="biz-desc" required maxlength="280" placeholder="Two sentences. What you offer, who you serve, what makes it diaspora-owned."></textarea>
           </div>
 
+          <div class="ai-helper">
+            <div class="ai-helper-head">
+              <div>
+                <div class="ai-helper-title">AI page starter</div>
+                <div class="ai-helper-copy">Subscribed sellers can generate a polished first draft from the business name, category, city, and offer.</div>
+              </div>
+              <button type="button" id="ai-draft-btn">Draft copy</button>
+            </div>
+            <div class="ai-output" id="ai-draft-output"></div>
+          </div>
+
           <div class="field">
             <label>Social media &amp; website (all optional)</label>
             <span class="field-hint">Drop your handles or full URLs. Customers see linked icons on your business page.</span>
@@ -385,7 +465,7 @@ img { max-width: 100%; height: auto; }
               <input id="biz-twitter" type="text" maxlength="100" placeholder="🐦 Twitter/X (@handle or URL)">
               <input id="biz-linkedin" type="text" maxlength="200" placeholder="💼 LinkedIn (URL)">
               <input id="biz-snapchat" type="text" maxlength="100" placeholder="👻 Snapchat (@handle)">
-              <input id="biz-website" type="url" maxlength="200" placeholder="🌐 Website (https://…)">
+              <input id="biz-social-website" type="url" maxlength="200" placeholder="🌐 Website (https://…)">
             </div>
           </div>
 
@@ -405,7 +485,7 @@ img { max-width: 100%; height: auto; }
 </div>
 
 <script type="module">
-import { auth, db, storage, onAuthStateChanged, collection, query, where, getDocs, doc, setDoc } from './firebase-config.js';
+import { auth, db, storage, onAuthStateChanged, collection, query, where, getDocs, getDoc, doc, setDoc } from './firebase-config.js';
 import { ref, uploadBytesResumable, getDownloadURL } from 'https://www.gstatic.com/firebasejs/12.12.1/firebase-storage.js';
 
 const $ = (s) => document.querySelector(s);
@@ -421,6 +501,7 @@ function show(el){
 }
 
 let me = null;
+let userProfile = {};
 let existingBusinessCount = 0;
 
 onAuthStateChanged(auth, async (user) => {
@@ -429,6 +510,13 @@ onAuthStateChanged(auth, async (user) => {
     return;
   }
   me = user;
+  try {
+    const userSnap = await getDoc(doc(db, 'users', user.uid));
+    userProfile = userSnap.exists() ? userSnap.data() : {};
+  } catch (err) {
+    console.warn('Could not load user profile:', err);
+    userProfile = {};
+  }
   // Existing listings no longer block onboarding; users can run multiple pages.
   try {
     const snap = await getDocs(query(collection(db, 'businesses'), where('ownerId', '==', user.uid)));
@@ -562,6 +650,91 @@ async function handleHeroFile(file){
   }
 }
 
+function hasAiAccess(){
+  const sub = userProfile?.subscription || {};
+  const status = String(userProfile?.subscriptionStatus || sub.status || '').toLowerCase();
+  const plan = String(userProfile?.plan || sub.plan || '').toLowerCase();
+  return ['active', 'trialing', 'paid'].includes(status) || ['premium', 'pro', 'business', 'founder'].includes(plan);
+}
+
+function setAiDraftOutput(text){
+  const output = $('#ai-draft-output');
+  if (!output) return;
+  output.textContent = text;
+  output.style.display = text ? 'block' : 'none';
+}
+
+function getOnboardingAiContext(){
+  return {
+    name: $('#biz-name')?.value.trim() || 'this business',
+    category: $('#biz-category')?.value || 'business',
+    city: $('#biz-city')?.value || 'your city',
+    area: $('#biz-area')?.value.trim() || '',
+    offer: $('#biz-desc')?.value.trim() || $('#biz-category')?.value || 'high-quality diaspora services',
+    audience: 'diaspora customers looking for trusted local businesses',
+    tone: 'Premium and warm'
+  };
+}
+
+function extractShortDescription(text){
+  const marker = 'Suggested description:';
+  const raw = text.includes(marker) ? text.split(marker).pop() : text;
+  return raw.replace(/\n+/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 280);
+}
+
+function localOnboardingDraft(){
+  const c = getOnboardingAiContext();
+  return `${c.name} offers ${c.offer} for diaspora customers in ${c.area ? c.area + ', ' : ''}${c.city}. Expect responsive service, clear communication, and a simple path to book or connect directly.`;
+}
+
+async function draftListingWithAi(){
+  if (!me){ show(gate); return; }
+  errEl.classList.remove('show');
+  if (!hasAiAccess()){
+    errEl.textContent = 'AI page drafting is available to subscribed sellers. You can still create this listing now and upgrade later.';
+    errEl.classList.add('show');
+    setAiDraftOutput('');
+    return;
+  }
+
+  const btn = $('#ai-draft-btn');
+  const original = btn?.textContent || 'Draft copy';
+  if (btn){ btn.disabled = true; btn.textContent = 'Drafting...'; }
+  setAiDraftOutput('Generating a first draft...');
+
+  try {
+    const token = await me.getIdToken();
+    const resp = await fetch('/api/ai-listing', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({ action: 'listing', context: getOnboardingAiContext() })
+    });
+    const data = await resp.json().catch(() => ({}));
+    if (resp.status === 403) throw Object.assign(new Error(data.error || 'AI requires an active subscription'), { locked: true });
+    if (!resp.ok || !data.text) throw new Error(data.error || 'AI endpoint unavailable');
+    const desc = extractShortDescription(data.text);
+    $('#biz-desc').value = desc;
+    setAiDraftOutput(data.text);
+  } catch (err) {
+    if (err.locked){
+      errEl.textContent = err.message;
+      errEl.classList.add('show');
+      setAiDraftOutput('');
+    } else {
+      const draft = localOnboardingDraft();
+      $('#biz-desc').value = draft.slice(0, 280);
+      setAiDraftOutput(`${draft}\n\nServer AI is not configured yet, so this local starter copy was applied.`);
+    }
+  } finally {
+    if (btn){ btn.disabled = false; btn.textContent = original; }
+  }
+}
+
+$('#ai-draft-btn')?.addEventListener('click', draftListingWithAi);
+
 /* Submit */
 $('#intake-form').addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -569,20 +742,35 @@ $('#intake-form').addEventListener('submit', async (e) => {
   errEl.classList.remove('show');
 
   const addressVal = $('#biz-address')?.value.trim() || '';
-  const socialFields = ['instagram','tiktok','facebook','youtube','twitter','linkedin','snapchat','website'];
+  const socialFieldIds = {
+    instagram: 'biz-instagram',
+    tiktok: 'biz-tiktok',
+    facebook: 'biz-facebook',
+    youtube: 'biz-youtube',
+    twitter: 'biz-twitter',
+    linkedin: 'biz-linkedin',
+    snapchat: 'biz-snapchat',
+    website: 'biz-social-website'
+  };
   const social = {};
   let socialAny = false;
-  socialFields.forEach(k => {
-    const v = $('#biz-' + k)?.value.trim() || '';
+  Object.entries(socialFieldIds).forEach(([k, id]) => {
+    const v = $('#' + id)?.value.trim() || '';
     if (v){ social[k] = v; socialAny = true; }
   });
+
+  const website = $('#biz-website').value.trim();
+  if (website && !social.website) {
+    social.website = website;
+    socialAny = true;
+  }
 
   const data = {
     name: $('#biz-name').value.trim(),
     category: $('#biz-category').value,
     city: $('#biz-city').value,
     area: $('#biz-area').value.trim(),
-    website: $('#biz-website').value.trim(),
+    website,
     phone: $('#biz-phone').value.trim(),
     whatsapp: $('#biz-whatsapp').value.trim() || $('#biz-phone').value.trim(),
     image: uploadedImageUrl || imageHidden.value.trim(),

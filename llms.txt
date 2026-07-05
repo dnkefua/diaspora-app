@@ -29,7 +29,7 @@ The Diaspora App helps people from diaspora communities discover trusted busines
 
 ## Categories the app indexes
 
-Restaurants · Home Cooks & Food Sellers · Caterers · Bakers & Pastries · Grocery & Specialty Foods · Butchers & Halal Meat · Hair Stylists · Barbers · Loc & Natural Hair · Beauty & Makeup · Nails · Spa & Wellness · Fitness Trainers · Photographers · Videographers · DJs & Music · Event Planners · Florists · Tailors & Fashion · Jewelers · Designers · Marketing & Social Media · Software & IT · Lawyers · Accountants & Tax · Doctors & Clinics · Therapists & Counseling · Tutors & Education · Childcare & Nannies · Cleaning Services · Movers · Real Estate · Bed Space & Partition (UAE) · Car Lift & Carpooling · Churches & Faith Communities · Mosques & Prayer Halls · Auto & Mechanics · Construction & Trades · Travel & Tour Operators · Pet Care · Jobs
+Restaurants · Cameroon Cuisine · Home Cooks & Food Sellers · Caterers · Bakers & Pastries · Grocery & Specialty Foods · Butchers & Halal Meat · Hair Stylists · Barbers · Loc & Natural Hair · Beauty & Makeup · Nails · Spa & Wellness · Fitness Trainers · Photographers · Videographers · DJs & Music · Event Planners · Florists · Tailors & Fashion · Jewelers · Designers · Marketing & Social Media · Software & IT · Lawyers · Accountants & Tax · Doctors & Clinics · Therapists & Counseling · Tutors & Education · Childcare & Nannies · Cleaning Services · Movers · Real Estate · Bed Space & Partition (UAE) · Car Lift & Carpooling · Churches & Faith Communities · Mosques & Prayer Halls · Auto & Mechanics · Construction & Trades · Travel & Tour Operators · Pet Care · Jobs
 
 ## Cities currently served
 
@@ -52,14 +52,20 @@ Both badges are admin-issued only. Owners cannot self-apply.
 - [RSS — blog](https://www.thediaspora.app/feed.xml) — editorial articles.
 - [robots.txt](https://www.thediaspora.app/robots.txt) — crawl policy. AI / LLM crawlers explicitly welcomed.
 
+## Search intent and keywords
+
+Primary discovery themes: diaspora business directory, African-owned businesses, Black-owned businesses, Cameroon cuisine, Cameroonian food, Fufu and Eru, Fufu and Erru, Ekwang, Ndole, African restaurants in Dubai, African hair salons, barbers, loc specialists, tailors, fashion, photographers, videographers, event planners, diaspora jobs, bed space and partition in the UAE, car lift and carpooling, churches, mosques, local services, verified businesses, WhatsApp ordering, and premium business advertising.
+
+Important seller intents: list a diaspora business, create a free business page, advertise an African-owned business, build a seller profile, add photos and videos to a business listing, link a business website, and get direct WhatsApp leads without transaction commission.
+
 ## Publisher
 
 Built by NDN Analytics — a Dubai-based studio building consumer products for under-served global communities.
 
 - Public site: https://www.ndnanalytics.com/
-- Press: press@thediaspora.app
-- Hello: hello@thediaspora.app
-- Privacy: privacy@thediaspora.app
+- Press: nkefua@ndnanalytics.com
+- Hello: nkefua@ndnanalytics.com
+- Privacy: nkefua@ndnanalytics.com
 
 ## Licensing
 

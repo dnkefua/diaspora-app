@@ -401,6 +401,7 @@ img, video { max-width: 100%; height: auto; }
             <select id="biz-category" required>
               <option value="">Select category</option>
               <option>Restaurants</option>
+              <option>Cameroon Cuisine</option>
               <option>Home Cooks & Food Sellers</option>
               <option>Bakers & Pastry</option>
               <option>Caterers & Event Planners</option>
@@ -850,11 +851,11 @@ img, video { max-width: 100%; height: auto; }
       <div style="display:flex; flex-direction:column; gap:12px">
         <div>
           <label style="display:block; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; font-weight:600; color:var(--muted); margin-bottom:5px">Name</label>
-          <input id="svc-name" type="text" maxlength="80" placeholder="Jollof Rice (Family Tray)" style="width:100%; padding:11px 14px; border:1px solid var(--line); border-radius:8px; font-size:14px">
+          <input id="svc-name" type="text" maxlength="80" placeholder="Fufu and Eru, Ekwang, Ndole, or Jollof Rice" style="width:100%; padding:11px 14px; border:1px solid var(--line); border-radius:8px; font-size:14px">
         </div>
         <div>
           <label style="display:block; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; font-weight:600; color:var(--muted); margin-bottom:5px">Description (optional)</label>
-          <textarea id="svc-desc" maxlength="280" rows="3" placeholder="Serves 4-6. Smoky party-style jollof with grilled chicken." style="width:100%; padding:11px 14px; border:1px solid var(--line); border-radius:8px; font-size:14px; resize:vertical"></textarea>
+          <textarea id="svc-desc" maxlength="280" rows="3" placeholder="Serves 4-6. Example: Cameroonian Eru with fufu, smoked fish, beef, and traditional spices." style="width:100%; padding:11px 14px; border:1px solid var(--line); border-radius:8px; font-size:14px; resize:vertical"></textarea>
         </div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px">
           <div>
@@ -1222,9 +1223,9 @@ function renderTrustBanner(data){
   if (data.premium){
     cta.innerHTML = '<a href="verification.html" class="btn btn-outline" style="text-decoration:none; padding:8px 16px">How verification works</a>';
   } else if (data.verified){
-    cta.innerHTML = '<a href="mailto:hello@thediaspora.app?subject=Premium%20application%20-%20' + encodeURIComponent(data.name || businessId) + '" class="btn btn-primary" style="text-decoration:none; padding:8px 16px; background:linear-gradient(135deg, #F4D98B 0%, #D4AF37 60%, #BB860B 100%)">★ Apply for Premium</a><a href="verification.html" class="btn btn-outline" style="text-decoration:none; padding:8px 16px">Learn more</a>';
+    cta.innerHTML = '<a href="mailto:nkefua@ndnanalytics.com?subject=Premium%20application%20-%20' + encodeURIComponent(data.name || businessId) + '" class="btn btn-primary" style="text-decoration:none; padding:8px 16px; background:linear-gradient(135deg, #F4D98B 0%, #D4AF37 60%, #BB860B 100%)">★ Apply for Premium</a><a href="verification.html" class="btn btn-outline" style="text-decoration:none; padding:8px 16px">Learn more</a>';
   } else {
-    cta.innerHTML = '<a href="mailto:hello@thediaspora.app?subject=Verification%20request%20-%20' + encodeURIComponent(data.name || businessId) + '" class="btn btn-primary" style="text-decoration:none; padding:8px 16px">Request verification</a><a href="verification.html" class="btn btn-outline" style="text-decoration:none; padding:8px 16px">Learn more</a>';
+    cta.innerHTML = '<a href="mailto:nkefua@ndnanalytics.com?subject=Verification%20request%20-%20' + encodeURIComponent(data.name || businessId) + '" class="btn btn-primary" style="text-decoration:none; padding:8px 16px">Request verification</a><a href="verification.html" class="btn btn-outline" style="text-decoration:none; padding:8px 16px">Learn more</a>';
   }
 
   // Public verification report (read-only for owner)

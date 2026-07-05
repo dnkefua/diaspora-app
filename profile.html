@@ -380,7 +380,7 @@
           <h3>Account</h3>
           <p style="font-size:14px;color:var(--muted);margin-bottom:14px">Manage your sign-in method, password, and account data.</p>
           <a href="forgot-password.html" class="btn-ghost" style="width:100%;justify-content:center">Change password</a>
-          <a href="mailto:privacy@thediaspora.app?subject=Account%20data%20export" class="btn-ghost" style="width:100%;justify-content:center;margin-top:8px">Request data export</a>
+          <a href="mailto:nkefua@ndnanalytics.com?subject=Account%20data%20export" class="btn-ghost" style="width:100%;justify-content:center;margin-top:8px">Request data export</a>
           <button class="btn-danger" style="width:100%;margin-top:14px" onclick="confirmDelete()">Delete account</button>
         </div>
 
@@ -900,9 +900,9 @@ function chooseCover(){
 }
 
 function confirmDelete(){
-  const ok = confirm('Delete your account?\n\nThis will sign you out and email privacy@thediaspora.app to remove your data within 30 days. Saved businesses, reviews, and listings will be removed.');
+  const ok = confirm('Delete your account?\n\nThis will sign you out and email nkefua@ndnanalytics.com to remove your data within 30 days. Saved businesses, reviews, and listings will be removed.');
   if (!ok) return;
-  window.location.href = 'mailto:privacy@thediaspora.app?subject=Account%20deletion%20request&body=' + encodeURIComponent('Please delete my account. UID: ' + (firebaseUser?.uid || '(unknown)') + ' · Email: ' + (firebaseUser?.email || '(unknown)'));
+  window.location.href = 'mailto:nkefua@ndnanalytics.com?subject=Account%20deletion%20request&body=' + encodeURIComponent('Please delete my account. UID: ' + (firebaseUser?.uid || '(unknown)') + ' · Email: ' + (firebaseUser?.email || '(unknown)'));
 }
 
 async function logout(){

@@ -12,6 +12,15 @@ const BUSINESSES = [
     rating:4.9, reviews:214, phone:'+971501234567', verified:true,
     image:'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=800',
     desc:'Authentic Nigerian cuisine in the heart of Deira. Jollof rice, egusi soup, suya grills.' },
+  { id:'b9', name:'Douala Table', category:'Cameroon Cuisine', city:'Dubai', area:'Business Bay',
+    rating:5.0, reviews:96, phone:'+971508881122', verified:true,
+    image:'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800',
+    desc:'Cameroonian food spotlight: Fufu and Eru, Ekwang, Ndole, achu, koki, and weekend family trays.',
+    services:[
+      { name:'Fufu and Eru', desc:'Classic Cameroonian fufu served with Eru greens, smoked fish, and tender meat.', price:'AED 75' },
+      { name:'Ekwang', desc:'Grated cocoyam parcels simmered with palm oil, crayfish, and traditional spices.', price:'AED 80' },
+      { name:'Ndole', desc:'Bitterleaf stew with groundnuts, beef, shrimp, and plantain or rice.', price:'AED 70' }
+    ] },
   { id:'b2', name:'Kwame\'s Barbershop', category:'Barbers', city:'Dubai', area:'Al Karama',
     rating:4.8, reviews:189, phone:'+971502345678', verified:true,
     image:'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=800',

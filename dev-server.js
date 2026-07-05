@@ -206,6 +206,7 @@ async function handleAiListing(req, res) {
     const claims = await verifyFirebaseIdToken(token);
     const profile = await getUserProfile(claims.user_id || claims.sub);
     if (!hasAiAccess(profile)) return sendJson(res, 403, { error: 'AI Studio requires an active subscription' });
+    if (!process.env.OPENAI_API_KEY) return sendJson(res, 503, { error: 'AI is not configured on this server' });
 
     const body = await readJson(req);
     const prompt = buildAiPrompt(body.action, body.context);

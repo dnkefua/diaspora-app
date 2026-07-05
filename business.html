@@ -2,15 +2,22 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" type="image/png" href="Media%20resources/TheDiaspora%20app%20logo%203D.png">
 <title>Diaspora Business Profile | The Diaspora App</title>
 <meta name="description" content="View diaspora business details, photos, reviews, location, hours, and direct WhatsApp contact information.">
-<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="keywords" content="diaspora business profile, African owned business, local business reviews, WhatsApp ordering, diaspora services, business photos, verified business">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+<link rel="canonical" href="https://www.thediaspora.app/business.html">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="The Diaspora App">
 <meta property="og:title" content="Diaspora Business Profile">
 <meta property="og:description" content="View diaspora business details, photos, reviews, location, and direct contact information.">
+<meta property="og:url" content="https://www.thediaspora.app/business.html">
 <meta property="og:image" content="https://www.thediaspora.app/Media%20resources/TheDiaspora%20app%20logo%203D.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Diaspora Business Profile">
+<meta name="twitter:description" content="View diaspora business photos, reviews, location, hours, and direct WhatsApp contact details.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -541,6 +548,15 @@ const FALLBACK_DATA = {
     rating:4.9, reviews:214, phone:'+971501234567', verified:true,
     image:'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=800',
     desc:'Authentic Nigerian cuisine in the heart of Deira. Jollof rice, egusi soup, suya grills.' },
+  'b9': { id:'b9', name:'Douala Table', category:'Cameroon Cuisine', city:'Dubai', area:'Business Bay',
+    rating:5.0, reviews:96, phone:'+971508881122', verified:true,
+    image:'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800',
+    desc:'Cameroonian food spotlight: Fufu and Eru, Ekwang, Ndole, achu, koki, and weekend family trays.',
+    services:[
+      { name:'Fufu and Eru', desc:'Classic Cameroonian fufu served with Eru greens, smoked fish, and tender meat.', price:'AED 75' },
+      { name:'Ekwang', desc:'Grated cocoyam parcels simmered with palm oil, crayfish, and traditional spices.', price:'AED 80' },
+      { name:'Ndole', desc:'Bitterleaf stew with groundnuts, beef, shrimp, and plantain or rice.', price:'AED 70' }
+    ] },
   'b2': { id:'b2', name:'Kwame\'s Barbershop', category:'Barbers', city:'Dubai', area:'Al Karama',
     rating:4.8, reviews:189, phone:'+971502345678', verified:true,
     image:'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=800',
@@ -1049,6 +1065,12 @@ function injectLocalBusinessSchema(biz, reviews){
 
   const heroImg = biz.image || (Array.isArray(biz.images) && biz.images[0]) || '';
   const websiteUrl = normalizeExternalUrl(biz.website || biz.url);
+  const description = biz.description || biz.desc || '';
+  const socialUrls = (function(){
+    const s = biz.social || {};
+    const nets = ['instagram','tiktok','facebook','youtube','twitter','linkedin','snapchat','website'];
+    return nets.map(n => normalizeSocial(n, s[n])).filter(Boolean);
+  })();
   const avgRating = reviews && reviews.length
     ? (reviews.reduce((s, r) => s + (Number(r.rating) || 0), 0) / reviews.length)
     : (Number(biz.rating) || 0);
@@ -1057,7 +1079,7 @@ function injectLocalBusinessSchema(biz, reviews){
     '@context': 'https://schema.org',
     '@type': type,
     'name': biz.name,
-    'description': biz.description || biz.desc || '',
+    'description': description,
     'image': heroImg ? [heroImg] : undefined,
     'address': {
       '@type': 'PostalAddress',
@@ -1072,14 +1094,9 @@ function injectLocalBusinessSchema(biz, reviews){
       'longitude': Number(biz.location.lng)
     } : undefined,
     'hasMap': biz.location?.mapsUrl || getMapsViewUrl(biz) || undefined,
-    'sameAs': (function(){
-      const s = biz.social || {};
-      const nets = ['instagram','tiktok','facebook','youtube','twitter','linkedin','snapchat','website'];
-      return nets.map(n => normalizeSocial(n, s[n])).filter(Boolean);
-    })(),
     'telephone': biz.phone || undefined,
     'url': websiteUrl || `https://www.thediaspora.app/business.html?id=${encodeURIComponent(biz.id)}`,
-    'sameAs': websiteUrl ? [websiteUrl] : undefined,
+    'sameAs': Array.from(new Set([websiteUrl, ...socialUrls].filter(Boolean))),
     'priceRange': biz.priceRange || (Array.isArray(biz.services) && biz.services.some(s => s.price) ? '$$' : undefined)
   };
   if (avgRating > 0 && reviews && reviews.length){
@@ -1169,6 +1186,14 @@ function injectLocalBusinessSchema(biz, reviews){
   if (ogDesc) ogDesc.content = (biz.description || biz.desc || '').slice(0, 200);
   const ogImg = document.querySelector('meta[property="og:image"]');
   if (ogImg && heroImg) ogImg.content = heroImg.startsWith('http') ? heroImg : `https://www.thediaspora.app/${heroImg}`;
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) metaDesc.content = `${biz.name} is a ${biz.category || 'diaspora business'}${biz.city ? ' in ' + biz.city : ''}. ${description}`.slice(0, 155);
+  const ogUrl = document.querySelector('meta[property="og:url"]');
+  if (ogUrl) ogUrl.content = canon.href;
+  const twTitle = document.querySelector('meta[name="twitter:title"]');
+  if (twTitle) twTitle.content = `${biz.name} | The Diaspora App`;
+  const twDesc = document.querySelector('meta[name="twitter:description"]');
+  if (twDesc) twDesc.content = (description || `View ${biz.name} on The Diaspora App.`).slice(0, 200);
 }
 
 /* ────────────────────── Reviews ────────────────────── */
@@ -1469,6 +1494,7 @@ function renderServicesSection(biz){
 
 function menuEmojiFor(name){
   const n = (name || '').toLowerCase();
+  if (/(fufu|eru|erru|ekwang|ndole|achu|koki|cameroon|cameroonian)/.test(n)) return '🍲';
   if (/(jollof|rice|bowl)/.test(n)) return '🍛';
   if (/(suya|grill|kebab)/.test(n)) return '🍢';
   if (/(braid|hair|loc)/.test(n)) return '💇🏽‍♀️';

@@ -14,10 +14,55 @@
       },
       "oauth_client": [
         {
+          "client_id": "530318956241-56es0l4ir260de1j6qa4qc8cdp4ue8v6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ndnanalytics.thediaspora",
+            "certificate_hash": "8ab02a30ee7b848ab183e6af3f972e80b26102e3"
+          }
+        },
+        {
           "client_id": "530318956241-soilcf2espe0nv7h82sd8t0mop0v7mum.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.ndnanalytics.thediaspora",
+            "certificate_hash": "7e1dc1dfd60e7c10fcc82b0b0dc3abfeb687ec6e"
+          }
+        },
+        {
+          "client_id": "530318956241-g8m1j9g1c7cr4j7b4ehcsmki68450l72.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIV69QF8E6NM4T_ZmwVvXsV8RVZWErrhI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "530318956241-g8m1j9g1c7cr4j7b4ehcsmki68450l72.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:530318956241:android:37dea1cc92b520696717f0",
+        "android_client_info": {
+          "package_name": "com.ndnanalyticsinc.thediaspora"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "530318956241-rfn96lkvv3lepdv75gsh957aepm129as.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ndnanalyticsinc.thediaspora",
             "certificate_hash": "7e1dc1dfd60e7c10fcc82b0b0dc3abfeb687ec6e"
           }
         },

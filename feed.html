@@ -2,22 +2,50 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" type="image/png" href="Media%20resources/TheDiaspora%20app%20logo%203D.png">
-<title>Diaspora Business Directory | The Diaspora App</title>
-<meta name="description" content="Search diaspora-owned restaurants, barbers, salons, stylists, photographers, fashion houses, beauty providers, and jobs across global cities.">
-<meta name="robots" content="index,follow,max-image-preview:large">
+<title>Diaspora Business Directory | African-Owned Food, Beauty, Jobs & Local Services</title>
+<meta name="description" content="Search trusted diaspora-owned and African-owned businesses by city, area, category, and keyword. Find Cameroon cuisine, Fufu and Eru, Ekwang, Ndole, restaurants, salons, barbers, car lift, bed space, jobs, churches, events, fashion, photography, and local services.">
+<meta name="keywords" content="diaspora business directory, African owned businesses, Cameroon cuisine, Cameroonian food, Fufu and Eru, Fufu and Erru, Ekwang, Ndole, African restaurants Dubai, African hair salons, Black owned businesses, diaspora jobs, bed space UAE, car lift Dubai, diaspora services near me">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 <link rel="canonical" href="https://www.thediaspora.app/feed.html">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"CollectionPage","name":"Diaspora Business Directory","description":"Search diaspora-owned restaurants, barbers, salons, stylists, photographers, fashion houses, beauty providers and services across the UAE and global cities.","url":"https://www.thediaspora.app/feed.html","isPartOf":{"@id":"https://www.thediaspora.app/#website"},"inLanguage":"en"}
 </script>
 <meta property="og:type" content="website">
-<meta property="og:title" content="Diaspora Business Directory">
-<meta property="og:description" content="Discover diaspora-owned businesses, services, jobs, and local sellers.">
+<meta property="og:site_name" content="The Diaspora App">
+<meta property="og:title" content="Diaspora Business Directory | The Diaspora App">
+<meta property="og:description" content="Discover diaspora-owned restaurants, salons, barbers, jobs, events, car lift, bed space, and trusted local services.">
 <meta property="og:url" content="https://www.thediaspora.app/feed.html">
 <meta property="og:image" content="https://www.thediaspora.app/Media%20resources/TheDiaspora%20app%20logo%203D.png">
+<meta property="og:image:alt" content="The Diaspora App business directory">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Diaspora Business Directory">
+<meta name="twitter:description" content="Search diaspora-owned food, beauty, fashion, jobs, events, and local services by city and category.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": "https://www.thediaspora.app/feed.html#directory",
+  "url": "https://www.thediaspora.app/feed.html",
+  "name": "Diaspora Business Directory",
+  "description": "Search diaspora-owned restaurants, Cameroon cuisine, Fufu and Eru, Ekwang, Ndole, beauty providers, barbers, salons, fashion houses, jobs, car lift, bed space, faith communities, events, and local services.",
+  "isPartOf": {"@type": "WebSite", "name": "The Diaspora App", "url": "https://www.thediaspora.app/"},
+  "inLanguage": "en",
+  "about": [
+    "African-owned businesses",
+    "Diaspora business directory",
+    "Local services",
+    "Restaurants, Cameroon cuisine, beauty, fashion, jobs, events, car lift, and bed space"
+  ],
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://www.thediaspora.app/feed.html?search={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
 <style>
 :root {
   --ink: #0A0A0A;
@@ -230,6 +258,7 @@ img { max-width: 100%; height: auto; }
 <div class="categories" id="categoryTabs">
   <div class="chip active" data-cat="All">All</div>
   <div class="chip" data-cat="Restaurants">Restaurants</div>
+  <div class="chip" data-cat="Cameroon Cuisine">Cameroon Cuisine</div>
   <div class="chip" data-cat="Barbers">Barbers</div>
   <div class="chip" data-cat="Hair Stylists">Stylists</div>
   <div class="chip" data-cat="Photographers">Photographers</div>
@@ -307,6 +336,10 @@ function getFallbackData() {
       rating:4.9, reviews:214, phone:'+971501234567', verified:true,
       image:'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=800',
       desc:'Authentic Nigerian cuisine in the heart of Deira. Jollof rice, egusi soup, suya grills.' },
+    { id:'b9', name:'Douala Table', category:'Cameroon Cuisine', city:'Dubai', area:'Business Bay',
+      rating:5.0, reviews:96, phone:'+971508881122', verified:true,
+      image:'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=800',
+      desc:'Cameroonian food spotlight: Fufu and Eru, Ekwang, Ndole, achu, koki, and weekend family trays.' },
     { id:'b2', name:'Kwame\'s Barbershop', category:'Barbers', city:'Dubai', area:'Al Karama',
       rating:4.8, reviews:189, phone:'+971502345678', verified:true,
       image:'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=800',
