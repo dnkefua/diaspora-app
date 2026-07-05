@@ -16,54 +16,75 @@
 <meta property="og:image" content="https://www.thediaspora.app/Media%20resources/TheDiaspora%20app%20logo%203D.png">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "OfferCatalog",
-  "name": "The Diaspora App — Membership tiers",
-  "url": "https://www.thediaspora.app/pricing.html",
-  "provider": {
-    "@type": "Organization",
-    "name": "The Diaspora App",
-    "url": "https://www.thediaspora.app/"
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "OfferCatalog",
+    "@id": "https://www.thediaspora.app/pricing.html#catalog",
+    "name": "The Diaspora App — Membership tiers",
+    "url": "https://www.thediaspora.app/pricing.html",
+    "provider": {
+      "@type": "Organization",
+      "name": "The Diaspora App",
+      "url": "https://www.thediaspora.app/"
+    },
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "name": "Community Membership",
+        "description": "Free public profile with WhatsApp contact, hours, 3 photos, and city listing inclusion.",
+        "price": "0",
+        "priceCurrency": "AED",
+        "category": "Free"
+      },
+      {
+        "@type": "Offer",
+        "name": "Verified Membership",
+        "description": "Verified blue tick, priority search placement, 15 photos, social links, customer inquiry analytics, city-page features.",
+        "price": "99",
+        "priceCurrency": "AED",
+        "priceSpecification": { "@type": "UnitPriceSpecification", "price": "99", "priceCurrency": "AED", "unitText": "MON" },
+        "category": "Verified"
+      },
+      {
+        "@type": "Offer",
+        "name": "Featured Membership",
+        "description": "Homepage rotation, featured category placement, editorial spotlight, blog inclusion, Instagram + TikTok feature opportunities.",
+        "price": "299",
+        "priceCurrency": "AED",
+        "priceSpecification": { "@type": "UnitPriceSpecification", "price": "299", "priceCurrency": "AED", "unitText": "MON" },
+        "category": "Featured"
+      },
+      {
+        "@type": "Offer",
+        "name": "Partner / Elite Membership",
+        "description": "Dedicated promotional campaigns, hero placements, event partnerships, sponsored content, premium editorial coverage.",
+        "price": "999",
+        "priceCurrency": "AED",
+        "priceSpecification": { "@type": "UnitPriceSpecification", "price": "999", "priceCurrency": "AED", "unitText": "MON" },
+        "category": "Elite"
+      }
+    ]
   },
-  "itemListElement": [
-    {
-      "@type": "Offer",
-      "name": "Community Membership",
-      "description": "Free public profile with WhatsApp contact, hours, 3 photos, and city listing inclusion.",
-      "price": "0",
-      "priceCurrency": "AED",
-      "category": "Free"
-    },
-    {
-      "@type": "Offer",
-      "name": "Verified Membership",
-      "description": "Verified blue tick, priority search placement, 15 photos, social links, customer inquiry analytics, city-page features.",
-      "price": "99",
-      "priceCurrency": "AED",
-      "priceSpecification": { "@type": "UnitPriceSpecification", "price": "99", "priceCurrency": "AED", "unitText": "MON" },
-      "category": "Verified"
-    },
-    {
-      "@type": "Offer",
-      "name": "Featured Membership",
-      "description": "Homepage rotation, featured category placement, editorial spotlight, blog inclusion, Instagram + TikTok feature opportunities.",
-      "price": "299",
-      "priceCurrency": "AED",
-      "priceSpecification": { "@type": "UnitPriceSpecification", "price": "299", "priceCurrency": "AED", "unitText": "MON" },
-      "category": "Featured"
-    },
-    {
-      "@type": "Offer",
-      "name": "Partner / Elite Membership",
-      "description": "Dedicated promotional campaigns, hero placements, event partnerships, sponsored content, premium editorial coverage.",
-      "price": "999",
-      "priceCurrency": "AED",
-      "priceSpecification": { "@type": "UnitPriceSpecification", "price": "999", "priceCurrency": "AED", "unitText": "MON" },
-      "category": "Elite"
-    }
-  ]
-}
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.thediaspora.app/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Pricing",
+        "item": "https://www.thediaspora.app/pricing.html"
+      }
+    ]
+  }
+]
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="page.css">
@@ -332,7 +353,7 @@
 </head>
 <body>
 <header class="page-header">
-  <a href="index.html" class="brand"><img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="The Diaspora App"></a>
+  <a href="index.html" class="brand"><img width="120" height="42" src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="The Diaspora App" decoding="async"></a>
   <nav>
     <a href="news.html">News</a>
     <a href="about.html">About</a>
