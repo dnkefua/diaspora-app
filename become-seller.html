@@ -4,804 +4,1243 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" type="image/png" href="Media%20resources/TheDiaspora%20app%20logo%203D.png">
-<title>List Your Diaspora-Owned Business | Free Business Page & Seller Dashboard</title>
-<meta name="description" content="Create a free business page for your diaspora-owned business. Add photos, videos, website links, WhatsApp contact, menus, services, and AI-assisted listing copy with zero transaction commission.">
-<meta name="keywords" content="list diaspora business, create business page, African owned business listing, free business directory, diaspora seller dashboard, advertise African business, WhatsApp business leads">
-<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+<title>Business Listing Wizard | The Diaspora App</title>
+<meta name="description" content="List your diaspora-owned business in a simple step-by-step wizard. Add your business details, customer contact links, description, website, social links, and photos.">
+<meta name="keywords" content="business listing wizard, list diaspora business, African business directory, create business page, diaspora seller">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://www.thediaspora.app/become-seller.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="The Diaspora App">
-<meta property="og:title" content="List Your Diaspora-Owned Business">
-<meta property="og:description" content="Build a free business page with photos, videos, website links, WhatsApp contact, menus, services, and zero transaction commission.">
+<meta property="og:title" content="List Your Business">
+<meta property="og:description" content="Create your diaspora business page in four simple steps.">
 <meta property="og:url" content="https://www.thediaspora.app/become-seller.html">
 <meta property="og:image" content="https://www.thediaspora.app/Media%20resources/TheDiaspora%20app%20logo%203D.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="List Your Diaspora-Owned Business">
-<meta name="twitter:description" content="Create a seller profile and business page for diaspora customers across global cities.">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="page.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "@id": "https://www.thediaspora.app/become-seller.html#webpage",
   "url": "https://www.thediaspora.app/become-seller.html",
-  "name": "List Your Diaspora-Owned Business",
-  "description": "Create a free business page with photos, videos, website links, WhatsApp contact, menus, services, and zero transaction commission.",
-  "isPartOf": {"@type": "WebSite", "name": "The Diaspora App", "url": "https://www.thediaspora.app/"},
-  "inLanguage": "en",
-  "keywords": "list diaspora business, African-owned business listing, free business page, seller dashboard, WhatsApp leads",
-  "mainEntity": {
-    "@type": "Service",
-    "name": "Diaspora business listing and seller dashboard",
-    "provider": {"@type": "Organization", "name": "The Diaspora App", "email": "nkefua@ndnanalytics.com"},
-    "areaServed": ["Dubai", "Abu Dhabi", "London", "Toronto", "New York", "Lagos", "Nairobi", "Accra", "Paris"],
-    "audience": {"@type": "BusinessAudience", "audienceType": "Diaspora-owned businesses and local service providers"},
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD",
-      "description": "Free listing with optional premium placements and subscriptions."
-    }
+  "name": "Business Listing Wizard",
+  "description": "Create a diaspora-owned business page in four simple steps.",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "The Diaspora App",
+    "url": "https://www.thediaspora.app/"
   }
 }
 </script>
 <style>
-.onboard-shell{
-  min-height:100vh; display:grid;
-  grid-template-columns:1fr 1.2fr;
-  background:var(--paper);
+:root{
+  --wizard-ink:#111317;
+  --wizard-green:#245447;
+  --wizard-blue:#23466f;
+  --wizard-gold:#c99b31;
+  --wizard-success:#23724c;
+  --wizard-error:#a63e2d;
 }
-.onboard-aside{
-  background:linear-gradient(135deg, #0A1E3A 0%, #1B3A5F 50%, #2A5F4A 100%);
-  color:var(--paper); padding:64px 56px;
-  display:flex; flex-direction:column; justify-content:space-between;
-  position:relative; overflow:hidden;
-}
-.onboard-aside::before{
-  content:""; position:absolute; inset:0;
-  background-image:url('https://images.unsplash.com/photo-1528605248644-14dd04022da1?q=80&w=1600&auto=format&fit=crop');
-  background-size:cover; background-position:center;
-  opacity:0.18; mix-blend-mode:overlay;
-}
-.onboard-aside > *{position:relative; z-index:1}
-.onboard-brand{display:flex; align-items:center; gap:12px}
-.onboard-brand img{
-  width:120px; height:42px; object-fit:contain;
-  border-radius:10px; background:#fff; padding:3px;
-}
-.onboard-pitch h1{
-  font-family:'Cormorant Garamond',serif; font-weight:300;
-  font-size:clamp(40px, 5vw, 64px); line-height:1.0;
-  letter-spacing:-0.02em; margin-bottom:18px;
-}
-.onboard-pitch h1 em{font-style:italic; color:var(--brass-soft)}
-.onboard-pitch p{font-size:16px; line-height:1.7; opacity:0.9; max-width:42ch}
-.onboard-pitch ul{list-style:none; margin:24px 0 0; padding:0}
-.onboard-pitch li{
-  display:flex; gap:12px; padding:8px 0;
-  font-size:14px; opacity:0.92;
-}
-.onboard-pitch li::before{content:"✓"; color:var(--brass-soft); font-weight:600}
-.onboard-foot{display:flex; gap:18px; opacity:0.7; font-size:12px}
-.onboard-foot a{border-bottom:1px solid transparent}
-.onboard-foot a:hover{border-color:currentColor}
+html,body{min-height:100%;overflow-x:hidden}
+body{background:#f7f4ed}
+button,input,select,textarea{font:inherit}
 
-.onboard-main{
-  padding:64px 56px; overflow-y:auto;
-  display:flex; align-items:flex-start; justify-content:center;
-}
-.onboard-card{width:100%; max-width:540px}
-.onboard-back{
-  display:inline-flex; align-items:center; gap:6px;
-  font-size:12px; color:var(--muted);
-  margin-bottom:28px; transition:color 0.15s;
-}
-.onboard-back:hover{color:var(--ink)}
-.onboard-title{
-  font-family:'Cormorant Garamond',serif; font-weight:300;
-  font-size:38px; line-height:1.05; letter-spacing:-0.02em;
-  margin-bottom:8px;
-}
-.onboard-title em{font-style:italic; color:var(--brass)}
-.onboard-desc{color:var(--muted); margin-bottom:30px; font-size:14.5px}
-
-.gate-card{
-  background:#fff; border:1px solid var(--line); border-radius:14px;
-  padding:30px; text-align:center;
-  display:flex; flex-direction:column; align-items:center; gap:14px;
-}
-.gate-card .kicker{margin-bottom:0}
-.gate-card h3{
-  font-family:'Cormorant Garamond',serif; font-weight:400;
-  font-size:24px; line-height:1.2;
-}
-.gate-card h3 em{font-style:italic; color:var(--brass)}
-.gate-card p{color:var(--muted); font-size:14px; margin:0; max-width:42ch}
-.gate-card .btns{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:6px}
-
-form.intake{display:flex; flex-direction:column; gap:16px}
-form.intake .row-2{display:grid; grid-template-columns:1fr 1fr; gap:14px}
-form.intake .field{display:flex; flex-direction:column; gap:6px}
-form.intake .field label{
-  font-size:10.5px; letter-spacing:0.22em; text-transform:uppercase;
-  font-weight:600; color:var(--muted);
-}
-form.intake .field input,
-form.intake .field select,
-form.intake .field textarea{
-  padding:12px 16px; border:1px solid var(--line); border-radius:10px;
-  font-family:inherit; font-size:14px; background:#fff; color:var(--ink);
-  transition:border-color 0.18s;
-}
-form.intake .field input:focus,
-form.intake .field select:focus,
-form.intake .field textarea:focus{
-  outline:none; border-color:var(--brass);
-}
-form.intake textarea{min-height:110px; resize:vertical}
-form.intake .field-hint{font-size:12px; color:var(--muted); margin-top:2px}
-.ai-helper{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:12px;
-  padding:14px;
+.wizard-shell{
+  min-height:100vh;
   display:grid;
-  gap:10px;
+  grid-template-columns:minmax(300px, 0.78fr) minmax(0, 1.22fr);
 }
-.ai-helper-head{
+.wizard-aside{
+  position:sticky;
+  top:0;
+  min-height:100vh;
+  padding:42px;
+  color:#fff;
+  background:
+    linear-gradient(rgba(11,20,25,.72),rgba(11,20,25,.9)),
+    url("https://images.unsplash.com/photo-1556740749-887f6717d7e4?q=85&w=1800&auto=format&fit=crop") center/cover;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  gap:44px;
+}
+.wizard-brand{display:inline-flex;align-items:center;width:max-content}
+.wizard-brand img{
+  width:126px;
+  height:44px;
+  object-fit:contain;
+  padding:3px;
+  border-radius:8px;
+  background:#fff;
+}
+.wizard-aside-copy{max-width:500px}
+.wizard-aside .kicker{color:#f4d98b;margin-bottom:16px}
+.wizard-aside h1{
+  max-width:9ch;
+  margin:0 0 20px;
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:clamp(44px,5vw,72px);
+  font-weight:400;
+  line-height:.94;
+  letter-spacing:0;
+}
+.wizard-aside h1 em{font-weight:400;color:#f4d98b}
+.wizard-aside-copy>p{max-width:38ch;font-size:15px;line-height:1.7;color:rgba(255,255,255,.84)}
+.wizard-benefits{
+  display:grid;
+  gap:12px;
+  margin:28px 0 0;
+  padding:0;
+  list-style:none;
+}
+.wizard-benefits li{
+  display:grid;
+  grid-template-columns:24px 1fr;
+  gap:10px;
+  align-items:start;
+  font-size:13px;
+  line-height:1.55;
+  color:rgba(255,255,255,.9);
+}
+.benefit-mark{
+  display:inline-flex;
+  width:22px;
+  height:22px;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(244,217,139,.75);
+  border-radius:50%;
+  color:#f4d98b;
+  font-weight:700;
+}
+.wizard-aside-foot{display:flex;gap:18px;flex-wrap:wrap;font-size:11px;color:rgba(255,255,255,.68)}
+.wizard-aside-foot a:hover{color:#fff}
+
+.wizard-main{
+  min-width:0;
+  padding:36px clamp(24px,5vw,72px) 64px;
+}
+.wizard-main-inner{width:100%;max-width:760px;margin:0 auto}
+.wizard-topbar{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:12px;
+  gap:16px;
+  margin-bottom:28px;
 }
-.ai-helper-title{
+.back-home{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:600;
+}
+.back-home:hover{color:var(--ink)}
+.autosave-state{font-size:11px;color:var(--muted)}
+
+.wizard-progress{
+  position:relative;
+  margin-bottom:38px;
+}
+.wizard-progress-track{
+  position:absolute;
+  top:17px;
+  left:9%;
+  right:9%;
+  height:2px;
+  background:#d9d3c8;
+  overflow:hidden;
+}
+.wizard-progress-fill{
+  display:block;
+  height:100%;
+  width:25%;
+  background:var(--wizard-gold);
+  transition:width .25s ease;
+}
+.wizard-steps{
+  position:relative;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+}
+.wizard-step{
+  min-width:0;
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  text-align:center;
+  cursor:default;
+}
+.wizard-step-number{
+  display:inline-flex;
+  width:36px;
+  height:36px;
+  align-items:center;
+  justify-content:center;
+  border:2px solid #d9d3c8;
+  border-radius:50%;
+  background:#f7f4ed;
+  color:var(--muted);
   font-size:12px;
   font-weight:700;
-  letter-spacing:0.14em;
-  text-transform:uppercase;
-  color:var(--ink);
+  transition:border-color .2s,background .2s,color .2s;
 }
-.ai-helper-copy{
-  color:var(--muted);
-  font-size:12.5px;
-  line-height:1.55;
-}
-.ai-helper button{
-  border:1px solid var(--ink);
-  background:var(--ink);
-  color:var(--paper);
-  border-radius:999px;
-  padding:9px 14px;
+.wizard-step-label{
+  display:block;
+  margin-top:8px;
   font-size:10px;
   font-weight:700;
-  letter-spacing:0.14em;
+  letter-spacing:.08em;
   text-transform:uppercase;
-  cursor:pointer;
   white-space:nowrap;
 }
-.ai-helper button[disabled]{opacity:0.55; cursor:not-allowed}
-.ai-output{
-  display:none;
-  background:var(--bone);
+.wizard-step.current .wizard-step-number{
+  border-color:var(--wizard-gold);
+  background:var(--wizard-ink);
+  color:#fff;
+}
+.wizard-step.complete{cursor:pointer}
+.wizard-step.complete .wizard-step-number{
+  border-color:var(--wizard-success);
+  background:var(--wizard-success);
+  color:#fff;
+}
+.wizard-step.current,.wizard-step.complete{color:var(--wizard-ink)}
+
+.view[hidden],.wizard-panel[hidden]{display:none!important}
+.loading-view{padding:80px 0;text-align:center;color:var(--muted)}
+.loading-ring{
+  width:34px;
+  height:34px;
+  margin:0 auto 16px;
+  border:3px solid rgba(17,19,23,.12);
+  border-top-color:var(--wizard-gold);
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.auth-gate{
+  max-width:620px;
+  padding:34px;
   border:1px solid var(--line);
-  border-radius:10px;
-  padding:12px;
-  color:var(--graphite);
+  border-radius:8px;
+  background:#fff;
+}
+.auth-gate .kicker{margin-bottom:12px}
+.auth-gate h2,.panel-title{
+  margin:0;
+  font-family:"Cormorant Garamond",Georgia,serif;
+  font-size:clamp(34px,5vw,48px);
+  font-weight:400;
+  line-height:1.02;
+  letter-spacing:0;
+}
+.auth-gate h2 em,.panel-title em{color:var(--wizard-gold)}
+.auth-gate p,.panel-copy{margin:12px 0 0;color:var(--muted);font-size:14px;line-height:1.7}
+.auth-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+
+.wizard-panel{animation:panel-in .25s ease}
+@keyframes panel-in{from{opacity:.25;transform:translateY(6px)}to{opacity:1;transform:none}}
+.panel-head{margin-bottom:28px}
+.panel-eyebrow{
+  margin-bottom:8px;
+  color:var(--wizard-gold);
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+.panel-copy{max-width:58ch}
+
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.field{display:grid;gap:7px;min-width:0}
+.field.full{grid-column:1/-1}
+.field label{
+  color:#403c35;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.05em;
+}
+.optional{color:var(--muted);font-weight:500}
+.field input,.field select,.field textarea{
+  width:100%;
+  min-height:48px;
+  padding:12px 13px;
+  border:1px solid #cdc7bb;
+  border-radius:6px;
+  outline:none;
+  background:#fff;
+  color:var(--wizard-ink);
+  font-size:14px;
+  transition:border-color .15s,box-shadow .15s;
+}
+.field textarea{min-height:134px;resize:vertical;line-height:1.55}
+.field input:focus,.field select:focus,.field textarea:focus{
+  border-color:var(--wizard-blue);
+  box-shadow:0 0 0 3px rgba(35,70,111,.11);
+}
+.field input:user-invalid,.field select:user-invalid,.field textarea:user-invalid{border-color:var(--wizard-error)}
+.field-hint{color:var(--muted);font-size:11px;line-height:1.45}
+.char-count{text-align:right;color:var(--muted);font-size:10px}
+
+.error-banner{
+  display:none;
+  margin:0 0 20px;
+  padding:12px 14px;
+  border-left:3px solid var(--wizard-error);
+  background:#fff2ef;
+  color:#7e2d20;
   font-size:13px;
-  line-height:1.55;
+  line-height:1.5;
+}
+.error-banner.show{display:block}
+
+.ai-helper{
+  grid-column:1/-1;
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:12px 18px;
+  align-items:center;
+  padding:16px 0;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.ai-helper strong{display:block;font-size:13px}
+.ai-helper p{margin:3px 0 0;color:var(--muted);font-size:12px;line-height:1.5}
+.small-action{
+  min-height:38px;
+  padding:9px 14px;
+  border:1px solid var(--wizard-ink);
+  border-radius:6px;
+  background:var(--wizard-ink);
+  color:#fff;
+  font-size:11px;
+  font-weight:700;
+}
+.small-action:hover{background:#fff;color:var(--wizard-ink)}
+.small-action[disabled]{opacity:.5;cursor:not-allowed}
+.ai-result{
+  display:none;
+  grid-column:1/-1;
+  padding:12px;
+  border-left:3px solid var(--wizard-gold);
+  background:#fff;
+  color:#443f37;
+  font-size:12px;
+  line-height:1.6;
   white-space:pre-wrap;
 }
-form.intake .image-uploader{
-  margin-top:8px; aspect-ratio:16/10; border-radius:10px;
-  background:var(--bone) center/cover no-repeat;
-  border:1.5px dashed rgba(10,10,10,0.18);
-  display:flex; align-items:center; justify-content:center; flex-direction:column;
-  color:var(--muted); font-size:13px; cursor:pointer;
-  position:relative; overflow:hidden;
-  transition:border-color 0.18s, background-color 0.18s;
-}
-form.intake .image-uploader:hover{border-color:var(--brass)}
-form.intake .image-uploader.dragging{border-color:var(--brass); background-color:rgba(183,146,74,0.06)}
-form.intake .image-uploader.has-image{border-style:solid; border-color:transparent}
-form.intake .image-uploader .ph{display:flex; flex-direction:column; align-items:center; gap:6px; padding:12px; text-align:center}
-form.intake .image-uploader .ph .icon{font-size:28px}
-form.intake .image-uploader .ph strong{color:var(--ink); font-weight:600; font-size:14px}
-form.intake .image-uploader .progress{
-  position:absolute; left:0; right:0; bottom:0; height:4px;
-  background:rgba(10,10,10,0.08);
-}
-form.intake .image-uploader .progress .bar{
-  height:100%; width:0%; background:var(--brass); transition:width 0.18s;
-}
-form.intake .image-uploader.has-image .progress{display:none}
-form.intake .image-replace{
-  position:absolute; top:8px; right:8px; z-index:2;
-  background:rgba(255,255,255,0.92); color:var(--ink);
-  border:none; padding:6px 12px; border-radius:999px;
-  font-size:11px; font-weight:600; cursor:pointer;
-  box-shadow:0 2px 8px rgba(0,0,0,0.15);
-}
-form.intake .image-replace:hover{background:#fff}
+.ai-result.show{display:block}
 
-form.intake .submit-row{display:flex; gap:10px; align-items:center; margin-top:14px}
-form.intake .submit-row .spacer{flex:1}
-form.intake button[type="submit"]{
-  display:inline-flex; align-items:center; justify-content:center;
-  gap:8px; padding:14px 26px;
-  background:var(--ink); color:var(--paper);
-  border-radius:999px;
-  font-size:11px; font-weight:600; letter-spacing:0.22em; text-transform:uppercase;
-  border:1px solid var(--ink);
-  transition:all 0.2s;
+.optional-section{
+  grid-column:1/-1;
+  border-top:1px solid var(--line);
+  padding-top:4px;
 }
-form.intake button[type="submit"]:hover{background:transparent; color:var(--ink)}
-form.intake button[type="submit"][disabled]{opacity:0.5; cursor:not-allowed}
-
-.err{
-  display:none; background:rgba(143,58,38,0.08); border:1px solid rgba(143,58,38,0.3);
-  color:var(--rust); padding:12px 16px; border-radius:10px;
-  font-size:13.5px; margin-bottom:14px;
+.optional-section summary{
+  padding:12px 0;
+  cursor:pointer;
+  font-size:12px;
+  font-weight:700;
 }
-.err.show{display:block}
+.optional-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 18px;padding:0 0 8px}
 
-@media (max-width:920px){
-  .onboard-shell{grid-template-columns:1fr}
-  .onboard-aside{padding:42px 28px; min-height:auto}
-  .onboard-pitch h1{font-size:36px}
-  .onboard-main{padding:42px 24px}
+.upload-box{
+  position:relative;
+  display:grid;
+  min-height:230px;
+  place-items:center;
+  overflow:hidden;
+  border:1px dashed #aaa294;
+  border-radius:8px;
+  background:#eee9df center/cover no-repeat;
+  color:var(--muted);
+  text-align:center;
+  cursor:pointer;
+  transition:border-color .15s,background-color .15s;
+}
+.upload-box:hover,.upload-box.dragging{border-color:var(--wizard-gold);background-color:#f4efe4}
+.upload-box.has-image{border-style:solid}
+.upload-copy{display:grid;gap:5px;padding:24px}
+.upload-copy strong{color:var(--wizard-ink);font-size:14px}
+.upload-copy span{font-size:12px}
+.upload-progress{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:4px;
+  background:rgba(0,0,0,.08);
+}
+.upload-progress span{display:block;height:100%;width:0;background:var(--wizard-gold);transition:width .18s}
+.replace-photo{
+  position:absolute;
+  top:10px;
+  right:10px;
+  display:none;
+  min-height:34px;
+  padding:7px 11px;
+  border:1px solid rgba(0,0,0,.15);
+  border-radius:6px;
+  background:rgba(255,255,255,.94);
+  color:var(--wizard-ink);
+  font-size:11px;
+  font-weight:700;
+}
+.upload-box.has-image .replace-photo{display:block}
+
+.review-list{
+  display:grid;
+  margin-top:26px;
+  border-top:1px solid var(--line);
+}
+.review-row{
+  display:grid;
+  grid-template-columns:130px 1fr;
+  gap:18px;
+  padding:12px 0;
+  border-bottom:1px solid var(--line);
+}
+.review-row dt{color:var(--muted);font-size:11px;font-weight:700;text-transform:uppercase}
+.review-row dd{min-width:0;color:var(--wizard-ink);font-size:13px;overflow-wrap:anywhere}
+.review-note{
+  margin-top:18px;
+  padding:13px 15px;
+  border-left:3px solid var(--wizard-green);
+  background:#edf5f1;
+  color:#285145;
+  font-size:12px;
+  line-height:1.6;
 }
 
-/* ════════════ MOBILE PASS ════════════ */
-html, body { overflow-x: hidden; max-width: 100%; }
-img { max-width: 100%; height: auto; }
+.wizard-actions{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-top:32px;
+  padding-top:22px;
+  border-top:1px solid var(--line);
+}
+.wizard-actions .spacer{flex:1}
+.wizard-button{
+  min-height:46px;
+  padding:12px 20px;
+  border:1px solid var(--wizard-ink);
+  border-radius:6px;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+}
+.wizard-button.primary{background:var(--wizard-ink);color:#fff}
+.wizard-button.primary:hover{background:var(--wizard-blue)}
+.wizard-button.secondary{background:transparent;color:var(--wizard-ink)}
+.wizard-button.secondary:hover{background:#fff}
+.wizard-button[hidden]{display:none}
+.wizard-button[disabled]{opacity:.5;cursor:not-allowed}
+.terms-note{margin-top:12px;color:var(--muted);font-size:10px;text-align:right}
+.terms-note a{color:var(--wizard-blue);text-decoration:underline}
 
-@media (max-width: 720px){
-  .onboard-aside { padding: 28px 18px; }
-  .onboard-pitch h1 { font-size: 30px; line-height: 1.05; }
-  .onboard-pitch p { font-size: 14px; }
-  .onboard-pitch li { font-size: 13px; padding: 6px 0; }
-  .onboard-main { padding: 28px 18px; }
-  .onboard-title { font-size: 28px; }
-  form.intake .row-2 { grid-template-columns: 1fr !important; }
-  .ai-helper-head { align-items:flex-start; flex-direction:column; }
-  form.intake .submit-row { flex-direction: column; align-items: stretch; gap: 10px; }
-  form.intake .submit-row > span:first-child { font-size: 11px; text-align: center; }
-  form.intake button[type="submit"] { width: 100%; }
-  .gate-card { padding: 22px 18px; }
+@media(max-width:940px){
+  .wizard-shell{grid-template-columns:1fr}
+  .wizard-aside{position:relative;min-height:340px;padding:30px}
+  .wizard-aside h1{font-size:46px}
+  .wizard-benefits{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .wizard-aside-foot{display:none}
+}
+@media(max-width:640px){
+  .wizard-aside{min-height:300px;padding:24px}
+  .wizard-aside h1{font-size:38px}
+  .wizard-aside-copy>p{font-size:13px}
+  .wizard-benefits{display:none}
+  .wizard-main{padding:22px 18px 48px}
+  .wizard-topbar{margin-bottom:22px}
+  .wizard-progress{margin-bottom:30px}
+  .wizard-progress-track{left:11%;right:11%}
+  .wizard-step-label{font-size:8px}
+  .form-grid,.optional-fields{grid-template-columns:1fr}
+  .field.full,.ai-helper,.optional-section{grid-column:1}
+  .ai-helper{grid-template-columns:1fr}
+  .small-action{width:100%}
+  .review-row{grid-template-columns:92px 1fr;gap:12px}
+  .wizard-actions{display:grid;grid-template-columns:1fr 1fr}
+  .wizard-actions .spacer{display:none}
+  .wizard-button{width:100%;padding:11px 10px}
+  .terms-note{text-align:center}
 }
 </style>
 </head>
 <body>
-
-<div class="onboard-shell">
-  <aside class="onboard-aside">
-    <a href="index.html" class="onboard-brand">
-      <img width="120" height="42" src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="The Diaspora App" decoding="async">
+<div class="wizard-shell">
+  <aside class="wizard-aside">
+    <a class="wizard-brand" href="index.html" aria-label="The Diaspora App home">
+      <img src="Media%20resources/TheDiaspora%20app%20logo%203D.png" alt="The Diaspora App">
     </a>
-
-    <div class="onboard-pitch">
-      <div class="kicker" style="color:var(--brass-soft); margin-bottom:18px">For Sellers</div>
-      <h1>Your craft<br><em>deserves</em> the cover.</h1>
-      <p>List your kitchen, salon, studio, or service in minutes. Free forever. Zero commission. We charge for premium placements only — never on your transactions.</p>
-      <ul>
-        <li>Your customers come direct to your WhatsApp, phone, or profile</li>
-        <li>Editorial-grade photography treatment in every search result</li>
-        <li>Verified businesses get a brass tick and priority sort</li>
-        <li>Optional paid placements (Spotlight, On the Menu, In the Chair)</li>
+    <div class="wizard-aside-copy">
+      <div class="kicker">Business listing wizard</div>
+      <h1>Put your business <em>on the map.</em></h1>
+      <p>Create a page customers can discover, trust, and contact directly. Start with the essentials and improve it any time.</p>
+      <ul class="wizard-benefits">
+        <li><span class="benefit-mark">1</span><span>One page for each business, service, or location you own.</span></li>
+        <li><span class="benefit-mark">2</span><span>Send customers to your phone, WhatsApp, website, or booking page.</span></li>
+        <li><span class="benefit-mark">3</span><span>Add menus, videos, more photos, hours, and AI-assisted copy later.</span></li>
       </ul>
     </div>
-
-    <div class="onboard-foot">
-      <span>© 2026 The Diaspora App</span>
+    <div class="wizard-aside-foot">
+      <span>&copy; 2026 The Diaspora App</span>
       <a href="pricing.html">Pricing</a>
       <a href="terms.html">Terms</a>
       <a href="privacy.html">Privacy</a>
     </div>
   </aside>
 
-  <main class="onboard-main">
-    <div class="onboard-card">
-      <a href="index.html" class="onboard-back">← Back to home</a>
+  <main class="wizard-main">
+    <div class="wizard-main-inner">
+      <div class="wizard-topbar">
+        <a class="back-home" href="index.html">&larr; Back to home</a>
+        <span class="autosave-state" id="autosave-state" aria-live="polite"></span>
+      </div>
 
-      <!-- AUTH GATE -->
-      <div id="auth-gate" style="display:none">
-        <h2 class="onboard-title">You're already <em>listed.</em></h2>
-        <p class="onboard-desc">You've already submitted a business — open the seller dashboard to edit it.</p>
-        <div style="display:flex; gap:10px; flex-wrap:wrap">
-          <a href="seller-dashboard.html" class="btn btn-dark">Open dashboard →</a>
-          <a href="index.html" class="btn btn-outline">Back to home</a>
+      <div class="view loading-view" id="loading-view">
+        <div class="loading-ring" aria-hidden="true"></div>
+        <p>Preparing your business wizard...</p>
+      </div>
+
+      <section class="view auth-gate" id="auth-gate" hidden>
+        <div class="kicker">Your business page</div>
+        <h2>Sign in, then build it <em>step by step.</em></h2>
+        <p>Your account keeps every business page in one profile and lets you return to edit photos, videos, hours, menus, and customer links.</p>
+        <div class="auth-actions">
+          <a href="login-firebase.html?next=become-seller.html" class="btn btn-dark">Sign in and continue</a>
+          <a href="signup-firebase.html?next=become-seller.html" class="btn btn-outline">Create an account</a>
         </div>
-      </div>
+      </section>
 
-      <!-- INTAKE FORM -->
-      <div id="intake-wrap" style="display:none">
-        <h2 class="onboard-title">Tell us about your <em>business</em>.</h2>
-        <p class="onboard-desc">Five quick fields. You can polish photography, hours, and copy in the dashboard right after.</p>
-
-        <div class="err" id="err"></div>
-
-        <form class="intake" id="intake-form" novalidate>
-          <div class="field">
-            <label for="biz-name">Business name</label>
-            <input id="biz-name" type="text" required maxlength="80" placeholder="Mama Titi Kitchen" autocomplete="organization">
+      <section class="view" id="wizard-view" hidden>
+        <div class="wizard-progress" aria-label="Business listing progress">
+          <div class="wizard-progress-track" aria-hidden="true">
+            <span class="wizard-progress-fill" id="wizard-progress-fill"></span>
           </div>
-
-          <div class="field">
-            <label for="biz-website">Website / Booking link (optional)</label>
-            <input id="biz-website" type="text" maxlength="180" placeholder="https://yourbusiness.com or booking page" autocomplete="url">
+          <div class="wizard-steps">
+            <button class="wizard-step current" type="button" data-step="0" aria-current="step">
+              <span class="wizard-step-number">1</span>
+              <span class="wizard-step-label">Basics</span>
+            </button>
+            <button class="wizard-step" type="button" data-step="1">
+              <span class="wizard-step-number">2</span>
+              <span class="wizard-step-label">Contact</span>
+            </button>
+            <button class="wizard-step" type="button" data-step="2">
+              <span class="wizard-step-number">3</span>
+              <span class="wizard-step-label">Story</span>
+            </button>
+            <button class="wizard-step" type="button" data-step="3">
+              <span class="wizard-step-number">4</span>
+              <span class="wizard-step-label">Review</span>
+            </button>
           </div>
+        </div>
 
-          <div class="row-2">
-            <div class="field">
-              <label for="biz-category">Category</label>
-              <select id="biz-category" required>
-                <option value="">Select…</option>
-                <option>Restaurants</option>
-                <option>Cameroon Cuisine</option>
-                <option>Home Cooks &amp; Food Sellers</option>
-                <option>Bakers &amp; Pastry</option>
-                <option>Hair Stylists</option>
-                <option>Barbers</option>
-                <option>Loc Specialists</option>
-                <option>Beauty &amp; Makeup</option>
-                <option>Skincare &amp; Spa</option>
-                <option>Nails</option>
-                <option>Tailors &amp; Fashion</option>
-                <option>Photographers</option>
-                <option>Videographers</option>
-                <option>Music &amp; Events</option>
-                <option>DJs</option>
-                <option>Caterers &amp; Event Planners</option>
-                <option>Florists &amp; Decorators</option>
-                <option>Cleaning Services</option>
-                <option>Tutors &amp; Coaches</option>
-                <option>Health &amp; Wellness</option>
-                <option>Real Estate Agents</option>
-                <option>Bed Space &amp; Partition (UAE)</option>
-                <option>Car Lift &amp; Carpooling</option>
-                <option>Churches &amp; Faith Communities</option>
-                <option>Mosques &amp; Prayer Halls</option>
-                <option>Lawyers &amp; Notaries</option>
-                <option>Accountants &amp; Tax</option>
-                <option>Auto Mechanics</option>
-                <option>Movers &amp; Logistics</option>
-                <option>Tech &amp; Web Services</option>
-                <option>Jobs</option>
-                <option>Other</option>
-              </select>
+        <div class="error-banner" id="error-banner" role="alert"></div>
+
+        <form id="business-wizard-form" novalidate>
+          <section class="wizard-panel" data-panel="0">
+            <div class="panel-head">
+              <div class="panel-eyebrow">Step 1 of 4</div>
+              <h2 class="panel-title">Start with the <em>essentials.</em></h2>
+              <p class="panel-copy">Tell customers what the business is and where they can find it.</p>
             </div>
-            <div class="field">
-              <label for="biz-city">City</label>
-              <select id="biz-city" required>
-                <option value="">Select…</option>
-                <option>Dubai</option>
-                <option>Abu Dhabi</option>
-                <option>Sharjah</option>
-                <option>London</option>
-                <option>Manchester</option>
-                <option>Toronto</option>
-                <option>Montreal</option>
-                <option>New York</option>
-                <option>Atlanta</option>
-                <option>Houston</option>
-                <option>Lagos</option>
-                <option>Abuja</option>
-                <option>Nairobi</option>
-                <option>Mombasa</option>
-                <option>Accra</option>
-                <option>Johannesburg</option>
-                <option>Cape Town</option>
-                <option>Paris</option>
-                <option>Berlin</option>
-                <option>Other</option>
-              </select>
+            <div class="form-grid">
+              <div class="field full">
+                <label for="biz-name">Business name</label>
+                <input id="biz-name" data-draft type="text" required maxlength="80" autocomplete="organization" placeholder="Example: Mama Titi Kitchen">
+              </div>
+              <div class="field">
+                <label for="biz-category">Category</label>
+                <select id="biz-category" data-draft required>
+                  <option value="">Choose a category</option>
+                  <option>Restaurants</option>
+                  <option>Cameroon Cuisine</option>
+                  <option>Home Cooks &amp; Food Sellers</option>
+                  <option>Bakers &amp; Pastry</option>
+                  <option>Caterers &amp; Event Planners</option>
+                  <option>Hair Stylists</option>
+                  <option>Barbers</option>
+                  <option>Loc Specialists</option>
+                  <option>Beauty &amp; Makeup</option>
+                  <option>Skincare &amp; Spa</option>
+                  <option>Nails</option>
+                  <option>Tailors &amp; Fashion</option>
+                  <option>Photographers</option>
+                  <option>Videographers</option>
+                  <option>DJs &amp; Music</option>
+                  <option>Cleaning Services</option>
+                  <option>Tutors &amp; Education</option>
+                  <option>Health &amp; Wellness</option>
+                  <option>Real Estate</option>
+                  <option>Bed Space &amp; Partition</option>
+                  <option>Car Lift &amp; Carpooling</option>
+                  <option>Churches &amp; Faith Communities</option>
+                  <option>Mosques &amp; Prayer Halls</option>
+                  <option>Lawyers &amp; Notaries</option>
+                  <option>Accountants &amp; Tax</option>
+                  <option>Auto &amp; Mechanics</option>
+                  <option>Movers &amp; Logistics</option>
+                  <option>Software &amp; IT</option>
+                  <option>Jobs</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="biz-city">City</label>
+                <select id="biz-city" data-draft required>
+                  <option value="">Choose a city</option>
+                  <option>Dubai</option>
+                  <option>Abu Dhabi</option>
+                  <option>Sharjah</option>
+                  <option>London</option>
+                  <option>Manchester</option>
+                  <option>Toronto</option>
+                  <option>Montreal</option>
+                  <option>New York</option>
+                  <option>Atlanta</option>
+                  <option>Houston</option>
+                  <option>Lagos</option>
+                  <option>Abuja</option>
+                  <option>Nairobi</option>
+                  <option>Mombasa</option>
+                  <option>Accra</option>
+                  <option>Johannesburg</option>
+                  <option>Cape Town</option>
+                  <option>Paris</option>
+                  <option>Berlin</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="field full">
+                <label for="biz-area">Neighbourhood or service area <span class="optional">(optional)</span></label>
+                <input id="biz-area" data-draft type="text" maxlength="80" autocomplete="address-level2" placeholder="Deira, Brixton, Downtown Toronto, or Online">
+              </div>
             </div>
-          </div>
+          </section>
 
-          <div class="field">
-            <label for="biz-area">Neighbourhood / Area (optional)</label>
-            <input id="biz-area" type="text" maxlength="60" placeholder="Deira, Peckham, Brixton, JLT…" autocomplete="address-level2">
-          </div>
-
-          <div class="field">
-            <label for="biz-address">Full address (optional — enables map + directions)</label>
-            <input id="biz-address" type="text" maxlength="160" placeholder="Shop 12, Building 5, Al Maktoum Rd, Deira, Dubai" autocomplete="street-address">
-            <span class="field-hint">Customers see this as an embedded Google Map with a "Get Directions" button. You can refine it in the dashboard later.</span>
-          </div>
-
-          <div class="row-2">
-            <div class="field">
-              <label for="biz-phone">Phone (with country code)</label>
-              <input id="biz-phone" type="tel" required maxlength="20" placeholder="+971 50 123 4567" autocomplete="tel">
+          <section class="wizard-panel" data-panel="1" hidden>
+            <div class="panel-head">
+              <div class="panel-eyebrow">Step 2 of 4</div>
+              <h2 class="panel-title">How should customers <em>reach you?</em></h2>
+              <p class="panel-copy">Add one reliable phone number. Website, WhatsApp, and address are optional.</p>
             </div>
-            <div class="field">
-              <label for="biz-whatsapp">WhatsApp (if different)</label>
-              <input id="biz-whatsapp" type="tel" maxlength="20" placeholder="+971 50 123 4567">
+            <div class="form-grid">
+              <div class="field">
+                <label for="biz-phone">Business phone</label>
+                <input id="biz-phone" data-draft type="tel" required maxlength="24" autocomplete="tel" placeholder="+971 50 123 4567">
+                <span class="field-hint">Include the country code.</span>
+              </div>
+              <div class="field">
+                <label for="biz-whatsapp">WhatsApp <span class="optional">(optional)</span></label>
+                <input id="biz-whatsapp" data-draft type="tel" maxlength="24" placeholder="Leave blank to use business phone">
+              </div>
+              <div class="field full">
+                <label for="biz-website">Website or booking link <span class="optional">(optional)</span></label>
+                <input id="biz-website" data-draft type="url" maxlength="220" autocomplete="url" placeholder="https://yourbusiness.com">
+                <span class="field-hint">Customers can open this link directly from your business page.</span>
+              </div>
+              <div class="field full">
+                <label for="biz-address">Full address <span class="optional">(optional)</span></label>
+                <input id="biz-address" data-draft type="text" maxlength="180" autocomplete="street-address" placeholder="Shop 12, Building 5, Al Maktoum Road, Dubai">
+                <span class="field-hint">An address enables maps and directions. You can refine it later.</span>
+              </div>
             </div>
-          </div>
+          </section>
 
-          <div class="field">
-            <label>Hero photo</label>
-            <span class="field-hint">JPG, PNG, or WebP up to 8 MB. 4:5 or 16:9 works best — minimum 1200px wide.</span>
-            <input id="biz-image-file" type="file" accept="image/*" style="display:none">
+          <section class="wizard-panel" data-panel="2" hidden>
+            <div class="panel-head">
+              <div class="panel-eyebrow">Step 3 of 4</div>
+              <h2 class="panel-title">Give customers a reason to <em>choose you.</em></h2>
+              <p class="panel-copy">Describe your main offer, who you serve, and what makes the business distinctive.</p>
+            </div>
+            <div class="form-grid">
+              <div class="field full">
+                <label for="biz-desc">Business description</label>
+                <textarea id="biz-desc" data-draft required minlength="30" maxlength="500" placeholder="What do you offer? Who do you serve? What should a first-time customer know?"></textarea>
+                <div class="char-count"><span id="description-count">0</span> / 500</div>
+              </div>
+
+              <div class="ai-helper">
+                <div>
+                  <strong>AI description assistant</strong>
+                  <p>Subscribed sellers can generate a polished starter using the details already entered.</p>
+                </div>
+                <button class="small-action" id="ai-draft-button" type="button">Draft description</button>
+                <div class="ai-result" id="ai-result"></div>
+              </div>
+
+              <details class="optional-section">
+                <summary>Add social media links (optional)</summary>
+                <div class="optional-fields">
+                  <div class="field">
+                    <label for="biz-instagram">Instagram</label>
+                    <input id="biz-instagram" data-draft type="text" maxlength="140" placeholder="@handle or full URL">
+                  </div>
+                  <div class="field">
+                    <label for="biz-tiktok">TikTok</label>
+                    <input id="biz-tiktok" data-draft type="text" maxlength="140" placeholder="@handle or full URL">
+                  </div>
+                  <div class="field">
+                    <label for="biz-facebook">Facebook</label>
+                    <input id="biz-facebook" data-draft type="url" maxlength="220" placeholder="https://facebook.com/...">
+                  </div>
+                  <div class="field">
+                    <label for="biz-linkedin">LinkedIn</label>
+                    <input id="biz-linkedin" data-draft type="url" maxlength="220" placeholder="https://linkedin.com/...">
+                  </div>
+                </div>
+              </details>
+            </div>
+          </section>
+
+          <section class="wizard-panel" data-panel="3" hidden>
+            <div class="panel-head">
+              <div class="panel-eyebrow">Step 4 of 4</div>
+              <h2 class="panel-title">Review and create your <em>business page.</em></h2>
+              <p class="panel-copy">A strong photo helps customers notice you, but you can add one later from the dashboard.</p>
+            </div>
+
+            <input id="biz-image-file" type="file" accept="image/jpeg,image/png,image/webp" hidden>
             <input id="biz-image" type="hidden">
-            <div class="image-uploader" id="image-uploader" tabindex="0" role="button" aria-label="Upload hero photo">
-              <div class="ph" id="image-placeholder">
-                <span class="icon">📸</span>
-                <strong>Click to upload</strong>
-                <span>or drag and drop a photo here</span>
+            <div class="upload-box" id="image-uploader" role="button" tabindex="0" aria-label="Upload a business photo">
+              <div class="upload-copy" id="upload-copy">
+                <strong>Add a cover photo (optional)</strong>
+                <span>JPG, PNG, or WebP up to 8 MB</span>
+                <span>Click or drop a file here</span>
               </div>
-              <div class="progress"><div class="bar" id="image-bar"></div></div>
-              <button type="button" class="image-replace" id="image-replace-btn" style="display:none">Replace</button>
+              <button class="replace-photo" id="replace-photo" type="button">Replace photo</button>
+              <div class="upload-progress" aria-hidden="true"><span id="upload-progress-bar"></span></div>
             </div>
-          </div>
 
-          <div class="field">
-            <label for="biz-desc">Short description</label>
-            <textarea id="biz-desc" required maxlength="280" placeholder="Two sentences. What you offer, who you serve, what makes it diaspora-owned."></textarea>
-          </div>
+            <dl class="review-list" aria-label="Business listing review">
+              <div class="review-row"><dt>Business</dt><dd id="review-name">Not provided</dd></div>
+              <div class="review-row"><dt>Category</dt><dd id="review-category">Not provided</dd></div>
+              <div class="review-row"><dt>Location</dt><dd id="review-location">Not provided</dd></div>
+              <div class="review-row"><dt>Contact</dt><dd id="review-contact">Not provided</dd></div>
+              <div class="review-row"><dt>Website</dt><dd id="review-website">Not provided</dd></div>
+              <div class="review-row"><dt>Description</dt><dd id="review-description">Not provided</dd></div>
+            </dl>
 
-          <div class="ai-helper">
-            <div class="ai-helper-head">
-              <div>
-                <div class="ai-helper-title">AI page starter</div>
-                <div class="ai-helper-copy">Subscribed sellers can generate a polished first draft from the business name, category, city, and offer.</div>
-              </div>
-              <button type="button" id="ai-draft-btn">Draft copy</button>
+            <div class="review-note">
+              After creation, your seller dashboard opens automatically. Add more photos, videos, menus, services, opening hours, and verification details there.
             </div>
-            <div class="ai-output" id="ai-draft-output"></div>
-          </div>
+          </section>
 
-          <div class="field">
-            <label>Social media &amp; website (all optional)</label>
-            <span class="field-hint">Drop your handles or full URLs. Customers see linked icons on your business page.</span>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:6px">
-              <input id="biz-instagram" type="text" maxlength="100" placeholder="📷 Instagram (@handle or URL)">
-              <input id="biz-tiktok" type="text" maxlength="100" placeholder="🎵 TikTok (@handle or URL)">
-              <input id="biz-facebook" type="text" maxlength="200" placeholder="👥 Facebook (URL)">
-              <input id="biz-youtube" type="text" maxlength="200" placeholder="▶️ YouTube (URL)">
-              <input id="biz-twitter" type="text" maxlength="100" placeholder="🐦 Twitter/X (@handle or URL)">
-              <input id="biz-linkedin" type="text" maxlength="200" placeholder="💼 LinkedIn (URL)">
-              <input id="biz-snapchat" type="text" maxlength="100" placeholder="👻 Snapchat (@handle)">
-              <input id="biz-social-website" type="url" maxlength="200" placeholder="🌐 Website (https://…)">
-            </div>
-          </div>
-
-          <div style="background:var(--bone); border:1px solid var(--line); border-radius:10px; padding:14px 16px; font-size:13.5px; color:var(--graphite); line-height:1.55">
-            ✨ <strong>After submitting,</strong> you'll be taken to your seller dashboard where you can add <strong>more photos, videos, audio clips, menus &amp; files</strong>, business hours, weekly schedule, exact map location, and your full menu of orderable items.
-          </div>
-
-          <div class="submit-row">
-            <span style="font-size:12px; color:var(--muted)">By submitting, you agree to our <a href="terms.html" style="color:var(--brass)">Terms</a>.</span>
+          <div class="wizard-actions">
+            <button class="wizard-button secondary" id="back-button" type="button" hidden>Back</button>
             <span class="spacer"></span>
-            <button type="submit" id="submit-btn">Create listing →</button>
+            <button class="wizard-button primary" id="next-button" type="button">Continue</button>
+            <button class="wizard-button primary" id="submit-button" type="submit" hidden>Create business page</button>
           </div>
+          <p class="terms-note">By creating a page, you agree to the <a href="terms.html">Terms</a> and <a href="privacy.html">Privacy Policy</a>.</p>
         </form>
-      </div>
+      </section>
     </div>
   </main>
 </div>
 
 <script type="module">
-import { auth, db, storage, onAuthStateChanged, collection, query, where, getDocs, getDoc, doc, setDoc } from './firebase-config.js';
-import { ref, uploadBytesResumable, getDownloadURL } from 'https://www.gstatic.com/firebasejs/12.12.1/firebase-storage.js';
+import {
+  auth,
+  db,
+  storage,
+  onAuthStateChanged,
+  collection,
+  query,
+  where,
+  getDocs,
+  getDoc,
+  doc,
+  setDoc
+} from "./firebase-config.js";
+import {
+  ref,
+  uploadBytesResumable,
+  getDownloadURL
+} from "https://www.gstatic.com/firebasejs/12.12.1/firebase-storage.js";
 
-const $ = (s) => document.querySelector(s);
-const loading = $('#loading');
-const gate = $('#auth-gate');
-const exists = $('#exists');
-const intake = $('#intake-wrap');
-const errEl = $('#err');
-
-function show(el){
-  [loading, gate, exists, intake].forEach(x => x.style.display = 'none');
-  el.style.display = 'block';
-}
+const $ = (selector) => document.querySelector(selector);
+const $$ = (selector) => Array.from(document.querySelectorAll(selector));
+const loadingView = $("#loading-view");
+const authGate = $("#auth-gate");
+const wizardView = $("#wizard-view");
+const form = $("#business-wizard-form");
+const panels = $$(".wizard-panel");
+const stepButtons = $$(".wizard-step");
+const errorBanner = $("#error-banner");
+const progressFill = $("#wizard-progress-fill");
+const nextButton = $("#next-button");
+const backButton = $("#back-button");
+const submitButton = $("#submit-button");
+const autosaveState = $("#autosave-state");
+const previewMode =
+  ["localhost", "127.0.0.1"].includes(location.hostname) &&
+  new URLSearchParams(location.search).get("preview") === "wizard";
 
 let me = null;
 let userProfile = {};
 let existingBusinessCount = 0;
+let currentStep = 0;
+let furthestStep = 0;
+let pendingBusinessId = null;
+let uploadedImageUrl = "";
+let imageUploading = false;
+let saveTimer = null;
 
-onAuthStateChanged(auth, async (user) => {
-  if (!user){
-    show(gate);
-    return;
-  }
-  me = user;
+function showView(view) {
+  [loadingView, authGate, wizardView].filter(Boolean).forEach((item) => {
+    item.hidden = item !== view;
+  });
+}
+
+function showError(message) {
+  errorBanner.textContent = message;
+  errorBanner.classList.add("show");
+  errorBanner.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function clearError() {
+  errorBanner.textContent = "";
+  errorBanner.classList.remove("show");
+}
+
+function draftKey() {
+  return "diaspora_business_wizard_" + (me?.uid || "guest");
+}
+
+function collectDraft() {
+  const values = {};
+  $$("[data-draft]").forEach((field) => {
+    values[field.id] = field.value;
+  });
+  return { values, currentStep, furthestStep, savedAt: Date.now() };
+}
+
+function saveDraft() {
+  if (!me) return;
   try {
-    const userSnap = await getDoc(doc(db, 'users', user.uid));
+    localStorage.setItem(draftKey(), JSON.stringify(collectDraft()));
+    autosaveState.textContent = "Draft saved";
+  } catch (error) {
+    console.warn("Could not save wizard draft:", error);
+  }
+}
+
+function scheduleDraftSave() {
+  autosaveState.textContent = "Saving...";
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveDraft, 350);
+}
+
+function restoreDraft() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(draftKey()) || "null");
+    if (!saved?.values) return;
+    Object.entries(saved.values).forEach(([id, value]) => {
+      const field = document.getElementById(id);
+      if (field && typeof value === "string") field.value = value;
+    });
+    currentStep = Math.max(0, Math.min(3, Number(saved.currentStep) || 0));
+    furthestStep = Math.max(currentStep, Math.min(3, Number(saved.furthestStep) || 0));
+    autosaveState.textContent = "Draft restored";
+  } catch (error) {
+    console.warn("Could not restore wizard draft:", error);
+  }
+}
+
+function renderReview() {
+  const city = $("#biz-city").value;
+  const area = $("#biz-area").value.trim();
+  $("#review-name").textContent = $("#biz-name").value.trim() || "Not provided";
+  $("#review-category").textContent = $("#biz-category").value || "Not provided";
+  $("#review-location").textContent = [area, city].filter(Boolean).join(", ") || "Not provided";
+  $("#review-contact").textContent = $("#biz-whatsapp").value.trim() || $("#biz-phone").value.trim() || "Not provided";
+  $("#review-website").textContent = $("#biz-website").value.trim() || "Not provided";
+  $("#review-description").textContent = $("#biz-desc").value.trim() || "Not provided";
+}
+
+function renderStep(options = {}) {
+  panels.forEach((panel, index) => {
+    panel.hidden = index !== currentStep;
+  });
+  stepButtons.forEach((button, index) => {
+    button.classList.toggle("current", index === currentStep);
+    button.classList.toggle("complete", index < currentStep || index <= furthestStep && index < currentStep);
+    if (index === currentStep) button.setAttribute("aria-current", "step");
+    else button.removeAttribute("aria-current");
+  });
+  progressFill.style.width = ((currentStep + 1) / panels.length) * 100 + "%";
+  backButton.hidden = currentStep === 0;
+  nextButton.hidden = currentStep === panels.length - 1;
+  submitButton.hidden = currentStep !== panels.length - 1;
+  if (currentStep === panels.length - 1) renderReview();
+  clearError();
+  if (options.focus !== false) {
+    panels[currentStep].querySelector(".panel-title")?.focus?.();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+}
+
+function validateStep(stepIndex) {
+  const requiredFields = Array.from(panels[stepIndex].querySelectorAll("[required]"));
+  for (const field of requiredFields) {
+    if (!field.checkValidity()) {
+      field.reportValidity();
+      field.focus();
+      return false;
+    }
+  }
+  return true;
+}
+
+async function loadOwnerContext(user) {
+  try {
+    const userSnap = await getDoc(doc(db, "users", user.uid));
     userProfile = userSnap.exists() ? userSnap.data() : {};
-  } catch (err) {
-    console.warn('Could not load user profile:', err);
+  } catch (error) {
+    console.warn("Could not load seller profile:", error);
     userProfile = {};
   }
-  // Existing listings no longer block onboarding; users can run multiple pages.
   try {
-    const snap = await getDocs(query(collection(db, 'businesses'), where('ownerId', '==', user.uid)));
+    const snap = await getDocs(query(collection(db, "businesses"), where("ownerId", "==", user.uid)));
     existingBusinessCount = snap.size;
-  } catch (err) {
-    console.warn('Could not check existing business:', err);
+  } catch (error) {
+    console.warn("Could not count existing businesses:", error);
   }
+}
+
+async function startWizard(user) {
+  me = user;
+  await loadOwnerContext(user);
+  restoreDraft();
   if (existingBusinessCount > 0) {
-    const title = intake.querySelector('.onboard-title');
-    const desc = intake.querySelector('.onboard-desc');
-    if (title) title.innerHTML = 'Add another <em>business</em>.';
-    if (desc) desc.textContent = 'Create a separate page for each brand, location, service, or side business you run.';
-    $('#submit-btn').textContent = 'Create another listing â†’';
+    $(".wizard-aside .kicker").textContent = "Add another business";
   }
-  show(intake);
+  showView(wizardView);
+  updateDescriptionCount();
+  renderStep({ focus: false });
+}
+
+if (previewMode) {
+  me = { uid: "preview-user", getIdToken: async () => "" };
+  restoreDraft();
+  showView(wizardView);
+  updateDescriptionCount();
+  renderStep({ focus: false });
+  autosaveState.textContent = "Local wizard preview";
+} else {
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      showView(authGate);
+      return;
+    }
+    await startWizard(user);
+  });
+}
+
+nextButton.addEventListener("click", () => {
+  clearError();
+  if (!validateStep(currentStep)) return;
+  currentStep = Math.min(panels.length - 1, currentStep + 1);
+  furthestStep = Math.max(furthestStep, currentStep);
+  saveDraft();
+  renderStep();
 });
 
-/* ─── Hero photo upload ───
-   Pre-generates the businessId so the file lands at the eventual
-   businesses/{id}/photos/... path. The same id is reused on submit
-   so Storage and Firestore stay in sync. */
-const imageUploader = $('#image-uploader');
-const imageFileInput = $('#biz-image-file');
-const imageHidden = $('#biz-image');
-const imagePlaceholder = $('#image-placeholder');
-const imageBar = $('#image-bar');
-const imageReplaceBtn = $('#image-replace-btn');
+backButton.addEventListener("click", () => {
+  currentStep = Math.max(0, currentStep - 1);
+  saveDraft();
+  renderStep();
+});
 
-let pendingBusinessId = null;
-let uploadedImageUrl = null;
+stepButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const target = Number(button.dataset.step);
+    if (target >= currentStep || target > furthestStep) return;
+    currentStep = target;
+    saveDraft();
+    renderStep();
+  });
+});
 
-function ensureBusinessId(){
-  if (!pendingBusinessId && me){
-    pendingBusinessId = 'biz_' + me.uid.slice(0, 8) + '_' + Date.now().toString(36);
+$$("[data-draft]").forEach((field) => {
+  field.addEventListener("input", () => {
+    scheduleDraftSave();
+    if (field.id === "biz-desc") updateDescriptionCount();
+  });
+  field.addEventListener("change", scheduleDraftSave);
+});
+
+function updateDescriptionCount() {
+  $("#description-count").textContent = String($("#biz-desc").value.length);
+}
+
+function ensureBusinessId() {
+  if (!pendingBusinessId && me) {
+    pendingBusinessId = "biz_" + me.uid.slice(0, 8) + "_" + Date.now().toString(36);
   }
   return pendingBusinessId;
 }
 
-imageUploader.addEventListener('click', (e) => {
-  if (e.target.closest('#image-replace-btn')) return;
+const imageUploader = $("#image-uploader");
+const imageFileInput = $("#biz-image-file");
+const imageHidden = $("#biz-image");
+const uploadCopy = $("#upload-copy");
+const uploadProgressBar = $("#upload-progress-bar");
+const replacePhoto = $("#replace-photo");
+
+function openImagePicker() {
   imageFileInput.click();
-});
-imageUploader.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); imageFileInput.click(); }
-});
-imageReplaceBtn.addEventListener('click', () => imageFileInput.click());
+}
 
-['dragenter','dragover'].forEach(evt => {
-  imageUploader.addEventListener(evt, (e) => { e.preventDefault(); imageUploader.classList.add('dragging'); });
+imageUploader.addEventListener("click", (event) => {
+  if (event.target.closest("#replace-photo")) return;
+  openImagePicker();
 });
-['dragleave','dragend','drop'].forEach(evt => {
-  imageUploader.addEventListener(evt, (e) => { e.preventDefault(); imageUploader.classList.remove('dragging'); });
-});
-imageUploader.addEventListener('drop', (e) => {
-  if (e.dataTransfer?.files?.length){
-    handleHeroFile(e.dataTransfer.files[0]);
+imageUploader.addEventListener("keydown", (event) => {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    openImagePicker();
   }
 });
-imageFileInput.addEventListener('change', () => {
-  if (imageFileInput.files?.length) handleHeroFile(imageFileInput.files[0]);
+replacePhoto.addEventListener("click", openImagePicker);
+["dragenter", "dragover"].forEach((eventName) => {
+  imageUploader.addEventListener(eventName, (event) => {
+    event.preventDefault();
+    imageUploader.classList.add("dragging");
+  });
+});
+["dragleave", "dragend", "drop"].forEach((eventName) => {
+  imageUploader.addEventListener(eventName, (event) => {
+    event.preventDefault();
+    imageUploader.classList.remove("dragging");
+  });
+});
+imageUploader.addEventListener("drop", (event) => {
+  const file = event.dataTransfer?.files?.[0];
+  if (file) handleHeroFile(file);
+});
+imageFileInput.addEventListener("change", () => {
+  const file = imageFileInput.files?.[0];
+  if (file) handleHeroFile(file);
 });
 
-async function handleHeroFile(file){
-  if (!me){
-    errEl.textContent = 'Please sign in before uploading a photo.';
-    errEl.classList.add('show');
-    show(gate);
+function showUploadedImage(url) {
+  imageUploader.classList.add("has-image");
+  imageUploader.style.backgroundImage = `linear-gradient(rgba(0,0,0,.08),rgba(0,0,0,.22)),url("${url.replace(/"/g, "%22")}")`;
+  uploadCopy.style.display = "none";
+  uploadProgressBar.style.width = "100%";
+}
+
+async function handleHeroFile(file) {
+  clearError();
+  if (!file.type.startsWith("image/")) {
+    showError("Choose a JPG, PNG, or WebP image.");
     return;
   }
-  errEl.classList.remove('show');
-
-  if (!file.type.startsWith('image/')){
-    errEl.textContent = 'Please choose an image file (JPG, PNG, or WebP).';
-    errEl.classList.add('show');
-    return;
-  }
-  if (file.size > 8 * 1024 * 1024){
-    errEl.textContent = `That file is ${(file.size / 1024 / 1024).toFixed(1)} MB. Please pick something under 8 MB.`;
-    errEl.classList.add('show');
+  if (file.size > 8 * 1024 * 1024) {
+    showError("That image is over 8 MB. Choose a smaller file.");
     return;
   }
 
-  const bizId = ensureBusinessId();
-  const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-  const path = `businesses/${bizId}/photos/${Date.now()}_${safeName}`;
+  if (previewMode) {
+    uploadedImageUrl = URL.createObjectURL(file);
+    imageHidden.value = uploadedImageUrl;
+    showUploadedImage(uploadedImageUrl);
+    return;
+  }
 
-  // Reset UI to uploading state
-  uploadedImageUrl = null;
-  imageHidden.value = '';
-  imageBar.style.width = '0%';
-  imageBar.style.background = 'var(--brass)';
-  imageUploader.classList.remove('has-image');
-  imagePlaceholder.style.display = 'flex';
-  imageReplaceBtn.style.display = 'none';
-  imageUploader.style.backgroundImage = '';
+  if (!me) {
+    showView(authGate);
+    return;
+  }
 
-  imagePlaceholder.innerHTML = '<span class="icon">⏳</span><strong>Uploading…</strong><span>Don\'t close this tab</span>';
+  imageUploading = true;
+  submitButton.disabled = true;
+  uploadProgressBar.style.width = "0%";
+  uploadCopy.innerHTML = "<strong>Uploading photo...</strong><span>Keep this page open</span>";
+  uploadCopy.style.display = "grid";
 
   try {
-    const sref = ref(storage, path);
-    const task = uploadBytesResumable(sref, file, { contentType: file.type });
+    const businessId = ensureBusinessId();
+    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+    const fileRef = ref(storage, `businesses/${businessId}/photos/${Date.now()}_${safeName}`);
+    const uploadTask = uploadBytesResumable(fileRef, file, { contentType: file.type });
     await new Promise((resolve, reject) => {
-      task.on('state_changed',
-        (snap) => {
-          const pct = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
-          imageBar.style.width = pct + '%';
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress = Math.round(snapshot.bytesTransferred / snapshot.totalBytes * 100);
+          uploadProgressBar.style.width = progress + "%";
         },
-        (err) => reject(err),
-        () => resolve()
+        reject,
+        resolve
       );
     });
-    const url = await getDownloadURL(sref);
-    uploadedImageUrl = url;
-    imageHidden.value = url;
-
-    // Switch to "has-image" state
-    imageUploader.classList.add('has-image');
-    imagePlaceholder.style.display = 'none';
-    imageReplaceBtn.style.display = 'inline-block';
-    imageUploader.style.backgroundImage = `url('${url.replace(/'/g,"\\'")}')`;
-  } catch (err) {
-    console.error('Hero upload failed:', err);
-    imageBar.style.background = 'var(--rust)';
-    imagePlaceholder.innerHTML = '<span class="icon">⚠️</span><strong>Upload failed</strong><span>Click to try again</span>';
-    let msg = err.message || 'Could not upload that photo.';
-    if (err.code === 'storage/unauthorized') msg = 'Upload permission denied. Please sign out and back in.';
-    else if (err.code === 'storage/canceled') msg = 'Upload cancelled.';
-    else if (err.code === 'storage/quota-exceeded') msg = 'Storage quota exceeded — please contact support.';
-    errEl.textContent = msg;
-    errEl.classList.add('show');
-  }
-}
-
-function hasAiAccess(){
-  const sub = userProfile?.subscription || {};
-  const status = String(userProfile?.subscriptionStatus || sub.status || '').toLowerCase();
-  const plan = String(userProfile?.plan || sub.plan || '').toLowerCase();
-  return ['active', 'trialing', 'paid'].includes(status) || ['premium', 'pro', 'business', 'founder'].includes(plan);
-}
-
-function setAiDraftOutput(text){
-  const output = $('#ai-draft-output');
-  if (!output) return;
-  output.textContent = text;
-  output.style.display = text ? 'block' : 'none';
-}
-
-function getOnboardingAiContext(){
-  return {
-    name: $('#biz-name')?.value.trim() || 'this business',
-    category: $('#biz-category')?.value || 'business',
-    city: $('#biz-city')?.value || 'your city',
-    area: $('#biz-area')?.value.trim() || '',
-    offer: $('#biz-desc')?.value.trim() || $('#biz-category')?.value || 'high-quality diaspora services',
-    audience: 'diaspora customers looking for trusted local businesses',
-    tone: 'Premium and warm'
-  };
-}
-
-function extractShortDescription(text){
-  const marker = 'Suggested description:';
-  const raw = text.includes(marker) ? text.split(marker).pop() : text;
-  return raw.replace(/\n+/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 280);
-}
-
-function localOnboardingDraft(){
-  const c = getOnboardingAiContext();
-  return `${c.name} offers ${c.offer} for diaspora customers in ${c.area ? c.area + ', ' : ''}${c.city}. Expect responsive service, clear communication, and a simple path to book or connect directly.`;
-}
-
-async function draftListingWithAi(){
-  if (!me){ show(gate); return; }
-  errEl.classList.remove('show');
-  if (!hasAiAccess()){
-    errEl.textContent = 'AI page drafting is available to subscribed sellers. You can still create this listing now and upgrade later.';
-    errEl.classList.add('show');
-    setAiDraftOutput('');
-    return;
-  }
-
-  const btn = $('#ai-draft-btn');
-  const original = btn?.textContent || 'Draft copy';
-  if (btn){ btn.disabled = true; btn.textContent = 'Drafting...'; }
-  setAiDraftOutput('Generating a first draft...');
-
-  try {
-    const token = await me.getIdToken();
-    const resp = await fetch('/api/ai-listing', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify({ action: 'listing', context: getOnboardingAiContext() })
-    });
-    const data = await resp.json().catch(() => ({}));
-    if (resp.status === 403) throw Object.assign(new Error(data.error || 'AI requires an active subscription'), { locked: true });
-    if (!resp.ok || !data.text) throw new Error(data.error || 'AI endpoint unavailable');
-    const desc = extractShortDescription(data.text);
-    $('#biz-desc').value = desc;
-    setAiDraftOutput(data.text);
-  } catch (err) {
-    if (err.locked){
-      errEl.textContent = err.message;
-      errEl.classList.add('show');
-      setAiDraftOutput('');
-    } else {
-      const draft = localOnboardingDraft();
-      $('#biz-desc').value = draft.slice(0, 280);
-      setAiDraftOutput(`${draft}\n\nServer AI is not configured yet, so this local starter copy was applied.`);
-    }
+    uploadedImageUrl = await getDownloadURL(fileRef);
+    imageHidden.value = uploadedImageUrl;
+    showUploadedImage(uploadedImageUrl);
+  } catch (error) {
+    console.error("Business photo upload failed:", error);
+    uploadCopy.innerHTML = "<strong>Upload failed</strong><span>Click to try another photo</span>";
+    showError(error.code === "storage/unauthorized"
+      ? "Photo permission was denied. Sign out, sign in again, and retry."
+      : "The photo could not be uploaded. You can continue without it or try again.");
   } finally {
-    if (btn){ btn.disabled = false; btn.textContent = original; }
+    imageUploading = false;
+    submitButton.disabled = false;
   }
 }
 
-$('#ai-draft-btn')?.addEventListener('click', draftListingWithAi);
+function hasAiAccess() {
+  const subscription = userProfile?.subscription || {};
+  const status = String(userProfile?.subscriptionStatus || subscription.status || "").toLowerCase();
+  const plan = String(userProfile?.plan || subscription.plan || "").toLowerCase();
+  return ["active", "trialing", "paid"].includes(status) ||
+    ["premium", "pro", "business", "founder"].includes(plan);
+}
 
-/* Submit */
-$('#intake-form').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  if (!me){ show(gate); return; }
-  errEl.classList.remove('show');
+function localDescriptionDraft() {
+  const name = $("#biz-name").value.trim() || "This business";
+  const category = $("#biz-category").value || "trusted services";
+  const city = $("#biz-city").value || "your city";
+  const area = $("#biz-area").value.trim();
+  return `${name} provides ${category.toLowerCase()} for diaspora customers in ${area ? area + ", " : ""}${city}. Customers can expect welcoming service, clear communication, and a convenient way to connect directly.`;
+}
 
-  const addressVal = $('#biz-address')?.value.trim() || '';
-  const socialFieldIds = {
-    instagram: 'biz-instagram',
-    tiktok: 'biz-tiktok',
-    facebook: 'biz-facebook',
-    youtube: 'biz-youtube',
-    twitter: 'biz-twitter',
-    linkedin: 'biz-linkedin',
-    snapchat: 'biz-snapchat',
-    website: 'biz-social-website'
+function setAiResult(message) {
+  const result = $("#ai-result");
+  result.textContent = message;
+  result.classList.toggle("show", Boolean(message));
+}
+
+$("#ai-draft-button").addEventListener("click", async () => {
+  clearError();
+  const button = $("#ai-draft-button");
+  if (!previewMode && !hasAiAccess()) {
+    showError("AI drafting is available to subscribed sellers. You can write your own description now and upgrade later.");
+    return;
+  }
+  button.disabled = true;
+  button.textContent = "Drafting...";
+  try {
+    if (previewMode) throw new Error("preview");
+    const token = await me.getIdToken();
+    const response = await fetch("/api/ai-listing", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        action: "listing",
+        context: {
+          name: $("#biz-name").value.trim(),
+          category: $("#biz-category").value,
+          city: $("#biz-city").value,
+          area: $("#biz-area").value.trim(),
+          audience: "diaspora customers looking for trusted local businesses",
+          tone: "warm, clear, and professional"
+        }
+      })
+    });
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok || !payload.text) throw new Error(payload.error || "AI service unavailable");
+    const description = String(payload.text).replace(/\s+/g, " ").trim().slice(0, 500);
+    $("#biz-desc").value = description;
+    setAiResult("A starter description has been added. Edit it to sound like you.");
+  } catch (error) {
+    const description = localDescriptionDraft().slice(0, 500);
+    $("#biz-desc").value = description;
+    setAiResult("A local starter description has been added. Edit it before continuing.");
+  } finally {
+    updateDescriptionCount();
+    saveDraft();
+    button.disabled = false;
+    button.textContent = "Draft description";
+  }
+});
+
+function collectSocialLinks() {
+  const links = {
+    instagram: $("#biz-instagram").value.trim(),
+    tiktok: $("#biz-tiktok").value.trim(),
+    facebook: $("#biz-facebook").value.trim(),
+    linkedin: $("#biz-linkedin").value.trim()
   };
-  const social = {};
-  let socialAny = false;
-  Object.entries(socialFieldIds).forEach(([k, id]) => {
-    const v = $('#' + id)?.value.trim() || '';
-    if (v){ social[k] = v; socialAny = true; }
+  const website = $("#biz-website").value.trim();
+  if (website) links.website = website;
+  Object.keys(links).forEach((key) => {
+    if (!links[key]) delete links[key];
   });
+  return Object.keys(links).length ? links : null;
+}
 
-  const website = $('#biz-website').value.trim();
-  if (website && !social.website) {
-    social.website = website;
-    socialAny = true;
-  }
-
-  const data = {
-    name: $('#biz-name').value.trim(),
-    category: $('#biz-category').value,
-    city: $('#biz-city').value,
-    area: $('#biz-area').value.trim(),
-    website,
-    phone: $('#biz-phone').value.trim(),
-    whatsapp: $('#biz-whatsapp').value.trim() || $('#biz-phone').value.trim(),
-    image: uploadedImageUrl || imageHidden.value.trim(),
-    description: $('#biz-desc').value.trim(),
-    location: addressVal ? { address: addressVal, lat: null, lng: null, mapsUrl: null } : null,
-    social: socialAny ? social : null,
-  };
-
-  if (!data.name || !data.category || !data.city || !data.phone || !data.description){
-    errEl.textContent = 'Please fill in all required fields.';
-    errEl.classList.add('show');
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  clearError();
+  if (!validateStep(2)) {
+    currentStep = 2;
+    renderStep();
     return;
   }
-  if (!data.image){
-    errEl.textContent = 'Please upload a hero photo for your listing.';
-    errEl.classList.add('show');
-    imageUploader.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  if (previewMode) {
+    showError("This is the local wizard preview. Sign in on the live app to create the business page.");
+    return;
+  }
+  if (!me) {
+    showView(authGate);
+    return;
+  }
+  if (imageUploading) {
+    showError("Wait for the photo upload to finish, then create the page.");
     return;
   }
 
-  const btn = $('#submit-btn');
-  btn.disabled = true;
-  const original = btn.textContent;
-  btn.textContent = 'Creating…';
+  const name = $("#biz-name").value.trim();
+  const category = $("#biz-category").value;
+  const city = $("#biz-city").value;
+  const phone = $("#biz-phone").value.trim();
+  const description = $("#biz-desc").value.trim();
+  if (!name || !category || !city || !phone || !description) {
+    showError("Complete the required fields before creating the business page.");
+    return;
+  }
+
+  submitButton.disabled = true;
+  submitButton.textContent = "Creating page...";
 
   try {
-    // Reuse the id minted at upload time so the photo and Firestore doc match.
-    const id = ensureBusinessId();
-    await setDoc(doc(db, 'businesses', id), {
-      ...data,
-      images: [data.image],
+    const businessId = ensureBusinessId();
+    const website = $("#biz-website").value.trim();
+    const address = $("#biz-address").value.trim();
+    const image = uploadedImageUrl || imageHidden.value.trim();
+    await setDoc(doc(db, "businesses", businessId), {
+      name,
+      category,
+      city,
+      area: $("#biz-area").value.trim(),
+      phone,
+      whatsapp: $("#biz-whatsapp").value.trim() || phone,
+      website,
+      description,
+      image,
+      images: image ? [image] : [],
+      location: address ? {
+        address,
+        lat: null,
+        lng: null,
+        mapsUrl: null
+      } : null,
+      social: collectSocialLinks(),
       ownerId: me.uid,
       verified: false,
       featured: false,
@@ -812,17 +1251,15 @@ $('#intake-form').addEventListener('submit', async (e) => {
       createdAt: new Date(),
       updatedAt: new Date()
     });
-    window.location.href = 'seller-dashboard.html?id=' + encodeURIComponent(id) + '&welcome=1';
-  } catch (err) {
-    console.error('Create business failed:', err);
-    let msg = err.message || 'Could not create listing. Try again.';
-    if (err.code === 'permission-denied'){
-      msg = 'Permission denied. Make sure you are signed in.';
-    }
-    errEl.textContent = msg;
-    errEl.classList.add('show');
-    btn.disabled = false;
-    btn.textContent = original;
+    localStorage.removeItem(draftKey());
+    location.href = "seller-dashboard.html?id=" + encodeURIComponent(businessId) + "&welcome=1";
+  } catch (error) {
+    console.error("Create business failed:", error);
+    showError(error.code === "permission-denied"
+      ? "Firebase denied this listing. Sign out, sign back in, and try again."
+      : error.message || "The business page could not be created. Please try again.");
+    submitButton.disabled = false;
+    submitButton.textContent = "Create business page";
   }
 });
 </script>
