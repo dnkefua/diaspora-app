@@ -9,7 +9,8 @@
   "plugins": {
     "FirebaseAuthentication": {
       "skipNativeAuth": false,
-      "providers": ["google.com"]
+      "providers": ["google.com"],
+      "serverClientId": "530318956241-g8m1j9g1c7cr4j7b4ehcsmki68450l72.apps.googleusercontent.com"
     }
   },
   "android": {

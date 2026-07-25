@@ -67,6 +67,14 @@
           }
         },
         {
+          "client_id": "530318956241-v2fu1dk8una2apu0ehje45418iiu75c2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ndnanalyticsinc.thediaspora",
+            "certificate_hash": "8ab02a30ee7b848ab183e6af3f972e80b26102e3"
+          }
+        },
+        {
           "client_id": "530318956241-g8m1j9g1c7cr4j7b4ehcsmki68450l72.apps.googleusercontent.com",
           "client_type": 3
         }

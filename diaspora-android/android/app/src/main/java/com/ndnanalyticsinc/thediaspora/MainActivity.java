@@ -1,4 +1,4 @@
-package com.ndnanalytics.thediaspora;
+package com.ndnanalyticsinc.thediaspora;
 
 import com.getcapacitor.BridgeActivity;
 

@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>The Diaspora App - Android Google Sign-In Fix</title>
+  <style>
+    @page { size: Letter; margin: 0.65in; }
+    body {
+      margin: 0;
+      color: #17202a;
+      font: 13px/1.45 "Segoe UI", Calibri, Arial, sans-serif;
+      background: #ffffff;
+    }
+    .header {
+      border-bottom: 4px solid #0b5fff;
+      padding-bottom: 14px;
+      margin-bottom: 20px;
+    }
+    h1 {
+      margin: 0 0 4px;
+      color: #071d49;
+      font-size: 25px;
+      line-height: 1.15;
+    }
+    .subtitle {
+      color: #40516b;
+      font-size: 13px;
+    }
+    h2 {
+      color: #0b3d91;
+      font-size: 16px;
+      margin: 22px 0 8px;
+      border-bottom: 1px solid #d9e2f2;
+      padding-bottom: 4px;
+    }
+    h3 {
+      color: #17202a;
+      font-size: 13px;
+      margin: 14px 0 6px;
+    }
+    p { margin: 0 0 8px; }
+    ul, ol { margin: 6px 0 10px 22px; padding: 0; }
+    li { margin: 3px 0; }
+    .callout {
+      background: #eef5ff;
+      border: 1px solid #bcd7ff;
+      border-left: 5px solid #0b5fff;
+      border-radius: 8px;
+      padding: 11px 13px;
+      margin: 12px 0;
+    }
+    .warning {
+      background: #fff6e8;
+      border-color: #ffd08a;
+      border-left-color: #f59e0b;
+    }
+    .success {
+      background: #effaf2;
+      border-color: #b7e5c0;
+      border-left-color: #22a447;
+    }
+    code, pre {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 11px;
+      color: #0b2346;
+    }
+    pre {
+      white-space: pre-wrap;
+      background: #f6f8fb;
+      border: 1px solid #d8dee9;
+      border-radius: 8px;
+      padding: 10px;
+      margin: 8px 0 12px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0 12px;
+      font-size: 12px;
+    }
+    th, td {
+      border: 1px solid #d8dee9;
+      padding: 7px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background: #f1f5fb; color: #071d49; }
+    .small { color: #526170; font-size: 11px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>The Diaspora App - Android Google Sign-In Fix</h1>
+    <div class="subtitle">Prepared for NDN Analytics | Current issue: Google Sign-In works on laptops/PCs but fails in the Android Play testing app with error 10.</div>
+  </div>
+
+  <div class="callout">
+    <strong>Short answer:</strong> the app code and web Google sign-in are working. Android error <code>10</code> means Google does not recognize the signing certificate of the Android app installed from Play. Firebase currently has the upload-key SHA, but Play installs are signed by Google Play App Signing with a different certificate.
+  </div>
+
+  <h2>1. What Is Happening</h2>
+  <table>
+    <tr>
+      <th>Platform</th>
+      <th>Google Auth Path</th>
+      <th>Status</th>
+    </tr>
+    <tr>
+      <td>Laptops and PCs</td>
+      <td>Firebase Web Auth using the web OAuth client on <code>www.thediaspora.app</code>.</td>
+      <td>Works.</td>
+    </tr>
+    <tr>
+      <td>Android Play testing app</td>
+      <td>Native Android Google Sign-In. Google checks package name plus Android signing certificate.</td>
+      <td>Fails with error <code>10</code>.</td>
+    </tr>
+  </table>
+
+  <p>Error <code>10</code> is commonly Google Sign-In <code>DEVELOPER_ERROR</code>. In this case, the package name is correct, so the missing piece is the Google Play App Signing certificate fingerprint in Firebase.</p>
+
+  <h2>2. Current Known App Values</h2>
+  <table>
+    <tr><th>Item</th><th>Value</th></tr>
+    <tr><td>Firebase project</td><td><code>the-diaspora-app</code></td></tr>
+    <tr><td>Firebase Android app ID</td><td><code>1:530318956241:android:25ad2e43002e43376717f0</code></td></tr>
+    <tr><td>Android package name</td><td><code>com.ndnanalytics.thediaspora</code></td></tr>
+    <tr><td>Live site</td><td><code>https://www.thediaspora.app</code></td></tr>
+    <tr><td>Latest Play AAB built</td><td><code>builds/the-diaspora-app-native-v10-google-fix.aab</code></td></tr>
+    <tr><td>Latest version</td><td><code>1.0.3</code>, version code <code>10</code></td></tr>
+  </table>
+
+  <h2>3. What Is Already Registered In Firebase</h2>
+  <p>Firebase currently has the upload-key certificate:</p>
+  <pre>SHA-1:
+7E:1D:C1:DF:D6:0E:7C:10:FC:C8:2B:0B:0D:C3:AB:FE:B6:87:EC:6E
+
+SHA-256:
+09:BD:2B:53:0E:BF:C8:52:39:F2:F4:8B:E5:BA:72:8B:4D:74:73:AC:49:24:A0:7A:5A:01:4F:D4:39:DC:6A:7C</pre>
+
+  <div class="warning callout">
+    <strong>Important:</strong> the upload key is not the same certificate used when testers install from Google Play. Google Play re-signs the app with the Play App Signing key. That Play signing SHA-1 and SHA-256 must also be added to Firebase.
+  </div>
+
+  <h2>4. Permanent Fix</h2>
+  <ol>
+    <li>Get the <strong>App signing key certificate</strong> fingerprints from Google Play Console.</li>
+    <li>Add the Play App Signing <strong>SHA-1</strong> and <strong>SHA-256</strong> to the Firebase Android app.</li>
+    <li>Have testers fully close and reopen the Play-installed app, then try Gmail again.</li>
+  </ol>
+
+  <h3>Firebase CLI commands after the Play signing SHA values are known</h3>
+  <pre>firebase apps:android:sha:create 1:530318956241:android:25ad2e43002e43376717f0 PLAY_SIGNING_SHA1 --project the-diaspora-app
+
+firebase apps:android:sha:create 1:530318956241:android:25ad2e43002e43376717f0 PLAY_SIGNING_SHA256 --project the-diaspora-app</pre>
+
+  <p>In most cases, no new AAB is needed after adding these Firebase fingerprints because Google validates the app identity server-side against the Google/Firebase project.</p>
+
+  <h2>5. How To Get The Missing Play Signing SHA</h2>
+  <h3>Option A: Play Console</h3>
+  <ol>
+    <li>Open Google Play Console.</li>
+    <li>Select The Diaspora App.</li>
+    <li>Go to <strong>Test and release</strong> &gt; <strong>Setup</strong> &gt; <strong>App signing</strong>.</li>
+    <li>Find <strong>App signing key certificate</strong>.</li>
+    <li>Copy <strong>SHA-1 certificate fingerprint</strong> and <strong>SHA-256 certificate fingerprint</strong>.</li>
+  </ol>
+
+  <h3>Option B: Extract from a tester phone</h3>
+  <ol>
+    <li>Install the app from the Play internal testing link on a tester phone.</li>
+    <li>Enable Developer options and USB debugging on the phone.</li>
+    <li>Connect the phone to this computer and approve USB debugging.</li>
+    <li>Run ADB to pull the Play-installed APK, then extract its signing certificate.</li>
+  </ol>
+
+  <p class="small">This method bypasses the Play Console UI and directly reads the certificate from the app as installed by Google Play.</p>
+
+  <h2>6. Immediate Tester Workaround</h2>
+  <div class="success callout">
+    A signed release APK was built with the upload key that Firebase already trusts:
+    <br><code>builds/the-diaspora-app-native-v10-google-fix-upload-key.apk</code>
+  </div>
+  <p>To use it, testers must uninstall the Play-installed version first, then install this APK manually. Gmail should work in that sideloaded build because it is signed with the upload key already registered in Firebase.</p>
+
+  <h2>7. Testing Checklist</h2>
+  <ul>
+    <li>After Play App Signing SHA is added to Firebase, use the Play-installed app first.</li>
+    <li>Force close the app, reopen it, and tap Gmail sign-in.</li>
+    <li>If Gmail succeeds, verify the tester reaches <code>feed.html</code>.</li>
+    <li>If Gmail still fails, capture the exact displayed error text and the tester device model.</li>
+    <li>Email/password login remains available and should be used to keep testing moving.</li>
+  </ul>
+
+  <h2>8. Bottom Line</h2>
+  <p>The Android app is failing because Google Play signs the app with a certificate that Firebase does not yet know. Add the Play App Signing SHA-1 and SHA-256 to Firebase, then the Play testing app should be able to use Gmail sign-in like the desktop web app already does.</p>
+</body>
+</html>

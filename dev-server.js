@@ -569,7 +569,12 @@ function serveFile(req, res, filePath) {
   const contentType = mime[ext] || 'application/octet-stream';
   fs.readFile(filePath, (err, data) => {
     if (err) return send404(res);
-    res.writeHead(200, { 'Content-Type': contentType });
+    res.writeHead(200, {
+      'Content-Type': contentType,
+      'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+      'Pragma': 'no-cache',
+      'Expires': '0'
+    });
     res.end(data);
   });
 }

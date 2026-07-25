@@ -117,8 +117,8 @@ async function signInWithNativeGoogle(){
   }
 
   const attempts = [
-    { skipNativeAuth: true, useCredentialManager: true },
-    { skipNativeAuth: true, useCredentialManager: false }
+    { skipNativeAuth: true, useCredentialManager: true, serverClientId: '530318956241-g8m1j9g1c7cr4j7b4ehcsmki68450l72.apps.googleusercontent.com' },
+    { skipNativeAuth: true, useCredentialManager: false, serverClientId: '530318956241-g8m1j9g1c7cr4j7b4ehcsmki68450l72.apps.googleusercontent.com' }
   ];
   let lastError;
   for (const options of attempts) {
