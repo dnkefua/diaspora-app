@@ -439,9 +439,32 @@ img, video { max-width: 100%; height: auto; }
             <input type="tel" id="biz-phone" required placeholder="+971 50 123 4567">
           </div>
           <div class="form-group">
+            <label>Country</label>
+            <select id="biz-country" required>
+              <option value="">Select country</option>
+              <option>Cameroon</option>
+              <option>United Arab Emirates</option>
+              <option>United Kingdom</option>
+              <option>United States</option>
+              <option>Canada</option>
+              <option>Nigeria</option>
+              <option>Ghana</option>
+              <option>Kenya</option>
+              <option>South Africa</option>
+              <option>France</option>
+              <option>Germany</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
             <label>City</label>
             <select id="biz-city" required>
               <option value="">Select city</option>
+              <option>Douala</option>
+              <option>Yaounde</option>
+              <option>Buea</option>
+              <option>Bamenda</option>
+              <option>Limbe</option>
               <option>Dubai</option>
               <option>Abu Dhabi</option>
               <option>London</option>
@@ -1033,6 +1056,7 @@ function fillForm(data) {
   document.getElementById('biz-name').value = data.name || '';
   document.getElementById('biz-category').value = data.category || '';
   document.getElementById('biz-phone').value = data.phone || '';
+  document.getElementById('biz-country').value = data.country || '';
   document.getElementById('biz-city').value = data.city || '';
   document.getElementById('biz-area').value = data.area || '';
   document.getElementById('biz-website').value = data.website || data.url || '';
@@ -1606,6 +1630,7 @@ async function saveProfile(e) {
     name: document.getElementById('biz-name').value.trim(),
     category: document.getElementById('biz-category').value,
     phone: document.getElementById('biz-phone').value.trim(),
+    country: document.getElementById('biz-country').value,
     city: document.getElementById('biz-city').value.trim(),
     area: document.getElementById('biz-area').value.trim(),
     website: document.getElementById('biz-website').value.trim(),

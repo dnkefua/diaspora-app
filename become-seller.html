@@ -594,9 +594,32 @@ button,input,select,textarea{font:inherit}
                 </select>
               </div>
               <div class="field">
+                <label for="biz-country">Country</label>
+                <select id="biz-country" data-draft required autocomplete="country-name">
+                  <option value="">Choose a country</option>
+                  <option>Cameroon</option>
+                  <option>United Arab Emirates</option>
+                  <option>United Kingdom</option>
+                  <option>United States</option>
+                  <option>Canada</option>
+                  <option>Nigeria</option>
+                  <option>Ghana</option>
+                  <option>Kenya</option>
+                  <option>South Africa</option>
+                  <option>France</option>
+                  <option>Germany</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="field">
                 <label for="biz-city">City</label>
                 <select id="biz-city" data-draft required>
                   <option value="">Choose a city</option>
+                  <option>Douala</option>
+                  <option>Yaounde</option>
+                  <option>Buea</option>
+                  <option>Bamenda</option>
+                  <option>Limbe</option>
                   <option>Dubai</option>
                   <option>Abu Dhabi</option>
                   <option>Sharjah</option>
@@ -619,7 +642,7 @@ button,input,select,textarea{font:inherit}
                   <option>Other</option>
                 </select>
               </div>
-              <div class="field full">
+              <div class="field">
                 <label for="biz-area">Neighbourhood or service area <span class="optional">(optional)</span></label>
                 <input id="biz-area" data-draft type="text" maxlength="80" autocomplete="address-level2" placeholder="Deira, Brixton, Downtown Toronto, or Online">
               </div>
@@ -857,11 +880,12 @@ function restoreDraft() {
 }
 
 function renderReview() {
+  const country = $("#biz-country").value;
   const city = $("#biz-city").value;
   const area = $("#biz-area").value.trim();
   $("#review-name").textContent = $("#biz-name").value.trim() || "Not provided";
   $("#review-category").textContent = $("#biz-category").value || "Not provided";
-  $("#review-location").textContent = [area, city].filter(Boolean).join(", ") || "Not provided";
+  $("#review-location").textContent = [area, city, country].filter(Boolean).join(", ") || "Not provided";
   $("#review-contact").textContent = $("#biz-whatsapp").value.trim() || $("#biz-phone").value.trim() || "Not provided";
   $("#review-website").textContent = $("#biz-website").value.trim() || "Not provided";
   $("#review-description").textContent = $("#biz-desc").value.trim() || "Not provided";
@@ -1111,9 +1135,11 @@ function hasAiAccess() {
 function localDescriptionDraft() {
   const name = $("#biz-name").value.trim() || "This business";
   const category = $("#biz-category").value || "trusted services";
+  const country = $("#biz-country").value;
   const city = $("#biz-city").value || "your city";
   const area = $("#biz-area").value.trim();
-  return `${name} provides ${category.toLowerCase()} for diaspora customers in ${area ? area + ", " : ""}${city}. Customers can expect welcoming service, clear communication, and a convenient way to connect directly.`;
+  const location = [area, city, country].filter(Boolean).join(", ");
+  return `${name} provides ${category.toLowerCase()} for diaspora customers in ${location}. Customers can expect welcoming service, clear communication, and a convenient way to connect directly.`;
 }
 
 function setAiResult(message) {
@@ -1145,6 +1171,7 @@ $("#ai-draft-button").addEventListener("click", async () => {
         context: {
           name: $("#biz-name").value.trim(),
           category: $("#biz-category").value,
+          country: $("#biz-country").value,
           city: $("#biz-city").value,
           area: $("#biz-area").value.trim(),
           audience: "diaspora customers looking for trusted local businesses",
@@ -1207,10 +1234,11 @@ form.addEventListener("submit", async (event) => {
 
   const name = $("#biz-name").value.trim();
   const category = $("#biz-category").value;
+  const country = $("#biz-country").value;
   const city = $("#biz-city").value;
   const phone = $("#biz-phone").value.trim();
   const description = $("#biz-desc").value.trim();
-  if (!name || !category || !city || !phone || !description) {
+  if (!name || !category || !country || !city || !phone || !description) {
     showError("Complete the required fields before creating the business page.");
     return;
   }
@@ -1226,6 +1254,7 @@ form.addEventListener("submit", async (event) => {
     await setDoc(doc(db, "businesses", businessId), {
       name,
       category,
+      country,
       city,
       area: $("#biz-area").value.trim(),
       phone,
